@@ -1,7 +1,7 @@
 mutation CreateApiAuthenticatorFunction(
-    $name: String!,
     $code: String!,
     $description: String!,
+    $name: String!,
     $tenant: String!,
     $readme: String,
     $requirements: [String!]

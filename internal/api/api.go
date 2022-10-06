@@ -2079,22 +2079,22 @@ func (v *UpdateTenantResponse) GetGetTenant() *UpdateTenantGetTenant { return v.
 
 // __CreateApiAuthenticatorFunctionInput is used internally by genqlient
 type __CreateApiAuthenticatorFunctionInput struct {
-	Name         string   `json:"name"`
 	Code         string   `json:"code"`
 	Description  string   `json:"description"`
+	Name         string   `json:"name"`
 	Tenant       string   `json:"tenant"`
 	Readme       *string  `json:"readme"`
 	Requirements []string `json:"requirements"`
 }
-
-// GetName returns __CreateApiAuthenticatorFunctionInput.Name, and is useful for accessing the field via an interface.
-func (v *__CreateApiAuthenticatorFunctionInput) GetName() string { return v.Name }
 
 // GetCode returns __CreateApiAuthenticatorFunctionInput.Code, and is useful for accessing the field via an interface.
 func (v *__CreateApiAuthenticatorFunctionInput) GetCode() string { return v.Code }
 
 // GetDescription returns __CreateApiAuthenticatorFunctionInput.Description, and is useful for accessing the field via an interface.
 func (v *__CreateApiAuthenticatorFunctionInput) GetDescription() string { return v.Description }
+
+// GetName returns __CreateApiAuthenticatorFunctionInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateApiAuthenticatorFunctionInput) GetName() string { return v.Name }
 
 // GetTenant returns __CreateApiAuthenticatorFunctionInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__CreateApiAuthenticatorFunctionInput) GetTenant() string { return v.Tenant }
@@ -2372,9 +2372,9 @@ func (v *__UpdateTenantInput) GetDescription() *string { return v.Description }
 func CreateApiAuthenticatorFunction(
 	ctx context.Context,
 	client graphql.Client,
-	name string,
 	code string,
 	description string,
+	name string,
 	tenant string,
 	readme *string,
 	requirements []string,
@@ -2382,7 +2382,7 @@ func CreateApiAuthenticatorFunction(
 	req := &graphql.Request{
 		OpName: "CreateApiAuthenticatorFunction",
 		Query: `
-mutation CreateApiAuthenticatorFunction ($name: String!, $code: String!, $description: String!, $tenant: String!, $readme: String, $requirements: [String!]) {
+mutation CreateApiAuthenticatorFunction ($code: String!, $description: String!, $name: String!, $tenant: String!, $readme: String, $requirements: [String!]) {
 	CreateApiAuthenticatorFunction(code: $code, description: $description, name: $name, tenant: $tenant, readme: $readme, requirements: $requirements) {
 		code
 		description
@@ -2395,9 +2395,9 @@ mutation CreateApiAuthenticatorFunction ($name: String!, $code: String!, $descri
 }
 `,
 		Variables: &__CreateApiAuthenticatorFunctionInput{
-			Name:         name,
 			Code:         code,
 			Description:  description,
+			Name:         name,
 			Tenant:       tenant,
 			Readme:       readme,
 			Requirements: requirements,
