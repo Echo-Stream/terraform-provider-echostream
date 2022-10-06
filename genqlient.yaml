@@ -1,0 +1,12 @@
+schema:
+- appsync/*.graphql
+operations:
+- "internal/api/*.graphql"
+generated: internal/api/api.go
+package: api
+bindings:
+  AWSDateTime:
+    type: string
+  AWSJSON:
+    type: string
+optional: pointer

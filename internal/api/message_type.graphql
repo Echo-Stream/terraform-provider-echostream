@@ -1,0 +1,90 @@
+mutation CreateMessageType(
+    $auditor: String!,
+    $bitmapperTemplate: String!, 
+    $description: String!,
+    $name: String!,
+    $processorTemplate: String!,
+    $sampleMessage: String!,
+    $tenant: String!,
+    $readme: String,
+    $requirements: [String!]
+) {
+    CreateMessageType(
+        auditor: $auditor,
+        bitmapperTemplate: $bitmapperTemplate,
+        description: $description,
+        name: $name,
+        processorTemplate: $processorTemplate,
+        sampleMessage: $sampleMessage
+        tenant: $tenant
+        readme: $readme,
+        requirements: $requirements
+    ) {
+        auditor
+        bitmapperTemplate
+        description
+        inUse
+        name
+        processorTemplate
+        readme
+        requirements
+        sampleMessage
+        system
+    }
+}
+
+query DeleteMessageType($name: String!, $tenant: String!) {
+    GetMessageType(name: $name, tenant: $tenant) {
+        Delete
+    }
+}
+
+query ReadMessageType($name: String!, $tenant: String!) {
+    GetMessageType(name: $name, tenant: $tenant) {
+        auditor
+        bitmapperTemplate
+        description
+        inUse
+        name
+        processorTemplate
+        readme
+        requirements
+        sampleMessage
+        system
+    }
+}
+
+query UpdateMessageType(
+    $name: String!,
+    $tenant: String!,
+    $auditor: String,
+    $bitmapperTemplate: String, 
+    $description: String,
+    $processorTemplate: String,
+    $readme: String,
+    $requirements: [String!]
+    $sampleMessage: String,
+) {
+    GetMessageType(name: $name, tenant: $tenant) {
+        Update(
+            auditor: $auditor,
+            bitmapperTemplate: $bitmapperTemplate,
+            description: $description,
+            processorTemplate: $processorTemplate,
+            sampleMessage: $sampleMessage
+            readme: $readme,
+            requirements: $requirements        
+        ) {
+            auditor
+            bitmapperTemplate
+            description
+            inUse
+            name
+            processorTemplate
+            readme
+            requirements
+            sampleMessage
+            system
+        }
+    }
+}

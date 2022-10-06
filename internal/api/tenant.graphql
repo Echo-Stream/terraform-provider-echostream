@@ -1,0 +1,19 @@
+query ReadTenant($tenant: String!) {
+    GetTenant(tenant: $tenant) {
+        active
+        config
+        description
+        name
+        region
+        table
+    }
+}
+
+query UpdateTenant($tenant: String!, $config: AWSJSON, $description: String) {
+    GetTenant(tenant: $tenant) {
+        Update(config: $config, description: $description) {
+            config
+            description
+        }
+    }
+}

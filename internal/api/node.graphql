@@ -1,0 +1,29 @@
+query ReadNode($name: String!, $tenant: String!) {
+    GetNode(name: $name, tenant: $tenant) {
+        description
+        name
+        ... on AlertEmitterNode {
+            sendMessageType {
+                name
+            }
+        }
+        ... on AppChangeRouterNode {
+            receiveMessageType {
+                name
+            }
+            sendMessageType {
+                name
+            }
+        }
+        ... on AuditEmitterNode {
+            sendMessageType {
+                name
+            }
+        }
+        ... on ChangeEmitterNode {
+            sendMessageType {
+                name
+            }
+        }
+    }
+}

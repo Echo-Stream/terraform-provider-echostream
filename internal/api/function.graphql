@@ -1,0 +1,192 @@
+mutation CreateApiAuthenticatorFunction(
+    $name: String!,
+    $code: String!,
+    $description: String!,
+    $tenant: String!,
+    $readme: String,
+    $requirements: [String!]
+) {
+    CreateApiAuthenticatorFunction(
+        code: $code,
+        description: $description,
+        name: $name,
+        tenant: $tenant,
+        readme: $readme,
+        requirements: $requirements
+    ) {
+        code
+        description
+        inUse
+        name
+        readme
+        requirements
+        system
+    }
+}
+
+mutation CreateBitmapperFunction(
+    $argumentMessageType: String!,
+    $code: String!,
+    $description: String!,
+    $name: String!,
+    $tenant: String!,
+    $readme: String,
+    $requirements: [String!]
+) {
+    CreateBitmapperFunction(
+        argumentMessageType: $argumentMessageType,
+        code: $code,
+        description: $description,
+        name: $name,
+        tenant: $tenant,
+        readme: $readme,
+        requirements: $requirements
+    ) {
+        argumentMessageType {
+            name
+        }
+        code
+        description
+        inUse
+        name
+        readme
+        requirements
+        system
+    }
+}
+
+mutation CreateProcessorFunction(
+    $argumentMessageType: String!,
+    $code: String!,
+    $description: String!,
+    $name: String!,
+    $tenant: String!,
+    $readme: String,
+    $requirements: [String!],
+    $returnMessageType: String
+) {
+    CreateProcessorFunction(
+        argumentMessageType: $argumentMessageType,
+        code: $code,
+        description: $description,
+        name: $name,
+        tenant: $tenant,
+        readme: $readme,
+        requirements: $requirements
+        returnMessageType: $returnMessageType
+    ) {
+        argumentMessageType {
+            name
+        }
+        code
+        description
+        inUse
+        name
+        readme
+        requirements
+        returnMessageType {
+            name
+        }
+        system
+    }
+}
+
+query DeleteFunction($name: String!, $tenant: String!) {
+    GetFunction(name: $name, tenant: $tenant) {
+        Delete
+    }
+}
+
+query ReadFunction($name: String!, $tenant: String!) {
+    GetFunction(name: $name, tenant: $tenant) {
+        code
+        description
+        inUse
+        name
+        readme
+        requirements
+        system
+        ... on BitmapperFunction {
+            argumentMessageType {
+                name
+            }
+        }
+        ... on ProcessorFunction {
+            argumentMessageType {
+                name
+            }
+            returnMessageType {
+                name
+            }
+        }
+    }
+}
+
+query UpdateFunction(
+    $name: String!,
+    $tenant: String!,
+    $code: String,
+    $description: String,
+    $readme: String,
+    $requirements: [String!]
+) {
+    GetFunction(name: $name, tenant: $tenant) {
+        ... on ApiAuthenticatorFunction {
+            Update(
+                code: $code,
+                description: $description, 
+                readme: $readme,
+                requirements: $requirements
+            ) {
+                code
+                description
+                inUse
+                name
+                readme
+                requirements
+                system
+            }
+        }
+        ... on BitmapperFunction {
+            Update(
+                code: $code,
+                description: $description, 
+                readme: $readme,
+                requirements: $requirements
+            ) {
+                argumentMessageType {
+                    name
+                }
+                code
+                description
+                inUse
+                name
+                readme
+                requirements
+                system
+            }
+        }        
+        ... on ProcessorFunction {
+            Update(
+                code: $code,
+                description: $description, 
+                readme: $readme,
+                requirements: $requirements
+            ) {
+                argumentMessageType {
+                    name
+                }
+                code
+                description
+                inUse
+                name
+                readme
+                requirements
+                returnMessageType {
+                    name
+                }
+                system
+            }
+        }        
+    }
+}

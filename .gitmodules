@@ -1,0 +1,3 @@
+[submodule "appsync"]
+	path = appsync
+	url = https://github.com/Echo-Stream/appsync
