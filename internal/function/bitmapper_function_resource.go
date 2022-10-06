@@ -82,6 +82,7 @@ func (r *BitmapperFunctionResource) Create(ctx context.Context, req resource.Cre
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("Error creating BitmapperFunction", err.Error())
+		return
 	}
 
 	plan.ArgumentMessageType = types.String{Value: echoResp.CreateBitmapperFunction.ArgumentMessageType.Name}
@@ -118,6 +119,7 @@ func (r *BitmapperFunctionResource) Delete(ctx context.Context, req resource.Del
 
 	if _, err := api.DeleteFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting BitmapperFunction", err.Error())
+		return
 	}
 }
 
@@ -244,6 +246,7 @@ func (r *BitmapperFunctionResource) Update(ctx context.Context, req resource.Upd
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("Error updating BitmapperFunction", err.Error())
+		return
 	}
 
 	switch function := (*echoResp.GetFunction).(type) {

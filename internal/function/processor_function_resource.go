@@ -87,6 +87,7 @@ func (r *ProcessorFunctionResource) Create(ctx context.Context, req resource.Cre
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("Error creating ProcessorFunction", err.Error())
+		return
 	}
 
 	plan.ArgumentMessageType = types.String{Value: echoResp.CreateProcessorFunction.ArgumentMessageType.Name}
@@ -128,6 +129,7 @@ func (r *ProcessorFunctionResource) Delete(ctx context.Context, req resource.Del
 
 	if _, err := api.DeleteFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting ProcessorFunction", err.Error())
+		return
 	}
 }
 
@@ -254,6 +256,7 @@ func (r *ProcessorFunctionResource) Update(ctx context.Context, req resource.Upd
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("Error updating ProcessorFunction", err.Error())
+		return
 	}
 
 	switch function := (*echoResp.GetFunction).(type) {

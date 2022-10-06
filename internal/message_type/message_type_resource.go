@@ -84,6 +84,7 @@ func (r *MessageTypeResource) Create(ctx context.Context, req resource.CreateReq
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("Error creating Message Type", err.Error())
+		return
 	}
 
 	plan.Auditor = types.String{Value: echoResp.CreateMessageType.Auditor}
@@ -123,6 +124,7 @@ func (r *MessageTypeResource) Delete(ctx context.Context, req resource.DeleteReq
 
 	if _, err := api.DeleteMessageType(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting Message Type", err.Error())
+		return
 	}
 }
 
@@ -264,6 +266,7 @@ func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateReq
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("Error updating Message Type", err.Error())
+		return
 	}
 
 	plan.Auditor = types.String{Value: echoResp.GetMessageType.Update.Auditor}

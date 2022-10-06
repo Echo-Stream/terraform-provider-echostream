@@ -73,6 +73,7 @@ func (r *TenantResource) Delete(ctx context.Context, req resource.DeleteRequest,
 
 	if _, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, nil, nil); err != nil {
 		resp.Diagnostics.AddError("Error deleting Tenant", err.Error())
+		return
 	}
 }
 

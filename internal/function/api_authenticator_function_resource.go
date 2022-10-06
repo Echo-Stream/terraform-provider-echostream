@@ -81,6 +81,7 @@ func (r *ApiAuthenticatorFunctionResource) Create(ctx context.Context, req resou
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("Error creating ApiAuthenticatorFunction", err.Error())
+		return
 	}
 
 	plan.Code = types.String{Value: echoResp.CreateApiAuthenticatorFunction.Code}
@@ -116,6 +117,7 @@ func (r *ApiAuthenticatorFunctionResource) Delete(ctx context.Context, req resou
 
 	if _, err := api.DeleteFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting ApiAuthenticatorFunction", err.Error())
+		return
 	}
 }
 
@@ -242,6 +244,7 @@ func (r *ApiAuthenticatorFunctionResource) Update(ctx context.Context, req resou
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("Error updating ApiAuthenticatorFunction", err.Error())
+		return
 	}
 
 	switch function := (*echoResp.GetFunction).(type) {

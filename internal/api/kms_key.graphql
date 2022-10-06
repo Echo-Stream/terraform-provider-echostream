@@ -1,0 +1,34 @@
+mutation CreateKmsKey($name: String!, $tenant: String!, $description: String) {
+    CreateKmsKey(name: $name, tenant: $tenant, description: $description) {
+        arn
+        description
+        inUse
+        name
+    }
+}
+
+query DeleteKmsKey($name: String!, $tenant: String!) {
+    GetKmsKey(name: $name, tenant: $tenant) {
+        Delete
+    }
+}
+
+query ReadKmsKey($name: String!, $tenant: String!) {
+    GetKmsKey(name: $name, tenant: $tenant) {
+        arn
+        description
+        inUse
+        name
+    }
+}
+
+query UpdateKmsKey($name: String!, $tenant: String!, $description: String) {
+    GetKmsKey(name: $name, tenant: $tenant) {
+        Update(description: $description) {
+            arn
+            description
+            inUse
+            name
+        }
+    }
+}

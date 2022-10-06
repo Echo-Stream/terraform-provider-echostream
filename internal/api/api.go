@@ -128,6 +128,34 @@ func (v *CreateBitmapperFunctionResponse) GetCreateBitmapperFunction() CreateBit
 	return v.CreateBitmapperFunction
 }
 
+// CreateKmsKeyCreateKmsKey includes the requested fields of the GraphQL type KmsKey.
+type CreateKmsKeyCreateKmsKey struct {
+	Arn         string  `json:"arn"`
+	Description *string `json:"description"`
+	InUse       bool    `json:"inUse"`
+	Name        string  `json:"name"`
+}
+
+// GetArn returns CreateKmsKeyCreateKmsKey.Arn, and is useful for accessing the field via an interface.
+func (v *CreateKmsKeyCreateKmsKey) GetArn() string { return v.Arn }
+
+// GetDescription returns CreateKmsKeyCreateKmsKey.Description, and is useful for accessing the field via an interface.
+func (v *CreateKmsKeyCreateKmsKey) GetDescription() *string { return v.Description }
+
+// GetInUse returns CreateKmsKeyCreateKmsKey.InUse, and is useful for accessing the field via an interface.
+func (v *CreateKmsKeyCreateKmsKey) GetInUse() bool { return v.InUse }
+
+// GetName returns CreateKmsKeyCreateKmsKey.Name, and is useful for accessing the field via an interface.
+func (v *CreateKmsKeyCreateKmsKey) GetName() string { return v.Name }
+
+// CreateKmsKeyResponse is returned by CreateKmsKey on success.
+type CreateKmsKeyResponse struct {
+	CreateKmsKey CreateKmsKeyCreateKmsKey `json:"CreateKmsKey"`
+}
+
+// GetCreateKmsKey returns CreateKmsKeyResponse.CreateKmsKey, and is useful for accessing the field via an interface.
+func (v *CreateKmsKeyResponse) GetCreateKmsKey() CreateKmsKeyCreateKmsKey { return v.CreateKmsKey }
+
 // CreateMessageTypeCreateMessageType includes the requested fields of the GraphQL type MessageType.
 type CreateMessageTypeCreateMessageType struct {
 	Auditor           string   `json:"auditor"`
@@ -462,6 +490,22 @@ func (v *DeleteFunctionResponse) __premarshalJSON() (*__premarshalDeleteFunction
 	}
 	return &retval, nil
 }
+
+// DeleteKmsKeyGetKmsKey includes the requested fields of the GraphQL type KmsKey.
+type DeleteKmsKeyGetKmsKey struct {
+	Delete bool `json:"Delete"`
+}
+
+// GetDelete returns DeleteKmsKeyGetKmsKey.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteKmsKeyGetKmsKey) GetDelete() bool { return v.Delete }
+
+// DeleteKmsKeyResponse is returned by DeleteKmsKey on success.
+type DeleteKmsKeyResponse struct {
+	GetKmsKey *DeleteKmsKeyGetKmsKey `json:"GetKmsKey"`
+}
+
+// GetGetKmsKey returns DeleteKmsKeyResponse.GetKmsKey, and is useful for accessing the field via an interface.
+func (v *DeleteKmsKeyResponse) GetGetKmsKey() *DeleteKmsKeyGetKmsKey { return v.GetKmsKey }
 
 // DeleteMessageTypeGetMessageType includes the requested fields of the GraphQL type MessageType.
 type DeleteMessageTypeGetMessageType struct {
@@ -809,6 +853,34 @@ func (v *ReadFunctionResponse) __premarshalJSON() (*__premarshalReadFunctionResp
 	}
 	return &retval, nil
 }
+
+// ReadKmsKeyGetKmsKey includes the requested fields of the GraphQL type KmsKey.
+type ReadKmsKeyGetKmsKey struct {
+	Arn         string  `json:"arn"`
+	Description *string `json:"description"`
+	InUse       bool    `json:"inUse"`
+	Name        string  `json:"name"`
+}
+
+// GetArn returns ReadKmsKeyGetKmsKey.Arn, and is useful for accessing the field via an interface.
+func (v *ReadKmsKeyGetKmsKey) GetArn() string { return v.Arn }
+
+// GetDescription returns ReadKmsKeyGetKmsKey.Description, and is useful for accessing the field via an interface.
+func (v *ReadKmsKeyGetKmsKey) GetDescription() *string { return v.Description }
+
+// GetInUse returns ReadKmsKeyGetKmsKey.InUse, and is useful for accessing the field via an interface.
+func (v *ReadKmsKeyGetKmsKey) GetInUse() bool { return v.InUse }
+
+// GetName returns ReadKmsKeyGetKmsKey.Name, and is useful for accessing the field via an interface.
+func (v *ReadKmsKeyGetKmsKey) GetName() string { return v.Name }
+
+// ReadKmsKeyResponse is returned by ReadKmsKey on success.
+type ReadKmsKeyResponse struct {
+	GetKmsKey *ReadKmsKeyGetKmsKey `json:"GetKmsKey"`
+}
+
+// GetGetKmsKey returns ReadKmsKeyResponse.GetKmsKey, and is useful for accessing the field via an interface.
+func (v *ReadKmsKeyResponse) GetGetKmsKey() *ReadKmsKeyGetKmsKey { return v.GetKmsKey }
 
 // ReadMessageTypeGetMessageType includes the requested fields of the GraphQL type MessageType.
 type ReadMessageTypeGetMessageType struct {
@@ -1975,6 +2047,42 @@ func (v *UpdateFunctionResponse) __premarshalJSON() (*__premarshalUpdateFunction
 	return &retval, nil
 }
 
+// UpdateKmsKeyGetKmsKey includes the requested fields of the GraphQL type KmsKey.
+type UpdateKmsKeyGetKmsKey struct {
+	Update UpdateKmsKeyGetKmsKeyUpdateKmsKey `json:"Update"`
+}
+
+// GetUpdate returns UpdateKmsKeyGetKmsKey.Update, and is useful for accessing the field via an interface.
+func (v *UpdateKmsKeyGetKmsKey) GetUpdate() UpdateKmsKeyGetKmsKeyUpdateKmsKey { return v.Update }
+
+// UpdateKmsKeyGetKmsKeyUpdateKmsKey includes the requested fields of the GraphQL type KmsKey.
+type UpdateKmsKeyGetKmsKeyUpdateKmsKey struct {
+	Arn         string  `json:"arn"`
+	Description *string `json:"description"`
+	InUse       bool    `json:"inUse"`
+	Name        string  `json:"name"`
+}
+
+// GetArn returns UpdateKmsKeyGetKmsKeyUpdateKmsKey.Arn, and is useful for accessing the field via an interface.
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetArn() string { return v.Arn }
+
+// GetDescription returns UpdateKmsKeyGetKmsKeyUpdateKmsKey.Description, and is useful for accessing the field via an interface.
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetDescription() *string { return v.Description }
+
+// GetInUse returns UpdateKmsKeyGetKmsKeyUpdateKmsKey.InUse, and is useful for accessing the field via an interface.
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetInUse() bool { return v.InUse }
+
+// GetName returns UpdateKmsKeyGetKmsKeyUpdateKmsKey.Name, and is useful for accessing the field via an interface.
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetName() string { return v.Name }
+
+// UpdateKmsKeyResponse is returned by UpdateKmsKey on success.
+type UpdateKmsKeyResponse struct {
+	GetKmsKey *UpdateKmsKeyGetKmsKey `json:"GetKmsKey"`
+}
+
+// GetGetKmsKey returns UpdateKmsKeyResponse.GetKmsKey, and is useful for accessing the field via an interface.
+func (v *UpdateKmsKeyResponse) GetGetKmsKey() *UpdateKmsKeyGetKmsKey { return v.GetKmsKey }
+
 // UpdateMessageTypeGetMessageType includes the requested fields of the GraphQL type MessageType.
 type UpdateMessageTypeGetMessageType struct {
 	Update UpdateMessageTypeGetMessageTypeUpdateMessageType `json:"Update"`
@@ -2139,6 +2247,22 @@ func (v *__CreateBitmapperFunctionInput) GetReadme() *string { return v.Readme }
 // GetRequirements returns __CreateBitmapperFunctionInput.Requirements, and is useful for accessing the field via an interface.
 func (v *__CreateBitmapperFunctionInput) GetRequirements() []string { return v.Requirements }
 
+// __CreateKmsKeyInput is used internally by genqlient
+type __CreateKmsKeyInput struct {
+	Name        string  `json:"name"`
+	Tenant      string  `json:"tenant"`
+	Description *string `json:"description"`
+}
+
+// GetName returns __CreateKmsKeyInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateKmsKeyInput) GetName() string { return v.Name }
+
+// GetTenant returns __CreateKmsKeyInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateKmsKeyInput) GetTenant() string { return v.Tenant }
+
+// GetDescription returns __CreateKmsKeyInput.Description, and is useful for accessing the field via an interface.
+func (v *__CreateKmsKeyInput) GetDescription() *string { return v.Description }
+
 // __CreateMessageTypeInput is used internally by genqlient
 type __CreateMessageTypeInput struct {
 	Auditor           string   `json:"auditor"`
@@ -2229,6 +2353,18 @@ func (v *__DeleteFunctionInput) GetName() string { return v.Name }
 // GetTenant returns __DeleteFunctionInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__DeleteFunctionInput) GetTenant() string { return v.Tenant }
 
+// __DeleteKmsKeyInput is used internally by genqlient
+type __DeleteKmsKeyInput struct {
+	Name   string `json:"name"`
+	Tenant string `json:"tenant"`
+}
+
+// GetName returns __DeleteKmsKeyInput.Name, and is useful for accessing the field via an interface.
+func (v *__DeleteKmsKeyInput) GetName() string { return v.Name }
+
+// GetTenant returns __DeleteKmsKeyInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__DeleteKmsKeyInput) GetTenant() string { return v.Tenant }
+
 // __DeleteMessageTypeInput is used internally by genqlient
 type __DeleteMessageTypeInput struct {
 	Name   string `json:"name"`
@@ -2252,6 +2388,18 @@ func (v *__ReadFunctionInput) GetName() string { return v.Name }
 
 // GetTenant returns __ReadFunctionInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__ReadFunctionInput) GetTenant() string { return v.Tenant }
+
+// __ReadKmsKeyInput is used internally by genqlient
+type __ReadKmsKeyInput struct {
+	Name   string `json:"name"`
+	Tenant string `json:"tenant"`
+}
+
+// GetName returns __ReadKmsKeyInput.Name, and is useful for accessing the field via an interface.
+func (v *__ReadKmsKeyInput) GetName() string { return v.Name }
+
+// GetTenant returns __ReadKmsKeyInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__ReadKmsKeyInput) GetTenant() string { return v.Tenant }
 
 // __ReadMessageTypeInput is used internally by genqlient
 type __ReadMessageTypeInput struct {
@@ -2312,6 +2460,22 @@ func (v *__UpdateFunctionInput) GetReadme() *string { return v.Readme }
 
 // GetRequirements returns __UpdateFunctionInput.Requirements, and is useful for accessing the field via an interface.
 func (v *__UpdateFunctionInput) GetRequirements() []string { return v.Requirements }
+
+// __UpdateKmsKeyInput is used internally by genqlient
+type __UpdateKmsKeyInput struct {
+	Name        string  `json:"name"`
+	Tenant      string  `json:"tenant"`
+	Description *string `json:"description"`
+}
+
+// GetName returns __UpdateKmsKeyInput.Name, and is useful for accessing the field via an interface.
+func (v *__UpdateKmsKeyInput) GetName() string { return v.Name }
+
+// GetTenant returns __UpdateKmsKeyInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__UpdateKmsKeyInput) GetTenant() string { return v.Tenant }
+
+// GetDescription returns __UpdateKmsKeyInput.Description, and is useful for accessing the field via an interface.
+func (v *__UpdateKmsKeyInput) GetDescription() *string { return v.Description }
 
 // __UpdateMessageTypeInput is used internally by genqlient
 type __UpdateMessageTypeInput struct {
@@ -2459,6 +2623,45 @@ mutation CreateBitmapperFunction ($argumentMessageType: String!, $code: String!,
 	var err error
 
 	var data CreateBitmapperFunctionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateKmsKey(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	description *string,
+) (*CreateKmsKeyResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateKmsKey",
+		Query: `
+mutation CreateKmsKey ($name: String!, $tenant: String!, $description: String) {
+	CreateKmsKey(name: $name, tenant: $tenant, description: $description) {
+		arn
+		description
+		inUse
+		name
+	}
+}
+`,
+		Variables: &__CreateKmsKeyInput{
+			Name:        name,
+			Tenant:      tenant,
+			Description: description,
+		},
+	}
+	var err error
+
+	var data CreateKmsKeyResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -2620,6 +2823,40 @@ query DeleteFunction ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+func DeleteKmsKey(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*DeleteKmsKeyResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteKmsKey",
+		Query: `
+query DeleteKmsKey ($name: String!, $tenant: String!) {
+	GetKmsKey(name: $name, tenant: $tenant) {
+		Delete
+	}
+}
+`,
+		Variables: &__DeleteKmsKeyInput{
+			Name:   name,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data DeleteKmsKeyResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteMessageType(
 	ctx context.Context,
 	client graphql.Client,
@@ -2697,6 +2934,43 @@ query ReadFunction ($name: String!, $tenant: String!) {
 	var err error
 
 	var data ReadFunctionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ReadKmsKey(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadKmsKeyResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadKmsKey",
+		Query: `
+query ReadKmsKey ($name: String!, $tenant: String!) {
+	GetKmsKey(name: $name, tenant: $tenant) {
+		arn
+		description
+		inUse
+		name
+	}
+}
+`,
+		Variables: &__ReadKmsKeyInput{
+			Name:   name,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data ReadKmsKeyResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -2920,6 +3194,47 @@ query UpdateFunction ($name: String!, $tenant: String!, $code: String, $descript
 	var err error
 
 	var data UpdateFunctionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateKmsKey(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	description *string,
+) (*UpdateKmsKeyResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateKmsKey",
+		Query: `
+query UpdateKmsKey ($name: String!, $tenant: String!, $description: String) {
+	GetKmsKey(name: $name, tenant: $tenant) {
+		Update(description: $description) {
+			arn
+			description
+			inUse
+			name
+		}
+	}
+}
+`,
+		Variables: &__UpdateKmsKeyInput{
+			Name:        name,
+			Tenant:      tenant,
+			Description: description,
+		},
+	}
+	var err error
+
+	var data UpdateKmsKeyResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
