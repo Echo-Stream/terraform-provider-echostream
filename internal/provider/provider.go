@@ -257,7 +257,10 @@ func (p *echoStreamProvider) Metadata(ctx context.Context, req provider.Metadata
 
 func (p *echoStreamProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
+		func() resource.Resource { return &function.ApiAuthenticatorFunctionResource{} },
 		func() resource.Resource { return &message_type.MessageTypeResource{} },
+		func() resource.Resource { return &function.BitmapperFunctionResource{} },
+		func() resource.Resource { return &function.ProcessorFunctionResource{} },
 		func() resource.Resource { return &tenant.TenantResource{} },
 	}
 }

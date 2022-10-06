@@ -1,7 +1,12 @@
 package function
 
 import (
+	"context"
+	"fmt"
+
+	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
+	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -108,6 +113,23 @@ func dataBitmapperFunctionSchema() map[string]tfsdk.Attribute {
 	return schema
 }
 
+func resourceBitmapperFunctionSchema() map[string]tfsdk.Attribute {
+	schema := resourceFunctionSchema()
+	maps.Copy(
+		schema,
+		map[string]tfsdk.Attribute{
+			"argument_message_type": {
+				Description:         "",
+				MarkdownDescription: "",
+				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+				Required:            true,
+				Type:                types.StringType,
+			},
+		},
+	)
+	return schema
+}
+
 type processorFunctionModel struct {
 	ArgumentMessageType types.String `tfsdk:"argument_message_type"`
 	Code                types.String `tfsdk:"code"`
@@ -139,4 +161,157 @@ func dataProcessorFunctionSchema() map[string]tfsdk.Attribute {
 		},
 	)
 	return schema
+}
+
+func resourceProcessorFunctionSchema() map[string]tfsdk.Attribute {
+	schema := resourceFunctionSchema()
+	maps.Copy(
+		schema,
+		map[string]tfsdk.Attribute{
+			"argument_message_type": {
+				Description:         "",
+				MarkdownDescription: "",
+				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+				Required:            true,
+				Type:                types.StringType,
+			},
+			"return_message_type": {
+				Description:         "",
+				MarkdownDescription: "",
+				Optional:            true,
+				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+				Type:                types.StringType,
+			},
+		},
+	)
+	return schema
+}
+
+func readFunction(ctx context.Context, client graphql.Client, name string, tenant string, data *functionModel) (bool, error) {
+	var (
+		echoResp *api.ReadFunctionResponse
+		err      error
+		system   bool = false
+	)
+
+	if echoResp, err = api.ReadFunction(ctx, client, name, tenant); err == nil {
+		if echoResp.GetFunction != nil {
+			switch function := (*echoResp.GetFunction).(type) {
+			case *api.ReadFunctionGetFunctionApiAuthenticatorFunction:
+				data.Code = types.String{Value: function.Code}
+				data.Description = types.String{Value: function.Description}
+				data.InUse = types.Bool{Value: function.InUse}
+				data.Name = types.String{Value: function.Name}
+				if function.Readme != nil {
+					data.Readme = types.String{Value: *function.Readme}
+				} else {
+					data.Readme = types.String{Null: true}
+				}
+				if len(function.Requirements) > 0 {
+					data.Requirements = types.Set{ElemType: types.StringType}
+					for _, req := range function.Requirements {
+						data.Requirements.Elems = append(data.Requirements.Elems, types.String{Value: req})
+					}
+				} else {
+					data.Requirements.Null = true
+				}
+				if function.System != nil {
+					system = *function.System
+				}
+			default:
+				err = fmt.Errorf("'%s' is incorrect Function type", data.Name.String())
+			}
+		} else {
+			err = fmt.Errorf("'%s' Function does not exist", data.Name.String())
+		}
+	}
+
+	return system, err
+}
+
+func readBitmapperFunction(ctx context.Context, client graphql.Client, name string, tenant string, data *bitmapperFunctionModel) (bool, error) {
+	var (
+		echoResp *api.ReadFunctionResponse
+		err      error
+		system   bool = false
+	)
+
+	if echoResp, err = api.ReadFunction(ctx, client, name, tenant); err == nil {
+		if echoResp.GetFunction != nil {
+			switch function := (*echoResp.GetFunction).(type) {
+			case *api.ReadFunctionGetFunctionBitmapperFunction:
+				data.ArgumentMessageType = types.String{Value: function.ArgumentMessageType.Name}
+				data.Code = types.String{Value: function.Code}
+				data.Description = types.String{Value: function.Description}
+				data.InUse = types.Bool{Value: function.InUse}
+				data.Name = types.String{Value: function.Name}
+				if function.Readme != nil {
+					data.Readme = types.String{Value: *function.Readme}
+				} else {
+					data.Readme = types.String{Null: true}
+				}
+				if len(function.Requirements) > 0 {
+					data.Requirements = types.Set{ElemType: types.StringType}
+					for _, req := range function.Requirements {
+						data.Requirements.Elems = append(data.Requirements.Elems, types.String{Value: req})
+					}
+				} else {
+					data.Requirements.Null = true
+				}
+				if function.System != nil {
+					system = *function.System
+				}
+			default:
+				err = fmt.Errorf("'%s' is incorrect Function type", data.Name.String())
+			}
+		} else {
+			err = fmt.Errorf("'%s' Function does not exist", data.Name.String())
+		}
+	}
+
+	return system, err
+}
+
+func readProcessorFunction(ctx context.Context, client graphql.Client, name string, tenant string, data *processorFunctionModel) (bool, error) {
+	var (
+		echoResp *api.ReadFunctionResponse
+		err      error
+		system   bool = false
+	)
+
+	if echoResp, err = api.ReadFunction(ctx, client, name, tenant); err == nil {
+		if echoResp.GetFunction != nil {
+			switch function := (*echoResp.GetFunction).(type) {
+			case *api.ReadFunctionGetFunctionProcessorFunction:
+				data.ArgumentMessageType = types.String{Value: function.ArgumentMessageType.Name}
+				data.Code = types.String{Value: function.Code}
+				data.Description = types.String{Value: function.Description}
+				data.InUse = types.Bool{Value: function.InUse}
+				data.Name = types.String{Value: function.Name}
+				if function.Readme != nil {
+					data.Readme = types.String{Value: *function.Readme}
+				} else {
+					data.Readme = types.String{Null: true}
+				}
+				if len(function.Requirements) > 0 {
+					data.Requirements = types.Set{ElemType: types.StringType}
+					for _, req := range function.Requirements {
+						data.Requirements.Elems = append(data.Requirements.Elems, types.String{Value: req})
+					}
+				} else {
+					data.Requirements.Null = true
+				}
+				data.ReturnMessageType = types.String{Value: function.ReturnMessageType.Name}
+				if function.System != nil {
+					system = *function.System
+				}
+			default:
+				err = fmt.Errorf("'%s' is incorrect Function type", data.Name.String())
+			}
+		} else {
+			err = fmt.Errorf("'%s' Function does not exist", data.Name.String())
+		}
+	}
+
+	return system, err
 }
