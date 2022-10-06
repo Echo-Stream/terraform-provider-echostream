@@ -24,18 +24,6 @@ type MessageTypeResource struct {
 	data *common.ProviderData
 }
 
-func (r *MessageTypeResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_message_type"
-}
-
-func (r *MessageTypeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes:          resourceMessageTypeSchema(),
-		Description:         "Message Types provide a loose typing system in EchoStream",
-		MarkdownDescription: "Message Types provide a loose typing system in EchoStream",
-	}, nil
-}
-
 func (r *MessageTypeResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {
@@ -123,6 +111,37 @@ func (r *MessageTypeResource) Create(ctx context.Context, req resource.CreateReq
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
 }
 
+func (r *MessageTypeResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var state messageTypeModel
+
+	// Read Terraform prior state data into the model
+	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	if _, err := api.DeleteMessageType(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+		resp.Diagnostics.AddError("Error deleting Message Type", err.Error())
+	}
+}
+
+func (r *MessageTypeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
+	return tfsdk.Schema{
+		Attributes:          resourceMessageTypeSchema(),
+		Description:         "Message Types provide a loose typing system in EchoStream",
+		MarkdownDescription: "Message Types provide a loose typing system in EchoStream",
+	}, nil
+}
+
+func (r *MessageTypeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
+}
+
+func (r *MessageTypeResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_message_type"
+}
+
 func (r *MessageTypeResource) ModifyPlan(ctx context.Context, req resource.ModifyPlanRequest, resp *resource.ModifyPlanResponse) {
 	var state messageTypeModel
 
@@ -145,7 +164,6 @@ func (r *MessageTypeResource) ModifyPlan(ctx context.Context, req resource.Modif
 
 	// If the entire plan is null, the resource is planned for destruction.
 	prevent_destroy := req.Plan.Raw.IsNull()
-	detail := fmt.Sprintf("MessageType %s is in use and may not be destroyed", state.Name.Value)
 	if !prevent_destroy {
 		var plan messageTypeModel
 
@@ -157,11 +175,10 @@ func (r *MessageTypeResource) ModifyPlan(ctx context.Context, req resource.Modif
 		}
 
 		prevent_destroy = !plan.Name.Equal(state.Name)
-		detail = fmt.Sprintf("MessageType %s is in use and may not be replaced", state.Name.Value)
 	}
 
 	if prevent_destroy {
-		resp.Diagnostics.AddError("Cannot destroy Message Type", detail)
+		resp.Diagnostics.AddError("Cannot destroy MessageType", fmt.Sprintf("MessageType %s is in use and may not be destroyed", state.Name.Value))
 	}
 }
 
@@ -187,10 +204,10 @@ func (r *MessageTypeResource) Read(ctx context.Context, req resource.ReadRequest
 }
 
 func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var state *messageTypeModel
+	var plan *messageTypeModel
 
 	// Read Terraform plan data into the model
-	resp.Diagnostics.Append(req.Plan.Get(ctx, &state)...)
+	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -205,37 +222,37 @@ func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateReq
 		requirements      []string
 		sampleMessage     *string
 	)
-	if !state.Auditor.IsNull() {
-		auditor = &state.Auditor.Value
+	if !plan.Auditor.IsNull() {
+		auditor = &plan.Auditor.Value
 	}
-	if !state.BitmapperTemplate.IsNull() {
-		bitmapperTemplate = &state.BitmapperTemplate.Value
+	if !plan.BitmapperTemplate.IsNull() {
+		bitmapperTemplate = &plan.BitmapperTemplate.Value
 	}
-	if !state.Description.IsNull() {
-		description = &state.Description.Value
+	if !plan.Description.IsNull() {
+		description = &plan.Description.Value
 	}
-	if !state.ProcessorTemplate.IsNull() {
-		processorTemplate = &state.ProcessorTemplate.Value
+	if !plan.ProcessorTemplate.IsNull() {
+		processorTemplate = &plan.ProcessorTemplate.Value
 	}
-	if !state.Readme.IsNull() {
-		readme = &state.Readme.Value
+	if !plan.Readme.IsNull() {
+		readme = &plan.Readme.Value
 	}
-	if !state.Requirements.IsNull() {
-		requirements = make([]string, len(state.Requirements.Elems))
-		diags := state.Requirements.ElementsAs(ctx, &requirements, false)
+	if !plan.Requirements.IsNull() {
+		requirements = make([]string, len(plan.Requirements.Elems))
+		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
 			resp.Diagnostics.Append(diags...)
 			return
 		}
 	}
-	if !state.SampleMessage.IsNull() {
-		sampleMessage = &state.SampleMessage.Value
+	if !plan.SampleMessage.IsNull() {
+		sampleMessage = &plan.SampleMessage.Value
 	}
 
 	echoResp, err := api.UpdateMessageType(
 		ctx,
 		r.data.Client,
-		state.Name.Value,
+		plan.Name.Value,
 		r.data.Tenant,
 		auditor,
 		bitmapperTemplate,
@@ -246,49 +263,30 @@ func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateReq
 		sampleMessage,
 	)
 	if err != nil {
-		resp.Diagnostics.AddError("Error creating Message Type", err.Error())
+		resp.Diagnostics.AddError("Error updating Message Type", err.Error())
 	}
 
-	state.Auditor = types.String{Value: echoResp.GetMessageType.Update.Auditor}
-	state.BitmapperTemplate = types.String{Value: echoResp.GetMessageType.Update.BitmapperTemplate}
-	state.Description = types.String{Value: echoResp.GetMessageType.Update.Description}
-	state.InUse = types.Bool{Value: echoResp.GetMessageType.Update.InUse}
-	state.Name = types.String{Value: echoResp.GetMessageType.Update.Name}
-	state.ProcessorTemplate = types.String{Value: echoResp.GetMessageType.Update.ProcessorTemplate}
+	plan.Auditor = types.String{Value: echoResp.GetMessageType.Update.Auditor}
+	plan.BitmapperTemplate = types.String{Value: echoResp.GetMessageType.Update.BitmapperTemplate}
+	plan.Description = types.String{Value: echoResp.GetMessageType.Update.Description}
+	plan.InUse = types.Bool{Value: echoResp.GetMessageType.Update.InUse}
+	plan.Name = types.String{Value: echoResp.GetMessageType.Update.Name}
+	plan.ProcessorTemplate = types.String{Value: echoResp.GetMessageType.Update.ProcessorTemplate}
 	if echoResp.GetMessageType.Update.Readme != nil {
-		state.Readme = types.String{Value: *echoResp.GetMessageType.Update.Readme}
+		plan.Readme = types.String{Value: *echoResp.GetMessageType.Update.Readme}
 	} else {
-		state.Readme = types.String{Null: true}
+		plan.Readme = types.String{Null: true}
 	}
 	if len(echoResp.GetMessageType.Update.Requirements) > 0 {
-		state.Requirements = types.Set{ElemType: types.StringType}
+		plan.Requirements = types.Set{ElemType: types.StringType}
 		for _, req := range echoResp.GetMessageType.Update.Requirements {
-			state.Requirements.Elems = append(state.Requirements.Elems, types.String{Value: req})
+			plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 		}
 	} else {
-		state.Requirements = types.Set{ElemType: types.StringType, Null: true}
+		plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
 	}
-	state.SampleMessage = types.String{Value: echoResp.GetMessageType.Update.SampleMessage}
+	plan.SampleMessage = types.String{Value: echoResp.GetMessageType.Update.SampleMessage}
 
 	// Save updated data into Terraform state
-	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
-}
-
-func (r *MessageTypeResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var state messageTypeModel
-
-	// Read Terraform prior state data into the model
-	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	if _, err := api.DeleteMessageType(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
-		resp.Diagnostics.AddError("Error deleting Message Type", err.Error())
-	}
-}
-
-func (r *MessageTypeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
+	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
 }
