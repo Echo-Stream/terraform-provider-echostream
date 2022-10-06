@@ -58,7 +58,7 @@ func (d *MessageTypeDataSource) Read(ctx context.Context, req datasource.ReadReq
 		return
 	}
 
-	if err := readMessageType(ctx, d.data.Client, config.Name.Value, d.data.Tenant, true, &config); err != nil {
+	if _, err := readMessageType(ctx, d.data.Client, config.Name.Value, d.data.Tenant, &config); err != nil {
 		resp.Diagnostics.AddError("Error reading MessageType", err.Error())
 		return
 	}

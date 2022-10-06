@@ -121,48 +121,42 @@ func resourceMessageTypeSchema() map[string]tfsdk.Attribute {
 	return schema
 }
 
-func readMessageType(ctx context.Context, client graphql.Client, name string, tenant string, system bool, data *messageTypeModel) error {
+func readMessageType(ctx context.Context, client graphql.Client, name string, tenant string, data *messageTypeModel) (bool, error) {
 	var (
 		echoResp *api.ReadMessageTypeResponse
 		err      error
+		system   bool = false
 	)
 
 	if echoResp, err = api.ReadMessageType(ctx, client, name, tenant); err == nil {
 		if echoResp.GetMessageType != nil {
-			var system_resp bool
-			if echoResp.GetMessageType.System == nil {
-				system_resp = false
+			data.Auditor = types.String{Value: echoResp.GetMessageType.Auditor}
+			data.BitmapperTemplate = types.String{Value: echoResp.GetMessageType.BitmapperTemplate}
+			data.Description = types.String{Value: echoResp.GetMessageType.Description}
+			data.InUse = types.Bool{Value: echoResp.GetMessageType.InUse}
+			data.Name = types.String{Value: echoResp.GetMessageType.Name}
+			data.ProcessorTemplate = types.String{Value: echoResp.GetMessageType.ProcessorTemplate}
+			if echoResp.GetMessageType.Readme != nil {
+				data.Readme = types.String{Value: *echoResp.GetMessageType.Readme}
 			} else {
-				system_resp = *echoResp.GetMessageType.System
+				data.Readme = types.String{Null: true}
 			}
-			if system == system_resp {
-				data.Auditor = types.String{Value: echoResp.GetMessageType.Auditor}
-				data.BitmapperTemplate = types.String{Value: echoResp.GetMessageType.BitmapperTemplate}
-				data.Description = types.String{Value: echoResp.GetMessageType.Description}
-				data.InUse = types.Bool{Value: echoResp.GetMessageType.InUse}
-				data.Name = types.String{Value: echoResp.GetMessageType.Name}
-				data.ProcessorTemplate = types.String{Value: echoResp.GetMessageType.ProcessorTemplate}
-				if echoResp.GetMessageType.Readme != nil {
-					data.Readme = types.String{Value: *echoResp.GetMessageType.Readme}
-				} else {
-					data.Readme = types.String{Null: true}
+			data.Requirements = types.Set{ElemType: types.StringType}
+			if len(echoResp.GetMessageType.Requirements) > 0 {
+				for _, req := range echoResp.GetMessageType.Requirements {
+					data.Requirements.Elems = append(data.Requirements.Elems, types.String{Value: req})
 				}
-				data.Requirements = types.Set{ElemType: types.StringType}
-				if len(echoResp.GetMessageType.Requirements) > 0 {
-					for _, req := range echoResp.GetMessageType.Requirements {
-						data.Requirements.Elems = append(data.Requirements.Elems, types.String{Value: req})
-					}
-				} else {
-					data.Requirements.Null = true
-				}
-				data.SampleMessage = types.String{Value: echoResp.GetMessageType.SampleMessage}
 			} else {
-				err = fmt.Errorf("'%s' is incorrect Message Type", data.Name.String())
+				data.Requirements.Null = true
+			}
+			data.SampleMessage = types.String{Value: echoResp.GetMessageType.SampleMessage}
+			if echoResp.GetMessageType.System != nil {
+				system = *echoResp.GetMessageType.System
 			}
 		} else {
-			err = fmt.Errorf("'%s' message type does not exist", data.Name.String())
+			err = fmt.Errorf("'%s' MessageType does not exist", data.Name.String())
 		}
 	}
 
-	return err
+	return system, err
 }
