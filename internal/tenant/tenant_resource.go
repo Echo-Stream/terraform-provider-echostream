@@ -20,18 +20,6 @@ type TenantResource struct {
 	data *common.ProviderData
 }
 
-func (r *TenantResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_tenant"
-}
-
-func (r *TenantResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes:          tenantResourceSchema(),
-		Description:         "Manages the current Tenant",
-		MarkdownDescription: "Manages the current Tenant",
-	}, nil
-}
-
 func (r *TenantResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {
@@ -71,6 +59,37 @@ func (r *TenantResource) Create(ctx context.Context, req resource.CreateRequest,
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
+}
+
+func (r *TenantResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	var state tenantModel
+
+	// Read Terraform prior state data into the model
+	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	if _, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, nil, nil); err != nil {
+		resp.Diagnostics.AddError("Error deleting Tenant", err.Error())
+	}
+}
+
+func (r *TenantResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
+	return tfsdk.Schema{
+		Attributes:          tenantResourceSchema(),
+		Description:         "Manages the current Tenant",
+		MarkdownDescription: "Manages the current Tenant",
+	}, nil
+}
+
+func (r *TenantResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
+	resp.Diagnostics.Append(resp.State.Set(ctx, &tenantModel{})...)
+}
+
+func (r *TenantResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_tenant"
 }
 
 func (r *TenantResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
@@ -115,25 +134,6 @@ func (r *TenantResource) Update(ctx context.Context, req resource.UpdateRequest,
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
-}
-
-func (r *TenantResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var state tenantModel
-
-	// Read Terraform prior state data into the model
-	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	if _, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, nil, nil); err != nil {
-		resp.Diagnostics.AddError("Error deleting Tenant", err.Error())
-	}
-}
-
-func (r *TenantResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resp.Diagnostics.Append(resp.State.Set(ctx, &tenantModel{})...)
 }
 
 func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) error {
