@@ -49,11 +49,9 @@ func (r *TenantResource) Create(ctx context.Context, req resource.CreateRequest,
 		return
 	}
 
-	if err := r.createOrUpdate(ctx, &plan); err != nil {
-		resp.Diagnostics.AddError(
-			"Unexpected error creating Tenant",
-			fmt.Sprintf("This is always an error in the provider. Please report the following to the provider developer:\n\n"+err.Error()),
-		)
+	resp.Diagnostics.Append(r.createOrUpdate(ctx, &plan)...)
+
+	if resp.Diagnostics.HasError() {
 		return
 	}
 
@@ -103,11 +101,9 @@ func (r *TenantResource) Read(ctx context.Context, req resource.ReadRequest, res
 		return
 	}
 
-	if err := readTenantData(ctx, r.data.Client, r.data.Tenant, &state); err != nil {
-		resp.Diagnostics.AddError(
-			"Unexpected error reading Tenant",
-			fmt.Sprintf("This is always an error in the provider. Please report the following to the provider developer:\n\n"+err.Error()),
-		)
+	resp.Diagnostics.Append(readTenantData(ctx, r.data.Client, r.data.Tenant, &state)...)
+
+	if resp.Diagnostics.HasError() {
 		return
 	}
 
@@ -125,11 +121,9 @@ func (r *TenantResource) Update(ctx context.Context, req resource.UpdateRequest,
 		return
 	}
 
-	if err := r.createOrUpdate(ctx, &plan); err != nil {
-		resp.Diagnostics.AddError(
-			"Unexpected error updating Tenant",
-			fmt.Sprintf("This is always an error in the provider. Please report the following to the provider developer:\n\n"+err.Error()),
-		)
+	resp.Diagnostics.Append(r.createOrUpdate(ctx, &plan)...)
+
+	if resp.Diagnostics.HasError() {
 		return
 	}
 
@@ -137,10 +131,11 @@ func (r *TenantResource) Update(ctx context.Context, req resource.UpdateRequest,
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
 }
 
-func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) error {
+func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) diag.Diagnostics {
 	var (
 		config      *string
 		description *string
+		diags       diag.Diagnostics
 	)
 
 	if !data.Description.IsNull() {
@@ -149,21 +144,29 @@ func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) 
 	if !data.Config.IsNull() {
 		config = &data.Config.Value
 	}
-	echoResp, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, config, description)
-	if err != nil {
-		return err
+
+	if echoResp, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, config, description); err == nil {
+		data.Active = types.Bool{Value: echoResp.GetTenant.Update.Active}
+		if echoResp.GetTenant.Update.Config != nil {
+			data.Config = common.ConfigValue{Value: *echoResp.GetTenant.Update.Config}
+		} else {
+			data.Config = common.ConfigValue{Null: true}
+		}
+		if echoResp.GetTenant.Update.Description != nil {
+			data.Description = types.String{Value: *echoResp.GetTenant.Update.Description}
+		} else {
+			data.Description = types.String{Null: true}
+		}
+		data.Name = types.String{Value: echoResp.GetTenant.Update.Name}
+		data.Region = types.String{Value: echoResp.GetTenant.Update.Region}
+		data.Table = types.String{Value: echoResp.GetTenant.Update.Table}
+		diags.Append(readTenantAwsCredentials(ctx, r.data.Client, r.data.Tenant, data)...)
+	} else {
+		diags.AddError(
+			"Unexpected error creating or updating Tenant",
+			fmt.Sprintf("This is always an error in the provider. Please report the following to the provider developer:\n\n"+err.Error()),
+		)
 	}
 
-	if echoResp.GetTenant.Update.Description != nil {
-		data.Description = types.String{Value: *echoResp.GetTenant.Update.Description}
-	} else {
-		data.Description = types.String{Null: true}
-	}
-	if echoResp.GetTenant.Update.Config != nil {
-		data.Config = common.ConfigValue{Value: *echoResp.GetTenant.Update.Config}
-	} else {
-		data.Config = common.ConfigValue{Null: true}
-	}
-
-	return nil
+	return diags
 }

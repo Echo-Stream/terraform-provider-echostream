@@ -1,0 +1,225 @@
+fragment appFields on App {
+    description
+    name
+}
+
+fragment crossAccountAppFields on CrossAccountApp {
+    account
+    appsyncEndpoint
+    auditRecordsEndpoint
+    config
+    credentials {
+        ...cognitoCredentialsFields
+    }
+    iamPolicy
+    tableAccess
+}
+
+fragment crossTenantReceivingAppFields on CrossTenantReceivingApp {
+    sendingApp
+    sendingTenant
+}
+
+fragment crossTenantSendingAppFields on CrossTenantSendingApp {
+    receivingApp
+    receivingTenant
+}
+
+fragment externalAppFields on ExternalApp {
+    appsyncEndpoint
+    auditRecordsEndpoint
+    config
+    credentials {
+        ...cognitoCredentialsFields
+    }
+    tableAccess
+}
+
+fragment managedAppFields on ManagedApp {
+    auditRecordsEndpoint
+    config
+    credentials {
+        ...cognitoCredentialsFields
+    }
+    tableAccess
+}
+
+mutation CreateCrossAccountApp(
+    $account: String!,
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $tableAccess: Boolean
+) {
+    CreateCrossAccountApp(
+        account: $account,
+        name: $name,
+        tenant: $tenant,
+        config: $config,
+        description: $description,
+        tableAccess: $tableAccess
+    ) {
+        ...appFields
+        ...crossAccountAppFields
+    }
+}
+
+mutation CreateCrossTenantReceivingApp(
+    $name: String!,
+    $sendingTenant: String!,
+    $tenant: String!
+) {
+    CreateCrossTenantReceivingApp(name: $name, sendingTenant: $sendingTenant, tenant: $tenant) {
+        ...appFields
+        ...crossTenantReceivingAppFields
+    }
+}
+
+mutation CreateCrossTenantSendingApp(
+    $name: String!,
+    $receivingApp: String!,
+    $receivingTenant: String!,
+    $tenant: String!
+) {
+    CreateCrossTenantSendingApp(
+        name: $name,
+        receivingApp: $receivingApp,
+        receivingTenant: $receivingTenant,
+        tenant: $tenant
+    ) {
+        ...appFields
+        ...crossTenantSendingAppFields
+    }
+}
+
+mutation CreateExternalApp(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $tableAccess: Boolean
+) {
+    CreateExternalApp(
+        name: $name,
+        tenant: $tenant,
+        config: $config,
+        description: $description,
+        tableAccess: $tableAccess
+    ) {
+        ...appFields
+        ...externalAppFields
+    }
+}
+
+mutation CreateManagedApp(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $tableAccess: Boolean
+) {
+    CreateManagedApp(
+        name: $name,
+        tenant: $tenant,
+        config: $config,
+        description: $description,
+        tableAccess: $tableAccess
+    ) {
+        ...appFields
+        ...managedAppFields
+    }
+}
+
+query DeleteApp($name: String!, $tenant: String!) {
+    GetApp(name: $name, tenant: $tenant) {
+        Delete(drainEdges: true)
+    }
+}
+
+query ReadApp($name: String!, $tenant: String!) {
+    GetApp(name: $name, tenant: $tenant) {
+        ...appFields
+        ... on CrossAccountApp {
+            ...crossAccountAppFields
+        }
+        ... on CrossTenantReceivingApp {
+            ...crossTenantReceivingAppFields
+        }
+        ... on CrossTenantSendingApp {
+            ...crossTenantSendingAppFields
+        }
+        ... on ExternalApp {
+            ...externalAppFields
+        }
+        ... on ManagedApp {
+            ...managedAppFields
+        }
+    }
+}
+
+query UpdateCrossTenantApp(
+    $name: String!,
+    $tenant: String!
+    $description: String,
+) {
+    GetApp(name: $name, tenant: $tenant) {
+        ... on CrossTenantReceivingApp {
+            Update(
+                description: $description
+            ) {
+                ...appFields
+                ...crossTenantReceivingAppFields
+            }
+        }
+        ... on CrossTenantSendingApp {
+            Update(
+                description: $description
+            ) {
+                ...appFields
+                ...crossTenantSendingAppFields
+            }
+        }
+    }
+}
+
+query UpdateRemotetApp(
+    $name: String!,
+    $tenant: String!
+    $config: AWSJSON,
+    $description: String,
+    $tableAccess: Boolean
+) {
+    GetApp(name: $name, tenant: $tenant) {
+        ... on CrossAccountApp {
+            Update(
+                config: $config,
+                description: $description,
+                tableAccess: $tableAccess
+            ) {
+                ...appFields
+                ...crossAccountAppFields
+            }
+        }
+        ... on ExternalApp {
+            Update(
+                config: $config,
+                description: $description,
+                tableAccess: $tableAccess
+            ) {
+                ...appFields
+                ...externalAppFields
+            }
+        }
+        ... on ManagedApp {
+            Update(
+                config: $config,
+                description: $description,
+                tableAccess: $tableAccess
+            ) {
+                ...appFields
+                ...managedAppFields
+            }
+        }
+    }
+}

@@ -1,9 +1,13 @@
+fragment kmsKeyFields on KmsKey {
+    arn
+    description
+    inUse
+    name
+}
+
 mutation CreateKmsKey($name: String!, $tenant: String!, $description: String) {
     CreateKmsKey(name: $name, tenant: $tenant, description: $description) {
-        arn
-        description
-        inUse
-        name
+        ...kmsKeyFields
     }
 }
 
@@ -15,20 +19,14 @@ query DeleteKmsKey($name: String!, $tenant: String!) {
 
 query ReadKmsKey($name: String!, $tenant: String!) {
     GetKmsKey(name: $name, tenant: $tenant) {
-        arn
-        description
-        inUse
-        name
+        ...kmsKeyFields
     }
 }
 
 query UpdateKmsKey($name: String!, $tenant: String!, $description: String) {
     GetKmsKey(name: $name, tenant: $tenant) {
         Update(description: $description) {
-            arn
-            description
-            inUse
-            name
+            ...kmsKeyFields
         }
     }
 }

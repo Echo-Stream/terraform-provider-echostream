@@ -1,19 +1,33 @@
+fragment tenantFields on Tenant {
+    active
+    config
+    description
+    name
+    region
+    table
+}
+
 query ReadTenant($tenant: String!) {
     GetTenant(tenant: $tenant) {
-        active
-        config
-        description
-        name
-        region
-        table
+        ...tenantFields
+    }
+}
+
+query ReadTenantAwsCredentials($tenant: String!, $duration: Int) {
+    GetTenant(tenant: $tenant) {
+        GetAwsCredentials(duration: $duration) {
+            accessKeyId
+            expiration
+            secretAccessKey
+            sessionToken
+        }
     }
 }
 
 query UpdateTenant($tenant: String!, $config: AWSJSON, $description: String) {
     GetTenant(tenant: $tenant) {
         Update(config: $config, description: $description) {
-            config
-            description
+            ...tenantFields
         }
     }
 }

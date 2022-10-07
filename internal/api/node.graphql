@@ -1,29 +1,49 @@
+fragment nodeFields on Node {
+    description
+    name
+}
+
+fragment alertEmitterNodeFields on AlertEmitterNode {
+    sendMessageType {
+        name
+    }
+}
+
+fragment appChangeRouterNodeFields on AppChangeRouterNode {
+    receiveMessageType {
+        name
+    }
+    sendMessageType {
+        name
+    }
+}
+
+fragment auditEmitterNodeFields on AuditEmitterNode {
+    sendMessageType {
+        name
+    }
+}
+
+fragment changeEmitterNodeFields on ChangeEmitterNode {
+    sendMessageType {
+        name
+    }
+}
+
 query ReadNode($name: String!, $tenant: String!) {
     GetNode(name: $name, tenant: $tenant) {
-        description
-        name
+        ...nodeFields
         ... on AlertEmitterNode {
-            sendMessageType {
-                name
-            }
+            ...alertEmitterNodeFields
         }
         ... on AppChangeRouterNode {
-            receiveMessageType {
-                name
-            }
-            sendMessageType {
-                name
-            }
+            ...appChangeRouterNodeFields
         }
         ... on AuditEmitterNode {
-            sendMessageType {
-                name
-            }
+            ...auditEmitterNodeFields
         }
         ... on ChangeEmitterNode {
-            sendMessageType {
-                name
-            }
+            ...changeEmitterNodeFields
         }
     }
 }

@@ -1,0 +1,14 @@
+#fragment awsCredentialsFields on AwsCredentials {
+#    accessKeyId
+#    expiration
+#   secretAccessKey
+#    sessionToken
+#}
+
+
+fragment cognitoCredentialsFields on CognitoCredentials {
+    clientId
+    password
+    userPoolId
+    username
+}

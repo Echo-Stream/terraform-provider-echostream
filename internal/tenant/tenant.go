@@ -6,18 +6,21 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"golang.org/x/exp/maps"
 )
 
 type tenantModel struct {
-	Active      types.Bool         `tfsdk:"active"`
-	Config      common.ConfigValue `tfsdk:"config"`
-	Description types.String       `tfsdk:"description"`
-	Name        types.String       `tfsdk:"name"`
-	Region      types.String       `tfsdk:"region"`
-	Table       types.String       `tfsdk:"table"`
+	Active                 types.Bool         `tfsdk:"active"`
+	AwsCredentials         types.Object       `tfsdk:"aws_credentials"`
+	AwsCredentialsDuration types.Int64        `tfsdk:"aws_credentials_duration"`
+	Config                 common.ConfigValue `tfsdk:"config"`
+	Description            types.String       `tfsdk:"description"`
+	Name                   types.String       `tfsdk:"name"`
+	Region                 types.String       `tfsdk:"region"`
+	Table                  types.String       `tfsdk:"table"`
 }
 
 func tenantDataSchema() map[string]tfsdk.Attribute {
@@ -27,6 +30,16 @@ func tenantDataSchema() map[string]tfsdk.Attribute {
 			Description:         "The current Tenant's active state",
 			MarkdownDescription: "The current Tenant's active state",
 			Type:                types.BoolType,
+		},
+		"aws_credentials": {
+			Attributes:          tfsdk.SingleNestedAttributes(common.AwsCredentialsSchema()),
+			Computed:            true,
+			Description:         "",
+			MarkdownDescription: "",
+		},
+		"aws_credentials_duration": {
+			Optional: true,
+			Type:     types.Int64Type,
 		},
 		"config": {
 			Computed:            true,
@@ -85,28 +98,65 @@ func tenantResourceSchema() map[string]tfsdk.Attribute {
 	return schema
 }
 
-func readTenantData(ctx context.Context, client graphql.Client, tenant string, data *tenantModel) error {
+func readTenantData(ctx context.Context, client graphql.Client, tenant string, data *tenantModel) diag.Diagnostics {
 	var (
+		diags    diag.Diagnostics
 		echoResp *api.ReadTenantResponse
 		err      error
 	)
 
 	if echoResp, err = api.ReadTenant(ctx, client, tenant); err == nil {
 		data.Active = types.Bool{Value: echoResp.GetTenant.Active}
-		if echoResp.GetTenant.Description != nil {
-			data.Description = types.String{Value: *echoResp.GetTenant.Description}
-		} else {
-			data.Description = types.String{Null: true}
-		}
 		if echoResp.GetTenant.Config != nil {
 			data.Config = common.ConfigValue{Value: *echoResp.GetTenant.Config}
 		} else {
 			data.Config = common.ConfigValue{Null: true}
 		}
+		if echoResp.GetTenant.Description != nil {
+			data.Description = types.String{Value: *echoResp.GetTenant.Description}
+		} else {
+			data.Description = types.String{Null: true}
+		}
 		data.Name = types.String{Value: echoResp.GetTenant.Name}
 		data.Region = types.String{Value: echoResp.GetTenant.Region}
 		data.Table = types.String{Value: echoResp.GetTenant.Table}
+		diags.Append(readTenantAwsCredentials(ctx, client, tenant, data)...)
+	} else {
+		diags.AddError("Error reading Tenant data", err.Error())
 	}
 
-	return err
+	return diags
+}
+
+func readTenantAwsCredentials(ctx context.Context, client graphql.Client, tenant string, data *tenantModel) diag.Diagnostics {
+	var (
+		diags    diag.Diagnostics
+		echoResp *api.ReadTenantAwsCredentialsResponse
+		err      error
+	)
+
+	if !data.AwsCredentialsDuration.IsNull() {
+		duration := int(data.AwsCredentialsDuration.Value)
+		if echoResp, err = api.ReadTenantAwsCredentials(ctx, client, tenant, &duration); err == nil {
+			data.AwsCredentials = types.Object{
+				AttrTypes: common.AwsCredentialsAttrTypes(),
+				Attrs: common.AwsCredentialsAttrValues(
+					echoResp.GetTenant.GetAwsCredentials.AccessKeyId,
+					echoResp.GetTenant.GetAwsCredentials.Expiration,
+					echoResp.GetTenant.GetAwsCredentials.SecretAccessKey,
+					echoResp.GetTenant.GetAwsCredentials.SessionToken,
+				),
+			}
+		}
+	} else {
+		data.AwsCredentials = types.Object{
+			AttrTypes: common.AwsCredentialsAttrTypes(),
+			Null:      true,
+		}
+	}
+
+	if err != nil {
+		diags.AddError("Error reading Tenant AWS Credentials", err.Error())
+	}
+	return diags
 }

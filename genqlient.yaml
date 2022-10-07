@@ -9,4 +9,6 @@ bindings:
     type: string
   AWSJSON:
     type: string
+  AWSURL:
+    type: string
 optional: pointer

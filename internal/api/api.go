@@ -12,48 +12,104 @@ import (
 
 // CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction includes the requested fields of the GraphQL type ApiAuthenticatorFunction.
 type CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction struct {
-	Code         string   `json:"code"`
-	Description  string   `json:"description"`
-	InUse        bool     `json:"inUse"`
-	Name         string   `json:"name"`
-	Readme       *string  `json:"readme"`
-	Requirements []string `json:"requirements"`
-	System       *bool    `json:"system"`
+	functionFieldsApiAuthenticatorFunction `json:"-"`
 }
 
 // GetCode returns CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction.Code, and is useful for accessing the field via an interface.
 func (v *CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction) GetCode() string {
-	return v.Code
+	return v.functionFieldsApiAuthenticatorFunction.Code
 }
 
 // GetDescription returns CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction.Description, and is useful for accessing the field via an interface.
 func (v *CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction) GetDescription() string {
-	return v.Description
+	return v.functionFieldsApiAuthenticatorFunction.Description
 }
 
 // GetInUse returns CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction.InUse, and is useful for accessing the field via an interface.
 func (v *CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction) GetInUse() bool {
-	return v.InUse
+	return v.functionFieldsApiAuthenticatorFunction.InUse
 }
 
 // GetName returns CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction.Name, and is useful for accessing the field via an interface.
 func (v *CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction) GetName() string {
-	return v.Name
+	return v.functionFieldsApiAuthenticatorFunction.Name
 }
 
 // GetReadme returns CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction.Readme, and is useful for accessing the field via an interface.
 func (v *CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction) GetReadme() *string {
-	return v.Readme
+	return v.functionFieldsApiAuthenticatorFunction.Readme
 }
 
 // GetRequirements returns CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction.Requirements, and is useful for accessing the field via an interface.
 func (v *CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction) GetRequirements() []string {
-	return v.Requirements
+	return v.functionFieldsApiAuthenticatorFunction.Requirements
 }
 
 // GetSystem returns CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction.System, and is useful for accessing the field via an interface.
 func (v *CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction) GetSystem() *bool {
-	return v.System
+	return v.functionFieldsApiAuthenticatorFunction.System
+}
+
+func (v *CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.functionFieldsApiAuthenticatorFunction)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction struct {
+	Code string `json:"code"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
+	Name string `json:"name"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	System *bool `json:"system"`
+}
+
+func (v *CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction) __premarshalJSON() (*__premarshalCreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction, error) {
+	var retval __premarshalCreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction
+
+	retval.Code = v.functionFieldsApiAuthenticatorFunction.Code
+	retval.Description = v.functionFieldsApiAuthenticatorFunction.Description
+	retval.InUse = v.functionFieldsApiAuthenticatorFunction.InUse
+	retval.Name = v.functionFieldsApiAuthenticatorFunction.Name
+	retval.Readme = v.functionFieldsApiAuthenticatorFunction.Readme
+	retval.Requirements = v.functionFieldsApiAuthenticatorFunction.Requirements
+	retval.System = v.functionFieldsApiAuthenticatorFunction.System
+	return &retval, nil
 }
 
 // CreateApiAuthenticatorFunctionResponse is returned by CreateApiAuthenticatorFunction on success.
@@ -68,54 +124,118 @@ func (v *CreateApiAuthenticatorFunctionResponse) GetCreateApiAuthenticatorFuncti
 
 // CreateBitmapperFunctionCreateBitmapperFunction includes the requested fields of the GraphQL type BitmapperFunction.
 type CreateBitmapperFunctionCreateBitmapperFunction struct {
-	ArgumentMessageType CreateBitmapperFunctionCreateBitmapperFunctionArgumentMessageType `json:"argumentMessageType"`
-	Code                string                                                            `json:"code"`
-	Description         string                                                            `json:"description"`
-	InUse               bool                                                              `json:"inUse"`
-	Name                string                                                            `json:"name"`
-	Readme              *string                                                           `json:"readme"`
-	Requirements        []string                                                          `json:"requirements"`
-	System              *bool                                                             `json:"system"`
-}
-
-// GetArgumentMessageType returns CreateBitmapperFunctionCreateBitmapperFunction.ArgumentMessageType, and is useful for accessing the field via an interface.
-func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetArgumentMessageType() CreateBitmapperFunctionCreateBitmapperFunctionArgumentMessageType {
-	return v.ArgumentMessageType
+	functionFieldsBitmapperFunction `json:"-"`
+	bitmapperFunctionFields         `json:"-"`
 }
 
 // GetCode returns CreateBitmapperFunctionCreateBitmapperFunction.Code, and is useful for accessing the field via an interface.
-func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetCode() string { return v.Code }
+func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetCode() string {
+	return v.functionFieldsBitmapperFunction.Code
+}
 
 // GetDescription returns CreateBitmapperFunctionCreateBitmapperFunction.Description, and is useful for accessing the field via an interface.
 func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetDescription() string {
-	return v.Description
+	return v.functionFieldsBitmapperFunction.Description
 }
 
 // GetInUse returns CreateBitmapperFunctionCreateBitmapperFunction.InUse, and is useful for accessing the field via an interface.
-func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetInUse() bool { return v.InUse }
+func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetInUse() bool {
+	return v.functionFieldsBitmapperFunction.InUse
+}
 
 // GetName returns CreateBitmapperFunctionCreateBitmapperFunction.Name, and is useful for accessing the field via an interface.
-func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetName() string { return v.Name }
+func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetName() string {
+	return v.functionFieldsBitmapperFunction.Name
+}
 
 // GetReadme returns CreateBitmapperFunctionCreateBitmapperFunction.Readme, and is useful for accessing the field via an interface.
-func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetReadme() *string { return v.Readme }
+func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetReadme() *string {
+	return v.functionFieldsBitmapperFunction.Readme
+}
 
 // GetRequirements returns CreateBitmapperFunctionCreateBitmapperFunction.Requirements, and is useful for accessing the field via an interface.
 func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetRequirements() []string {
-	return v.Requirements
+	return v.functionFieldsBitmapperFunction.Requirements
 }
 
 // GetSystem returns CreateBitmapperFunctionCreateBitmapperFunction.System, and is useful for accessing the field via an interface.
-func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetSystem() *bool { return v.System }
-
-// CreateBitmapperFunctionCreateBitmapperFunctionArgumentMessageType includes the requested fields of the GraphQL type MessageType.
-type CreateBitmapperFunctionCreateBitmapperFunctionArgumentMessageType struct {
-	Name string `json:"name"`
+func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetSystem() *bool {
+	return v.functionFieldsBitmapperFunction.System
 }
 
-// GetName returns CreateBitmapperFunctionCreateBitmapperFunctionArgumentMessageType.Name, and is useful for accessing the field via an interface.
-func (v *CreateBitmapperFunctionCreateBitmapperFunctionArgumentMessageType) GetName() string {
-	return v.Name
+// GetArgumentMessageType returns CreateBitmapperFunctionCreateBitmapperFunction.ArgumentMessageType, and is useful for accessing the field via an interface.
+func (v *CreateBitmapperFunctionCreateBitmapperFunction) GetArgumentMessageType() bitmapperFunctionFieldsArgumentMessageType {
+	return v.bitmapperFunctionFields.ArgumentMessageType
+}
+
+func (v *CreateBitmapperFunctionCreateBitmapperFunction) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateBitmapperFunctionCreateBitmapperFunction
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateBitmapperFunctionCreateBitmapperFunction = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.functionFieldsBitmapperFunction)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.bitmapperFunctionFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateBitmapperFunctionCreateBitmapperFunction struct {
+	Code string `json:"code"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
+	Name string `json:"name"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	System *bool `json:"system"`
+
+	ArgumentMessageType bitmapperFunctionFieldsArgumentMessageType `json:"argumentMessageType"`
+}
+
+func (v *CreateBitmapperFunctionCreateBitmapperFunction) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateBitmapperFunctionCreateBitmapperFunction) __premarshalJSON() (*__premarshalCreateBitmapperFunctionCreateBitmapperFunction, error) {
+	var retval __premarshalCreateBitmapperFunctionCreateBitmapperFunction
+
+	retval.Code = v.functionFieldsBitmapperFunction.Code
+	retval.Description = v.functionFieldsBitmapperFunction.Description
+	retval.InUse = v.functionFieldsBitmapperFunction.InUse
+	retval.Name = v.functionFieldsBitmapperFunction.Name
+	retval.Readme = v.functionFieldsBitmapperFunction.Readme
+	retval.Requirements = v.functionFieldsBitmapperFunction.Requirements
+	retval.System = v.functionFieldsBitmapperFunction.System
+	retval.ArgumentMessageType = v.bitmapperFunctionFields.ArgumentMessageType
+	return &retval, nil
 }
 
 // CreateBitmapperFunctionResponse is returned by CreateBitmapperFunction on success.
@@ -128,25 +248,511 @@ func (v *CreateBitmapperFunctionResponse) GetCreateBitmapperFunction() CreateBit
 	return v.CreateBitmapperFunction
 }
 
+// CreateCrossAccountAppCreateCrossAccountApp includes the requested fields of the GraphQL type CrossAccountApp.
+type CreateCrossAccountAppCreateCrossAccountApp struct {
+	appFieldsCrossAccountApp `json:"-"`
+	crossAccountAppFields    `json:"-"`
+}
+
+// GetDescription returns CreateCrossAccountAppCreateCrossAccountApp.Description, and is useful for accessing the field via an interface.
+func (v *CreateCrossAccountAppCreateCrossAccountApp) GetDescription() *string {
+	return v.appFieldsCrossAccountApp.Description
+}
+
+// GetName returns CreateCrossAccountAppCreateCrossAccountApp.Name, and is useful for accessing the field via an interface.
+func (v *CreateCrossAccountAppCreateCrossAccountApp) GetName() string {
+	return v.appFieldsCrossAccountApp.Name
+}
+
+// GetAccount returns CreateCrossAccountAppCreateCrossAccountApp.Account, and is useful for accessing the field via an interface.
+func (v *CreateCrossAccountAppCreateCrossAccountApp) GetAccount() string {
+	return v.crossAccountAppFields.Account
+}
+
+// GetAppsyncEndpoint returns CreateCrossAccountAppCreateCrossAccountApp.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *CreateCrossAccountAppCreateCrossAccountApp) GetAppsyncEndpoint() string {
+	return v.crossAccountAppFields.AppsyncEndpoint
+}
+
+// GetAuditRecordsEndpoint returns CreateCrossAccountAppCreateCrossAccountApp.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *CreateCrossAccountAppCreateCrossAccountApp) GetAuditRecordsEndpoint() string {
+	return v.crossAccountAppFields.AuditRecordsEndpoint
+}
+
+// GetConfig returns CreateCrossAccountAppCreateCrossAccountApp.Config, and is useful for accessing the field via an interface.
+func (v *CreateCrossAccountAppCreateCrossAccountApp) GetConfig() *string {
+	return v.crossAccountAppFields.Config
+}
+
+// GetCredentials returns CreateCrossAccountAppCreateCrossAccountApp.Credentials, and is useful for accessing the field via an interface.
+func (v *CreateCrossAccountAppCreateCrossAccountApp) GetCredentials() crossAccountAppFieldsCredentialsCognitoCredentials {
+	return v.crossAccountAppFields.Credentials
+}
+
+// GetIamPolicy returns CreateCrossAccountAppCreateCrossAccountApp.IamPolicy, and is useful for accessing the field via an interface.
+func (v *CreateCrossAccountAppCreateCrossAccountApp) GetIamPolicy() string {
+	return v.crossAccountAppFields.IamPolicy
+}
+
+// GetTableAccess returns CreateCrossAccountAppCreateCrossAccountApp.TableAccess, and is useful for accessing the field via an interface.
+func (v *CreateCrossAccountAppCreateCrossAccountApp) GetTableAccess() bool {
+	return v.crossAccountAppFields.TableAccess
+}
+
+func (v *CreateCrossAccountAppCreateCrossAccountApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateCrossAccountAppCreateCrossAccountApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateCrossAccountAppCreateCrossAccountApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsCrossAccountApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.crossAccountAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateCrossAccountAppCreateCrossAccountApp struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	Account string `json:"account"`
+
+	AppsyncEndpoint string `json:"appsyncEndpoint"`
+
+	AuditRecordsEndpoint string `json:"auditRecordsEndpoint"`
+
+	Config *string `json:"config"`
+
+	Credentials crossAccountAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	IamPolicy string `json:"iamPolicy"`
+
+	TableAccess bool `json:"tableAccess"`
+}
+
+func (v *CreateCrossAccountAppCreateCrossAccountApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateCrossAccountAppCreateCrossAccountApp) __premarshalJSON() (*__premarshalCreateCrossAccountAppCreateCrossAccountApp, error) {
+	var retval __premarshalCreateCrossAccountAppCreateCrossAccountApp
+
+	retval.Description = v.appFieldsCrossAccountApp.Description
+	retval.Name = v.appFieldsCrossAccountApp.Name
+	retval.Account = v.crossAccountAppFields.Account
+	retval.AppsyncEndpoint = v.crossAccountAppFields.AppsyncEndpoint
+	retval.AuditRecordsEndpoint = v.crossAccountAppFields.AuditRecordsEndpoint
+	retval.Config = v.crossAccountAppFields.Config
+	retval.Credentials = v.crossAccountAppFields.Credentials
+	retval.IamPolicy = v.crossAccountAppFields.IamPolicy
+	retval.TableAccess = v.crossAccountAppFields.TableAccess
+	return &retval, nil
+}
+
+// CreateCrossAccountAppResponse is returned by CreateCrossAccountApp on success.
+type CreateCrossAccountAppResponse struct {
+	CreateCrossAccountApp CreateCrossAccountAppCreateCrossAccountApp `json:"CreateCrossAccountApp"`
+}
+
+// GetCreateCrossAccountApp returns CreateCrossAccountAppResponse.CreateCrossAccountApp, and is useful for accessing the field via an interface.
+func (v *CreateCrossAccountAppResponse) GetCreateCrossAccountApp() CreateCrossAccountAppCreateCrossAccountApp {
+	return v.CreateCrossAccountApp
+}
+
+// CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp includes the requested fields of the GraphQL type CrossTenantReceivingApp.
+type CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp struct {
+	appFieldsCrossTenantReceivingApp `json:"-"`
+	crossTenantReceivingAppFields    `json:"-"`
+}
+
+// GetDescription returns CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp.Description, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp) GetDescription() *string {
+	return v.appFieldsCrossTenantReceivingApp.Description
+}
+
+// GetName returns CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp.Name, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp) GetName() string {
+	return v.appFieldsCrossTenantReceivingApp.Name
+}
+
+// GetSendingApp returns CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp.SendingApp, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp) GetSendingApp() *string {
+	return v.crossTenantReceivingAppFields.SendingApp
+}
+
+// GetSendingTenant returns CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp.SendingTenant, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp) GetSendingTenant() string {
+	return v.crossTenantReceivingAppFields.SendingTenant
+}
+
+func (v *CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsCrossTenantReceivingApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.crossTenantReceivingAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateCrossTenantReceivingAppCreateCrossTenantReceivingApp struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	SendingApp *string `json:"sendingApp"`
+
+	SendingTenant string `json:"sendingTenant"`
+}
+
+func (v *CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp) __premarshalJSON() (*__premarshalCreateCrossTenantReceivingAppCreateCrossTenantReceivingApp, error) {
+	var retval __premarshalCreateCrossTenantReceivingAppCreateCrossTenantReceivingApp
+
+	retval.Description = v.appFieldsCrossTenantReceivingApp.Description
+	retval.Name = v.appFieldsCrossTenantReceivingApp.Name
+	retval.SendingApp = v.crossTenantReceivingAppFields.SendingApp
+	retval.SendingTenant = v.crossTenantReceivingAppFields.SendingTenant
+	return &retval, nil
+}
+
+// CreateCrossTenantReceivingAppResponse is returned by CreateCrossTenantReceivingApp on success.
+type CreateCrossTenantReceivingAppResponse struct {
+	CreateCrossTenantReceivingApp CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp `json:"CreateCrossTenantReceivingApp"`
+}
+
+// GetCreateCrossTenantReceivingApp returns CreateCrossTenantReceivingAppResponse.CreateCrossTenantReceivingApp, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantReceivingAppResponse) GetCreateCrossTenantReceivingApp() CreateCrossTenantReceivingAppCreateCrossTenantReceivingApp {
+	return v.CreateCrossTenantReceivingApp
+}
+
+// CreateCrossTenantSendingAppCreateCrossTenantSendingApp includes the requested fields of the GraphQL type CrossTenantSendingApp.
+type CreateCrossTenantSendingAppCreateCrossTenantSendingApp struct {
+	appFieldsCrossTenantSendingApp `json:"-"`
+	crossTenantSendingAppFields    `json:"-"`
+}
+
+// GetDescription returns CreateCrossTenantSendingAppCreateCrossTenantSendingApp.Description, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantSendingAppCreateCrossTenantSendingApp) GetDescription() *string {
+	return v.appFieldsCrossTenantSendingApp.Description
+}
+
+// GetName returns CreateCrossTenantSendingAppCreateCrossTenantSendingApp.Name, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantSendingAppCreateCrossTenantSendingApp) GetName() string {
+	return v.appFieldsCrossTenantSendingApp.Name
+}
+
+// GetReceivingApp returns CreateCrossTenantSendingAppCreateCrossTenantSendingApp.ReceivingApp, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantSendingAppCreateCrossTenantSendingApp) GetReceivingApp() string {
+	return v.crossTenantSendingAppFields.ReceivingApp
+}
+
+// GetReceivingTenant returns CreateCrossTenantSendingAppCreateCrossTenantSendingApp.ReceivingTenant, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantSendingAppCreateCrossTenantSendingApp) GetReceivingTenant() string {
+	return v.crossTenantSendingAppFields.ReceivingTenant
+}
+
+func (v *CreateCrossTenantSendingAppCreateCrossTenantSendingApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateCrossTenantSendingAppCreateCrossTenantSendingApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateCrossTenantSendingAppCreateCrossTenantSendingApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsCrossTenantSendingApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.crossTenantSendingAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateCrossTenantSendingAppCreateCrossTenantSendingApp struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	ReceivingApp string `json:"receivingApp"`
+
+	ReceivingTenant string `json:"receivingTenant"`
+}
+
+func (v *CreateCrossTenantSendingAppCreateCrossTenantSendingApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateCrossTenantSendingAppCreateCrossTenantSendingApp) __premarshalJSON() (*__premarshalCreateCrossTenantSendingAppCreateCrossTenantSendingApp, error) {
+	var retval __premarshalCreateCrossTenantSendingAppCreateCrossTenantSendingApp
+
+	retval.Description = v.appFieldsCrossTenantSendingApp.Description
+	retval.Name = v.appFieldsCrossTenantSendingApp.Name
+	retval.ReceivingApp = v.crossTenantSendingAppFields.ReceivingApp
+	retval.ReceivingTenant = v.crossTenantSendingAppFields.ReceivingTenant
+	return &retval, nil
+}
+
+// CreateCrossTenantSendingAppResponse is returned by CreateCrossTenantSendingApp on success.
+type CreateCrossTenantSendingAppResponse struct {
+	CreateCrossTenantSendingApp CreateCrossTenantSendingAppCreateCrossTenantSendingApp `json:"CreateCrossTenantSendingApp"`
+}
+
+// GetCreateCrossTenantSendingApp returns CreateCrossTenantSendingAppResponse.CreateCrossTenantSendingApp, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantSendingAppResponse) GetCreateCrossTenantSendingApp() CreateCrossTenantSendingAppCreateCrossTenantSendingApp {
+	return v.CreateCrossTenantSendingApp
+}
+
+// CreateExternalAppCreateExternalApp includes the requested fields of the GraphQL type ExternalApp.
+type CreateExternalAppCreateExternalApp struct {
+	appFieldsExternalApp `json:"-"`
+	externalAppFields    `json:"-"`
+}
+
+// GetDescription returns CreateExternalAppCreateExternalApp.Description, and is useful for accessing the field via an interface.
+func (v *CreateExternalAppCreateExternalApp) GetDescription() *string {
+	return v.appFieldsExternalApp.Description
+}
+
+// GetName returns CreateExternalAppCreateExternalApp.Name, and is useful for accessing the field via an interface.
+func (v *CreateExternalAppCreateExternalApp) GetName() string { return v.appFieldsExternalApp.Name }
+
+// GetAppsyncEndpoint returns CreateExternalAppCreateExternalApp.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *CreateExternalAppCreateExternalApp) GetAppsyncEndpoint() string {
+	return v.externalAppFields.AppsyncEndpoint
+}
+
+// GetAuditRecordsEndpoint returns CreateExternalAppCreateExternalApp.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *CreateExternalAppCreateExternalApp) GetAuditRecordsEndpoint() string {
+	return v.externalAppFields.AuditRecordsEndpoint
+}
+
+// GetConfig returns CreateExternalAppCreateExternalApp.Config, and is useful for accessing the field via an interface.
+func (v *CreateExternalAppCreateExternalApp) GetConfig() *string { return v.externalAppFields.Config }
+
+// GetCredentials returns CreateExternalAppCreateExternalApp.Credentials, and is useful for accessing the field via an interface.
+func (v *CreateExternalAppCreateExternalApp) GetCredentials() externalAppFieldsCredentialsCognitoCredentials {
+	return v.externalAppFields.Credentials
+}
+
+// GetTableAccess returns CreateExternalAppCreateExternalApp.TableAccess, and is useful for accessing the field via an interface.
+func (v *CreateExternalAppCreateExternalApp) GetTableAccess() bool {
+	return v.externalAppFields.TableAccess
+}
+
+func (v *CreateExternalAppCreateExternalApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateExternalAppCreateExternalApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateExternalAppCreateExternalApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsExternalApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.externalAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateExternalAppCreateExternalApp struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	AppsyncEndpoint string `json:"appsyncEndpoint"`
+
+	AuditRecordsEndpoint string `json:"auditRecordsEndpoint"`
+
+	Config *string `json:"config"`
+
+	Credentials externalAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	TableAccess bool `json:"tableAccess"`
+}
+
+func (v *CreateExternalAppCreateExternalApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateExternalAppCreateExternalApp) __premarshalJSON() (*__premarshalCreateExternalAppCreateExternalApp, error) {
+	var retval __premarshalCreateExternalAppCreateExternalApp
+
+	retval.Description = v.appFieldsExternalApp.Description
+	retval.Name = v.appFieldsExternalApp.Name
+	retval.AppsyncEndpoint = v.externalAppFields.AppsyncEndpoint
+	retval.AuditRecordsEndpoint = v.externalAppFields.AuditRecordsEndpoint
+	retval.Config = v.externalAppFields.Config
+	retval.Credentials = v.externalAppFields.Credentials
+	retval.TableAccess = v.externalAppFields.TableAccess
+	return &retval, nil
+}
+
+// CreateExternalAppResponse is returned by CreateExternalApp on success.
+type CreateExternalAppResponse struct {
+	CreateExternalApp CreateExternalAppCreateExternalApp `json:"CreateExternalApp"`
+}
+
+// GetCreateExternalApp returns CreateExternalAppResponse.CreateExternalApp, and is useful for accessing the field via an interface.
+func (v *CreateExternalAppResponse) GetCreateExternalApp() CreateExternalAppCreateExternalApp {
+	return v.CreateExternalApp
+}
+
 // CreateKmsKeyCreateKmsKey includes the requested fields of the GraphQL type KmsKey.
 type CreateKmsKeyCreateKmsKey struct {
-	Arn         string  `json:"arn"`
-	Description *string `json:"description"`
-	InUse       bool    `json:"inUse"`
-	Name        string  `json:"name"`
+	kmsKeyFields `json:"-"`
 }
 
 // GetArn returns CreateKmsKeyCreateKmsKey.Arn, and is useful for accessing the field via an interface.
-func (v *CreateKmsKeyCreateKmsKey) GetArn() string { return v.Arn }
+func (v *CreateKmsKeyCreateKmsKey) GetArn() string { return v.kmsKeyFields.Arn }
 
 // GetDescription returns CreateKmsKeyCreateKmsKey.Description, and is useful for accessing the field via an interface.
-func (v *CreateKmsKeyCreateKmsKey) GetDescription() *string { return v.Description }
+func (v *CreateKmsKeyCreateKmsKey) GetDescription() *string { return v.kmsKeyFields.Description }
 
 // GetInUse returns CreateKmsKeyCreateKmsKey.InUse, and is useful for accessing the field via an interface.
-func (v *CreateKmsKeyCreateKmsKey) GetInUse() bool { return v.InUse }
+func (v *CreateKmsKeyCreateKmsKey) GetInUse() bool { return v.kmsKeyFields.InUse }
 
 // GetName returns CreateKmsKeyCreateKmsKey.Name, and is useful for accessing the field via an interface.
-func (v *CreateKmsKeyCreateKmsKey) GetName() string { return v.Name }
+func (v *CreateKmsKeyCreateKmsKey) GetName() string { return v.kmsKeyFields.Name }
+
+func (v *CreateKmsKeyCreateKmsKey) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateKmsKeyCreateKmsKey
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateKmsKeyCreateKmsKey = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.kmsKeyFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateKmsKeyCreateKmsKey struct {
+	Arn string `json:"arn"`
+
+	Description *string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
+	Name string `json:"name"`
+}
+
+func (v *CreateKmsKeyCreateKmsKey) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateKmsKeyCreateKmsKey) __premarshalJSON() (*__premarshalCreateKmsKeyCreateKmsKey, error) {
+	var retval __premarshalCreateKmsKeyCreateKmsKey
+
+	retval.Arn = v.kmsKeyFields.Arn
+	retval.Description = v.kmsKeyFields.Description
+	retval.InUse = v.kmsKeyFields.InUse
+	retval.Name = v.kmsKeyFields.Name
+	return &retval, nil
+}
 
 // CreateKmsKeyResponse is returned by CreateKmsKey on success.
 type CreateKmsKeyResponse struct {
@@ -156,53 +762,227 @@ type CreateKmsKeyResponse struct {
 // GetCreateKmsKey returns CreateKmsKeyResponse.CreateKmsKey, and is useful for accessing the field via an interface.
 func (v *CreateKmsKeyResponse) GetCreateKmsKey() CreateKmsKeyCreateKmsKey { return v.CreateKmsKey }
 
+// CreateManagedAppCreateManagedApp includes the requested fields of the GraphQL type ManagedApp.
+type CreateManagedAppCreateManagedApp struct {
+	appFieldsManagedApp `json:"-"`
+	managedAppFields    `json:"-"`
+}
+
+// GetDescription returns CreateManagedAppCreateManagedApp.Description, and is useful for accessing the field via an interface.
+func (v *CreateManagedAppCreateManagedApp) GetDescription() *string {
+	return v.appFieldsManagedApp.Description
+}
+
+// GetName returns CreateManagedAppCreateManagedApp.Name, and is useful for accessing the field via an interface.
+func (v *CreateManagedAppCreateManagedApp) GetName() string { return v.appFieldsManagedApp.Name }
+
+// GetAuditRecordsEndpoint returns CreateManagedAppCreateManagedApp.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *CreateManagedAppCreateManagedApp) GetAuditRecordsEndpoint() string {
+	return v.managedAppFields.AuditRecordsEndpoint
+}
+
+// GetConfig returns CreateManagedAppCreateManagedApp.Config, and is useful for accessing the field via an interface.
+func (v *CreateManagedAppCreateManagedApp) GetConfig() *string { return v.managedAppFields.Config }
+
+// GetCredentials returns CreateManagedAppCreateManagedApp.Credentials, and is useful for accessing the field via an interface.
+func (v *CreateManagedAppCreateManagedApp) GetCredentials() managedAppFieldsCredentialsCognitoCredentials {
+	return v.managedAppFields.Credentials
+}
+
+// GetTableAccess returns CreateManagedAppCreateManagedApp.TableAccess, and is useful for accessing the field via an interface.
+func (v *CreateManagedAppCreateManagedApp) GetTableAccess() bool {
+	return v.managedAppFields.TableAccess
+}
+
+func (v *CreateManagedAppCreateManagedApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateManagedAppCreateManagedApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateManagedAppCreateManagedApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsManagedApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.managedAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateManagedAppCreateManagedApp struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	AuditRecordsEndpoint string `json:"auditRecordsEndpoint"`
+
+	Config *string `json:"config"`
+
+	Credentials managedAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	TableAccess bool `json:"tableAccess"`
+}
+
+func (v *CreateManagedAppCreateManagedApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateManagedAppCreateManagedApp) __premarshalJSON() (*__premarshalCreateManagedAppCreateManagedApp, error) {
+	var retval __premarshalCreateManagedAppCreateManagedApp
+
+	retval.Description = v.appFieldsManagedApp.Description
+	retval.Name = v.appFieldsManagedApp.Name
+	retval.AuditRecordsEndpoint = v.managedAppFields.AuditRecordsEndpoint
+	retval.Config = v.managedAppFields.Config
+	retval.Credentials = v.managedAppFields.Credentials
+	retval.TableAccess = v.managedAppFields.TableAccess
+	return &retval, nil
+}
+
+// CreateManagedAppResponse is returned by CreateManagedApp on success.
+type CreateManagedAppResponse struct {
+	CreateManagedApp CreateManagedAppCreateManagedApp `json:"CreateManagedApp"`
+}
+
+// GetCreateManagedApp returns CreateManagedAppResponse.CreateManagedApp, and is useful for accessing the field via an interface.
+func (v *CreateManagedAppResponse) GetCreateManagedApp() CreateManagedAppCreateManagedApp {
+	return v.CreateManagedApp
+}
+
 // CreateMessageTypeCreateMessageType includes the requested fields of the GraphQL type MessageType.
 type CreateMessageTypeCreateMessageType struct {
-	Auditor           string   `json:"auditor"`
-	BitmapperTemplate string   `json:"bitmapperTemplate"`
-	Description       string   `json:"description"`
-	InUse             bool     `json:"inUse"`
-	Name              string   `json:"name"`
-	ProcessorTemplate string   `json:"processorTemplate"`
-	Readme            *string  `json:"readme"`
-	Requirements      []string `json:"requirements"`
-	SampleMessage     string   `json:"sampleMessage"`
-	System            *bool    `json:"system"`
+	messageTypeFields `json:"-"`
 }
 
 // GetAuditor returns CreateMessageTypeCreateMessageType.Auditor, and is useful for accessing the field via an interface.
-func (v *CreateMessageTypeCreateMessageType) GetAuditor() string { return v.Auditor }
+func (v *CreateMessageTypeCreateMessageType) GetAuditor() string { return v.messageTypeFields.Auditor }
 
 // GetBitmapperTemplate returns CreateMessageTypeCreateMessageType.BitmapperTemplate, and is useful for accessing the field via an interface.
 func (v *CreateMessageTypeCreateMessageType) GetBitmapperTemplate() string {
-	return v.BitmapperTemplate
+	return v.messageTypeFields.BitmapperTemplate
 }
 
 // GetDescription returns CreateMessageTypeCreateMessageType.Description, and is useful for accessing the field via an interface.
-func (v *CreateMessageTypeCreateMessageType) GetDescription() string { return v.Description }
+func (v *CreateMessageTypeCreateMessageType) GetDescription() string {
+	return v.messageTypeFields.Description
+}
 
 // GetInUse returns CreateMessageTypeCreateMessageType.InUse, and is useful for accessing the field via an interface.
-func (v *CreateMessageTypeCreateMessageType) GetInUse() bool { return v.InUse }
+func (v *CreateMessageTypeCreateMessageType) GetInUse() bool { return v.messageTypeFields.InUse }
 
 // GetName returns CreateMessageTypeCreateMessageType.Name, and is useful for accessing the field via an interface.
-func (v *CreateMessageTypeCreateMessageType) GetName() string { return v.Name }
+func (v *CreateMessageTypeCreateMessageType) GetName() string { return v.messageTypeFields.Name }
 
 // GetProcessorTemplate returns CreateMessageTypeCreateMessageType.ProcessorTemplate, and is useful for accessing the field via an interface.
 func (v *CreateMessageTypeCreateMessageType) GetProcessorTemplate() string {
-	return v.ProcessorTemplate
+	return v.messageTypeFields.ProcessorTemplate
 }
 
 // GetReadme returns CreateMessageTypeCreateMessageType.Readme, and is useful for accessing the field via an interface.
-func (v *CreateMessageTypeCreateMessageType) GetReadme() *string { return v.Readme }
+func (v *CreateMessageTypeCreateMessageType) GetReadme() *string { return v.messageTypeFields.Readme }
 
 // GetRequirements returns CreateMessageTypeCreateMessageType.Requirements, and is useful for accessing the field via an interface.
-func (v *CreateMessageTypeCreateMessageType) GetRequirements() []string { return v.Requirements }
+func (v *CreateMessageTypeCreateMessageType) GetRequirements() []string {
+	return v.messageTypeFields.Requirements
+}
 
 // GetSampleMessage returns CreateMessageTypeCreateMessageType.SampleMessage, and is useful for accessing the field via an interface.
-func (v *CreateMessageTypeCreateMessageType) GetSampleMessage() string { return v.SampleMessage }
+func (v *CreateMessageTypeCreateMessageType) GetSampleMessage() string {
+	return v.messageTypeFields.SampleMessage
+}
 
 // GetSystem returns CreateMessageTypeCreateMessageType.System, and is useful for accessing the field via an interface.
-func (v *CreateMessageTypeCreateMessageType) GetSystem() *bool { return v.System }
+func (v *CreateMessageTypeCreateMessageType) GetSystem() *bool { return v.messageTypeFields.System }
+
+func (v *CreateMessageTypeCreateMessageType) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateMessageTypeCreateMessageType
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateMessageTypeCreateMessageType = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.messageTypeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateMessageTypeCreateMessageType struct {
+	Auditor string `json:"auditor"`
+
+	BitmapperTemplate string `json:"bitmapperTemplate"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
+	Name string `json:"name"`
+
+	ProcessorTemplate string `json:"processorTemplate"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	SampleMessage string `json:"sampleMessage"`
+
+	System *bool `json:"system"`
+}
+
+func (v *CreateMessageTypeCreateMessageType) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateMessageTypeCreateMessageType) __premarshalJSON() (*__premarshalCreateMessageTypeCreateMessageType, error) {
+	var retval __premarshalCreateMessageTypeCreateMessageType
+
+	retval.Auditor = v.messageTypeFields.Auditor
+	retval.BitmapperTemplate = v.messageTypeFields.BitmapperTemplate
+	retval.Description = v.messageTypeFields.Description
+	retval.InUse = v.messageTypeFields.InUse
+	retval.Name = v.messageTypeFields.Name
+	retval.ProcessorTemplate = v.messageTypeFields.ProcessorTemplate
+	retval.Readme = v.messageTypeFields.Readme
+	retval.Requirements = v.messageTypeFields.Requirements
+	retval.SampleMessage = v.messageTypeFields.SampleMessage
+	retval.System = v.messageTypeFields.System
+	return &retval, nil
+}
 
 // CreateMessageTypeResponse is returned by CreateMessageType on success.
 type CreateMessageTypeResponse struct {
@@ -216,70 +996,126 @@ func (v *CreateMessageTypeResponse) GetCreateMessageType() CreateMessageTypeCrea
 
 // CreateProcessorFunctionCreateProcessorFunction includes the requested fields of the GraphQL type ProcessorFunction.
 type CreateProcessorFunctionCreateProcessorFunction struct {
-	ArgumentMessageType CreateProcessorFunctionCreateProcessorFunctionArgumentMessageType `json:"argumentMessageType"`
-	Code                string                                                            `json:"code"`
-	Description         string                                                            `json:"description"`
-	InUse               bool                                                              `json:"inUse"`
-	Name                string                                                            `json:"name"`
-	Readme              *string                                                           `json:"readme"`
-	Requirements        []string                                                          `json:"requirements"`
-	ReturnMessageType   *CreateProcessorFunctionCreateProcessorFunctionReturnMessageType  `json:"returnMessageType"`
-	System              *bool                                                             `json:"system"`
-}
-
-// GetArgumentMessageType returns CreateProcessorFunctionCreateProcessorFunction.ArgumentMessageType, and is useful for accessing the field via an interface.
-func (v *CreateProcessorFunctionCreateProcessorFunction) GetArgumentMessageType() CreateProcessorFunctionCreateProcessorFunctionArgumentMessageType {
-	return v.ArgumentMessageType
+	functionFieldsProcessorFunction `json:"-"`
+	processorFunctionFields         `json:"-"`
 }
 
 // GetCode returns CreateProcessorFunctionCreateProcessorFunction.Code, and is useful for accessing the field via an interface.
-func (v *CreateProcessorFunctionCreateProcessorFunction) GetCode() string { return v.Code }
+func (v *CreateProcessorFunctionCreateProcessorFunction) GetCode() string {
+	return v.functionFieldsProcessorFunction.Code
+}
 
 // GetDescription returns CreateProcessorFunctionCreateProcessorFunction.Description, and is useful for accessing the field via an interface.
 func (v *CreateProcessorFunctionCreateProcessorFunction) GetDescription() string {
-	return v.Description
+	return v.functionFieldsProcessorFunction.Description
 }
 
 // GetInUse returns CreateProcessorFunctionCreateProcessorFunction.InUse, and is useful for accessing the field via an interface.
-func (v *CreateProcessorFunctionCreateProcessorFunction) GetInUse() bool { return v.InUse }
+func (v *CreateProcessorFunctionCreateProcessorFunction) GetInUse() bool {
+	return v.functionFieldsProcessorFunction.InUse
+}
 
 // GetName returns CreateProcessorFunctionCreateProcessorFunction.Name, and is useful for accessing the field via an interface.
-func (v *CreateProcessorFunctionCreateProcessorFunction) GetName() string { return v.Name }
+func (v *CreateProcessorFunctionCreateProcessorFunction) GetName() string {
+	return v.functionFieldsProcessorFunction.Name
+}
 
 // GetReadme returns CreateProcessorFunctionCreateProcessorFunction.Readme, and is useful for accessing the field via an interface.
-func (v *CreateProcessorFunctionCreateProcessorFunction) GetReadme() *string { return v.Readme }
+func (v *CreateProcessorFunctionCreateProcessorFunction) GetReadme() *string {
+	return v.functionFieldsProcessorFunction.Readme
+}
 
 // GetRequirements returns CreateProcessorFunctionCreateProcessorFunction.Requirements, and is useful for accessing the field via an interface.
 func (v *CreateProcessorFunctionCreateProcessorFunction) GetRequirements() []string {
-	return v.Requirements
-}
-
-// GetReturnMessageType returns CreateProcessorFunctionCreateProcessorFunction.ReturnMessageType, and is useful for accessing the field via an interface.
-func (v *CreateProcessorFunctionCreateProcessorFunction) GetReturnMessageType() *CreateProcessorFunctionCreateProcessorFunctionReturnMessageType {
-	return v.ReturnMessageType
+	return v.functionFieldsProcessorFunction.Requirements
 }
 
 // GetSystem returns CreateProcessorFunctionCreateProcessorFunction.System, and is useful for accessing the field via an interface.
-func (v *CreateProcessorFunctionCreateProcessorFunction) GetSystem() *bool { return v.System }
+func (v *CreateProcessorFunctionCreateProcessorFunction) GetSystem() *bool {
+	return v.functionFieldsProcessorFunction.System
+}
 
-// CreateProcessorFunctionCreateProcessorFunctionArgumentMessageType includes the requested fields of the GraphQL type MessageType.
-type CreateProcessorFunctionCreateProcessorFunctionArgumentMessageType struct {
+// GetArgumentMessageType returns CreateProcessorFunctionCreateProcessorFunction.ArgumentMessageType, and is useful for accessing the field via an interface.
+func (v *CreateProcessorFunctionCreateProcessorFunction) GetArgumentMessageType() processorFunctionFieldsArgumentMessageType {
+	return v.processorFunctionFields.ArgumentMessageType
+}
+
+// GetReturnMessageType returns CreateProcessorFunctionCreateProcessorFunction.ReturnMessageType, and is useful for accessing the field via an interface.
+func (v *CreateProcessorFunctionCreateProcessorFunction) GetReturnMessageType() *processorFunctionFieldsReturnMessageType {
+	return v.processorFunctionFields.ReturnMessageType
+}
+
+func (v *CreateProcessorFunctionCreateProcessorFunction) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateProcessorFunctionCreateProcessorFunction
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateProcessorFunctionCreateProcessorFunction = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.functionFieldsProcessorFunction)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.processorFunctionFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateProcessorFunctionCreateProcessorFunction struct {
+	Code string `json:"code"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
 	Name string `json:"name"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	System *bool `json:"system"`
+
+	ArgumentMessageType processorFunctionFieldsArgumentMessageType `json:"argumentMessageType"`
+
+	ReturnMessageType *processorFunctionFieldsReturnMessageType `json:"returnMessageType"`
 }
 
-// GetName returns CreateProcessorFunctionCreateProcessorFunctionArgumentMessageType.Name, and is useful for accessing the field via an interface.
-func (v *CreateProcessorFunctionCreateProcessorFunctionArgumentMessageType) GetName() string {
-	return v.Name
+func (v *CreateProcessorFunctionCreateProcessorFunction) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
 }
 
-// CreateProcessorFunctionCreateProcessorFunctionReturnMessageType includes the requested fields of the GraphQL type MessageType.
-type CreateProcessorFunctionCreateProcessorFunctionReturnMessageType struct {
-	Name string `json:"name"`
-}
+func (v *CreateProcessorFunctionCreateProcessorFunction) __premarshalJSON() (*__premarshalCreateProcessorFunctionCreateProcessorFunction, error) {
+	var retval __premarshalCreateProcessorFunctionCreateProcessorFunction
 
-// GetName returns CreateProcessorFunctionCreateProcessorFunctionReturnMessageType.Name, and is useful for accessing the field via an interface.
-func (v *CreateProcessorFunctionCreateProcessorFunctionReturnMessageType) GetName() string {
-	return v.Name
+	retval.Code = v.functionFieldsProcessorFunction.Code
+	retval.Description = v.functionFieldsProcessorFunction.Description
+	retval.InUse = v.functionFieldsProcessorFunction.InUse
+	retval.Name = v.functionFieldsProcessorFunction.Name
+	retval.Readme = v.functionFieldsProcessorFunction.Readme
+	retval.Requirements = v.functionFieldsProcessorFunction.Requirements
+	retval.System = v.functionFieldsProcessorFunction.System
+	retval.ArgumentMessageType = v.processorFunctionFields.ArgumentMessageType
+	retval.ReturnMessageType = v.processorFunctionFields.ReturnMessageType
+	return &retval, nil
 }
 
 // CreateProcessorFunctionResponse is returned by CreateProcessorFunction on success.
@@ -290,6 +1126,252 @@ type CreateProcessorFunctionResponse struct {
 // GetCreateProcessorFunction returns CreateProcessorFunctionResponse.CreateProcessorFunction, and is useful for accessing the field via an interface.
 func (v *CreateProcessorFunctionResponse) GetCreateProcessorFunction() CreateProcessorFunctionCreateProcessorFunction {
 	return v.CreateProcessorFunction
+}
+
+// DeleteAppGetApp includes the requested fields of the GraphQL interface App.
+//
+// DeleteAppGetApp is implemented by the following types:
+// DeleteAppGetAppCrossAccountApp
+// DeleteAppGetAppCrossTenantReceivingApp
+// DeleteAppGetAppCrossTenantSendingApp
+// DeleteAppGetAppExternalApp
+// DeleteAppGetAppManagedApp
+type DeleteAppGetApp interface {
+	implementsGraphQLInterfaceDeleteAppGetApp()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+	// GetDelete returns the interface-field "Delete" from its implementation.
+	GetDelete() bool
+}
+
+func (v *DeleteAppGetAppCrossAccountApp) implementsGraphQLInterfaceDeleteAppGetApp()         {}
+func (v *DeleteAppGetAppCrossTenantReceivingApp) implementsGraphQLInterfaceDeleteAppGetApp() {}
+func (v *DeleteAppGetAppCrossTenantSendingApp) implementsGraphQLInterfaceDeleteAppGetApp()   {}
+func (v *DeleteAppGetAppExternalApp) implementsGraphQLInterfaceDeleteAppGetApp()             {}
+func (v *DeleteAppGetAppManagedApp) implementsGraphQLInterfaceDeleteAppGetApp()              {}
+
+func __unmarshalDeleteAppGetApp(b []byte, v *DeleteAppGetApp) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "CrossAccountApp":
+		*v = new(DeleteAppGetAppCrossAccountApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingApp":
+		*v = new(DeleteAppGetAppCrossTenantReceivingApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingApp":
+		*v = new(DeleteAppGetAppCrossTenantSendingApp)
+		return json.Unmarshal(b, *v)
+	case "ExternalApp":
+		*v = new(DeleteAppGetAppExternalApp)
+		return json.Unmarshal(b, *v)
+	case "ManagedApp":
+		*v = new(DeleteAppGetAppManagedApp)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing App.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for DeleteAppGetApp: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalDeleteAppGetApp(v *DeleteAppGetApp) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *DeleteAppGetAppCrossAccountApp:
+		typename = "CrossAccountApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*DeleteAppGetAppCrossAccountApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *DeleteAppGetAppCrossTenantReceivingApp:
+		typename = "CrossTenantReceivingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*DeleteAppGetAppCrossTenantReceivingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *DeleteAppGetAppCrossTenantSendingApp:
+		typename = "CrossTenantSendingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*DeleteAppGetAppCrossTenantSendingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *DeleteAppGetAppExternalApp:
+		typename = "ExternalApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*DeleteAppGetAppExternalApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *DeleteAppGetAppManagedApp:
+		typename = "ManagedApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*DeleteAppGetAppManagedApp
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for DeleteAppGetApp: "%T"`, v)
+	}
+}
+
+// DeleteAppGetAppCrossAccountApp includes the requested fields of the GraphQL type CrossAccountApp.
+type DeleteAppGetAppCrossAccountApp struct {
+	Typename *string `json:"__typename"`
+	Delete   bool    `json:"Delete"`
+}
+
+// GetTypename returns DeleteAppGetAppCrossAccountApp.Typename, and is useful for accessing the field via an interface.
+func (v *DeleteAppGetAppCrossAccountApp) GetTypename() *string { return v.Typename }
+
+// GetDelete returns DeleteAppGetAppCrossAccountApp.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteAppGetAppCrossAccountApp) GetDelete() bool { return v.Delete }
+
+// DeleteAppGetAppCrossTenantReceivingApp includes the requested fields of the GraphQL type CrossTenantReceivingApp.
+type DeleteAppGetAppCrossTenantReceivingApp struct {
+	Typename *string `json:"__typename"`
+	Delete   bool    `json:"Delete"`
+}
+
+// GetTypename returns DeleteAppGetAppCrossTenantReceivingApp.Typename, and is useful for accessing the field via an interface.
+func (v *DeleteAppGetAppCrossTenantReceivingApp) GetTypename() *string { return v.Typename }
+
+// GetDelete returns DeleteAppGetAppCrossTenantReceivingApp.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteAppGetAppCrossTenantReceivingApp) GetDelete() bool { return v.Delete }
+
+// DeleteAppGetAppCrossTenantSendingApp includes the requested fields of the GraphQL type CrossTenantSendingApp.
+type DeleteAppGetAppCrossTenantSendingApp struct {
+	Typename *string `json:"__typename"`
+	Delete   bool    `json:"Delete"`
+}
+
+// GetTypename returns DeleteAppGetAppCrossTenantSendingApp.Typename, and is useful for accessing the field via an interface.
+func (v *DeleteAppGetAppCrossTenantSendingApp) GetTypename() *string { return v.Typename }
+
+// GetDelete returns DeleteAppGetAppCrossTenantSendingApp.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteAppGetAppCrossTenantSendingApp) GetDelete() bool { return v.Delete }
+
+// DeleteAppGetAppExternalApp includes the requested fields of the GraphQL type ExternalApp.
+type DeleteAppGetAppExternalApp struct {
+	Typename *string `json:"__typename"`
+	Delete   bool    `json:"Delete"`
+}
+
+// GetTypename returns DeleteAppGetAppExternalApp.Typename, and is useful for accessing the field via an interface.
+func (v *DeleteAppGetAppExternalApp) GetTypename() *string { return v.Typename }
+
+// GetDelete returns DeleteAppGetAppExternalApp.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteAppGetAppExternalApp) GetDelete() bool { return v.Delete }
+
+// DeleteAppGetAppManagedApp includes the requested fields of the GraphQL type ManagedApp.
+type DeleteAppGetAppManagedApp struct {
+	Typename *string `json:"__typename"`
+	Delete   bool    `json:"Delete"`
+}
+
+// GetTypename returns DeleteAppGetAppManagedApp.Typename, and is useful for accessing the field via an interface.
+func (v *DeleteAppGetAppManagedApp) GetTypename() *string { return v.Typename }
+
+// GetDelete returns DeleteAppGetAppManagedApp.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteAppGetAppManagedApp) GetDelete() bool { return v.Delete }
+
+// DeleteAppResponse is returned by DeleteApp on success.
+type DeleteAppResponse struct {
+	GetApp *DeleteAppGetApp `json:"-"`
+}
+
+// GetGetApp returns DeleteAppResponse.GetApp, and is useful for accessing the field via an interface.
+func (v *DeleteAppResponse) GetGetApp() *DeleteAppGetApp { return v.GetApp }
+
+func (v *DeleteAppResponse) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*DeleteAppResponse
+		GetApp json.RawMessage `json:"GetApp"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.DeleteAppResponse = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.GetApp
+		src := firstPass.GetApp
+		if len(src) != 0 && string(src) != "null" {
+			*dst = new(DeleteAppGetApp)
+			err = __unmarshalDeleteAppGetApp(
+				src, *dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal DeleteAppResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalDeleteAppResponse struct {
+	GetApp json.RawMessage `json:"GetApp"`
+}
+
+func (v *DeleteAppResponse) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *DeleteAppResponse) __premarshalJSON() (*__premarshalDeleteAppResponse, error) {
+	var retval __premarshalDeleteAppResponse
+
+	{
+
+		dst := &retval.GetApp
+		src := v.GetApp
+		if src != nil {
+			var err error
+			*dst, err = __marshalDeleteAppGetApp(
+				src)
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Unable to marshal DeleteAppResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return &retval, nil
 }
 
 // DeleteFunctionGetFunction includes the requested fields of the GraphQL interface Function.
@@ -525,6 +1607,726 @@ func (v *DeleteMessageTypeResponse) GetGetMessageType() *DeleteMessageTypeGetMes
 	return v.GetMessageType
 }
 
+// ReadAppGetApp includes the requested fields of the GraphQL interface App.
+//
+// ReadAppGetApp is implemented by the following types:
+// ReadAppGetAppCrossAccountApp
+// ReadAppGetAppCrossTenantReceivingApp
+// ReadAppGetAppCrossTenantSendingApp
+// ReadAppGetAppExternalApp
+// ReadAppGetAppManagedApp
+type ReadAppGetApp interface {
+	implementsGraphQLInterfaceReadAppGetApp()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+	appFields
+}
+
+func (v *ReadAppGetAppCrossAccountApp) implementsGraphQLInterfaceReadAppGetApp()         {}
+func (v *ReadAppGetAppCrossTenantReceivingApp) implementsGraphQLInterfaceReadAppGetApp() {}
+func (v *ReadAppGetAppCrossTenantSendingApp) implementsGraphQLInterfaceReadAppGetApp()   {}
+func (v *ReadAppGetAppExternalApp) implementsGraphQLInterfaceReadAppGetApp()             {}
+func (v *ReadAppGetAppManagedApp) implementsGraphQLInterfaceReadAppGetApp()              {}
+
+func __unmarshalReadAppGetApp(b []byte, v *ReadAppGetApp) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "CrossAccountApp":
+		*v = new(ReadAppGetAppCrossAccountApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingApp":
+		*v = new(ReadAppGetAppCrossTenantReceivingApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingApp":
+		*v = new(ReadAppGetAppCrossTenantSendingApp)
+		return json.Unmarshal(b, *v)
+	case "ExternalApp":
+		*v = new(ReadAppGetAppExternalApp)
+		return json.Unmarshal(b, *v)
+	case "ManagedApp":
+		*v = new(ReadAppGetAppManagedApp)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing App.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for ReadAppGetApp: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalReadAppGetApp(v *ReadAppGetApp) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *ReadAppGetAppCrossAccountApp:
+		typename = "CrossAccountApp"
+
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		result := struct {
+			TypeName string `json:"__typename"`
+			*__premarshalReadAppGetAppCrossAccountApp
+		}{typename, premarshaled}
+		return json.Marshal(result)
+	case *ReadAppGetAppCrossTenantReceivingApp:
+		typename = "CrossTenantReceivingApp"
+
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		result := struct {
+			TypeName string `json:"__typename"`
+			*__premarshalReadAppGetAppCrossTenantReceivingApp
+		}{typename, premarshaled}
+		return json.Marshal(result)
+	case *ReadAppGetAppCrossTenantSendingApp:
+		typename = "CrossTenantSendingApp"
+
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		result := struct {
+			TypeName string `json:"__typename"`
+			*__premarshalReadAppGetAppCrossTenantSendingApp
+		}{typename, premarshaled}
+		return json.Marshal(result)
+	case *ReadAppGetAppExternalApp:
+		typename = "ExternalApp"
+
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		result := struct {
+			TypeName string `json:"__typename"`
+			*__premarshalReadAppGetAppExternalApp
+		}{typename, premarshaled}
+		return json.Marshal(result)
+	case *ReadAppGetAppManagedApp:
+		typename = "ManagedApp"
+
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		result := struct {
+			TypeName string `json:"__typename"`
+			*__premarshalReadAppGetAppManagedApp
+		}{typename, premarshaled}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for ReadAppGetApp: "%T"`, v)
+	}
+}
+
+// ReadAppGetAppCrossAccountApp includes the requested fields of the GraphQL type CrossAccountApp.
+type ReadAppGetAppCrossAccountApp struct {
+	Typename                 *string `json:"__typename"`
+	appFieldsCrossAccountApp `json:"-"`
+	crossAccountAppFields    `json:"-"`
+}
+
+// GetTypename returns ReadAppGetAppCrossAccountApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossAccountApp) GetTypename() *string { return v.Typename }
+
+// GetDescription returns ReadAppGetAppCrossAccountApp.Description, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossAccountApp) GetDescription() *string {
+	return v.appFieldsCrossAccountApp.Description
+}
+
+// GetName returns ReadAppGetAppCrossAccountApp.Name, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossAccountApp) GetName() string { return v.appFieldsCrossAccountApp.Name }
+
+// GetAccount returns ReadAppGetAppCrossAccountApp.Account, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossAccountApp) GetAccount() string { return v.crossAccountAppFields.Account }
+
+// GetAppsyncEndpoint returns ReadAppGetAppCrossAccountApp.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossAccountApp) GetAppsyncEndpoint() string {
+	return v.crossAccountAppFields.AppsyncEndpoint
+}
+
+// GetAuditRecordsEndpoint returns ReadAppGetAppCrossAccountApp.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossAccountApp) GetAuditRecordsEndpoint() string {
+	return v.crossAccountAppFields.AuditRecordsEndpoint
+}
+
+// GetConfig returns ReadAppGetAppCrossAccountApp.Config, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossAccountApp) GetConfig() *string { return v.crossAccountAppFields.Config }
+
+// GetCredentials returns ReadAppGetAppCrossAccountApp.Credentials, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossAccountApp) GetCredentials() crossAccountAppFieldsCredentialsCognitoCredentials {
+	return v.crossAccountAppFields.Credentials
+}
+
+// GetIamPolicy returns ReadAppGetAppCrossAccountApp.IamPolicy, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossAccountApp) GetIamPolicy() string {
+	return v.crossAccountAppFields.IamPolicy
+}
+
+// GetTableAccess returns ReadAppGetAppCrossAccountApp.TableAccess, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossAccountApp) GetTableAccess() bool {
+	return v.crossAccountAppFields.TableAccess
+}
+
+func (v *ReadAppGetAppCrossAccountApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadAppGetAppCrossAccountApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadAppGetAppCrossAccountApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsCrossAccountApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.crossAccountAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadAppGetAppCrossAccountApp struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	Account string `json:"account"`
+
+	AppsyncEndpoint string `json:"appsyncEndpoint"`
+
+	AuditRecordsEndpoint string `json:"auditRecordsEndpoint"`
+
+	Config *string `json:"config"`
+
+	Credentials crossAccountAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	IamPolicy string `json:"iamPolicy"`
+
+	TableAccess bool `json:"tableAccess"`
+}
+
+func (v *ReadAppGetAppCrossAccountApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadAppGetAppCrossAccountApp) __premarshalJSON() (*__premarshalReadAppGetAppCrossAccountApp, error) {
+	var retval __premarshalReadAppGetAppCrossAccountApp
+
+	retval.Typename = v.Typename
+	retval.Description = v.appFieldsCrossAccountApp.Description
+	retval.Name = v.appFieldsCrossAccountApp.Name
+	retval.Account = v.crossAccountAppFields.Account
+	retval.AppsyncEndpoint = v.crossAccountAppFields.AppsyncEndpoint
+	retval.AuditRecordsEndpoint = v.crossAccountAppFields.AuditRecordsEndpoint
+	retval.Config = v.crossAccountAppFields.Config
+	retval.Credentials = v.crossAccountAppFields.Credentials
+	retval.IamPolicy = v.crossAccountAppFields.IamPolicy
+	retval.TableAccess = v.crossAccountAppFields.TableAccess
+	return &retval, nil
+}
+
+// ReadAppGetAppCrossTenantReceivingApp includes the requested fields of the GraphQL type CrossTenantReceivingApp.
+type ReadAppGetAppCrossTenantReceivingApp struct {
+	Typename                         *string `json:"__typename"`
+	appFieldsCrossTenantReceivingApp `json:"-"`
+	crossTenantReceivingAppFields    `json:"-"`
+}
+
+// GetTypename returns ReadAppGetAppCrossTenantReceivingApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossTenantReceivingApp) GetTypename() *string { return v.Typename }
+
+// GetDescription returns ReadAppGetAppCrossTenantReceivingApp.Description, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossTenantReceivingApp) GetDescription() *string {
+	return v.appFieldsCrossTenantReceivingApp.Description
+}
+
+// GetName returns ReadAppGetAppCrossTenantReceivingApp.Name, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossTenantReceivingApp) GetName() string {
+	return v.appFieldsCrossTenantReceivingApp.Name
+}
+
+// GetSendingApp returns ReadAppGetAppCrossTenantReceivingApp.SendingApp, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossTenantReceivingApp) GetSendingApp() *string {
+	return v.crossTenantReceivingAppFields.SendingApp
+}
+
+// GetSendingTenant returns ReadAppGetAppCrossTenantReceivingApp.SendingTenant, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossTenantReceivingApp) GetSendingTenant() string {
+	return v.crossTenantReceivingAppFields.SendingTenant
+}
+
+func (v *ReadAppGetAppCrossTenantReceivingApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadAppGetAppCrossTenantReceivingApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadAppGetAppCrossTenantReceivingApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsCrossTenantReceivingApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.crossTenantReceivingAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadAppGetAppCrossTenantReceivingApp struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	SendingApp *string `json:"sendingApp"`
+
+	SendingTenant string `json:"sendingTenant"`
+}
+
+func (v *ReadAppGetAppCrossTenantReceivingApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadAppGetAppCrossTenantReceivingApp) __premarshalJSON() (*__premarshalReadAppGetAppCrossTenantReceivingApp, error) {
+	var retval __premarshalReadAppGetAppCrossTenantReceivingApp
+
+	retval.Typename = v.Typename
+	retval.Description = v.appFieldsCrossTenantReceivingApp.Description
+	retval.Name = v.appFieldsCrossTenantReceivingApp.Name
+	retval.SendingApp = v.crossTenantReceivingAppFields.SendingApp
+	retval.SendingTenant = v.crossTenantReceivingAppFields.SendingTenant
+	return &retval, nil
+}
+
+// ReadAppGetAppCrossTenantSendingApp includes the requested fields of the GraphQL type CrossTenantSendingApp.
+type ReadAppGetAppCrossTenantSendingApp struct {
+	Typename                       *string `json:"__typename"`
+	appFieldsCrossTenantSendingApp `json:"-"`
+	crossTenantSendingAppFields    `json:"-"`
+}
+
+// GetTypename returns ReadAppGetAppCrossTenantSendingApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossTenantSendingApp) GetTypename() *string { return v.Typename }
+
+// GetDescription returns ReadAppGetAppCrossTenantSendingApp.Description, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossTenantSendingApp) GetDescription() *string {
+	return v.appFieldsCrossTenantSendingApp.Description
+}
+
+// GetName returns ReadAppGetAppCrossTenantSendingApp.Name, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossTenantSendingApp) GetName() string {
+	return v.appFieldsCrossTenantSendingApp.Name
+}
+
+// GetReceivingApp returns ReadAppGetAppCrossTenantSendingApp.ReceivingApp, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossTenantSendingApp) GetReceivingApp() string {
+	return v.crossTenantSendingAppFields.ReceivingApp
+}
+
+// GetReceivingTenant returns ReadAppGetAppCrossTenantSendingApp.ReceivingTenant, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppCrossTenantSendingApp) GetReceivingTenant() string {
+	return v.crossTenantSendingAppFields.ReceivingTenant
+}
+
+func (v *ReadAppGetAppCrossTenantSendingApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadAppGetAppCrossTenantSendingApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadAppGetAppCrossTenantSendingApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsCrossTenantSendingApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.crossTenantSendingAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadAppGetAppCrossTenantSendingApp struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	ReceivingApp string `json:"receivingApp"`
+
+	ReceivingTenant string `json:"receivingTenant"`
+}
+
+func (v *ReadAppGetAppCrossTenantSendingApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadAppGetAppCrossTenantSendingApp) __premarshalJSON() (*__premarshalReadAppGetAppCrossTenantSendingApp, error) {
+	var retval __premarshalReadAppGetAppCrossTenantSendingApp
+
+	retval.Typename = v.Typename
+	retval.Description = v.appFieldsCrossTenantSendingApp.Description
+	retval.Name = v.appFieldsCrossTenantSendingApp.Name
+	retval.ReceivingApp = v.crossTenantSendingAppFields.ReceivingApp
+	retval.ReceivingTenant = v.crossTenantSendingAppFields.ReceivingTenant
+	return &retval, nil
+}
+
+// ReadAppGetAppExternalApp includes the requested fields of the GraphQL type ExternalApp.
+type ReadAppGetAppExternalApp struct {
+	Typename             *string `json:"__typename"`
+	appFieldsExternalApp `json:"-"`
+	externalAppFields    `json:"-"`
+}
+
+// GetTypename returns ReadAppGetAppExternalApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppExternalApp) GetTypename() *string { return v.Typename }
+
+// GetDescription returns ReadAppGetAppExternalApp.Description, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppExternalApp) GetDescription() *string {
+	return v.appFieldsExternalApp.Description
+}
+
+// GetName returns ReadAppGetAppExternalApp.Name, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppExternalApp) GetName() string { return v.appFieldsExternalApp.Name }
+
+// GetAppsyncEndpoint returns ReadAppGetAppExternalApp.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppExternalApp) GetAppsyncEndpoint() string {
+	return v.externalAppFields.AppsyncEndpoint
+}
+
+// GetAuditRecordsEndpoint returns ReadAppGetAppExternalApp.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppExternalApp) GetAuditRecordsEndpoint() string {
+	return v.externalAppFields.AuditRecordsEndpoint
+}
+
+// GetConfig returns ReadAppGetAppExternalApp.Config, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppExternalApp) GetConfig() *string { return v.externalAppFields.Config }
+
+// GetCredentials returns ReadAppGetAppExternalApp.Credentials, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppExternalApp) GetCredentials() externalAppFieldsCredentialsCognitoCredentials {
+	return v.externalAppFields.Credentials
+}
+
+// GetTableAccess returns ReadAppGetAppExternalApp.TableAccess, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppExternalApp) GetTableAccess() bool { return v.externalAppFields.TableAccess }
+
+func (v *ReadAppGetAppExternalApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadAppGetAppExternalApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadAppGetAppExternalApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsExternalApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.externalAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadAppGetAppExternalApp struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	AppsyncEndpoint string `json:"appsyncEndpoint"`
+
+	AuditRecordsEndpoint string `json:"auditRecordsEndpoint"`
+
+	Config *string `json:"config"`
+
+	Credentials externalAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	TableAccess bool `json:"tableAccess"`
+}
+
+func (v *ReadAppGetAppExternalApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadAppGetAppExternalApp) __premarshalJSON() (*__premarshalReadAppGetAppExternalApp, error) {
+	var retval __premarshalReadAppGetAppExternalApp
+
+	retval.Typename = v.Typename
+	retval.Description = v.appFieldsExternalApp.Description
+	retval.Name = v.appFieldsExternalApp.Name
+	retval.AppsyncEndpoint = v.externalAppFields.AppsyncEndpoint
+	retval.AuditRecordsEndpoint = v.externalAppFields.AuditRecordsEndpoint
+	retval.Config = v.externalAppFields.Config
+	retval.Credentials = v.externalAppFields.Credentials
+	retval.TableAccess = v.externalAppFields.TableAccess
+	return &retval, nil
+}
+
+// ReadAppGetAppManagedApp includes the requested fields of the GraphQL type ManagedApp.
+type ReadAppGetAppManagedApp struct {
+	Typename            *string `json:"__typename"`
+	appFieldsManagedApp `json:"-"`
+	managedAppFields    `json:"-"`
+}
+
+// GetTypename returns ReadAppGetAppManagedApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppManagedApp) GetTypename() *string { return v.Typename }
+
+// GetDescription returns ReadAppGetAppManagedApp.Description, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppManagedApp) GetDescription() *string { return v.appFieldsManagedApp.Description }
+
+// GetName returns ReadAppGetAppManagedApp.Name, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppManagedApp) GetName() string { return v.appFieldsManagedApp.Name }
+
+// GetAuditRecordsEndpoint returns ReadAppGetAppManagedApp.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppManagedApp) GetAuditRecordsEndpoint() string {
+	return v.managedAppFields.AuditRecordsEndpoint
+}
+
+// GetConfig returns ReadAppGetAppManagedApp.Config, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppManagedApp) GetConfig() *string { return v.managedAppFields.Config }
+
+// GetCredentials returns ReadAppGetAppManagedApp.Credentials, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppManagedApp) GetCredentials() managedAppFieldsCredentialsCognitoCredentials {
+	return v.managedAppFields.Credentials
+}
+
+// GetTableAccess returns ReadAppGetAppManagedApp.TableAccess, and is useful for accessing the field via an interface.
+func (v *ReadAppGetAppManagedApp) GetTableAccess() bool { return v.managedAppFields.TableAccess }
+
+func (v *ReadAppGetAppManagedApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadAppGetAppManagedApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadAppGetAppManagedApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsManagedApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.managedAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadAppGetAppManagedApp struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	AuditRecordsEndpoint string `json:"auditRecordsEndpoint"`
+
+	Config *string `json:"config"`
+
+	Credentials managedAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	TableAccess bool `json:"tableAccess"`
+}
+
+func (v *ReadAppGetAppManagedApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadAppGetAppManagedApp) __premarshalJSON() (*__premarshalReadAppGetAppManagedApp, error) {
+	var retval __premarshalReadAppGetAppManagedApp
+
+	retval.Typename = v.Typename
+	retval.Description = v.appFieldsManagedApp.Description
+	retval.Name = v.appFieldsManagedApp.Name
+	retval.AuditRecordsEndpoint = v.managedAppFields.AuditRecordsEndpoint
+	retval.Config = v.managedAppFields.Config
+	retval.Credentials = v.managedAppFields.Credentials
+	retval.TableAccess = v.managedAppFields.TableAccess
+	return &retval, nil
+}
+
+// ReadAppResponse is returned by ReadApp on success.
+type ReadAppResponse struct {
+	GetApp *ReadAppGetApp `json:"-"`
+}
+
+// GetGetApp returns ReadAppResponse.GetApp, and is useful for accessing the field via an interface.
+func (v *ReadAppResponse) GetGetApp() *ReadAppGetApp { return v.GetApp }
+
+func (v *ReadAppResponse) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadAppResponse
+		GetApp json.RawMessage `json:"GetApp"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadAppResponse = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.GetApp
+		src := firstPass.GetApp
+		if len(src) != 0 && string(src) != "null" {
+			*dst = new(ReadAppGetApp)
+			err = __unmarshalReadAppGetApp(
+				src, *dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal ReadAppResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalReadAppResponse struct {
+	GetApp json.RawMessage `json:"GetApp"`
+}
+
+func (v *ReadAppResponse) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadAppResponse) __premarshalJSON() (*__premarshalReadAppResponse, error) {
+	var retval __premarshalReadAppResponse
+
+	{
+
+		dst := &retval.GetApp
+		src := v.GetApp
+		if src != nil {
+			var err error
+			*dst, err = __marshalReadAppGetApp(
+				src)
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Unable to marshal ReadAppResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return &retval, nil
+}
+
 // ReadFunctionGetFunction includes the requested fields of the GraphQL interface Function.
 //
 // ReadFunctionGetFunction is implemented by the following types:
@@ -535,20 +2337,7 @@ type ReadFunctionGetFunction interface {
 	implementsGraphQLInterfaceReadFunctionGetFunction()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
 	GetTypename() *string
-	// GetCode returns the interface-field "code" from its implementation.
-	GetCode() string
-	// GetDescription returns the interface-field "description" from its implementation.
-	GetDescription() string
-	// GetInUse returns the interface-field "inUse" from its implementation.
-	GetInUse() bool
-	// GetName returns the interface-field "name" from its implementation.
-	GetName() string
-	// GetReadme returns the interface-field "readme" from its implementation.
-	GetReadme() *string
-	// GetRequirements returns the interface-field "requirements" from its implementation.
-	GetRequirements() []string
-	// GetSystem returns the interface-field "system" from its implementation.
-	GetSystem() *bool
+	functionFields
 }
 
 func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) implementsGraphQLInterfaceReadFunctionGetFunction() {
@@ -597,26 +2386,38 @@ func __marshalReadFunctionGetFunction(v *ReadFunctionGetFunction) ([]byte, error
 	case *ReadFunctionGetFunctionApiAuthenticatorFunction:
 		typename = "ApiAuthenticatorFunction"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadFunctionGetFunctionApiAuthenticatorFunction
-		}{typename, v}
+			*__premarshalReadFunctionGetFunctionApiAuthenticatorFunction
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadFunctionGetFunctionBitmapperFunction:
 		typename = "BitmapperFunction"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadFunctionGetFunctionBitmapperFunction
-		}{typename, v}
+			*__premarshalReadFunctionGetFunctionBitmapperFunction
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadFunctionGetFunctionProcessorFunction:
 		typename = "ProcessorFunction"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadFunctionGetFunctionProcessorFunction
-		}{typename, v}
+			*__premarshalReadFunctionGetFunctionProcessorFunction
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case nil:
 		return []byte("null"), nil
@@ -628,157 +2429,366 @@ func __marshalReadFunctionGetFunction(v *ReadFunctionGetFunction) ([]byte, error
 
 // ReadFunctionGetFunctionApiAuthenticatorFunction includes the requested fields of the GraphQL type ApiAuthenticatorFunction.
 type ReadFunctionGetFunctionApiAuthenticatorFunction struct {
-	Typename     *string  `json:"__typename"`
-	Code         string   `json:"code"`
-	Description  string   `json:"description"`
-	InUse        bool     `json:"inUse"`
-	Name         string   `json:"name"`
-	Readme       *string  `json:"readme"`
-	Requirements []string `json:"requirements"`
-	System       *bool    `json:"system"`
+	Typename                               *string `json:"__typename"`
+	functionFieldsApiAuthenticatorFunction `json:"-"`
 }
 
 // GetTypename returns ReadFunctionGetFunctionApiAuthenticatorFunction.Typename, and is useful for accessing the field via an interface.
 func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetTypename() *string { return v.Typename }
 
 // GetCode returns ReadFunctionGetFunctionApiAuthenticatorFunction.Code, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetCode() string { return v.Code }
+func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetCode() string {
+	return v.functionFieldsApiAuthenticatorFunction.Code
+}
 
 // GetDescription returns ReadFunctionGetFunctionApiAuthenticatorFunction.Description, and is useful for accessing the field via an interface.
 func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetDescription() string {
-	return v.Description
+	return v.functionFieldsApiAuthenticatorFunction.Description
 }
 
 // GetInUse returns ReadFunctionGetFunctionApiAuthenticatorFunction.InUse, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetInUse() bool { return v.InUse }
+func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetInUse() bool {
+	return v.functionFieldsApiAuthenticatorFunction.InUse
+}
 
 // GetName returns ReadFunctionGetFunctionApiAuthenticatorFunction.Name, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetName() string { return v.Name }
+func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetName() string {
+	return v.functionFieldsApiAuthenticatorFunction.Name
+}
 
 // GetReadme returns ReadFunctionGetFunctionApiAuthenticatorFunction.Readme, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetReadme() *string { return v.Readme }
+func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetReadme() *string {
+	return v.functionFieldsApiAuthenticatorFunction.Readme
+}
 
 // GetRequirements returns ReadFunctionGetFunctionApiAuthenticatorFunction.Requirements, and is useful for accessing the field via an interface.
 func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetRequirements() []string {
-	return v.Requirements
+	return v.functionFieldsApiAuthenticatorFunction.Requirements
 }
 
 // GetSystem returns ReadFunctionGetFunctionApiAuthenticatorFunction.System, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetSystem() *bool { return v.System }
+func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) GetSystem() *bool {
+	return v.functionFieldsApiAuthenticatorFunction.System
+}
+
+func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadFunctionGetFunctionApiAuthenticatorFunction
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadFunctionGetFunctionApiAuthenticatorFunction = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.functionFieldsApiAuthenticatorFunction)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadFunctionGetFunctionApiAuthenticatorFunction struct {
+	Typename *string `json:"__typename"`
+
+	Code string `json:"code"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
+	Name string `json:"name"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	System *bool `json:"system"`
+}
+
+func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadFunctionGetFunctionApiAuthenticatorFunction) __premarshalJSON() (*__premarshalReadFunctionGetFunctionApiAuthenticatorFunction, error) {
+	var retval __premarshalReadFunctionGetFunctionApiAuthenticatorFunction
+
+	retval.Typename = v.Typename
+	retval.Code = v.functionFieldsApiAuthenticatorFunction.Code
+	retval.Description = v.functionFieldsApiAuthenticatorFunction.Description
+	retval.InUse = v.functionFieldsApiAuthenticatorFunction.InUse
+	retval.Name = v.functionFieldsApiAuthenticatorFunction.Name
+	retval.Readme = v.functionFieldsApiAuthenticatorFunction.Readme
+	retval.Requirements = v.functionFieldsApiAuthenticatorFunction.Requirements
+	retval.System = v.functionFieldsApiAuthenticatorFunction.System
+	return &retval, nil
+}
 
 // ReadFunctionGetFunctionBitmapperFunction includes the requested fields of the GraphQL type BitmapperFunction.
 type ReadFunctionGetFunctionBitmapperFunction struct {
-	Typename            *string                                                     `json:"__typename"`
-	Code                string                                                      `json:"code"`
-	Description         string                                                      `json:"description"`
-	InUse               bool                                                        `json:"inUse"`
-	Name                string                                                      `json:"name"`
-	Readme              *string                                                     `json:"readme"`
-	Requirements        []string                                                    `json:"requirements"`
-	System              *bool                                                       `json:"system"`
-	ArgumentMessageType ReadFunctionGetFunctionBitmapperFunctionArgumentMessageType `json:"argumentMessageType"`
+	Typename                        *string `json:"__typename"`
+	functionFieldsBitmapperFunction `json:"-"`
+	bitmapperFunctionFields         `json:"-"`
 }
 
 // GetTypename returns ReadFunctionGetFunctionBitmapperFunction.Typename, and is useful for accessing the field via an interface.
 func (v *ReadFunctionGetFunctionBitmapperFunction) GetTypename() *string { return v.Typename }
 
 // GetCode returns ReadFunctionGetFunctionBitmapperFunction.Code, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionBitmapperFunction) GetCode() string { return v.Code }
+func (v *ReadFunctionGetFunctionBitmapperFunction) GetCode() string {
+	return v.functionFieldsBitmapperFunction.Code
+}
 
 // GetDescription returns ReadFunctionGetFunctionBitmapperFunction.Description, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionBitmapperFunction) GetDescription() string { return v.Description }
+func (v *ReadFunctionGetFunctionBitmapperFunction) GetDescription() string {
+	return v.functionFieldsBitmapperFunction.Description
+}
 
 // GetInUse returns ReadFunctionGetFunctionBitmapperFunction.InUse, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionBitmapperFunction) GetInUse() bool { return v.InUse }
+func (v *ReadFunctionGetFunctionBitmapperFunction) GetInUse() bool {
+	return v.functionFieldsBitmapperFunction.InUse
+}
 
 // GetName returns ReadFunctionGetFunctionBitmapperFunction.Name, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionBitmapperFunction) GetName() string { return v.Name }
+func (v *ReadFunctionGetFunctionBitmapperFunction) GetName() string {
+	return v.functionFieldsBitmapperFunction.Name
+}
 
 // GetReadme returns ReadFunctionGetFunctionBitmapperFunction.Readme, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionBitmapperFunction) GetReadme() *string { return v.Readme }
+func (v *ReadFunctionGetFunctionBitmapperFunction) GetReadme() *string {
+	return v.functionFieldsBitmapperFunction.Readme
+}
 
 // GetRequirements returns ReadFunctionGetFunctionBitmapperFunction.Requirements, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionBitmapperFunction) GetRequirements() []string { return v.Requirements }
+func (v *ReadFunctionGetFunctionBitmapperFunction) GetRequirements() []string {
+	return v.functionFieldsBitmapperFunction.Requirements
+}
 
 // GetSystem returns ReadFunctionGetFunctionBitmapperFunction.System, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionBitmapperFunction) GetSystem() *bool { return v.System }
+func (v *ReadFunctionGetFunctionBitmapperFunction) GetSystem() *bool {
+	return v.functionFieldsBitmapperFunction.System
+}
 
 // GetArgumentMessageType returns ReadFunctionGetFunctionBitmapperFunction.ArgumentMessageType, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionBitmapperFunction) GetArgumentMessageType() ReadFunctionGetFunctionBitmapperFunctionArgumentMessageType {
-	return v.ArgumentMessageType
+func (v *ReadFunctionGetFunctionBitmapperFunction) GetArgumentMessageType() bitmapperFunctionFieldsArgumentMessageType {
+	return v.bitmapperFunctionFields.ArgumentMessageType
 }
 
-// ReadFunctionGetFunctionBitmapperFunctionArgumentMessageType includes the requested fields of the GraphQL type MessageType.
-type ReadFunctionGetFunctionBitmapperFunctionArgumentMessageType struct {
+func (v *ReadFunctionGetFunctionBitmapperFunction) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadFunctionGetFunctionBitmapperFunction
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadFunctionGetFunctionBitmapperFunction = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.functionFieldsBitmapperFunction)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.bitmapperFunctionFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadFunctionGetFunctionBitmapperFunction struct {
+	Typename *string `json:"__typename"`
+
+	Code string `json:"code"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
 	Name string `json:"name"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	System *bool `json:"system"`
+
+	ArgumentMessageType bitmapperFunctionFieldsArgumentMessageType `json:"argumentMessageType"`
 }
 
-// GetName returns ReadFunctionGetFunctionBitmapperFunctionArgumentMessageType.Name, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionBitmapperFunctionArgumentMessageType) GetName() string { return v.Name }
+func (v *ReadFunctionGetFunctionBitmapperFunction) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadFunctionGetFunctionBitmapperFunction) __premarshalJSON() (*__premarshalReadFunctionGetFunctionBitmapperFunction, error) {
+	var retval __premarshalReadFunctionGetFunctionBitmapperFunction
+
+	retval.Typename = v.Typename
+	retval.Code = v.functionFieldsBitmapperFunction.Code
+	retval.Description = v.functionFieldsBitmapperFunction.Description
+	retval.InUse = v.functionFieldsBitmapperFunction.InUse
+	retval.Name = v.functionFieldsBitmapperFunction.Name
+	retval.Readme = v.functionFieldsBitmapperFunction.Readme
+	retval.Requirements = v.functionFieldsBitmapperFunction.Requirements
+	retval.System = v.functionFieldsBitmapperFunction.System
+	retval.ArgumentMessageType = v.bitmapperFunctionFields.ArgumentMessageType
+	return &retval, nil
+}
 
 // ReadFunctionGetFunctionProcessorFunction includes the requested fields of the GraphQL type ProcessorFunction.
 type ReadFunctionGetFunctionProcessorFunction struct {
-	Typename            *string                                                     `json:"__typename"`
-	Code                string                                                      `json:"code"`
-	Description         string                                                      `json:"description"`
-	InUse               bool                                                        `json:"inUse"`
-	Name                string                                                      `json:"name"`
-	Readme              *string                                                     `json:"readme"`
-	Requirements        []string                                                    `json:"requirements"`
-	System              *bool                                                       `json:"system"`
-	ArgumentMessageType ReadFunctionGetFunctionProcessorFunctionArgumentMessageType `json:"argumentMessageType"`
-	ReturnMessageType   *ReadFunctionGetFunctionProcessorFunctionReturnMessageType  `json:"returnMessageType"`
+	Typename                        *string `json:"__typename"`
+	functionFieldsProcessorFunction `json:"-"`
+	processorFunctionFields         `json:"-"`
 }
 
 // GetTypename returns ReadFunctionGetFunctionProcessorFunction.Typename, and is useful for accessing the field via an interface.
 func (v *ReadFunctionGetFunctionProcessorFunction) GetTypename() *string { return v.Typename }
 
 // GetCode returns ReadFunctionGetFunctionProcessorFunction.Code, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunction) GetCode() string { return v.Code }
+func (v *ReadFunctionGetFunctionProcessorFunction) GetCode() string {
+	return v.functionFieldsProcessorFunction.Code
+}
 
 // GetDescription returns ReadFunctionGetFunctionProcessorFunction.Description, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunction) GetDescription() string { return v.Description }
+func (v *ReadFunctionGetFunctionProcessorFunction) GetDescription() string {
+	return v.functionFieldsProcessorFunction.Description
+}
 
 // GetInUse returns ReadFunctionGetFunctionProcessorFunction.InUse, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunction) GetInUse() bool { return v.InUse }
+func (v *ReadFunctionGetFunctionProcessorFunction) GetInUse() bool {
+	return v.functionFieldsProcessorFunction.InUse
+}
 
 // GetName returns ReadFunctionGetFunctionProcessorFunction.Name, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunction) GetName() string { return v.Name }
+func (v *ReadFunctionGetFunctionProcessorFunction) GetName() string {
+	return v.functionFieldsProcessorFunction.Name
+}
 
 // GetReadme returns ReadFunctionGetFunctionProcessorFunction.Readme, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunction) GetReadme() *string { return v.Readme }
+func (v *ReadFunctionGetFunctionProcessorFunction) GetReadme() *string {
+	return v.functionFieldsProcessorFunction.Readme
+}
 
 // GetRequirements returns ReadFunctionGetFunctionProcessorFunction.Requirements, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunction) GetRequirements() []string { return v.Requirements }
+func (v *ReadFunctionGetFunctionProcessorFunction) GetRequirements() []string {
+	return v.functionFieldsProcessorFunction.Requirements
+}
 
 // GetSystem returns ReadFunctionGetFunctionProcessorFunction.System, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunction) GetSystem() *bool { return v.System }
+func (v *ReadFunctionGetFunctionProcessorFunction) GetSystem() *bool {
+	return v.functionFieldsProcessorFunction.System
+}
 
 // GetArgumentMessageType returns ReadFunctionGetFunctionProcessorFunction.ArgumentMessageType, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunction) GetArgumentMessageType() ReadFunctionGetFunctionProcessorFunctionArgumentMessageType {
-	return v.ArgumentMessageType
+func (v *ReadFunctionGetFunctionProcessorFunction) GetArgumentMessageType() processorFunctionFieldsArgumentMessageType {
+	return v.processorFunctionFields.ArgumentMessageType
 }
 
 // GetReturnMessageType returns ReadFunctionGetFunctionProcessorFunction.ReturnMessageType, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunction) GetReturnMessageType() *ReadFunctionGetFunctionProcessorFunctionReturnMessageType {
-	return v.ReturnMessageType
+func (v *ReadFunctionGetFunctionProcessorFunction) GetReturnMessageType() *processorFunctionFieldsReturnMessageType {
+	return v.processorFunctionFields.ReturnMessageType
 }
 
-// ReadFunctionGetFunctionProcessorFunctionArgumentMessageType includes the requested fields of the GraphQL type MessageType.
-type ReadFunctionGetFunctionProcessorFunctionArgumentMessageType struct {
+func (v *ReadFunctionGetFunctionProcessorFunction) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadFunctionGetFunctionProcessorFunction
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadFunctionGetFunctionProcessorFunction = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.functionFieldsProcessorFunction)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.processorFunctionFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadFunctionGetFunctionProcessorFunction struct {
+	Typename *string `json:"__typename"`
+
+	Code string `json:"code"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
 	Name string `json:"name"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	System *bool `json:"system"`
+
+	ArgumentMessageType processorFunctionFieldsArgumentMessageType `json:"argumentMessageType"`
+
+	ReturnMessageType *processorFunctionFieldsReturnMessageType `json:"returnMessageType"`
 }
 
-// GetName returns ReadFunctionGetFunctionProcessorFunctionArgumentMessageType.Name, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunctionArgumentMessageType) GetName() string { return v.Name }
-
-// ReadFunctionGetFunctionProcessorFunctionReturnMessageType includes the requested fields of the GraphQL type MessageType.
-type ReadFunctionGetFunctionProcessorFunctionReturnMessageType struct {
-	Name string `json:"name"`
+func (v *ReadFunctionGetFunctionProcessorFunction) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
 }
 
-// GetName returns ReadFunctionGetFunctionProcessorFunctionReturnMessageType.Name, and is useful for accessing the field via an interface.
-func (v *ReadFunctionGetFunctionProcessorFunctionReturnMessageType) GetName() string { return v.Name }
+func (v *ReadFunctionGetFunctionProcessorFunction) __premarshalJSON() (*__premarshalReadFunctionGetFunctionProcessorFunction, error) {
+	var retval __premarshalReadFunctionGetFunctionProcessorFunction
+
+	retval.Typename = v.Typename
+	retval.Code = v.functionFieldsProcessorFunction.Code
+	retval.Description = v.functionFieldsProcessorFunction.Description
+	retval.InUse = v.functionFieldsProcessorFunction.InUse
+	retval.Name = v.functionFieldsProcessorFunction.Name
+	retval.Readme = v.functionFieldsProcessorFunction.Readme
+	retval.Requirements = v.functionFieldsProcessorFunction.Requirements
+	retval.System = v.functionFieldsProcessorFunction.System
+	retval.ArgumentMessageType = v.processorFunctionFields.ArgumentMessageType
+	retval.ReturnMessageType = v.processorFunctionFields.ReturnMessageType
+	return &retval, nil
+}
 
 // ReadFunctionResponse is returned by ReadFunction on success.
 type ReadFunctionResponse struct {
@@ -856,23 +2866,73 @@ func (v *ReadFunctionResponse) __premarshalJSON() (*__premarshalReadFunctionResp
 
 // ReadKmsKeyGetKmsKey includes the requested fields of the GraphQL type KmsKey.
 type ReadKmsKeyGetKmsKey struct {
-	Arn         string  `json:"arn"`
-	Description *string `json:"description"`
-	InUse       bool    `json:"inUse"`
-	Name        string  `json:"name"`
+	kmsKeyFields `json:"-"`
 }
 
 // GetArn returns ReadKmsKeyGetKmsKey.Arn, and is useful for accessing the field via an interface.
-func (v *ReadKmsKeyGetKmsKey) GetArn() string { return v.Arn }
+func (v *ReadKmsKeyGetKmsKey) GetArn() string { return v.kmsKeyFields.Arn }
 
 // GetDescription returns ReadKmsKeyGetKmsKey.Description, and is useful for accessing the field via an interface.
-func (v *ReadKmsKeyGetKmsKey) GetDescription() *string { return v.Description }
+func (v *ReadKmsKeyGetKmsKey) GetDescription() *string { return v.kmsKeyFields.Description }
 
 // GetInUse returns ReadKmsKeyGetKmsKey.InUse, and is useful for accessing the field via an interface.
-func (v *ReadKmsKeyGetKmsKey) GetInUse() bool { return v.InUse }
+func (v *ReadKmsKeyGetKmsKey) GetInUse() bool { return v.kmsKeyFields.InUse }
 
 // GetName returns ReadKmsKeyGetKmsKey.Name, and is useful for accessing the field via an interface.
-func (v *ReadKmsKeyGetKmsKey) GetName() string { return v.Name }
+func (v *ReadKmsKeyGetKmsKey) GetName() string { return v.kmsKeyFields.Name }
+
+func (v *ReadKmsKeyGetKmsKey) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadKmsKeyGetKmsKey
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadKmsKeyGetKmsKey = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.kmsKeyFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadKmsKeyGetKmsKey struct {
+	Arn string `json:"arn"`
+
+	Description *string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadKmsKeyGetKmsKey) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadKmsKeyGetKmsKey) __premarshalJSON() (*__premarshalReadKmsKeyGetKmsKey, error) {
+	var retval __premarshalReadKmsKeyGetKmsKey
+
+	retval.Arn = v.kmsKeyFields.Arn
+	retval.Description = v.kmsKeyFields.Description
+	retval.InUse = v.kmsKeyFields.InUse
+	retval.Name = v.kmsKeyFields.Name
+	return &retval, nil
+}
 
 // ReadKmsKeyResponse is returned by ReadKmsKey on success.
 type ReadKmsKeyResponse struct {
@@ -884,47 +2944,119 @@ func (v *ReadKmsKeyResponse) GetGetKmsKey() *ReadKmsKeyGetKmsKey { return v.GetK
 
 // ReadMessageTypeGetMessageType includes the requested fields of the GraphQL type MessageType.
 type ReadMessageTypeGetMessageType struct {
-	Auditor           string   `json:"auditor"`
-	BitmapperTemplate string   `json:"bitmapperTemplate"`
-	Description       string   `json:"description"`
-	InUse             bool     `json:"inUse"`
-	Name              string   `json:"name"`
-	ProcessorTemplate string   `json:"processorTemplate"`
-	Readme            *string  `json:"readme"`
-	Requirements      []string `json:"requirements"`
-	SampleMessage     string   `json:"sampleMessage"`
-	System            *bool    `json:"system"`
+	messageTypeFields `json:"-"`
 }
 
 // GetAuditor returns ReadMessageTypeGetMessageType.Auditor, and is useful for accessing the field via an interface.
-func (v *ReadMessageTypeGetMessageType) GetAuditor() string { return v.Auditor }
+func (v *ReadMessageTypeGetMessageType) GetAuditor() string { return v.messageTypeFields.Auditor }
 
 // GetBitmapperTemplate returns ReadMessageTypeGetMessageType.BitmapperTemplate, and is useful for accessing the field via an interface.
-func (v *ReadMessageTypeGetMessageType) GetBitmapperTemplate() string { return v.BitmapperTemplate }
+func (v *ReadMessageTypeGetMessageType) GetBitmapperTemplate() string {
+	return v.messageTypeFields.BitmapperTemplate
+}
 
 // GetDescription returns ReadMessageTypeGetMessageType.Description, and is useful for accessing the field via an interface.
-func (v *ReadMessageTypeGetMessageType) GetDescription() string { return v.Description }
+func (v *ReadMessageTypeGetMessageType) GetDescription() string {
+	return v.messageTypeFields.Description
+}
 
 // GetInUse returns ReadMessageTypeGetMessageType.InUse, and is useful for accessing the field via an interface.
-func (v *ReadMessageTypeGetMessageType) GetInUse() bool { return v.InUse }
+func (v *ReadMessageTypeGetMessageType) GetInUse() bool { return v.messageTypeFields.InUse }
 
 // GetName returns ReadMessageTypeGetMessageType.Name, and is useful for accessing the field via an interface.
-func (v *ReadMessageTypeGetMessageType) GetName() string { return v.Name }
+func (v *ReadMessageTypeGetMessageType) GetName() string { return v.messageTypeFields.Name }
 
 // GetProcessorTemplate returns ReadMessageTypeGetMessageType.ProcessorTemplate, and is useful for accessing the field via an interface.
-func (v *ReadMessageTypeGetMessageType) GetProcessorTemplate() string { return v.ProcessorTemplate }
+func (v *ReadMessageTypeGetMessageType) GetProcessorTemplate() string {
+	return v.messageTypeFields.ProcessorTemplate
+}
 
 // GetReadme returns ReadMessageTypeGetMessageType.Readme, and is useful for accessing the field via an interface.
-func (v *ReadMessageTypeGetMessageType) GetReadme() *string { return v.Readme }
+func (v *ReadMessageTypeGetMessageType) GetReadme() *string { return v.messageTypeFields.Readme }
 
 // GetRequirements returns ReadMessageTypeGetMessageType.Requirements, and is useful for accessing the field via an interface.
-func (v *ReadMessageTypeGetMessageType) GetRequirements() []string { return v.Requirements }
+func (v *ReadMessageTypeGetMessageType) GetRequirements() []string {
+	return v.messageTypeFields.Requirements
+}
 
 // GetSampleMessage returns ReadMessageTypeGetMessageType.SampleMessage, and is useful for accessing the field via an interface.
-func (v *ReadMessageTypeGetMessageType) GetSampleMessage() string { return v.SampleMessage }
+func (v *ReadMessageTypeGetMessageType) GetSampleMessage() string {
+	return v.messageTypeFields.SampleMessage
+}
 
 // GetSystem returns ReadMessageTypeGetMessageType.System, and is useful for accessing the field via an interface.
-func (v *ReadMessageTypeGetMessageType) GetSystem() *bool { return v.System }
+func (v *ReadMessageTypeGetMessageType) GetSystem() *bool { return v.messageTypeFields.System }
+
+func (v *ReadMessageTypeGetMessageType) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadMessageTypeGetMessageType
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadMessageTypeGetMessageType = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.messageTypeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadMessageTypeGetMessageType struct {
+	Auditor string `json:"auditor"`
+
+	BitmapperTemplate string `json:"bitmapperTemplate"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
+	Name string `json:"name"`
+
+	ProcessorTemplate string `json:"processorTemplate"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	SampleMessage string `json:"sampleMessage"`
+
+	System *bool `json:"system"`
+}
+
+func (v *ReadMessageTypeGetMessageType) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadMessageTypeGetMessageType) __premarshalJSON() (*__premarshalReadMessageTypeGetMessageType, error) {
+	var retval __premarshalReadMessageTypeGetMessageType
+
+	retval.Auditor = v.messageTypeFields.Auditor
+	retval.BitmapperTemplate = v.messageTypeFields.BitmapperTemplate
+	retval.Description = v.messageTypeFields.Description
+	retval.InUse = v.messageTypeFields.InUse
+	retval.Name = v.messageTypeFields.Name
+	retval.ProcessorTemplate = v.messageTypeFields.ProcessorTemplate
+	retval.Readme = v.messageTypeFields.Readme
+	retval.Requirements = v.messageTypeFields.Requirements
+	retval.SampleMessage = v.messageTypeFields.SampleMessage
+	retval.System = v.messageTypeFields.System
+	return &retval, nil
+}
 
 // ReadMessageTypeResponse is returned by ReadMessageType on success.
 type ReadMessageTypeResponse struct {
@@ -960,10 +3092,7 @@ type ReadNodeGetNode interface {
 	implementsGraphQLInterfaceReadNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
 	GetTypename() *string
-	// GetDescription returns the interface-field "description" from its implementation.
-	GetDescription() *string
-	// GetName returns the interface-field "name" from its implementation.
-	GetName() string
+	nodeFields
 }
 
 func (v *ReadNodeGetNodeAlertEmitterNode) implementsGraphQLInterfaceReadNodeGetNode()         {}
@@ -1065,138 +3194,206 @@ func __marshalReadNodeGetNode(v *ReadNodeGetNode) ([]byte, error) {
 	case *ReadNodeGetNodeAlertEmitterNode:
 		typename = "AlertEmitterNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeAlertEmitterNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeAlertEmitterNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeAppChangeReceiverNode:
 		typename = "AppChangeReceiverNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeAppChangeReceiverNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeAppChangeReceiverNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeAppChangeRouterNode:
 		typename = "AppChangeRouterNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeAppChangeRouterNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeAppChangeRouterNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeAuditEmitterNode:
 		typename = "AuditEmitterNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeAuditEmitterNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeAuditEmitterNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeBitmapRouterNode:
 		typename = "BitmapRouterNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeBitmapRouterNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeBitmapRouterNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeChangeEmitterNode:
 		typename = "ChangeEmitterNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeChangeEmitterNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeChangeEmitterNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeCrossTenantReceivingNode:
 		typename = "CrossTenantReceivingNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeCrossTenantReceivingNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeCrossTenantReceivingNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeCrossTenantSendingNode:
 		typename = "CrossTenantSendingNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeCrossTenantSendingNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeCrossTenantSendingNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeDeadLetterEmitterNode:
 		typename = "DeadLetterEmitterNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeDeadLetterEmitterNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeDeadLetterEmitterNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeExternalNode:
 		typename = "ExternalNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeExternalNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeExternalNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeFilesDotComWebhookNode:
 		typename = "FilesDotComWebhookNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeFilesDotComWebhookNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeFilesDotComWebhookNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeLoadBalancerNode:
 		typename = "LoadBalancerNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeLoadBalancerNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeLoadBalancerNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeLogEmitterNode:
 		typename = "LogEmitterNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeLogEmitterNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeLogEmitterNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeManagedNode:
 		typename = "ManagedNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeManagedNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeManagedNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeProcessorNode:
 		typename = "ProcessorNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeProcessorNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeProcessorNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeTimerNode:
 		typename = "TimerNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeTimerNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeTimerNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case *ReadNodeGetNodeWebhookNode:
 		typename = "WebhookNode"
 
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
 		result := struct {
 			TypeName string `json:"__typename"`
-			*ReadNodeGetNodeWebhookNode
-		}{typename, v}
+			*__premarshalReadNodeGetNodeWebhookNode
+		}{typename, premarshaled}
 		return json.Marshal(result)
 	case nil:
 		return []byte("null"), nil
@@ -1208,345 +3405,1218 @@ func __marshalReadNodeGetNode(v *ReadNodeGetNode) ([]byte, error) {
 
 // ReadNodeGetNodeAlertEmitterNode includes the requested fields of the GraphQL type AlertEmitterNode.
 type ReadNodeGetNodeAlertEmitterNode struct {
-	Typename        *string                                         `json:"__typename"`
-	Description     *string                                         `json:"description"`
-	Name            string                                          `json:"name"`
-	SendMessageType *ReadNodeGetNodeAlertEmitterNodeSendMessageType `json:"sendMessageType"`
+	Typename                   *string `json:"__typename"`
+	nodeFieldsAlertEmitterNode `json:"-"`
+	alertEmitterNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeAlertEmitterNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeAlertEmitterNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeAlertEmitterNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAlertEmitterNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeAlertEmitterNode) GetDescription() *string {
+	return v.nodeFieldsAlertEmitterNode.Description
+}
 
 // GetName returns ReadNodeGetNodeAlertEmitterNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAlertEmitterNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeAlertEmitterNode) GetName() string { return v.nodeFieldsAlertEmitterNode.Name }
 
 // GetSendMessageType returns ReadNodeGetNodeAlertEmitterNode.SendMessageType, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAlertEmitterNode) GetSendMessageType() *ReadNodeGetNodeAlertEmitterNodeSendMessageType {
-	return v.SendMessageType
+func (v *ReadNodeGetNodeAlertEmitterNode) GetSendMessageType() *alertEmitterNodeFieldsSendMessageType {
+	return v.alertEmitterNodeFields.SendMessageType
 }
 
-// ReadNodeGetNodeAlertEmitterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
-type ReadNodeGetNodeAlertEmitterNodeSendMessageType struct {
+func (v *ReadNodeGetNodeAlertEmitterNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeAlertEmitterNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeAlertEmitterNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsAlertEmitterNode)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.alertEmitterNodeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeAlertEmitterNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
 	Name string `json:"name"`
+
+	SendMessageType *alertEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
-// GetName returns ReadNodeGetNodeAlertEmitterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAlertEmitterNodeSendMessageType) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeAlertEmitterNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeAlertEmitterNode) __premarshalJSON() (*__premarshalReadNodeGetNodeAlertEmitterNode, error) {
+	var retval __premarshalReadNodeGetNodeAlertEmitterNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsAlertEmitterNode.Description
+	retval.Name = v.nodeFieldsAlertEmitterNode.Name
+	retval.SendMessageType = v.alertEmitterNodeFields.SendMessageType
+	return &retval, nil
+}
 
 // ReadNodeGetNodeAppChangeReceiverNode includes the requested fields of the GraphQL type AppChangeReceiverNode.
 type ReadNodeGetNodeAppChangeReceiverNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename                        *string `json:"__typename"`
+	nodeFieldsAppChangeReceiverNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeAppChangeReceiverNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeAppChangeReceiverNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeAppChangeReceiverNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAppChangeReceiverNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeAppChangeReceiverNode) GetDescription() *string {
+	return v.nodeFieldsAppChangeReceiverNode.Description
+}
 
 // GetName returns ReadNodeGetNodeAppChangeReceiverNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAppChangeReceiverNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeAppChangeReceiverNode) GetName() string {
+	return v.nodeFieldsAppChangeReceiverNode.Name
+}
+
+func (v *ReadNodeGetNodeAppChangeReceiverNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeAppChangeReceiverNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeAppChangeReceiverNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsAppChangeReceiverNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeAppChangeReceiverNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeAppChangeReceiverNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeAppChangeReceiverNode) __premarshalJSON() (*__premarshalReadNodeGetNodeAppChangeReceiverNode, error) {
+	var retval __premarshalReadNodeGetNodeAppChangeReceiverNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsAppChangeReceiverNode.Description
+	retval.Name = v.nodeFieldsAppChangeReceiverNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeAppChangeRouterNode includes the requested fields of the GraphQL type AppChangeRouterNode.
 type ReadNodeGetNodeAppChangeRouterNode struct {
-	Typename           *string                                               `json:"__typename"`
-	Description        *string                                               `json:"description"`
-	Name               string                                                `json:"name"`
-	ReceiveMessageType *ReadNodeGetNodeAppChangeRouterNodeReceiveMessageType `json:"receiveMessageType"`
-	SendMessageType    *ReadNodeGetNodeAppChangeRouterNodeSendMessageType    `json:"sendMessageType"`
+	Typename                      *string `json:"__typename"`
+	nodeFieldsAppChangeRouterNode `json:"-"`
+	appChangeRouterNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeAppChangeRouterNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeAppChangeRouterNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeAppChangeRouterNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAppChangeRouterNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeAppChangeRouterNode) GetDescription() *string {
+	return v.nodeFieldsAppChangeRouterNode.Description
+}
 
 // GetName returns ReadNodeGetNodeAppChangeRouterNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAppChangeRouterNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeAppChangeRouterNode) GetName() string {
+	return v.nodeFieldsAppChangeRouterNode.Name
+}
 
 // GetReceiveMessageType returns ReadNodeGetNodeAppChangeRouterNode.ReceiveMessageType, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAppChangeRouterNode) GetReceiveMessageType() *ReadNodeGetNodeAppChangeRouterNodeReceiveMessageType {
-	return v.ReceiveMessageType
+func (v *ReadNodeGetNodeAppChangeRouterNode) GetReceiveMessageType() *appChangeRouterNodeFieldsReceiveMessageType {
+	return v.appChangeRouterNodeFields.ReceiveMessageType
 }
 
 // GetSendMessageType returns ReadNodeGetNodeAppChangeRouterNode.SendMessageType, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAppChangeRouterNode) GetSendMessageType() *ReadNodeGetNodeAppChangeRouterNodeSendMessageType {
-	return v.SendMessageType
+func (v *ReadNodeGetNodeAppChangeRouterNode) GetSendMessageType() *appChangeRouterNodeFieldsSendMessageType {
+	return v.appChangeRouterNodeFields.SendMessageType
 }
 
-// ReadNodeGetNodeAppChangeRouterNodeReceiveMessageType includes the requested fields of the GraphQL type MessageType.
-type ReadNodeGetNodeAppChangeRouterNodeReceiveMessageType struct {
+func (v *ReadNodeGetNodeAppChangeRouterNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeAppChangeRouterNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeAppChangeRouterNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsAppChangeRouterNode)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.appChangeRouterNodeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeAppChangeRouterNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
 	Name string `json:"name"`
+
+	ReceiveMessageType *appChangeRouterNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	SendMessageType *appChangeRouterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
-// GetName returns ReadNodeGetNodeAppChangeRouterNodeReceiveMessageType.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAppChangeRouterNodeReceiveMessageType) GetName() string { return v.Name }
-
-// ReadNodeGetNodeAppChangeRouterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
-type ReadNodeGetNodeAppChangeRouterNodeSendMessageType struct {
-	Name string `json:"name"`
+func (v *ReadNodeGetNodeAppChangeRouterNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
 }
 
-// GetName returns ReadNodeGetNodeAppChangeRouterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAppChangeRouterNodeSendMessageType) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeAppChangeRouterNode) __premarshalJSON() (*__premarshalReadNodeGetNodeAppChangeRouterNode, error) {
+	var retval __premarshalReadNodeGetNodeAppChangeRouterNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsAppChangeRouterNode.Description
+	retval.Name = v.nodeFieldsAppChangeRouterNode.Name
+	retval.ReceiveMessageType = v.appChangeRouterNodeFields.ReceiveMessageType
+	retval.SendMessageType = v.appChangeRouterNodeFields.SendMessageType
+	return &retval, nil
+}
 
 // ReadNodeGetNodeAuditEmitterNode includes the requested fields of the GraphQL type AuditEmitterNode.
 type ReadNodeGetNodeAuditEmitterNode struct {
-	Typename        *string                                         `json:"__typename"`
-	Description     *string                                         `json:"description"`
-	Name            string                                          `json:"name"`
-	SendMessageType *ReadNodeGetNodeAuditEmitterNodeSendMessageType `json:"sendMessageType"`
+	Typename                   *string `json:"__typename"`
+	nodeFieldsAuditEmitterNode `json:"-"`
+	auditEmitterNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeAuditEmitterNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeAuditEmitterNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeAuditEmitterNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAuditEmitterNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeAuditEmitterNode) GetDescription() *string {
+	return v.nodeFieldsAuditEmitterNode.Description
+}
 
 // GetName returns ReadNodeGetNodeAuditEmitterNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAuditEmitterNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeAuditEmitterNode) GetName() string { return v.nodeFieldsAuditEmitterNode.Name }
 
 // GetSendMessageType returns ReadNodeGetNodeAuditEmitterNode.SendMessageType, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAuditEmitterNode) GetSendMessageType() *ReadNodeGetNodeAuditEmitterNodeSendMessageType {
-	return v.SendMessageType
+func (v *ReadNodeGetNodeAuditEmitterNode) GetSendMessageType() *auditEmitterNodeFieldsSendMessageType {
+	return v.auditEmitterNodeFields.SendMessageType
 }
 
-// ReadNodeGetNodeAuditEmitterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
-type ReadNodeGetNodeAuditEmitterNodeSendMessageType struct {
+func (v *ReadNodeGetNodeAuditEmitterNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeAuditEmitterNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeAuditEmitterNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsAuditEmitterNode)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.auditEmitterNodeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeAuditEmitterNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
 	Name string `json:"name"`
+
+	SendMessageType *auditEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
-// GetName returns ReadNodeGetNodeAuditEmitterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeAuditEmitterNodeSendMessageType) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeAuditEmitterNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeAuditEmitterNode) __premarshalJSON() (*__premarshalReadNodeGetNodeAuditEmitterNode, error) {
+	var retval __premarshalReadNodeGetNodeAuditEmitterNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsAuditEmitterNode.Description
+	retval.Name = v.nodeFieldsAuditEmitterNode.Name
+	retval.SendMessageType = v.auditEmitterNodeFields.SendMessageType
+	return &retval, nil
+}
 
 // ReadNodeGetNodeBitmapRouterNode includes the requested fields of the GraphQL type BitmapRouterNode.
 type ReadNodeGetNodeBitmapRouterNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename                   *string `json:"__typename"`
+	nodeFieldsBitmapRouterNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeBitmapRouterNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeBitmapRouterNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeBitmapRouterNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeBitmapRouterNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeBitmapRouterNode) GetDescription() *string {
+	return v.nodeFieldsBitmapRouterNode.Description
+}
 
 // GetName returns ReadNodeGetNodeBitmapRouterNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeBitmapRouterNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeBitmapRouterNode) GetName() string { return v.nodeFieldsBitmapRouterNode.Name }
+
+func (v *ReadNodeGetNodeBitmapRouterNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeBitmapRouterNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeBitmapRouterNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsBitmapRouterNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeBitmapRouterNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeBitmapRouterNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeBitmapRouterNode) __premarshalJSON() (*__premarshalReadNodeGetNodeBitmapRouterNode, error) {
+	var retval __premarshalReadNodeGetNodeBitmapRouterNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsBitmapRouterNode.Description
+	retval.Name = v.nodeFieldsBitmapRouterNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeChangeEmitterNode includes the requested fields of the GraphQL type ChangeEmitterNode.
 type ReadNodeGetNodeChangeEmitterNode struct {
-	Typename        *string                                          `json:"__typename"`
-	Description     *string                                          `json:"description"`
-	Name            string                                           `json:"name"`
-	SendMessageType *ReadNodeGetNodeChangeEmitterNodeSendMessageType `json:"sendMessageType"`
+	Typename                    *string `json:"__typename"`
+	nodeFieldsChangeEmitterNode `json:"-"`
+	changeEmitterNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeChangeEmitterNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeChangeEmitterNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeChangeEmitterNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeChangeEmitterNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeChangeEmitterNode) GetDescription() *string {
+	return v.nodeFieldsChangeEmitterNode.Description
+}
 
 // GetName returns ReadNodeGetNodeChangeEmitterNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeChangeEmitterNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeChangeEmitterNode) GetName() string {
+	return v.nodeFieldsChangeEmitterNode.Name
+}
 
 // GetSendMessageType returns ReadNodeGetNodeChangeEmitterNode.SendMessageType, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeChangeEmitterNode) GetSendMessageType() *ReadNodeGetNodeChangeEmitterNodeSendMessageType {
-	return v.SendMessageType
+func (v *ReadNodeGetNodeChangeEmitterNode) GetSendMessageType() *changeEmitterNodeFieldsSendMessageType {
+	return v.changeEmitterNodeFields.SendMessageType
 }
 
-// ReadNodeGetNodeChangeEmitterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
-type ReadNodeGetNodeChangeEmitterNodeSendMessageType struct {
+func (v *ReadNodeGetNodeChangeEmitterNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeChangeEmitterNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeChangeEmitterNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsChangeEmitterNode)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.changeEmitterNodeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeChangeEmitterNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
 	Name string `json:"name"`
+
+	SendMessageType *changeEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
-// GetName returns ReadNodeGetNodeChangeEmitterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeChangeEmitterNodeSendMessageType) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeChangeEmitterNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeChangeEmitterNode) __premarshalJSON() (*__premarshalReadNodeGetNodeChangeEmitterNode, error) {
+	var retval __premarshalReadNodeGetNodeChangeEmitterNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsChangeEmitterNode.Description
+	retval.Name = v.nodeFieldsChangeEmitterNode.Name
+	retval.SendMessageType = v.changeEmitterNodeFields.SendMessageType
+	return &retval, nil
+}
 
 // ReadNodeGetNodeCrossTenantReceivingNode includes the requested fields of the GraphQL type CrossTenantReceivingNode.
 type ReadNodeGetNodeCrossTenantReceivingNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename                           *string `json:"__typename"`
+	nodeFieldsCrossTenantReceivingNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeCrossTenantReceivingNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeCrossTenantReceivingNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeCrossTenantReceivingNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeCrossTenantReceivingNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeCrossTenantReceivingNode) GetDescription() *string {
+	return v.nodeFieldsCrossTenantReceivingNode.Description
+}
 
 // GetName returns ReadNodeGetNodeCrossTenantReceivingNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeCrossTenantReceivingNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeCrossTenantReceivingNode) GetName() string {
+	return v.nodeFieldsCrossTenantReceivingNode.Name
+}
+
+func (v *ReadNodeGetNodeCrossTenantReceivingNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeCrossTenantReceivingNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeCrossTenantReceivingNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsCrossTenantReceivingNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeCrossTenantReceivingNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeCrossTenantReceivingNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeCrossTenantReceivingNode) __premarshalJSON() (*__premarshalReadNodeGetNodeCrossTenantReceivingNode, error) {
+	var retval __premarshalReadNodeGetNodeCrossTenantReceivingNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsCrossTenantReceivingNode.Description
+	retval.Name = v.nodeFieldsCrossTenantReceivingNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeCrossTenantSendingNode includes the requested fields of the GraphQL type CrossTenantSendingNode.
 type ReadNodeGetNodeCrossTenantSendingNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename                         *string `json:"__typename"`
+	nodeFieldsCrossTenantSendingNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeCrossTenantSendingNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeCrossTenantSendingNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeCrossTenantSendingNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeCrossTenantSendingNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetDescription() *string {
+	return v.nodeFieldsCrossTenantSendingNode.Description
+}
 
 // GetName returns ReadNodeGetNodeCrossTenantSendingNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeCrossTenantSendingNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetName() string {
+	return v.nodeFieldsCrossTenantSendingNode.Name
+}
+
+func (v *ReadNodeGetNodeCrossTenantSendingNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeCrossTenantSendingNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeCrossTenantSendingNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsCrossTenantSendingNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeCrossTenantSendingNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeCrossTenantSendingNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeCrossTenantSendingNode) __premarshalJSON() (*__premarshalReadNodeGetNodeCrossTenantSendingNode, error) {
+	var retval __premarshalReadNodeGetNodeCrossTenantSendingNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsCrossTenantSendingNode.Description
+	retval.Name = v.nodeFieldsCrossTenantSendingNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeDeadLetterEmitterNode includes the requested fields of the GraphQL type DeadLetterEmitterNode.
 type ReadNodeGetNodeDeadLetterEmitterNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename                        *string `json:"__typename"`
+	nodeFieldsDeadLetterEmitterNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeDeadLetterEmitterNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeDeadLetterEmitterNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeDeadLetterEmitterNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeDeadLetterEmitterNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeDeadLetterEmitterNode) GetDescription() *string {
+	return v.nodeFieldsDeadLetterEmitterNode.Description
+}
 
 // GetName returns ReadNodeGetNodeDeadLetterEmitterNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeDeadLetterEmitterNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeDeadLetterEmitterNode) GetName() string {
+	return v.nodeFieldsDeadLetterEmitterNode.Name
+}
+
+func (v *ReadNodeGetNodeDeadLetterEmitterNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeDeadLetterEmitterNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeDeadLetterEmitterNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsDeadLetterEmitterNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeDeadLetterEmitterNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeDeadLetterEmitterNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeDeadLetterEmitterNode) __premarshalJSON() (*__premarshalReadNodeGetNodeDeadLetterEmitterNode, error) {
+	var retval __premarshalReadNodeGetNodeDeadLetterEmitterNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsDeadLetterEmitterNode.Description
+	retval.Name = v.nodeFieldsDeadLetterEmitterNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeExternalNode includes the requested fields of the GraphQL type ExternalNode.
 type ReadNodeGetNodeExternalNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename               *string `json:"__typename"`
+	nodeFieldsExternalNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeExternalNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeExternalNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeExternalNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeExternalNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeExternalNode) GetDescription() *string {
+	return v.nodeFieldsExternalNode.Description
+}
 
 // GetName returns ReadNodeGetNodeExternalNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeExternalNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeExternalNode) GetName() string { return v.nodeFieldsExternalNode.Name }
+
+func (v *ReadNodeGetNodeExternalNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeExternalNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeExternalNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsExternalNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeExternalNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeExternalNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeExternalNode) __premarshalJSON() (*__premarshalReadNodeGetNodeExternalNode, error) {
+	var retval __premarshalReadNodeGetNodeExternalNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsExternalNode.Description
+	retval.Name = v.nodeFieldsExternalNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeFilesDotComWebhookNode includes the requested fields of the GraphQL type FilesDotComWebhookNode.
 type ReadNodeGetNodeFilesDotComWebhookNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename                         *string `json:"__typename"`
+	nodeFieldsFilesDotComWebhookNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeFilesDotComWebhookNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeFilesDotComWebhookNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetDescription() *string {
+	return v.nodeFieldsFilesDotComWebhookNode.Description
+}
 
 // GetName returns ReadNodeGetNodeFilesDotComWebhookNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetName() string {
+	return v.nodeFieldsFilesDotComWebhookNode.Name
+}
+
+func (v *ReadNodeGetNodeFilesDotComWebhookNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeFilesDotComWebhookNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeFilesDotComWebhookNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsFilesDotComWebhookNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeFilesDotComWebhookNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeFilesDotComWebhookNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeFilesDotComWebhookNode) __premarshalJSON() (*__premarshalReadNodeGetNodeFilesDotComWebhookNode, error) {
+	var retval __premarshalReadNodeGetNodeFilesDotComWebhookNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsFilesDotComWebhookNode.Description
+	retval.Name = v.nodeFieldsFilesDotComWebhookNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeLoadBalancerNode includes the requested fields of the GraphQL type LoadBalancerNode.
 type ReadNodeGetNodeLoadBalancerNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename                   *string `json:"__typename"`
+	nodeFieldsLoadBalancerNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeLoadBalancerNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeLoadBalancerNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeLoadBalancerNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeLoadBalancerNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeLoadBalancerNode) GetDescription() *string {
+	return v.nodeFieldsLoadBalancerNode.Description
+}
 
 // GetName returns ReadNodeGetNodeLoadBalancerNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeLoadBalancerNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeLoadBalancerNode) GetName() string { return v.nodeFieldsLoadBalancerNode.Name }
+
+func (v *ReadNodeGetNodeLoadBalancerNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeLoadBalancerNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeLoadBalancerNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsLoadBalancerNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeLoadBalancerNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeLoadBalancerNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeLoadBalancerNode) __premarshalJSON() (*__premarshalReadNodeGetNodeLoadBalancerNode, error) {
+	var retval __premarshalReadNodeGetNodeLoadBalancerNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsLoadBalancerNode.Description
+	retval.Name = v.nodeFieldsLoadBalancerNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeLogEmitterNode includes the requested fields of the GraphQL type LogEmitterNode.
 type ReadNodeGetNodeLogEmitterNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename                 *string `json:"__typename"`
+	nodeFieldsLogEmitterNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeLogEmitterNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeLogEmitterNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeLogEmitterNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeLogEmitterNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeLogEmitterNode) GetDescription() *string {
+	return v.nodeFieldsLogEmitterNode.Description
+}
 
 // GetName returns ReadNodeGetNodeLogEmitterNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeLogEmitterNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeLogEmitterNode) GetName() string { return v.nodeFieldsLogEmitterNode.Name }
+
+func (v *ReadNodeGetNodeLogEmitterNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeLogEmitterNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeLogEmitterNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsLogEmitterNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeLogEmitterNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeLogEmitterNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeLogEmitterNode) __premarshalJSON() (*__premarshalReadNodeGetNodeLogEmitterNode, error) {
+	var retval __premarshalReadNodeGetNodeLogEmitterNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsLogEmitterNode.Description
+	retval.Name = v.nodeFieldsLogEmitterNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeManagedNode includes the requested fields of the GraphQL type ManagedNode.
 type ReadNodeGetNodeManagedNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename              *string `json:"__typename"`
+	nodeFieldsManagedNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeManagedNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeManagedNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeManagedNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeManagedNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeManagedNode) GetDescription() *string {
+	return v.nodeFieldsManagedNode.Description
+}
 
 // GetName returns ReadNodeGetNodeManagedNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeManagedNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeManagedNode) GetName() string { return v.nodeFieldsManagedNode.Name }
+
+func (v *ReadNodeGetNodeManagedNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeManagedNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeManagedNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsManagedNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeManagedNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeManagedNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeManagedNode) __premarshalJSON() (*__premarshalReadNodeGetNodeManagedNode, error) {
+	var retval __premarshalReadNodeGetNodeManagedNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsManagedNode.Description
+	retval.Name = v.nodeFieldsManagedNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeProcessorNode includes the requested fields of the GraphQL type ProcessorNode.
 type ReadNodeGetNodeProcessorNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename                *string `json:"__typename"`
+	nodeFieldsProcessorNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeProcessorNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeProcessorNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeProcessorNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeProcessorNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeProcessorNode) GetDescription() *string {
+	return v.nodeFieldsProcessorNode.Description
+}
 
 // GetName returns ReadNodeGetNodeProcessorNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeProcessorNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeProcessorNode) GetName() string { return v.nodeFieldsProcessorNode.Name }
+
+func (v *ReadNodeGetNodeProcessorNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeProcessorNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeProcessorNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsProcessorNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeProcessorNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeProcessorNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeProcessorNode) __premarshalJSON() (*__premarshalReadNodeGetNodeProcessorNode, error) {
+	var retval __premarshalReadNodeGetNodeProcessorNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsProcessorNode.Description
+	retval.Name = v.nodeFieldsProcessorNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeTimerNode includes the requested fields of the GraphQL type TimerNode.
 type ReadNodeGetNodeTimerNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename            *string `json:"__typename"`
+	nodeFieldsTimerNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeTimerNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeTimerNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeTimerNode) GetDescription() *string { return v.nodeFieldsTimerNode.Description }
 
 // GetName returns ReadNodeGetNodeTimerNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeTimerNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeTimerNode) GetName() string { return v.nodeFieldsTimerNode.Name }
+
+func (v *ReadNodeGetNodeTimerNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeTimerNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeTimerNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsTimerNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeTimerNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeTimerNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeTimerNode) __premarshalJSON() (*__premarshalReadNodeGetNodeTimerNode, error) {
+	var retval __premarshalReadNodeGetNodeTimerNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsTimerNode.Description
+	retval.Name = v.nodeFieldsTimerNode.Name
+	return &retval, nil
+}
 
 // ReadNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type ReadNodeGetNodeWebhookNode struct {
-	Typename    *string `json:"__typename"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
+	Typename              *string `json:"__typename"`
+	nodeFieldsWebhookNode `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeWebhookNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeWebhookNode) GetTypename() *string { return v.Typename }
 
 // GetDescription returns ReadNodeGetNodeWebhookNode.Description, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeWebhookNode) GetDescription() *string { return v.Description }
+func (v *ReadNodeGetNodeWebhookNode) GetDescription() *string {
+	return v.nodeFieldsWebhookNode.Description
+}
 
 // GetName returns ReadNodeGetNodeWebhookNode.Name, and is useful for accessing the field via an interface.
-func (v *ReadNodeGetNodeWebhookNode) GetName() string { return v.Name }
+func (v *ReadNodeGetNodeWebhookNode) GetName() string { return v.nodeFieldsWebhookNode.Name }
+
+func (v *ReadNodeGetNodeWebhookNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeWebhookNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeWebhookNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.nodeFieldsWebhookNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeWebhookNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeWebhookNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeWebhookNode) __premarshalJSON() (*__premarshalReadNodeGetNodeWebhookNode, error) {
+	var retval __premarshalReadNodeGetNodeWebhookNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.nodeFieldsWebhookNode.Description
+	retval.Name = v.nodeFieldsWebhookNode.Name
+	return &retval, nil
+}
 
 // ReadNodeResponse is returned by ReadNode on success.
 type ReadNodeResponse struct {
@@ -1622,33 +4692,135 @@ func (v *ReadNodeResponse) __premarshalJSON() (*__premarshalReadNodeResponse, er
 	return &retval, nil
 }
 
+// ReadTenantAwsCredentialsGetTenant includes the requested fields of the GraphQL type Tenant.
+type ReadTenantAwsCredentialsGetTenant struct {
+	GetAwsCredentials ReadTenantAwsCredentialsGetTenantGetAwsCredentials `json:"GetAwsCredentials"`
+}
+
+// GetGetAwsCredentials returns ReadTenantAwsCredentialsGetTenant.GetAwsCredentials, and is useful for accessing the field via an interface.
+func (v *ReadTenantAwsCredentialsGetTenant) GetGetAwsCredentials() ReadTenantAwsCredentialsGetTenantGetAwsCredentials {
+	return v.GetAwsCredentials
+}
+
+// ReadTenantAwsCredentialsGetTenantGetAwsCredentials includes the requested fields of the GraphQL type AwsCredentials.
+type ReadTenantAwsCredentialsGetTenantGetAwsCredentials struct {
+	AccessKeyId     string `json:"accessKeyId"`
+	Expiration      string `json:"expiration"`
+	SecretAccessKey string `json:"secretAccessKey"`
+	SessionToken    string `json:"sessionToken"`
+}
+
+// GetAccessKeyId returns ReadTenantAwsCredentialsGetTenantGetAwsCredentials.AccessKeyId, and is useful for accessing the field via an interface.
+func (v *ReadTenantAwsCredentialsGetTenantGetAwsCredentials) GetAccessKeyId() string {
+	return v.AccessKeyId
+}
+
+// GetExpiration returns ReadTenantAwsCredentialsGetTenantGetAwsCredentials.Expiration, and is useful for accessing the field via an interface.
+func (v *ReadTenantAwsCredentialsGetTenantGetAwsCredentials) GetExpiration() string {
+	return v.Expiration
+}
+
+// GetSecretAccessKey returns ReadTenantAwsCredentialsGetTenantGetAwsCredentials.SecretAccessKey, and is useful for accessing the field via an interface.
+func (v *ReadTenantAwsCredentialsGetTenantGetAwsCredentials) GetSecretAccessKey() string {
+	return v.SecretAccessKey
+}
+
+// GetSessionToken returns ReadTenantAwsCredentialsGetTenantGetAwsCredentials.SessionToken, and is useful for accessing the field via an interface.
+func (v *ReadTenantAwsCredentialsGetTenantGetAwsCredentials) GetSessionToken() string {
+	return v.SessionToken
+}
+
+// ReadTenantAwsCredentialsResponse is returned by ReadTenantAwsCredentials on success.
+type ReadTenantAwsCredentialsResponse struct {
+	GetTenant *ReadTenantAwsCredentialsGetTenant `json:"GetTenant"`
+}
+
+// GetGetTenant returns ReadTenantAwsCredentialsResponse.GetTenant, and is useful for accessing the field via an interface.
+func (v *ReadTenantAwsCredentialsResponse) GetGetTenant() *ReadTenantAwsCredentialsGetTenant {
+	return v.GetTenant
+}
+
 // ReadTenantGetTenant includes the requested fields of the GraphQL type Tenant.
 type ReadTenantGetTenant struct {
-	Active      bool    `json:"active"`
-	Config      *string `json:"config"`
-	Description *string `json:"description"`
-	Name        string  `json:"name"`
-	Region      string  `json:"region"`
-	Table       string  `json:"table"`
+	tenantFields `json:"-"`
 }
 
 // GetActive returns ReadTenantGetTenant.Active, and is useful for accessing the field via an interface.
-func (v *ReadTenantGetTenant) GetActive() bool { return v.Active }
+func (v *ReadTenantGetTenant) GetActive() bool { return v.tenantFields.Active }
 
 // GetConfig returns ReadTenantGetTenant.Config, and is useful for accessing the field via an interface.
-func (v *ReadTenantGetTenant) GetConfig() *string { return v.Config }
+func (v *ReadTenantGetTenant) GetConfig() *string { return v.tenantFields.Config }
 
 // GetDescription returns ReadTenantGetTenant.Description, and is useful for accessing the field via an interface.
-func (v *ReadTenantGetTenant) GetDescription() *string { return v.Description }
+func (v *ReadTenantGetTenant) GetDescription() *string { return v.tenantFields.Description }
 
 // GetName returns ReadTenantGetTenant.Name, and is useful for accessing the field via an interface.
-func (v *ReadTenantGetTenant) GetName() string { return v.Name }
+func (v *ReadTenantGetTenant) GetName() string { return v.tenantFields.Name }
 
 // GetRegion returns ReadTenantGetTenant.Region, and is useful for accessing the field via an interface.
-func (v *ReadTenantGetTenant) GetRegion() string { return v.Region }
+func (v *ReadTenantGetTenant) GetRegion() string { return v.tenantFields.Region }
 
 // GetTable returns ReadTenantGetTenant.Table, and is useful for accessing the field via an interface.
-func (v *ReadTenantGetTenant) GetTable() string { return v.Table }
+func (v *ReadTenantGetTenant) GetTable() string { return v.tenantFields.Table }
+
+func (v *ReadTenantGetTenant) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadTenantGetTenant
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadTenantGetTenant = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.tenantFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadTenantGetTenant struct {
+	Active bool `json:"active"`
+
+	Config *string `json:"config"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	Region string `json:"region"`
+
+	Table string `json:"table"`
+}
+
+func (v *ReadTenantGetTenant) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadTenantGetTenant) __premarshalJSON() (*__premarshalReadTenantGetTenant, error) {
+	var retval __premarshalReadTenantGetTenant
+
+	retval.Active = v.tenantFields.Active
+	retval.Config = v.tenantFields.Config
+	retval.Description = v.tenantFields.Description
+	retval.Name = v.tenantFields.Name
+	retval.Region = v.tenantFields.Region
+	retval.Table = v.tenantFields.Table
+	return &retval, nil
+}
 
 // ReadTenantResponse is returned by ReadTenant on success.
 type ReadTenantResponse struct {
@@ -1657,6 +4829,415 @@ type ReadTenantResponse struct {
 
 // GetGetTenant returns ReadTenantResponse.GetTenant, and is useful for accessing the field via an interface.
 func (v *ReadTenantResponse) GetGetTenant() *ReadTenantGetTenant { return v.GetTenant }
+
+// UpdateCrossTenantAppGetApp includes the requested fields of the GraphQL interface App.
+//
+// UpdateCrossTenantAppGetApp is implemented by the following types:
+// UpdateCrossTenantAppGetAppCrossAccountApp
+// UpdateCrossTenantAppGetAppCrossTenantReceivingApp
+// UpdateCrossTenantAppGetAppCrossTenantSendingApp
+// UpdateCrossTenantAppGetAppExternalApp
+// UpdateCrossTenantAppGetAppManagedApp
+type UpdateCrossTenantAppGetApp interface {
+	implementsGraphQLInterfaceUpdateCrossTenantAppGetApp()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+}
+
+func (v *UpdateCrossTenantAppGetAppCrossAccountApp) implementsGraphQLInterfaceUpdateCrossTenantAppGetApp() {
+}
+func (v *UpdateCrossTenantAppGetAppCrossTenantReceivingApp) implementsGraphQLInterfaceUpdateCrossTenantAppGetApp() {
+}
+func (v *UpdateCrossTenantAppGetAppCrossTenantSendingApp) implementsGraphQLInterfaceUpdateCrossTenantAppGetApp() {
+}
+func (v *UpdateCrossTenantAppGetAppExternalApp) implementsGraphQLInterfaceUpdateCrossTenantAppGetApp() {
+}
+func (v *UpdateCrossTenantAppGetAppManagedApp) implementsGraphQLInterfaceUpdateCrossTenantAppGetApp() {
+}
+
+func __unmarshalUpdateCrossTenantAppGetApp(b []byte, v *UpdateCrossTenantAppGetApp) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "CrossAccountApp":
+		*v = new(UpdateCrossTenantAppGetAppCrossAccountApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingApp":
+		*v = new(UpdateCrossTenantAppGetAppCrossTenantReceivingApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingApp":
+		*v = new(UpdateCrossTenantAppGetAppCrossTenantSendingApp)
+		return json.Unmarshal(b, *v)
+	case "ExternalApp":
+		*v = new(UpdateCrossTenantAppGetAppExternalApp)
+		return json.Unmarshal(b, *v)
+	case "ManagedApp":
+		*v = new(UpdateCrossTenantAppGetAppManagedApp)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing App.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for UpdateCrossTenantAppGetApp: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalUpdateCrossTenantAppGetApp(v *UpdateCrossTenantAppGetApp) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *UpdateCrossTenantAppGetAppCrossAccountApp:
+		typename = "CrossAccountApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateCrossTenantAppGetAppCrossAccountApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateCrossTenantAppGetAppCrossTenantReceivingApp:
+		typename = "CrossTenantReceivingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateCrossTenantAppGetAppCrossTenantReceivingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateCrossTenantAppGetAppCrossTenantSendingApp:
+		typename = "CrossTenantSendingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateCrossTenantAppGetAppCrossTenantSendingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateCrossTenantAppGetAppExternalApp:
+		typename = "ExternalApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateCrossTenantAppGetAppExternalApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateCrossTenantAppGetAppManagedApp:
+		typename = "ManagedApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateCrossTenantAppGetAppManagedApp
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for UpdateCrossTenantAppGetApp: "%T"`, v)
+	}
+}
+
+// UpdateCrossTenantAppGetAppCrossAccountApp includes the requested fields of the GraphQL type CrossAccountApp.
+type UpdateCrossTenantAppGetAppCrossAccountApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateCrossTenantAppGetAppCrossAccountApp.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossAccountApp) GetTypename() *string { return v.Typename }
+
+// UpdateCrossTenantAppGetAppCrossTenantReceivingApp includes the requested fields of the GraphQL type CrossTenantReceivingApp.
+type UpdateCrossTenantAppGetAppCrossTenantReceivingApp struct {
+	Typename *string                                                                        `json:"__typename"`
+	Update   UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp `json:"Update"`
+}
+
+// GetTypename returns UpdateCrossTenantAppGetAppCrossTenantReceivingApp.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantReceivingApp) GetTypename() *string { return v.Typename }
+
+// GetUpdate returns UpdateCrossTenantAppGetAppCrossTenantReceivingApp.Update, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantReceivingApp) GetUpdate() UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp {
+	return v.Update
+}
+
+// UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp includes the requested fields of the GraphQL type CrossTenantReceivingApp.
+type UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp struct {
+	appFieldsCrossTenantReceivingApp `json:"-"`
+	crossTenantReceivingAppFields    `json:"-"`
+}
+
+// GetDescription returns UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp.Description, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp) GetDescription() *string {
+	return v.appFieldsCrossTenantReceivingApp.Description
+}
+
+// GetName returns UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp.Name, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp) GetName() string {
+	return v.appFieldsCrossTenantReceivingApp.Name
+}
+
+// GetSendingApp returns UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp.SendingApp, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp) GetSendingApp() *string {
+	return v.crossTenantReceivingAppFields.SendingApp
+}
+
+// GetSendingTenant returns UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp.SendingTenant, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp) GetSendingTenant() string {
+	return v.crossTenantReceivingAppFields.SendingTenant
+}
+
+func (v *UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsCrossTenantReceivingApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.crossTenantReceivingAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	SendingApp *string `json:"sendingApp"`
+
+	SendingTenant string `json:"sendingTenant"`
+}
+
+func (v *UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp) __premarshalJSON() (*__premarshalUpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp, error) {
+	var retval __premarshalUpdateCrossTenantAppGetAppCrossTenantReceivingAppUpdateCrossTenantReceivingApp
+
+	retval.Description = v.appFieldsCrossTenantReceivingApp.Description
+	retval.Name = v.appFieldsCrossTenantReceivingApp.Name
+	retval.SendingApp = v.crossTenantReceivingAppFields.SendingApp
+	retval.SendingTenant = v.crossTenantReceivingAppFields.SendingTenant
+	return &retval, nil
+}
+
+// UpdateCrossTenantAppGetAppCrossTenantSendingApp includes the requested fields of the GraphQL type CrossTenantSendingApp.
+type UpdateCrossTenantAppGetAppCrossTenantSendingApp struct {
+	Typename *string                                                                    `json:"__typename"`
+	Update   UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp `json:"Update"`
+}
+
+// GetTypename returns UpdateCrossTenantAppGetAppCrossTenantSendingApp.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantSendingApp) GetTypename() *string { return v.Typename }
+
+// GetUpdate returns UpdateCrossTenantAppGetAppCrossTenantSendingApp.Update, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantSendingApp) GetUpdate() UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp {
+	return v.Update
+}
+
+// UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp includes the requested fields of the GraphQL type CrossTenantSendingApp.
+type UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp struct {
+	appFieldsCrossTenantSendingApp `json:"-"`
+	crossTenantSendingAppFields    `json:"-"`
+}
+
+// GetDescription returns UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp.Description, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp) GetDescription() *string {
+	return v.appFieldsCrossTenantSendingApp.Description
+}
+
+// GetName returns UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp.Name, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp) GetName() string {
+	return v.appFieldsCrossTenantSendingApp.Name
+}
+
+// GetReceivingApp returns UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp.ReceivingApp, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp) GetReceivingApp() string {
+	return v.crossTenantSendingAppFields.ReceivingApp
+}
+
+// GetReceivingTenant returns UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp.ReceivingTenant, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp) GetReceivingTenant() string {
+	return v.crossTenantSendingAppFields.ReceivingTenant
+}
+
+func (v *UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsCrossTenantSendingApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.crossTenantSendingAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	ReceivingApp string `json:"receivingApp"`
+
+	ReceivingTenant string `json:"receivingTenant"`
+}
+
+func (v *UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp) __premarshalJSON() (*__premarshalUpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp, error) {
+	var retval __premarshalUpdateCrossTenantAppGetAppCrossTenantSendingAppUpdateCrossTenantSendingApp
+
+	retval.Description = v.appFieldsCrossTenantSendingApp.Description
+	retval.Name = v.appFieldsCrossTenantSendingApp.Name
+	retval.ReceivingApp = v.crossTenantSendingAppFields.ReceivingApp
+	retval.ReceivingTenant = v.crossTenantSendingAppFields.ReceivingTenant
+	return &retval, nil
+}
+
+// UpdateCrossTenantAppGetAppExternalApp includes the requested fields of the GraphQL type ExternalApp.
+type UpdateCrossTenantAppGetAppExternalApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateCrossTenantAppGetAppExternalApp.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppExternalApp) GetTypename() *string { return v.Typename }
+
+// UpdateCrossTenantAppGetAppManagedApp includes the requested fields of the GraphQL type ManagedApp.
+type UpdateCrossTenantAppGetAppManagedApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateCrossTenantAppGetAppManagedApp.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppGetAppManagedApp) GetTypename() *string { return v.Typename }
+
+// UpdateCrossTenantAppResponse is returned by UpdateCrossTenantApp on success.
+type UpdateCrossTenantAppResponse struct {
+	GetApp *UpdateCrossTenantAppGetApp `json:"-"`
+}
+
+// GetGetApp returns UpdateCrossTenantAppResponse.GetApp, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantAppResponse) GetGetApp() *UpdateCrossTenantAppGetApp { return v.GetApp }
+
+func (v *UpdateCrossTenantAppResponse) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateCrossTenantAppResponse
+		GetApp json.RawMessage `json:"GetApp"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateCrossTenantAppResponse = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.GetApp
+		src := firstPass.GetApp
+		if len(src) != 0 && string(src) != "null" {
+			*dst = new(UpdateCrossTenantAppGetApp)
+			err = __unmarshalUpdateCrossTenantAppGetApp(
+				src, *dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal UpdateCrossTenantAppResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalUpdateCrossTenantAppResponse struct {
+	GetApp json.RawMessage `json:"GetApp"`
+}
+
+func (v *UpdateCrossTenantAppResponse) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateCrossTenantAppResponse) __premarshalJSON() (*__premarshalUpdateCrossTenantAppResponse, error) {
+	var retval __premarshalUpdateCrossTenantAppResponse
+
+	{
+
+		dst := &retval.GetApp
+		src := v.GetApp
+		if src != nil {
+			var err error
+			*dst, err = __marshalUpdateCrossTenantAppGetApp(
+				src)
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Unable to marshal UpdateCrossTenantAppResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return &retval, nil
+}
 
 // UpdateFunctionGetFunction includes the requested fields of the GraphQL interface Function.
 //
@@ -1761,48 +5342,104 @@ func (v *UpdateFunctionGetFunctionApiAuthenticatorFunction) GetUpdate() UpdateFu
 
 // UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction includes the requested fields of the GraphQL type ApiAuthenticatorFunction.
 type UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction struct {
-	Code         string   `json:"code"`
-	Description  string   `json:"description"`
-	InUse        bool     `json:"inUse"`
-	Name         string   `json:"name"`
-	Readme       *string  `json:"readme"`
-	Requirements []string `json:"requirements"`
-	System       *bool    `json:"system"`
+	functionFieldsApiAuthenticatorFunction `json:"-"`
 }
 
 // GetCode returns UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction.Code, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction) GetCode() string {
-	return v.Code
+	return v.functionFieldsApiAuthenticatorFunction.Code
 }
 
 // GetDescription returns UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction.Description, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction) GetDescription() string {
-	return v.Description
+	return v.functionFieldsApiAuthenticatorFunction.Description
 }
 
 // GetInUse returns UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction.InUse, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction) GetInUse() bool {
-	return v.InUse
+	return v.functionFieldsApiAuthenticatorFunction.InUse
 }
 
 // GetName returns UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction.Name, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction) GetName() string {
-	return v.Name
+	return v.functionFieldsApiAuthenticatorFunction.Name
 }
 
 // GetReadme returns UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction.Readme, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction) GetReadme() *string {
-	return v.Readme
+	return v.functionFieldsApiAuthenticatorFunction.Readme
 }
 
 // GetRequirements returns UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction.Requirements, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction) GetRequirements() []string {
-	return v.Requirements
+	return v.functionFieldsApiAuthenticatorFunction.Requirements
 }
 
 // GetSystem returns UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction.System, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction) GetSystem() *bool {
-	return v.System
+	return v.functionFieldsApiAuthenticatorFunction.System
+}
+
+func (v *UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.functionFieldsApiAuthenticatorFunction)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction struct {
+	Code string `json:"code"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
+	Name string `json:"name"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	System *bool `json:"system"`
+}
+
+func (v *UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction) __premarshalJSON() (*__premarshalUpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction, error) {
+	var retval __premarshalUpdateFunctionGetFunctionApiAuthenticatorFunctionUpdateApiAuthenticatorFunction
+
+	retval.Code = v.functionFieldsApiAuthenticatorFunction.Code
+	retval.Description = v.functionFieldsApiAuthenticatorFunction.Description
+	retval.InUse = v.functionFieldsApiAuthenticatorFunction.InUse
+	retval.Name = v.functionFieldsApiAuthenticatorFunction.Name
+	retval.Readme = v.functionFieldsApiAuthenticatorFunction.Readme
+	retval.Requirements = v.functionFieldsApiAuthenticatorFunction.Requirements
+	retval.System = v.functionFieldsApiAuthenticatorFunction.System
+	return &retval, nil
 }
 
 // UpdateFunctionGetFunctionBitmapperFunction includes the requested fields of the GraphQL type BitmapperFunction.
@@ -1821,64 +5458,118 @@ func (v *UpdateFunctionGetFunctionBitmapperFunction) GetUpdate() UpdateFunctionG
 
 // UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction includes the requested fields of the GraphQL type BitmapperFunction.
 type UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction struct {
-	ArgumentMessageType UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunctionArgumentMessageType `json:"argumentMessageType"`
-	Code                string                                                                               `json:"code"`
-	Description         string                                                                               `json:"description"`
-	InUse               bool                                                                                 `json:"inUse"`
-	Name                string                                                                               `json:"name"`
-	Readme              *string                                                                              `json:"readme"`
-	Requirements        []string                                                                             `json:"requirements"`
-	System              *bool                                                                                `json:"system"`
-}
-
-// GetArgumentMessageType returns UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction.ArgumentMessageType, and is useful for accessing the field via an interface.
-func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) GetArgumentMessageType() UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunctionArgumentMessageType {
-	return v.ArgumentMessageType
+	functionFieldsBitmapperFunction `json:"-"`
+	bitmapperFunctionFields         `json:"-"`
 }
 
 // GetCode returns UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction.Code, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) GetCode() string {
-	return v.Code
+	return v.functionFieldsBitmapperFunction.Code
 }
 
 // GetDescription returns UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction.Description, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) GetDescription() string {
-	return v.Description
+	return v.functionFieldsBitmapperFunction.Description
 }
 
 // GetInUse returns UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction.InUse, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) GetInUse() bool {
-	return v.InUse
+	return v.functionFieldsBitmapperFunction.InUse
 }
 
 // GetName returns UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction.Name, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) GetName() string {
-	return v.Name
+	return v.functionFieldsBitmapperFunction.Name
 }
 
 // GetReadme returns UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction.Readme, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) GetReadme() *string {
-	return v.Readme
+	return v.functionFieldsBitmapperFunction.Readme
 }
 
 // GetRequirements returns UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction.Requirements, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) GetRequirements() []string {
-	return v.Requirements
+	return v.functionFieldsBitmapperFunction.Requirements
 }
 
 // GetSystem returns UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction.System, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) GetSystem() *bool {
-	return v.System
+	return v.functionFieldsBitmapperFunction.System
 }
 
-// UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunctionArgumentMessageType includes the requested fields of the GraphQL type MessageType.
-type UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunctionArgumentMessageType struct {
+// GetArgumentMessageType returns UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction.ArgumentMessageType, and is useful for accessing the field via an interface.
+func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) GetArgumentMessageType() bitmapperFunctionFieldsArgumentMessageType {
+	return v.bitmapperFunctionFields.ArgumentMessageType
+}
+
+func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.functionFieldsBitmapperFunction)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.bitmapperFunctionFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction struct {
+	Code string `json:"code"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
 	Name string `json:"name"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	System *bool `json:"system"`
+
+	ArgumentMessageType bitmapperFunctionFieldsArgumentMessageType `json:"argumentMessageType"`
 }
 
-// GetName returns UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunctionArgumentMessageType.Name, and is useful for accessing the field via an interface.
-func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunctionArgumentMessageType) GetName() string {
-	return v.Name
+func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction) __premarshalJSON() (*__premarshalUpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction, error) {
+	var retval __premarshalUpdateFunctionGetFunctionBitmapperFunctionUpdateBitmapperFunction
+
+	retval.Code = v.functionFieldsBitmapperFunction.Code
+	retval.Description = v.functionFieldsBitmapperFunction.Description
+	retval.InUse = v.functionFieldsBitmapperFunction.InUse
+	retval.Name = v.functionFieldsBitmapperFunction.Name
+	retval.Readme = v.functionFieldsBitmapperFunction.Readme
+	retval.Requirements = v.functionFieldsBitmapperFunction.Requirements
+	retval.System = v.functionFieldsBitmapperFunction.System
+	retval.ArgumentMessageType = v.bitmapperFunctionFields.ArgumentMessageType
+	return &retval, nil
 }
 
 // UpdateFunctionGetFunctionProcessorFunction includes the requested fields of the GraphQL type ProcessorFunction.
@@ -1897,80 +5588,126 @@ func (v *UpdateFunctionGetFunctionProcessorFunction) GetUpdate() UpdateFunctionG
 
 // UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction includes the requested fields of the GraphQL type ProcessorFunction.
 type UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction struct {
-	ArgumentMessageType UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionArgumentMessageType `json:"argumentMessageType"`
-	Code                string                                                                               `json:"code"`
-	Description         string                                                                               `json:"description"`
-	InUse               bool                                                                                 `json:"inUse"`
-	Name                string                                                                               `json:"name"`
-	Readme              *string                                                                              `json:"readme"`
-	Requirements        []string                                                                             `json:"requirements"`
-	ReturnMessageType   *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionReturnMessageType  `json:"returnMessageType"`
-	System              *bool                                                                                `json:"system"`
-}
-
-// GetArgumentMessageType returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.ArgumentMessageType, and is useful for accessing the field via an interface.
-func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetArgumentMessageType() UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionArgumentMessageType {
-	return v.ArgumentMessageType
+	functionFieldsProcessorFunction `json:"-"`
+	processorFunctionFields         `json:"-"`
 }
 
 // GetCode returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.Code, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetCode() string {
-	return v.Code
+	return v.functionFieldsProcessorFunction.Code
 }
 
 // GetDescription returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.Description, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetDescription() string {
-	return v.Description
+	return v.functionFieldsProcessorFunction.Description
 }
 
 // GetInUse returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.InUse, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetInUse() bool {
-	return v.InUse
+	return v.functionFieldsProcessorFunction.InUse
 }
 
 // GetName returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.Name, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetName() string {
-	return v.Name
+	return v.functionFieldsProcessorFunction.Name
 }
 
 // GetReadme returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.Readme, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetReadme() *string {
-	return v.Readme
+	return v.functionFieldsProcessorFunction.Readme
 }
 
 // GetRequirements returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.Requirements, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetRequirements() []string {
-	return v.Requirements
-}
-
-// GetReturnMessageType returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.ReturnMessageType, and is useful for accessing the field via an interface.
-func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetReturnMessageType() *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionReturnMessageType {
-	return v.ReturnMessageType
+	return v.functionFieldsProcessorFunction.Requirements
 }
 
 // GetSystem returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.System, and is useful for accessing the field via an interface.
 func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetSystem() *bool {
-	return v.System
+	return v.functionFieldsProcessorFunction.System
 }
 
-// UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionArgumentMessageType includes the requested fields of the GraphQL type MessageType.
-type UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionArgumentMessageType struct {
+// GetArgumentMessageType returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.ArgumentMessageType, and is useful for accessing the field via an interface.
+func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetArgumentMessageType() processorFunctionFieldsArgumentMessageType {
+	return v.processorFunctionFields.ArgumentMessageType
+}
+
+// GetReturnMessageType returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction.ReturnMessageType, and is useful for accessing the field via an interface.
+func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) GetReturnMessageType() *processorFunctionFieldsReturnMessageType {
+	return v.processorFunctionFields.ReturnMessageType
+}
+
+func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.functionFieldsProcessorFunction)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.processorFunctionFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction struct {
+	Code string `json:"code"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
 	Name string `json:"name"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	System *bool `json:"system"`
+
+	ArgumentMessageType processorFunctionFieldsArgumentMessageType `json:"argumentMessageType"`
+
+	ReturnMessageType *processorFunctionFieldsReturnMessageType `json:"returnMessageType"`
 }
 
-// GetName returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionArgumentMessageType.Name, and is useful for accessing the field via an interface.
-func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionArgumentMessageType) GetName() string {
-	return v.Name
+func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
 }
 
-// UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionReturnMessageType includes the requested fields of the GraphQL type MessageType.
-type UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionReturnMessageType struct {
-	Name string `json:"name"`
-}
+func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction) __premarshalJSON() (*__premarshalUpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction, error) {
+	var retval __premarshalUpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunction
 
-// GetName returns UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionReturnMessageType.Name, and is useful for accessing the field via an interface.
-func (v *UpdateFunctionGetFunctionProcessorFunctionUpdateProcessorFunctionReturnMessageType) GetName() string {
-	return v.Name
+	retval.Code = v.functionFieldsProcessorFunction.Code
+	retval.Description = v.functionFieldsProcessorFunction.Description
+	retval.InUse = v.functionFieldsProcessorFunction.InUse
+	retval.Name = v.functionFieldsProcessorFunction.Name
+	retval.Readme = v.functionFieldsProcessorFunction.Readme
+	retval.Requirements = v.functionFieldsProcessorFunction.Requirements
+	retval.System = v.functionFieldsProcessorFunction.System
+	retval.ArgumentMessageType = v.processorFunctionFields.ArgumentMessageType
+	retval.ReturnMessageType = v.processorFunctionFields.ReturnMessageType
+	return &retval, nil
 }
 
 // UpdateFunctionResponse is returned by UpdateFunction on success.
@@ -2057,23 +5794,75 @@ func (v *UpdateKmsKeyGetKmsKey) GetUpdate() UpdateKmsKeyGetKmsKeyUpdateKmsKey { 
 
 // UpdateKmsKeyGetKmsKeyUpdateKmsKey includes the requested fields of the GraphQL type KmsKey.
 type UpdateKmsKeyGetKmsKeyUpdateKmsKey struct {
-	Arn         string  `json:"arn"`
-	Description *string `json:"description"`
-	InUse       bool    `json:"inUse"`
-	Name        string  `json:"name"`
+	kmsKeyFields `json:"-"`
 }
 
 // GetArn returns UpdateKmsKeyGetKmsKeyUpdateKmsKey.Arn, and is useful for accessing the field via an interface.
-func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetArn() string { return v.Arn }
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetArn() string { return v.kmsKeyFields.Arn }
 
 // GetDescription returns UpdateKmsKeyGetKmsKeyUpdateKmsKey.Description, and is useful for accessing the field via an interface.
-func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetDescription() *string { return v.Description }
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetDescription() *string {
+	return v.kmsKeyFields.Description
+}
 
 // GetInUse returns UpdateKmsKeyGetKmsKeyUpdateKmsKey.InUse, and is useful for accessing the field via an interface.
-func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetInUse() bool { return v.InUse }
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetInUse() bool { return v.kmsKeyFields.InUse }
 
 // GetName returns UpdateKmsKeyGetKmsKeyUpdateKmsKey.Name, and is useful for accessing the field via an interface.
-func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetName() string { return v.Name }
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) GetName() string { return v.kmsKeyFields.Name }
+
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateKmsKeyGetKmsKeyUpdateKmsKey
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateKmsKeyGetKmsKeyUpdateKmsKey = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.kmsKeyFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateKmsKeyGetKmsKeyUpdateKmsKey struct {
+	Arn string `json:"arn"`
+
+	Description *string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
+	Name string `json:"name"`
+}
+
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateKmsKeyGetKmsKeyUpdateKmsKey) __premarshalJSON() (*__premarshalUpdateKmsKeyGetKmsKeyUpdateKmsKey, error) {
+	var retval __premarshalUpdateKmsKeyGetKmsKeyUpdateKmsKey
+
+	retval.Arn = v.kmsKeyFields.Arn
+	retval.Description = v.kmsKeyFields.Description
+	retval.InUse = v.kmsKeyFields.InUse
+	retval.Name = v.kmsKeyFields.Name
+	return &retval, nil
+}
 
 // UpdateKmsKeyResponse is returned by UpdateKmsKey on success.
 type UpdateKmsKeyResponse struct {
@@ -2095,57 +5884,129 @@ func (v *UpdateMessageTypeGetMessageType) GetUpdate() UpdateMessageTypeGetMessag
 
 // UpdateMessageTypeGetMessageTypeUpdateMessageType includes the requested fields of the GraphQL type MessageType.
 type UpdateMessageTypeGetMessageTypeUpdateMessageType struct {
-	Auditor           string   `json:"auditor"`
-	BitmapperTemplate string   `json:"bitmapperTemplate"`
-	Description       string   `json:"description"`
-	InUse             bool     `json:"inUse"`
-	Name              string   `json:"name"`
-	ProcessorTemplate string   `json:"processorTemplate"`
-	Readme            *string  `json:"readme"`
-	Requirements      []string `json:"requirements"`
-	SampleMessage     string   `json:"sampleMessage"`
-	System            *bool    `json:"system"`
+	messageTypeFields `json:"-"`
 }
 
 // GetAuditor returns UpdateMessageTypeGetMessageTypeUpdateMessageType.Auditor, and is useful for accessing the field via an interface.
-func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetAuditor() string { return v.Auditor }
+func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetAuditor() string {
+	return v.messageTypeFields.Auditor
+}
 
 // GetBitmapperTemplate returns UpdateMessageTypeGetMessageTypeUpdateMessageType.BitmapperTemplate, and is useful for accessing the field via an interface.
 func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetBitmapperTemplate() string {
-	return v.BitmapperTemplate
+	return v.messageTypeFields.BitmapperTemplate
 }
 
 // GetDescription returns UpdateMessageTypeGetMessageTypeUpdateMessageType.Description, and is useful for accessing the field via an interface.
 func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetDescription() string {
-	return v.Description
+	return v.messageTypeFields.Description
 }
 
 // GetInUse returns UpdateMessageTypeGetMessageTypeUpdateMessageType.InUse, and is useful for accessing the field via an interface.
-func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetInUse() bool { return v.InUse }
+func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetInUse() bool {
+	return v.messageTypeFields.InUse
+}
 
 // GetName returns UpdateMessageTypeGetMessageTypeUpdateMessageType.Name, and is useful for accessing the field via an interface.
-func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetName() string { return v.Name }
+func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetName() string {
+	return v.messageTypeFields.Name
+}
 
 // GetProcessorTemplate returns UpdateMessageTypeGetMessageTypeUpdateMessageType.ProcessorTemplate, and is useful for accessing the field via an interface.
 func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetProcessorTemplate() string {
-	return v.ProcessorTemplate
+	return v.messageTypeFields.ProcessorTemplate
 }
 
 // GetReadme returns UpdateMessageTypeGetMessageTypeUpdateMessageType.Readme, and is useful for accessing the field via an interface.
-func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetReadme() *string { return v.Readme }
+func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetReadme() *string {
+	return v.messageTypeFields.Readme
+}
 
 // GetRequirements returns UpdateMessageTypeGetMessageTypeUpdateMessageType.Requirements, and is useful for accessing the field via an interface.
 func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetRequirements() []string {
-	return v.Requirements
+	return v.messageTypeFields.Requirements
 }
 
 // GetSampleMessage returns UpdateMessageTypeGetMessageTypeUpdateMessageType.SampleMessage, and is useful for accessing the field via an interface.
 func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetSampleMessage() string {
-	return v.SampleMessage
+	return v.messageTypeFields.SampleMessage
 }
 
 // GetSystem returns UpdateMessageTypeGetMessageTypeUpdateMessageType.System, and is useful for accessing the field via an interface.
-func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetSystem() *bool { return v.System }
+func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) GetSystem() *bool {
+	return v.messageTypeFields.System
+}
+
+func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateMessageTypeGetMessageTypeUpdateMessageType
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateMessageTypeGetMessageTypeUpdateMessageType = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.messageTypeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateMessageTypeGetMessageTypeUpdateMessageType struct {
+	Auditor string `json:"auditor"`
+
+	BitmapperTemplate string `json:"bitmapperTemplate"`
+
+	Description string `json:"description"`
+
+	InUse bool `json:"inUse"`
+
+	Name string `json:"name"`
+
+	ProcessorTemplate string `json:"processorTemplate"`
+
+	Readme *string `json:"readme"`
+
+	Requirements []string `json:"requirements"`
+
+	SampleMessage string `json:"sampleMessage"`
+
+	System *bool `json:"system"`
+}
+
+func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateMessageTypeGetMessageTypeUpdateMessageType) __premarshalJSON() (*__premarshalUpdateMessageTypeGetMessageTypeUpdateMessageType, error) {
+	var retval __premarshalUpdateMessageTypeGetMessageTypeUpdateMessageType
+
+	retval.Auditor = v.messageTypeFields.Auditor
+	retval.BitmapperTemplate = v.messageTypeFields.BitmapperTemplate
+	retval.Description = v.messageTypeFields.Description
+	retval.InUse = v.messageTypeFields.InUse
+	retval.Name = v.messageTypeFields.Name
+	retval.ProcessorTemplate = v.messageTypeFields.ProcessorTemplate
+	retval.Readme = v.messageTypeFields.Readme
+	retval.Requirements = v.messageTypeFields.Requirements
+	retval.SampleMessage = v.messageTypeFields.SampleMessage
+	retval.System = v.messageTypeFields.System
+	return &retval, nil
+}
 
 // UpdateMessageTypeResponse is returned by UpdateMessageType on success.
 type UpdateMessageTypeResponse struct {
@@ -2155,6 +6016,582 @@ type UpdateMessageTypeResponse struct {
 // GetGetMessageType returns UpdateMessageTypeResponse.GetMessageType, and is useful for accessing the field via an interface.
 func (v *UpdateMessageTypeResponse) GetGetMessageType() *UpdateMessageTypeGetMessageType {
 	return v.GetMessageType
+}
+
+// UpdateRemotetAppGetApp includes the requested fields of the GraphQL interface App.
+//
+// UpdateRemotetAppGetApp is implemented by the following types:
+// UpdateRemotetAppGetAppCrossAccountApp
+// UpdateRemotetAppGetAppCrossTenantReceivingApp
+// UpdateRemotetAppGetAppCrossTenantSendingApp
+// UpdateRemotetAppGetAppExternalApp
+// UpdateRemotetAppGetAppManagedApp
+type UpdateRemotetAppGetApp interface {
+	implementsGraphQLInterfaceUpdateRemotetAppGetApp()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+}
+
+func (v *UpdateRemotetAppGetAppCrossAccountApp) implementsGraphQLInterfaceUpdateRemotetAppGetApp() {}
+func (v *UpdateRemotetAppGetAppCrossTenantReceivingApp) implementsGraphQLInterfaceUpdateRemotetAppGetApp() {
+}
+func (v *UpdateRemotetAppGetAppCrossTenantSendingApp) implementsGraphQLInterfaceUpdateRemotetAppGetApp() {
+}
+func (v *UpdateRemotetAppGetAppExternalApp) implementsGraphQLInterfaceUpdateRemotetAppGetApp() {}
+func (v *UpdateRemotetAppGetAppManagedApp) implementsGraphQLInterfaceUpdateRemotetAppGetApp()  {}
+
+func __unmarshalUpdateRemotetAppGetApp(b []byte, v *UpdateRemotetAppGetApp) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "CrossAccountApp":
+		*v = new(UpdateRemotetAppGetAppCrossAccountApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingApp":
+		*v = new(UpdateRemotetAppGetAppCrossTenantReceivingApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingApp":
+		*v = new(UpdateRemotetAppGetAppCrossTenantSendingApp)
+		return json.Unmarshal(b, *v)
+	case "ExternalApp":
+		*v = new(UpdateRemotetAppGetAppExternalApp)
+		return json.Unmarshal(b, *v)
+	case "ManagedApp":
+		*v = new(UpdateRemotetAppGetAppManagedApp)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing App.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for UpdateRemotetAppGetApp: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalUpdateRemotetAppGetApp(v *UpdateRemotetAppGetApp) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *UpdateRemotetAppGetAppCrossAccountApp:
+		typename = "CrossAccountApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateRemotetAppGetAppCrossAccountApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateRemotetAppGetAppCrossTenantReceivingApp:
+		typename = "CrossTenantReceivingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateRemotetAppGetAppCrossTenantReceivingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateRemotetAppGetAppCrossTenantSendingApp:
+		typename = "CrossTenantSendingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateRemotetAppGetAppCrossTenantSendingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateRemotetAppGetAppExternalApp:
+		typename = "ExternalApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateRemotetAppGetAppExternalApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateRemotetAppGetAppManagedApp:
+		typename = "ManagedApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateRemotetAppGetAppManagedApp
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for UpdateRemotetAppGetApp: "%T"`, v)
+	}
+}
+
+// UpdateRemotetAppGetAppCrossAccountApp includes the requested fields of the GraphQL type CrossAccountApp.
+type UpdateRemotetAppGetAppCrossAccountApp struct {
+	Typename *string                                                    `json:"__typename"`
+	Update   UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp `json:"Update"`
+}
+
+// GetTypename returns UpdateRemotetAppGetAppCrossAccountApp.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountApp) GetTypename() *string { return v.Typename }
+
+// GetUpdate returns UpdateRemotetAppGetAppCrossAccountApp.Update, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountApp) GetUpdate() UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp {
+	return v.Update
+}
+
+// UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp includes the requested fields of the GraphQL type CrossAccountApp.
+type UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp struct {
+	appFieldsCrossAccountApp `json:"-"`
+	crossAccountAppFields    `json:"-"`
+}
+
+// GetDescription returns UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp.Description, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) GetDescription() *string {
+	return v.appFieldsCrossAccountApp.Description
+}
+
+// GetName returns UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp.Name, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) GetName() string {
+	return v.appFieldsCrossAccountApp.Name
+}
+
+// GetAccount returns UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp.Account, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) GetAccount() string {
+	return v.crossAccountAppFields.Account
+}
+
+// GetAppsyncEndpoint returns UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) GetAppsyncEndpoint() string {
+	return v.crossAccountAppFields.AppsyncEndpoint
+}
+
+// GetAuditRecordsEndpoint returns UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) GetAuditRecordsEndpoint() string {
+	return v.crossAccountAppFields.AuditRecordsEndpoint
+}
+
+// GetConfig returns UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp.Config, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) GetConfig() *string {
+	return v.crossAccountAppFields.Config
+}
+
+// GetCredentials returns UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp.Credentials, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) GetCredentials() crossAccountAppFieldsCredentialsCognitoCredentials {
+	return v.crossAccountAppFields.Credentials
+}
+
+// GetIamPolicy returns UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp.IamPolicy, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) GetIamPolicy() string {
+	return v.crossAccountAppFields.IamPolicy
+}
+
+// GetTableAccess returns UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp.TableAccess, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) GetTableAccess() bool {
+	return v.crossAccountAppFields.TableAccess
+}
+
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsCrossAccountApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.crossAccountAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	Account string `json:"account"`
+
+	AppsyncEndpoint string `json:"appsyncEndpoint"`
+
+	AuditRecordsEndpoint string `json:"auditRecordsEndpoint"`
+
+	Config *string `json:"config"`
+
+	Credentials crossAccountAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	IamPolicy string `json:"iamPolicy"`
+
+	TableAccess bool `json:"tableAccess"`
+}
+
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp) __premarshalJSON() (*__premarshalUpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp, error) {
+	var retval __premarshalUpdateRemotetAppGetAppCrossAccountAppUpdateCrossAccountApp
+
+	retval.Description = v.appFieldsCrossAccountApp.Description
+	retval.Name = v.appFieldsCrossAccountApp.Name
+	retval.Account = v.crossAccountAppFields.Account
+	retval.AppsyncEndpoint = v.crossAccountAppFields.AppsyncEndpoint
+	retval.AuditRecordsEndpoint = v.crossAccountAppFields.AuditRecordsEndpoint
+	retval.Config = v.crossAccountAppFields.Config
+	retval.Credentials = v.crossAccountAppFields.Credentials
+	retval.IamPolicy = v.crossAccountAppFields.IamPolicy
+	retval.TableAccess = v.crossAccountAppFields.TableAccess
+	return &retval, nil
+}
+
+// UpdateRemotetAppGetAppCrossTenantReceivingApp includes the requested fields of the GraphQL type CrossTenantReceivingApp.
+type UpdateRemotetAppGetAppCrossTenantReceivingApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateRemotetAppGetAppCrossTenantReceivingApp.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossTenantReceivingApp) GetTypename() *string { return v.Typename }
+
+// UpdateRemotetAppGetAppCrossTenantSendingApp includes the requested fields of the GraphQL type CrossTenantSendingApp.
+type UpdateRemotetAppGetAppCrossTenantSendingApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateRemotetAppGetAppCrossTenantSendingApp.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppCrossTenantSendingApp) GetTypename() *string { return v.Typename }
+
+// UpdateRemotetAppGetAppExternalApp includes the requested fields of the GraphQL type ExternalApp.
+type UpdateRemotetAppGetAppExternalApp struct {
+	Typename *string                                            `json:"__typename"`
+	Update   UpdateRemotetAppGetAppExternalAppUpdateExternalApp `json:"Update"`
+}
+
+// GetTypename returns UpdateRemotetAppGetAppExternalApp.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppExternalApp) GetTypename() *string { return v.Typename }
+
+// GetUpdate returns UpdateRemotetAppGetAppExternalApp.Update, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppExternalApp) GetUpdate() UpdateRemotetAppGetAppExternalAppUpdateExternalApp {
+	return v.Update
+}
+
+// UpdateRemotetAppGetAppExternalAppUpdateExternalApp includes the requested fields of the GraphQL type ExternalApp.
+type UpdateRemotetAppGetAppExternalAppUpdateExternalApp struct {
+	appFieldsExternalApp `json:"-"`
+	externalAppFields    `json:"-"`
+}
+
+// GetDescription returns UpdateRemotetAppGetAppExternalAppUpdateExternalApp.Description, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppExternalAppUpdateExternalApp) GetDescription() *string {
+	return v.appFieldsExternalApp.Description
+}
+
+// GetName returns UpdateRemotetAppGetAppExternalAppUpdateExternalApp.Name, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppExternalAppUpdateExternalApp) GetName() string {
+	return v.appFieldsExternalApp.Name
+}
+
+// GetAppsyncEndpoint returns UpdateRemotetAppGetAppExternalAppUpdateExternalApp.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppExternalAppUpdateExternalApp) GetAppsyncEndpoint() string {
+	return v.externalAppFields.AppsyncEndpoint
+}
+
+// GetAuditRecordsEndpoint returns UpdateRemotetAppGetAppExternalAppUpdateExternalApp.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppExternalAppUpdateExternalApp) GetAuditRecordsEndpoint() string {
+	return v.externalAppFields.AuditRecordsEndpoint
+}
+
+// GetConfig returns UpdateRemotetAppGetAppExternalAppUpdateExternalApp.Config, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppExternalAppUpdateExternalApp) GetConfig() *string {
+	return v.externalAppFields.Config
+}
+
+// GetCredentials returns UpdateRemotetAppGetAppExternalAppUpdateExternalApp.Credentials, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppExternalAppUpdateExternalApp) GetCredentials() externalAppFieldsCredentialsCognitoCredentials {
+	return v.externalAppFields.Credentials
+}
+
+// GetTableAccess returns UpdateRemotetAppGetAppExternalAppUpdateExternalApp.TableAccess, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppExternalAppUpdateExternalApp) GetTableAccess() bool {
+	return v.externalAppFields.TableAccess
+}
+
+func (v *UpdateRemotetAppGetAppExternalAppUpdateExternalApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateRemotetAppGetAppExternalAppUpdateExternalApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateRemotetAppGetAppExternalAppUpdateExternalApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsExternalApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.externalAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateRemotetAppGetAppExternalAppUpdateExternalApp struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	AppsyncEndpoint string `json:"appsyncEndpoint"`
+
+	AuditRecordsEndpoint string `json:"auditRecordsEndpoint"`
+
+	Config *string `json:"config"`
+
+	Credentials externalAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	TableAccess bool `json:"tableAccess"`
+}
+
+func (v *UpdateRemotetAppGetAppExternalAppUpdateExternalApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateRemotetAppGetAppExternalAppUpdateExternalApp) __premarshalJSON() (*__premarshalUpdateRemotetAppGetAppExternalAppUpdateExternalApp, error) {
+	var retval __premarshalUpdateRemotetAppGetAppExternalAppUpdateExternalApp
+
+	retval.Description = v.appFieldsExternalApp.Description
+	retval.Name = v.appFieldsExternalApp.Name
+	retval.AppsyncEndpoint = v.externalAppFields.AppsyncEndpoint
+	retval.AuditRecordsEndpoint = v.externalAppFields.AuditRecordsEndpoint
+	retval.Config = v.externalAppFields.Config
+	retval.Credentials = v.externalAppFields.Credentials
+	retval.TableAccess = v.externalAppFields.TableAccess
+	return &retval, nil
+}
+
+// UpdateRemotetAppGetAppManagedApp includes the requested fields of the GraphQL type ManagedApp.
+type UpdateRemotetAppGetAppManagedApp struct {
+	Typename *string                                          `json:"__typename"`
+	Update   UpdateRemotetAppGetAppManagedAppUpdateManagedApp `json:"Update"`
+}
+
+// GetTypename returns UpdateRemotetAppGetAppManagedApp.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppManagedApp) GetTypename() *string { return v.Typename }
+
+// GetUpdate returns UpdateRemotetAppGetAppManagedApp.Update, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppManagedApp) GetUpdate() UpdateRemotetAppGetAppManagedAppUpdateManagedApp {
+	return v.Update
+}
+
+// UpdateRemotetAppGetAppManagedAppUpdateManagedApp includes the requested fields of the GraphQL type ManagedApp.
+type UpdateRemotetAppGetAppManagedAppUpdateManagedApp struct {
+	appFieldsManagedApp `json:"-"`
+	managedAppFields    `json:"-"`
+}
+
+// GetDescription returns UpdateRemotetAppGetAppManagedAppUpdateManagedApp.Description, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppManagedAppUpdateManagedApp) GetDescription() *string {
+	return v.appFieldsManagedApp.Description
+}
+
+// GetName returns UpdateRemotetAppGetAppManagedAppUpdateManagedApp.Name, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppManagedAppUpdateManagedApp) GetName() string {
+	return v.appFieldsManagedApp.Name
+}
+
+// GetAuditRecordsEndpoint returns UpdateRemotetAppGetAppManagedAppUpdateManagedApp.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppManagedAppUpdateManagedApp) GetAuditRecordsEndpoint() string {
+	return v.managedAppFields.AuditRecordsEndpoint
+}
+
+// GetConfig returns UpdateRemotetAppGetAppManagedAppUpdateManagedApp.Config, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppManagedAppUpdateManagedApp) GetConfig() *string {
+	return v.managedAppFields.Config
+}
+
+// GetCredentials returns UpdateRemotetAppGetAppManagedAppUpdateManagedApp.Credentials, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppManagedAppUpdateManagedApp) GetCredentials() managedAppFieldsCredentialsCognitoCredentials {
+	return v.managedAppFields.Credentials
+}
+
+// GetTableAccess returns UpdateRemotetAppGetAppManagedAppUpdateManagedApp.TableAccess, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppGetAppManagedAppUpdateManagedApp) GetTableAccess() bool {
+	return v.managedAppFields.TableAccess
+}
+
+func (v *UpdateRemotetAppGetAppManagedAppUpdateManagedApp) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateRemotetAppGetAppManagedAppUpdateManagedApp
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateRemotetAppGetAppManagedAppUpdateManagedApp = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.appFieldsManagedApp)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.managedAppFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateRemotetAppGetAppManagedAppUpdateManagedApp struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	AuditRecordsEndpoint string `json:"auditRecordsEndpoint"`
+
+	Config *string `json:"config"`
+
+	Credentials managedAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	TableAccess bool `json:"tableAccess"`
+}
+
+func (v *UpdateRemotetAppGetAppManagedAppUpdateManagedApp) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateRemotetAppGetAppManagedAppUpdateManagedApp) __premarshalJSON() (*__premarshalUpdateRemotetAppGetAppManagedAppUpdateManagedApp, error) {
+	var retval __premarshalUpdateRemotetAppGetAppManagedAppUpdateManagedApp
+
+	retval.Description = v.appFieldsManagedApp.Description
+	retval.Name = v.appFieldsManagedApp.Name
+	retval.AuditRecordsEndpoint = v.managedAppFields.AuditRecordsEndpoint
+	retval.Config = v.managedAppFields.Config
+	retval.Credentials = v.managedAppFields.Credentials
+	retval.TableAccess = v.managedAppFields.TableAccess
+	return &retval, nil
+}
+
+// UpdateRemotetAppResponse is returned by UpdateRemotetApp on success.
+type UpdateRemotetAppResponse struct {
+	GetApp *UpdateRemotetAppGetApp `json:"-"`
+}
+
+// GetGetApp returns UpdateRemotetAppResponse.GetApp, and is useful for accessing the field via an interface.
+func (v *UpdateRemotetAppResponse) GetGetApp() *UpdateRemotetAppGetApp { return v.GetApp }
+
+func (v *UpdateRemotetAppResponse) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateRemotetAppResponse
+		GetApp json.RawMessage `json:"GetApp"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateRemotetAppResponse = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.GetApp
+		src := firstPass.GetApp
+		if len(src) != 0 && string(src) != "null" {
+			*dst = new(UpdateRemotetAppGetApp)
+			err = __unmarshalUpdateRemotetAppGetApp(
+				src, *dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal UpdateRemotetAppResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalUpdateRemotetAppResponse struct {
+	GetApp json.RawMessage `json:"GetApp"`
+}
+
+func (v *UpdateRemotetAppResponse) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateRemotetAppResponse) __premarshalJSON() (*__premarshalUpdateRemotetAppResponse, error) {
+	var retval __premarshalUpdateRemotetAppResponse
+
+	{
+
+		dst := &retval.GetApp
+		src := v.GetApp
+		if src != nil {
+			var err error
+			*dst, err = __marshalUpdateRemotetAppGetApp(
+				src)
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Unable to marshal UpdateRemotetAppResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return &retval, nil
 }
 
 // UpdateTenantGetTenant includes the requested fields of the GraphQL type Tenant.
@@ -2167,15 +6604,87 @@ func (v *UpdateTenantGetTenant) GetUpdate() UpdateTenantGetTenantUpdateTenant { 
 
 // UpdateTenantGetTenantUpdateTenant includes the requested fields of the GraphQL type Tenant.
 type UpdateTenantGetTenantUpdateTenant struct {
-	Config      *string `json:"config"`
-	Description *string `json:"description"`
+	tenantFields `json:"-"`
 }
 
+// GetActive returns UpdateTenantGetTenantUpdateTenant.Active, and is useful for accessing the field via an interface.
+func (v *UpdateTenantGetTenantUpdateTenant) GetActive() bool { return v.tenantFields.Active }
+
 // GetConfig returns UpdateTenantGetTenantUpdateTenant.Config, and is useful for accessing the field via an interface.
-func (v *UpdateTenantGetTenantUpdateTenant) GetConfig() *string { return v.Config }
+func (v *UpdateTenantGetTenantUpdateTenant) GetConfig() *string { return v.tenantFields.Config }
 
 // GetDescription returns UpdateTenantGetTenantUpdateTenant.Description, and is useful for accessing the field via an interface.
-func (v *UpdateTenantGetTenantUpdateTenant) GetDescription() *string { return v.Description }
+func (v *UpdateTenantGetTenantUpdateTenant) GetDescription() *string {
+	return v.tenantFields.Description
+}
+
+// GetName returns UpdateTenantGetTenantUpdateTenant.Name, and is useful for accessing the field via an interface.
+func (v *UpdateTenantGetTenantUpdateTenant) GetName() string { return v.tenantFields.Name }
+
+// GetRegion returns UpdateTenantGetTenantUpdateTenant.Region, and is useful for accessing the field via an interface.
+func (v *UpdateTenantGetTenantUpdateTenant) GetRegion() string { return v.tenantFields.Region }
+
+// GetTable returns UpdateTenantGetTenantUpdateTenant.Table, and is useful for accessing the field via an interface.
+func (v *UpdateTenantGetTenantUpdateTenant) GetTable() string { return v.tenantFields.Table }
+
+func (v *UpdateTenantGetTenantUpdateTenant) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateTenantGetTenantUpdateTenant
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateTenantGetTenantUpdateTenant = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.tenantFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateTenantGetTenantUpdateTenant struct {
+	Active bool `json:"active"`
+
+	Config *string `json:"config"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	Region string `json:"region"`
+
+	Table string `json:"table"`
+}
+
+func (v *UpdateTenantGetTenantUpdateTenant) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateTenantGetTenantUpdateTenant) __premarshalJSON() (*__premarshalUpdateTenantGetTenantUpdateTenant, error) {
+	var retval __premarshalUpdateTenantGetTenantUpdateTenant
+
+	retval.Active = v.tenantFields.Active
+	retval.Config = v.tenantFields.Config
+	retval.Description = v.tenantFields.Description
+	retval.Name = v.tenantFields.Name
+	retval.Region = v.tenantFields.Region
+	retval.Table = v.tenantFields.Table
+	return &retval, nil
+}
 
 // UpdateTenantResponse is returned by UpdateTenant on success.
 type UpdateTenantResponse struct {
@@ -2247,6 +6756,94 @@ func (v *__CreateBitmapperFunctionInput) GetReadme() *string { return v.Readme }
 // GetRequirements returns __CreateBitmapperFunctionInput.Requirements, and is useful for accessing the field via an interface.
 func (v *__CreateBitmapperFunctionInput) GetRequirements() []string { return v.Requirements }
 
+// __CreateCrossAccountAppInput is used internally by genqlient
+type __CreateCrossAccountAppInput struct {
+	Account     string  `json:"account"`
+	Name        string  `json:"name"`
+	Tenant      string  `json:"tenant"`
+	Config      *string `json:"config"`
+	Description *string `json:"description"`
+	TableAccess *bool   `json:"tableAccess"`
+}
+
+// GetAccount returns __CreateCrossAccountAppInput.Account, and is useful for accessing the field via an interface.
+func (v *__CreateCrossAccountAppInput) GetAccount() string { return v.Account }
+
+// GetName returns __CreateCrossAccountAppInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateCrossAccountAppInput) GetName() string { return v.Name }
+
+// GetTenant returns __CreateCrossAccountAppInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateCrossAccountAppInput) GetTenant() string { return v.Tenant }
+
+// GetConfig returns __CreateCrossAccountAppInput.Config, and is useful for accessing the field via an interface.
+func (v *__CreateCrossAccountAppInput) GetConfig() *string { return v.Config }
+
+// GetDescription returns __CreateCrossAccountAppInput.Description, and is useful for accessing the field via an interface.
+func (v *__CreateCrossAccountAppInput) GetDescription() *string { return v.Description }
+
+// GetTableAccess returns __CreateCrossAccountAppInput.TableAccess, and is useful for accessing the field via an interface.
+func (v *__CreateCrossAccountAppInput) GetTableAccess() *bool { return v.TableAccess }
+
+// __CreateCrossTenantReceivingAppInput is used internally by genqlient
+type __CreateCrossTenantReceivingAppInput struct {
+	Name          string `json:"name"`
+	SendingTenant string `json:"sendingTenant"`
+	Tenant        string `json:"tenant"`
+}
+
+// GetName returns __CreateCrossTenantReceivingAppInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateCrossTenantReceivingAppInput) GetName() string { return v.Name }
+
+// GetSendingTenant returns __CreateCrossTenantReceivingAppInput.SendingTenant, and is useful for accessing the field via an interface.
+func (v *__CreateCrossTenantReceivingAppInput) GetSendingTenant() string { return v.SendingTenant }
+
+// GetTenant returns __CreateCrossTenantReceivingAppInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateCrossTenantReceivingAppInput) GetTenant() string { return v.Tenant }
+
+// __CreateCrossTenantSendingAppInput is used internally by genqlient
+type __CreateCrossTenantSendingAppInput struct {
+	Name            string `json:"name"`
+	ReceivingApp    string `json:"receivingApp"`
+	ReceivingTenant string `json:"receivingTenant"`
+	Tenant          string `json:"tenant"`
+}
+
+// GetName returns __CreateCrossTenantSendingAppInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateCrossTenantSendingAppInput) GetName() string { return v.Name }
+
+// GetReceivingApp returns __CreateCrossTenantSendingAppInput.ReceivingApp, and is useful for accessing the field via an interface.
+func (v *__CreateCrossTenantSendingAppInput) GetReceivingApp() string { return v.ReceivingApp }
+
+// GetReceivingTenant returns __CreateCrossTenantSendingAppInput.ReceivingTenant, and is useful for accessing the field via an interface.
+func (v *__CreateCrossTenantSendingAppInput) GetReceivingTenant() string { return v.ReceivingTenant }
+
+// GetTenant returns __CreateCrossTenantSendingAppInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateCrossTenantSendingAppInput) GetTenant() string { return v.Tenant }
+
+// __CreateExternalAppInput is used internally by genqlient
+type __CreateExternalAppInput struct {
+	Name        string  `json:"name"`
+	Tenant      string  `json:"tenant"`
+	Config      *string `json:"config"`
+	Description *string `json:"description"`
+	TableAccess *bool   `json:"tableAccess"`
+}
+
+// GetName returns __CreateExternalAppInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateExternalAppInput) GetName() string { return v.Name }
+
+// GetTenant returns __CreateExternalAppInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateExternalAppInput) GetTenant() string { return v.Tenant }
+
+// GetConfig returns __CreateExternalAppInput.Config, and is useful for accessing the field via an interface.
+func (v *__CreateExternalAppInput) GetConfig() *string { return v.Config }
+
+// GetDescription returns __CreateExternalAppInput.Description, and is useful for accessing the field via an interface.
+func (v *__CreateExternalAppInput) GetDescription() *string { return v.Description }
+
+// GetTableAccess returns __CreateExternalAppInput.TableAccess, and is useful for accessing the field via an interface.
+func (v *__CreateExternalAppInput) GetTableAccess() *bool { return v.TableAccess }
+
 // __CreateKmsKeyInput is used internally by genqlient
 type __CreateKmsKeyInput struct {
 	Name        string  `json:"name"`
@@ -2262,6 +6859,30 @@ func (v *__CreateKmsKeyInput) GetTenant() string { return v.Tenant }
 
 // GetDescription returns __CreateKmsKeyInput.Description, and is useful for accessing the field via an interface.
 func (v *__CreateKmsKeyInput) GetDescription() *string { return v.Description }
+
+// __CreateManagedAppInput is used internally by genqlient
+type __CreateManagedAppInput struct {
+	Name        string  `json:"name"`
+	Tenant      string  `json:"tenant"`
+	Config      *string `json:"config"`
+	Description *string `json:"description"`
+	TableAccess *bool   `json:"tableAccess"`
+}
+
+// GetName returns __CreateManagedAppInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateManagedAppInput) GetName() string { return v.Name }
+
+// GetTenant returns __CreateManagedAppInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateManagedAppInput) GetTenant() string { return v.Tenant }
+
+// GetConfig returns __CreateManagedAppInput.Config, and is useful for accessing the field via an interface.
+func (v *__CreateManagedAppInput) GetConfig() *string { return v.Config }
+
+// GetDescription returns __CreateManagedAppInput.Description, and is useful for accessing the field via an interface.
+func (v *__CreateManagedAppInput) GetDescription() *string { return v.Description }
+
+// GetTableAccess returns __CreateManagedAppInput.TableAccess, and is useful for accessing the field via an interface.
+func (v *__CreateManagedAppInput) GetTableAccess() *bool { return v.TableAccess }
 
 // __CreateMessageTypeInput is used internally by genqlient
 type __CreateMessageTypeInput struct {
@@ -2341,6 +6962,18 @@ func (v *__CreateProcessorFunctionInput) GetRequirements() []string { return v.R
 // GetReturnMessageType returns __CreateProcessorFunctionInput.ReturnMessageType, and is useful for accessing the field via an interface.
 func (v *__CreateProcessorFunctionInput) GetReturnMessageType() *string { return v.ReturnMessageType }
 
+// __DeleteAppInput is used internally by genqlient
+type __DeleteAppInput struct {
+	Name   string `json:"name"`
+	Tenant string `json:"tenant"`
+}
+
+// GetName returns __DeleteAppInput.Name, and is useful for accessing the field via an interface.
+func (v *__DeleteAppInput) GetName() string { return v.Name }
+
+// GetTenant returns __DeleteAppInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__DeleteAppInput) GetTenant() string { return v.Tenant }
+
 // __DeleteFunctionInput is used internally by genqlient
 type __DeleteFunctionInput struct {
 	Name   string `json:"name"`
@@ -2376,6 +7009,18 @@ func (v *__DeleteMessageTypeInput) GetName() string { return v.Name }
 
 // GetTenant returns __DeleteMessageTypeInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__DeleteMessageTypeInput) GetTenant() string { return v.Tenant }
+
+// __ReadAppInput is used internally by genqlient
+type __ReadAppInput struct {
+	Name   string `json:"name"`
+	Tenant string `json:"tenant"`
+}
+
+// GetName returns __ReadAppInput.Name, and is useful for accessing the field via an interface.
+func (v *__ReadAppInput) GetName() string { return v.Name }
+
+// GetTenant returns __ReadAppInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__ReadAppInput) GetTenant() string { return v.Tenant }
 
 // __ReadFunctionInput is used internally by genqlient
 type __ReadFunctionInput struct {
@@ -2425,6 +7070,18 @@ func (v *__ReadNodeInput) GetName() string { return v.Name }
 // GetTenant returns __ReadNodeInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__ReadNodeInput) GetTenant() string { return v.Tenant }
 
+// __ReadTenantAwsCredentialsInput is used internally by genqlient
+type __ReadTenantAwsCredentialsInput struct {
+	Tenant   string `json:"tenant"`
+	Duration *int   `json:"duration"`
+}
+
+// GetTenant returns __ReadTenantAwsCredentialsInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__ReadTenantAwsCredentialsInput) GetTenant() string { return v.Tenant }
+
+// GetDuration returns __ReadTenantAwsCredentialsInput.Duration, and is useful for accessing the field via an interface.
+func (v *__ReadTenantAwsCredentialsInput) GetDuration() *int { return v.Duration }
+
 // __ReadTenantInput is used internally by genqlient
 type __ReadTenantInput struct {
 	Tenant string `json:"tenant"`
@@ -2432,6 +7089,22 @@ type __ReadTenantInput struct {
 
 // GetTenant returns __ReadTenantInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__ReadTenantInput) GetTenant() string { return v.Tenant }
+
+// __UpdateCrossTenantAppInput is used internally by genqlient
+type __UpdateCrossTenantAppInput struct {
+	Name        string  `json:"name"`
+	Tenant      string  `json:"tenant"`
+	Description *string `json:"description"`
+}
+
+// GetName returns __UpdateCrossTenantAppInput.Name, and is useful for accessing the field via an interface.
+func (v *__UpdateCrossTenantAppInput) GetName() string { return v.Name }
+
+// GetTenant returns __UpdateCrossTenantAppInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__UpdateCrossTenantAppInput) GetTenant() string { return v.Tenant }
+
+// GetDescription returns __UpdateCrossTenantAppInput.Description, and is useful for accessing the field via an interface.
+func (v *__UpdateCrossTenantAppInput) GetDescription() *string { return v.Description }
 
 // __UpdateFunctionInput is used internally by genqlient
 type __UpdateFunctionInput struct {
@@ -2517,6 +7190,30 @@ func (v *__UpdateMessageTypeInput) GetRequirements() []string { return v.Require
 // GetSampleMessage returns __UpdateMessageTypeInput.SampleMessage, and is useful for accessing the field via an interface.
 func (v *__UpdateMessageTypeInput) GetSampleMessage() *string { return v.SampleMessage }
 
+// __UpdateRemotetAppInput is used internally by genqlient
+type __UpdateRemotetAppInput struct {
+	Name        string  `json:"name"`
+	Tenant      string  `json:"tenant"`
+	Config      *string `json:"config"`
+	Description *string `json:"description"`
+	TableAccess *bool   `json:"tableAccess"`
+}
+
+// GetName returns __UpdateRemotetAppInput.Name, and is useful for accessing the field via an interface.
+func (v *__UpdateRemotetAppInput) GetName() string { return v.Name }
+
+// GetTenant returns __UpdateRemotetAppInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__UpdateRemotetAppInput) GetTenant() string { return v.Tenant }
+
+// GetConfig returns __UpdateRemotetAppInput.Config, and is useful for accessing the field via an interface.
+func (v *__UpdateRemotetAppInput) GetConfig() *string { return v.Config }
+
+// GetDescription returns __UpdateRemotetAppInput.Description, and is useful for accessing the field via an interface.
+func (v *__UpdateRemotetAppInput) GetDescription() *string { return v.Description }
+
+// GetTableAccess returns __UpdateRemotetAppInput.TableAccess, and is useful for accessing the field via an interface.
+func (v *__UpdateRemotetAppInput) GetTableAccess() *bool { return v.TableAccess }
+
 // __UpdateTenantInput is used internally by genqlient
 type __UpdateTenantInput struct {
 	Tenant      string  `json:"tenant"`
@@ -2533,6 +7230,1430 @@ func (v *__UpdateTenantInput) GetConfig() *string { return v.Config }
 // GetDescription returns __UpdateTenantInput.Description, and is useful for accessing the field via an interface.
 func (v *__UpdateTenantInput) GetDescription() *string { return v.Description }
 
+// alertEmitterNodeFields includes the GraphQL fields of AlertEmitterNode requested by the fragment alertEmitterNodeFields.
+type alertEmitterNodeFields struct {
+	SendMessageType *alertEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
+}
+
+// GetSendMessageType returns alertEmitterNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *alertEmitterNodeFields) GetSendMessageType() *alertEmitterNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// alertEmitterNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type alertEmitterNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns alertEmitterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *alertEmitterNodeFieldsSendMessageType) GetName() string { return v.Name }
+
+// appChangeRouterNodeFields includes the GraphQL fields of AppChangeRouterNode requested by the fragment appChangeRouterNodeFields.
+type appChangeRouterNodeFields struct {
+	ReceiveMessageType *appChangeRouterNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+	SendMessageType    *appChangeRouterNodeFieldsSendMessageType    `json:"sendMessageType"`
+}
+
+// GetReceiveMessageType returns appChangeRouterNodeFields.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *appChangeRouterNodeFields) GetReceiveMessageType() *appChangeRouterNodeFieldsReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// GetSendMessageType returns appChangeRouterNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *appChangeRouterNodeFields) GetSendMessageType() *appChangeRouterNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// appChangeRouterNodeFieldsReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type appChangeRouterNodeFieldsReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns appChangeRouterNodeFieldsReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *appChangeRouterNodeFieldsReceiveMessageType) GetName() string { return v.Name }
+
+// appChangeRouterNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type appChangeRouterNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns appChangeRouterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *appChangeRouterNodeFieldsSendMessageType) GetName() string { return v.Name }
+
+// appFields includes the GraphQL fields of App requested by the fragment appFields.
+//
+// appFields is implemented by the following types:
+// appFieldsCrossAccountApp
+// appFieldsCrossTenantReceivingApp
+// appFieldsCrossTenantSendingApp
+// appFieldsExternalApp
+// appFieldsManagedApp
+type appFields interface {
+	implementsGraphQLInterfaceappFields()
+	// GetDescription returns the interface-field "description" from its implementation.
+	GetDescription() *string
+	// GetName returns the interface-field "name" from its implementation.
+	GetName() string
+}
+
+func (v *appFieldsCrossAccountApp) implementsGraphQLInterfaceappFields()         {}
+func (v *appFieldsCrossTenantReceivingApp) implementsGraphQLInterfaceappFields() {}
+func (v *appFieldsCrossTenantSendingApp) implementsGraphQLInterfaceappFields()   {}
+func (v *appFieldsExternalApp) implementsGraphQLInterfaceappFields()             {}
+func (v *appFieldsManagedApp) implementsGraphQLInterfaceappFields()              {}
+
+func __unmarshalappFields(b []byte, v *appFields) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "CrossAccountApp":
+		*v = new(appFieldsCrossAccountApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingApp":
+		*v = new(appFieldsCrossTenantReceivingApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingApp":
+		*v = new(appFieldsCrossTenantSendingApp)
+		return json.Unmarshal(b, *v)
+	case "ExternalApp":
+		*v = new(appFieldsExternalApp)
+		return json.Unmarshal(b, *v)
+	case "ManagedApp":
+		*v = new(appFieldsManagedApp)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing App.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for appFields: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalappFields(v *appFields) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *appFieldsCrossAccountApp:
+		typename = "CrossAccountApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*appFieldsCrossAccountApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *appFieldsCrossTenantReceivingApp:
+		typename = "CrossTenantReceivingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*appFieldsCrossTenantReceivingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *appFieldsCrossTenantSendingApp:
+		typename = "CrossTenantSendingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*appFieldsCrossTenantSendingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *appFieldsExternalApp:
+		typename = "ExternalApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*appFieldsExternalApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *appFieldsManagedApp:
+		typename = "ManagedApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*appFieldsManagedApp
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for appFields: "%T"`, v)
+	}
+}
+
+// appFields includes the GraphQL fields of CrossAccountApp requested by the fragment appFields.
+type appFieldsCrossAccountApp struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns appFieldsCrossAccountApp.Description, and is useful for accessing the field via an interface.
+func (v *appFieldsCrossAccountApp) GetDescription() *string { return v.Description }
+
+// GetName returns appFieldsCrossAccountApp.Name, and is useful for accessing the field via an interface.
+func (v *appFieldsCrossAccountApp) GetName() string { return v.Name }
+
+// appFields includes the GraphQL fields of CrossTenantReceivingApp requested by the fragment appFields.
+type appFieldsCrossTenantReceivingApp struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns appFieldsCrossTenantReceivingApp.Description, and is useful for accessing the field via an interface.
+func (v *appFieldsCrossTenantReceivingApp) GetDescription() *string { return v.Description }
+
+// GetName returns appFieldsCrossTenantReceivingApp.Name, and is useful for accessing the field via an interface.
+func (v *appFieldsCrossTenantReceivingApp) GetName() string { return v.Name }
+
+// appFields includes the GraphQL fields of CrossTenantSendingApp requested by the fragment appFields.
+type appFieldsCrossTenantSendingApp struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns appFieldsCrossTenantSendingApp.Description, and is useful for accessing the field via an interface.
+func (v *appFieldsCrossTenantSendingApp) GetDescription() *string { return v.Description }
+
+// GetName returns appFieldsCrossTenantSendingApp.Name, and is useful for accessing the field via an interface.
+func (v *appFieldsCrossTenantSendingApp) GetName() string { return v.Name }
+
+// appFields includes the GraphQL fields of ExternalApp requested by the fragment appFields.
+type appFieldsExternalApp struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns appFieldsExternalApp.Description, and is useful for accessing the field via an interface.
+func (v *appFieldsExternalApp) GetDescription() *string { return v.Description }
+
+// GetName returns appFieldsExternalApp.Name, and is useful for accessing the field via an interface.
+func (v *appFieldsExternalApp) GetName() string { return v.Name }
+
+// appFields includes the GraphQL fields of ManagedApp requested by the fragment appFields.
+type appFieldsManagedApp struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns appFieldsManagedApp.Description, and is useful for accessing the field via an interface.
+func (v *appFieldsManagedApp) GetDescription() *string { return v.Description }
+
+// GetName returns appFieldsManagedApp.Name, and is useful for accessing the field via an interface.
+func (v *appFieldsManagedApp) GetName() string { return v.Name }
+
+// auditEmitterNodeFields includes the GraphQL fields of AuditEmitterNode requested by the fragment auditEmitterNodeFields.
+type auditEmitterNodeFields struct {
+	SendMessageType *auditEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
+}
+
+// GetSendMessageType returns auditEmitterNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *auditEmitterNodeFields) GetSendMessageType() *auditEmitterNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// auditEmitterNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type auditEmitterNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns auditEmitterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *auditEmitterNodeFieldsSendMessageType) GetName() string { return v.Name }
+
+// bitmapperFunctionFields includes the GraphQL fields of BitmapperFunction requested by the fragment bitmapperFunctionFields.
+type bitmapperFunctionFields struct {
+	ArgumentMessageType bitmapperFunctionFieldsArgumentMessageType `json:"argumentMessageType"`
+}
+
+// GetArgumentMessageType returns bitmapperFunctionFields.ArgumentMessageType, and is useful for accessing the field via an interface.
+func (v *bitmapperFunctionFields) GetArgumentMessageType() bitmapperFunctionFieldsArgumentMessageType {
+	return v.ArgumentMessageType
+}
+
+// bitmapperFunctionFieldsArgumentMessageType includes the requested fields of the GraphQL type MessageType.
+type bitmapperFunctionFieldsArgumentMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns bitmapperFunctionFieldsArgumentMessageType.Name, and is useful for accessing the field via an interface.
+func (v *bitmapperFunctionFieldsArgumentMessageType) GetName() string { return v.Name }
+
+// changeEmitterNodeFields includes the GraphQL fields of ChangeEmitterNode requested by the fragment changeEmitterNodeFields.
+type changeEmitterNodeFields struct {
+	SendMessageType *changeEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
+}
+
+// GetSendMessageType returns changeEmitterNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *changeEmitterNodeFields) GetSendMessageType() *changeEmitterNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// changeEmitterNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type changeEmitterNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns changeEmitterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *changeEmitterNodeFieldsSendMessageType) GetName() string { return v.Name }
+
+// cognitoCredentialsFields includes the GraphQL fields of CognitoCredentials requested by the fragment cognitoCredentialsFields.
+type cognitoCredentialsFields struct {
+	ClientId   string `json:"clientId"`
+	Password   string `json:"password"`
+	UserPoolId string `json:"userPoolId"`
+	Username   string `json:"username"`
+}
+
+// GetClientId returns cognitoCredentialsFields.ClientId, and is useful for accessing the field via an interface.
+func (v *cognitoCredentialsFields) GetClientId() string { return v.ClientId }
+
+// GetPassword returns cognitoCredentialsFields.Password, and is useful for accessing the field via an interface.
+func (v *cognitoCredentialsFields) GetPassword() string { return v.Password }
+
+// GetUserPoolId returns cognitoCredentialsFields.UserPoolId, and is useful for accessing the field via an interface.
+func (v *cognitoCredentialsFields) GetUserPoolId() string { return v.UserPoolId }
+
+// GetUsername returns cognitoCredentialsFields.Username, and is useful for accessing the field via an interface.
+func (v *cognitoCredentialsFields) GetUsername() string { return v.Username }
+
+// crossAccountAppFields includes the GraphQL fields of CrossAccountApp requested by the fragment crossAccountAppFields.
+type crossAccountAppFields struct {
+	Account              string                                             `json:"account"`
+	AppsyncEndpoint      string                                             `json:"appsyncEndpoint"`
+	AuditRecordsEndpoint string                                             `json:"auditRecordsEndpoint"`
+	Config               *string                                            `json:"config"`
+	Credentials          crossAccountAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+	IamPolicy            string                                             `json:"iamPolicy"`
+	TableAccess          bool                                               `json:"tableAccess"`
+}
+
+// GetAccount returns crossAccountAppFields.Account, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFields) GetAccount() string { return v.Account }
+
+// GetAppsyncEndpoint returns crossAccountAppFields.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFields) GetAppsyncEndpoint() string { return v.AppsyncEndpoint }
+
+// GetAuditRecordsEndpoint returns crossAccountAppFields.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFields) GetAuditRecordsEndpoint() string { return v.AuditRecordsEndpoint }
+
+// GetConfig returns crossAccountAppFields.Config, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFields) GetConfig() *string { return v.Config }
+
+// GetCredentials returns crossAccountAppFields.Credentials, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFields) GetCredentials() crossAccountAppFieldsCredentialsCognitoCredentials {
+	return v.Credentials
+}
+
+// GetIamPolicy returns crossAccountAppFields.IamPolicy, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFields) GetIamPolicy() string { return v.IamPolicy }
+
+// GetTableAccess returns crossAccountAppFields.TableAccess, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFields) GetTableAccess() bool { return v.TableAccess }
+
+// crossAccountAppFieldsCredentialsCognitoCredentials includes the requested fields of the GraphQL type CognitoCredentials.
+type crossAccountAppFieldsCredentialsCognitoCredentials struct {
+	cognitoCredentialsFields `json:"-"`
+}
+
+// GetClientId returns crossAccountAppFieldsCredentialsCognitoCredentials.ClientId, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFieldsCredentialsCognitoCredentials) GetClientId() string {
+	return v.cognitoCredentialsFields.ClientId
+}
+
+// GetPassword returns crossAccountAppFieldsCredentialsCognitoCredentials.Password, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFieldsCredentialsCognitoCredentials) GetPassword() string {
+	return v.cognitoCredentialsFields.Password
+}
+
+// GetUserPoolId returns crossAccountAppFieldsCredentialsCognitoCredentials.UserPoolId, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFieldsCredentialsCognitoCredentials) GetUserPoolId() string {
+	return v.cognitoCredentialsFields.UserPoolId
+}
+
+// GetUsername returns crossAccountAppFieldsCredentialsCognitoCredentials.Username, and is useful for accessing the field via an interface.
+func (v *crossAccountAppFieldsCredentialsCognitoCredentials) GetUsername() string {
+	return v.cognitoCredentialsFields.Username
+}
+
+func (v *crossAccountAppFieldsCredentialsCognitoCredentials) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*crossAccountAppFieldsCredentialsCognitoCredentials
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.crossAccountAppFieldsCredentialsCognitoCredentials = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.cognitoCredentialsFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalcrossAccountAppFieldsCredentialsCognitoCredentials struct {
+	ClientId string `json:"clientId"`
+
+	Password string `json:"password"`
+
+	UserPoolId string `json:"userPoolId"`
+
+	Username string `json:"username"`
+}
+
+func (v *crossAccountAppFieldsCredentialsCognitoCredentials) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *crossAccountAppFieldsCredentialsCognitoCredentials) __premarshalJSON() (*__premarshalcrossAccountAppFieldsCredentialsCognitoCredentials, error) {
+	var retval __premarshalcrossAccountAppFieldsCredentialsCognitoCredentials
+
+	retval.ClientId = v.cognitoCredentialsFields.ClientId
+	retval.Password = v.cognitoCredentialsFields.Password
+	retval.UserPoolId = v.cognitoCredentialsFields.UserPoolId
+	retval.Username = v.cognitoCredentialsFields.Username
+	return &retval, nil
+}
+
+// crossTenantReceivingAppFields includes the GraphQL fields of CrossTenantReceivingApp requested by the fragment crossTenantReceivingAppFields.
+type crossTenantReceivingAppFields struct {
+	SendingApp    *string `json:"sendingApp"`
+	SendingTenant string  `json:"sendingTenant"`
+}
+
+// GetSendingApp returns crossTenantReceivingAppFields.SendingApp, and is useful for accessing the field via an interface.
+func (v *crossTenantReceivingAppFields) GetSendingApp() *string { return v.SendingApp }
+
+// GetSendingTenant returns crossTenantReceivingAppFields.SendingTenant, and is useful for accessing the field via an interface.
+func (v *crossTenantReceivingAppFields) GetSendingTenant() string { return v.SendingTenant }
+
+// crossTenantSendingAppFields includes the GraphQL fields of CrossTenantSendingApp requested by the fragment crossTenantSendingAppFields.
+type crossTenantSendingAppFields struct {
+	ReceivingApp    string `json:"receivingApp"`
+	ReceivingTenant string `json:"receivingTenant"`
+}
+
+// GetReceivingApp returns crossTenantSendingAppFields.ReceivingApp, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingAppFields) GetReceivingApp() string { return v.ReceivingApp }
+
+// GetReceivingTenant returns crossTenantSendingAppFields.ReceivingTenant, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingAppFields) GetReceivingTenant() string { return v.ReceivingTenant }
+
+// externalAppFields includes the GraphQL fields of ExternalApp requested by the fragment externalAppFields.
+type externalAppFields struct {
+	AppsyncEndpoint      string                                         `json:"appsyncEndpoint"`
+	AuditRecordsEndpoint string                                         `json:"auditRecordsEndpoint"`
+	Config               *string                                        `json:"config"`
+	Credentials          externalAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+	TableAccess          bool                                           `json:"tableAccess"`
+}
+
+// GetAppsyncEndpoint returns externalAppFields.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *externalAppFields) GetAppsyncEndpoint() string { return v.AppsyncEndpoint }
+
+// GetAuditRecordsEndpoint returns externalAppFields.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *externalAppFields) GetAuditRecordsEndpoint() string { return v.AuditRecordsEndpoint }
+
+// GetConfig returns externalAppFields.Config, and is useful for accessing the field via an interface.
+func (v *externalAppFields) GetConfig() *string { return v.Config }
+
+// GetCredentials returns externalAppFields.Credentials, and is useful for accessing the field via an interface.
+func (v *externalAppFields) GetCredentials() externalAppFieldsCredentialsCognitoCredentials {
+	return v.Credentials
+}
+
+// GetTableAccess returns externalAppFields.TableAccess, and is useful for accessing the field via an interface.
+func (v *externalAppFields) GetTableAccess() bool { return v.TableAccess }
+
+// externalAppFieldsCredentialsCognitoCredentials includes the requested fields of the GraphQL type CognitoCredentials.
+type externalAppFieldsCredentialsCognitoCredentials struct {
+	cognitoCredentialsFields `json:"-"`
+}
+
+// GetClientId returns externalAppFieldsCredentialsCognitoCredentials.ClientId, and is useful for accessing the field via an interface.
+func (v *externalAppFieldsCredentialsCognitoCredentials) GetClientId() string {
+	return v.cognitoCredentialsFields.ClientId
+}
+
+// GetPassword returns externalAppFieldsCredentialsCognitoCredentials.Password, and is useful for accessing the field via an interface.
+func (v *externalAppFieldsCredentialsCognitoCredentials) GetPassword() string {
+	return v.cognitoCredentialsFields.Password
+}
+
+// GetUserPoolId returns externalAppFieldsCredentialsCognitoCredentials.UserPoolId, and is useful for accessing the field via an interface.
+func (v *externalAppFieldsCredentialsCognitoCredentials) GetUserPoolId() string {
+	return v.cognitoCredentialsFields.UserPoolId
+}
+
+// GetUsername returns externalAppFieldsCredentialsCognitoCredentials.Username, and is useful for accessing the field via an interface.
+func (v *externalAppFieldsCredentialsCognitoCredentials) GetUsername() string {
+	return v.cognitoCredentialsFields.Username
+}
+
+func (v *externalAppFieldsCredentialsCognitoCredentials) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*externalAppFieldsCredentialsCognitoCredentials
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.externalAppFieldsCredentialsCognitoCredentials = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.cognitoCredentialsFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalexternalAppFieldsCredentialsCognitoCredentials struct {
+	ClientId string `json:"clientId"`
+
+	Password string `json:"password"`
+
+	UserPoolId string `json:"userPoolId"`
+
+	Username string `json:"username"`
+}
+
+func (v *externalAppFieldsCredentialsCognitoCredentials) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *externalAppFieldsCredentialsCognitoCredentials) __premarshalJSON() (*__premarshalexternalAppFieldsCredentialsCognitoCredentials, error) {
+	var retval __premarshalexternalAppFieldsCredentialsCognitoCredentials
+
+	retval.ClientId = v.cognitoCredentialsFields.ClientId
+	retval.Password = v.cognitoCredentialsFields.Password
+	retval.UserPoolId = v.cognitoCredentialsFields.UserPoolId
+	retval.Username = v.cognitoCredentialsFields.Username
+	return &retval, nil
+}
+
+// functionFields includes the GraphQL fields of Function requested by the fragment functionFields.
+//
+// functionFields is implemented by the following types:
+// functionFieldsApiAuthenticatorFunction
+// functionFieldsBitmapperFunction
+// functionFieldsProcessorFunction
+type functionFields interface {
+	implementsGraphQLInterfacefunctionFields()
+	// GetCode returns the interface-field "code" from its implementation.
+	GetCode() string
+	// GetDescription returns the interface-field "description" from its implementation.
+	GetDescription() string
+	// GetInUse returns the interface-field "inUse" from its implementation.
+	GetInUse() bool
+	// GetName returns the interface-field "name" from its implementation.
+	GetName() string
+	// GetReadme returns the interface-field "readme" from its implementation.
+	GetReadme() *string
+	// GetRequirements returns the interface-field "requirements" from its implementation.
+	GetRequirements() []string
+	// GetSystem returns the interface-field "system" from its implementation.
+	GetSystem() *bool
+}
+
+func (v *functionFieldsApiAuthenticatorFunction) implementsGraphQLInterfacefunctionFields() {}
+func (v *functionFieldsBitmapperFunction) implementsGraphQLInterfacefunctionFields()        {}
+func (v *functionFieldsProcessorFunction) implementsGraphQLInterfacefunctionFields()        {}
+
+func __unmarshalfunctionFields(b []byte, v *functionFields) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "ApiAuthenticatorFunction":
+		*v = new(functionFieldsApiAuthenticatorFunction)
+		return json.Unmarshal(b, *v)
+	case "BitmapperFunction":
+		*v = new(functionFieldsBitmapperFunction)
+		return json.Unmarshal(b, *v)
+	case "ProcessorFunction":
+		*v = new(functionFieldsProcessorFunction)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing Function.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for functionFields: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalfunctionFields(v *functionFields) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *functionFieldsApiAuthenticatorFunction:
+		typename = "ApiAuthenticatorFunction"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*functionFieldsApiAuthenticatorFunction
+		}{typename, v}
+		return json.Marshal(result)
+	case *functionFieldsBitmapperFunction:
+		typename = "BitmapperFunction"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*functionFieldsBitmapperFunction
+		}{typename, v}
+		return json.Marshal(result)
+	case *functionFieldsProcessorFunction:
+		typename = "ProcessorFunction"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*functionFieldsProcessorFunction
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for functionFields: "%T"`, v)
+	}
+}
+
+// functionFields includes the GraphQL fields of ApiAuthenticatorFunction requested by the fragment functionFields.
+type functionFieldsApiAuthenticatorFunction struct {
+	Code         string   `json:"code"`
+	Description  string   `json:"description"`
+	InUse        bool     `json:"inUse"`
+	Name         string   `json:"name"`
+	Readme       *string  `json:"readme"`
+	Requirements []string `json:"requirements"`
+	System       *bool    `json:"system"`
+}
+
+// GetCode returns functionFieldsApiAuthenticatorFunction.Code, and is useful for accessing the field via an interface.
+func (v *functionFieldsApiAuthenticatorFunction) GetCode() string { return v.Code }
+
+// GetDescription returns functionFieldsApiAuthenticatorFunction.Description, and is useful for accessing the field via an interface.
+func (v *functionFieldsApiAuthenticatorFunction) GetDescription() string { return v.Description }
+
+// GetInUse returns functionFieldsApiAuthenticatorFunction.InUse, and is useful for accessing the field via an interface.
+func (v *functionFieldsApiAuthenticatorFunction) GetInUse() bool { return v.InUse }
+
+// GetName returns functionFieldsApiAuthenticatorFunction.Name, and is useful for accessing the field via an interface.
+func (v *functionFieldsApiAuthenticatorFunction) GetName() string { return v.Name }
+
+// GetReadme returns functionFieldsApiAuthenticatorFunction.Readme, and is useful for accessing the field via an interface.
+func (v *functionFieldsApiAuthenticatorFunction) GetReadme() *string { return v.Readme }
+
+// GetRequirements returns functionFieldsApiAuthenticatorFunction.Requirements, and is useful for accessing the field via an interface.
+func (v *functionFieldsApiAuthenticatorFunction) GetRequirements() []string { return v.Requirements }
+
+// GetSystem returns functionFieldsApiAuthenticatorFunction.System, and is useful for accessing the field via an interface.
+func (v *functionFieldsApiAuthenticatorFunction) GetSystem() *bool { return v.System }
+
+// functionFields includes the GraphQL fields of BitmapperFunction requested by the fragment functionFields.
+type functionFieldsBitmapperFunction struct {
+	Code         string   `json:"code"`
+	Description  string   `json:"description"`
+	InUse        bool     `json:"inUse"`
+	Name         string   `json:"name"`
+	Readme       *string  `json:"readme"`
+	Requirements []string `json:"requirements"`
+	System       *bool    `json:"system"`
+}
+
+// GetCode returns functionFieldsBitmapperFunction.Code, and is useful for accessing the field via an interface.
+func (v *functionFieldsBitmapperFunction) GetCode() string { return v.Code }
+
+// GetDescription returns functionFieldsBitmapperFunction.Description, and is useful for accessing the field via an interface.
+func (v *functionFieldsBitmapperFunction) GetDescription() string { return v.Description }
+
+// GetInUse returns functionFieldsBitmapperFunction.InUse, and is useful for accessing the field via an interface.
+func (v *functionFieldsBitmapperFunction) GetInUse() bool { return v.InUse }
+
+// GetName returns functionFieldsBitmapperFunction.Name, and is useful for accessing the field via an interface.
+func (v *functionFieldsBitmapperFunction) GetName() string { return v.Name }
+
+// GetReadme returns functionFieldsBitmapperFunction.Readme, and is useful for accessing the field via an interface.
+func (v *functionFieldsBitmapperFunction) GetReadme() *string { return v.Readme }
+
+// GetRequirements returns functionFieldsBitmapperFunction.Requirements, and is useful for accessing the field via an interface.
+func (v *functionFieldsBitmapperFunction) GetRequirements() []string { return v.Requirements }
+
+// GetSystem returns functionFieldsBitmapperFunction.System, and is useful for accessing the field via an interface.
+func (v *functionFieldsBitmapperFunction) GetSystem() *bool { return v.System }
+
+// functionFields includes the GraphQL fields of ProcessorFunction requested by the fragment functionFields.
+type functionFieldsProcessorFunction struct {
+	Code         string   `json:"code"`
+	Description  string   `json:"description"`
+	InUse        bool     `json:"inUse"`
+	Name         string   `json:"name"`
+	Readme       *string  `json:"readme"`
+	Requirements []string `json:"requirements"`
+	System       *bool    `json:"system"`
+}
+
+// GetCode returns functionFieldsProcessorFunction.Code, and is useful for accessing the field via an interface.
+func (v *functionFieldsProcessorFunction) GetCode() string { return v.Code }
+
+// GetDescription returns functionFieldsProcessorFunction.Description, and is useful for accessing the field via an interface.
+func (v *functionFieldsProcessorFunction) GetDescription() string { return v.Description }
+
+// GetInUse returns functionFieldsProcessorFunction.InUse, and is useful for accessing the field via an interface.
+func (v *functionFieldsProcessorFunction) GetInUse() bool { return v.InUse }
+
+// GetName returns functionFieldsProcessorFunction.Name, and is useful for accessing the field via an interface.
+func (v *functionFieldsProcessorFunction) GetName() string { return v.Name }
+
+// GetReadme returns functionFieldsProcessorFunction.Readme, and is useful for accessing the field via an interface.
+func (v *functionFieldsProcessorFunction) GetReadme() *string { return v.Readme }
+
+// GetRequirements returns functionFieldsProcessorFunction.Requirements, and is useful for accessing the field via an interface.
+func (v *functionFieldsProcessorFunction) GetRequirements() []string { return v.Requirements }
+
+// GetSystem returns functionFieldsProcessorFunction.System, and is useful for accessing the field via an interface.
+func (v *functionFieldsProcessorFunction) GetSystem() *bool { return v.System }
+
+// kmsKeyFields includes the GraphQL fields of KmsKey requested by the fragment kmsKeyFields.
+type kmsKeyFields struct {
+	Arn         string  `json:"arn"`
+	Description *string `json:"description"`
+	InUse       bool    `json:"inUse"`
+	Name        string  `json:"name"`
+}
+
+// GetArn returns kmsKeyFields.Arn, and is useful for accessing the field via an interface.
+func (v *kmsKeyFields) GetArn() string { return v.Arn }
+
+// GetDescription returns kmsKeyFields.Description, and is useful for accessing the field via an interface.
+func (v *kmsKeyFields) GetDescription() *string { return v.Description }
+
+// GetInUse returns kmsKeyFields.InUse, and is useful for accessing the field via an interface.
+func (v *kmsKeyFields) GetInUse() bool { return v.InUse }
+
+// GetName returns kmsKeyFields.Name, and is useful for accessing the field via an interface.
+func (v *kmsKeyFields) GetName() string { return v.Name }
+
+// managedAppFields includes the GraphQL fields of ManagedApp requested by the fragment managedAppFields.
+type managedAppFields struct {
+	AuditRecordsEndpoint string                                        `json:"auditRecordsEndpoint"`
+	Config               *string                                       `json:"config"`
+	Credentials          managedAppFieldsCredentialsCognitoCredentials `json:"credentials"`
+	TableAccess          bool                                          `json:"tableAccess"`
+}
+
+// GetAuditRecordsEndpoint returns managedAppFields.AuditRecordsEndpoint, and is useful for accessing the field via an interface.
+func (v *managedAppFields) GetAuditRecordsEndpoint() string { return v.AuditRecordsEndpoint }
+
+// GetConfig returns managedAppFields.Config, and is useful for accessing the field via an interface.
+func (v *managedAppFields) GetConfig() *string { return v.Config }
+
+// GetCredentials returns managedAppFields.Credentials, and is useful for accessing the field via an interface.
+func (v *managedAppFields) GetCredentials() managedAppFieldsCredentialsCognitoCredentials {
+	return v.Credentials
+}
+
+// GetTableAccess returns managedAppFields.TableAccess, and is useful for accessing the field via an interface.
+func (v *managedAppFields) GetTableAccess() bool { return v.TableAccess }
+
+// managedAppFieldsCredentialsCognitoCredentials includes the requested fields of the GraphQL type CognitoCredentials.
+type managedAppFieldsCredentialsCognitoCredentials struct {
+	cognitoCredentialsFields `json:"-"`
+}
+
+// GetClientId returns managedAppFieldsCredentialsCognitoCredentials.ClientId, and is useful for accessing the field via an interface.
+func (v *managedAppFieldsCredentialsCognitoCredentials) GetClientId() string {
+	return v.cognitoCredentialsFields.ClientId
+}
+
+// GetPassword returns managedAppFieldsCredentialsCognitoCredentials.Password, and is useful for accessing the field via an interface.
+func (v *managedAppFieldsCredentialsCognitoCredentials) GetPassword() string {
+	return v.cognitoCredentialsFields.Password
+}
+
+// GetUserPoolId returns managedAppFieldsCredentialsCognitoCredentials.UserPoolId, and is useful for accessing the field via an interface.
+func (v *managedAppFieldsCredentialsCognitoCredentials) GetUserPoolId() string {
+	return v.cognitoCredentialsFields.UserPoolId
+}
+
+// GetUsername returns managedAppFieldsCredentialsCognitoCredentials.Username, and is useful for accessing the field via an interface.
+func (v *managedAppFieldsCredentialsCognitoCredentials) GetUsername() string {
+	return v.cognitoCredentialsFields.Username
+}
+
+func (v *managedAppFieldsCredentialsCognitoCredentials) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*managedAppFieldsCredentialsCognitoCredentials
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.managedAppFieldsCredentialsCognitoCredentials = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.cognitoCredentialsFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalmanagedAppFieldsCredentialsCognitoCredentials struct {
+	ClientId string `json:"clientId"`
+
+	Password string `json:"password"`
+
+	UserPoolId string `json:"userPoolId"`
+
+	Username string `json:"username"`
+}
+
+func (v *managedAppFieldsCredentialsCognitoCredentials) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *managedAppFieldsCredentialsCognitoCredentials) __premarshalJSON() (*__premarshalmanagedAppFieldsCredentialsCognitoCredentials, error) {
+	var retval __premarshalmanagedAppFieldsCredentialsCognitoCredentials
+
+	retval.ClientId = v.cognitoCredentialsFields.ClientId
+	retval.Password = v.cognitoCredentialsFields.Password
+	retval.UserPoolId = v.cognitoCredentialsFields.UserPoolId
+	retval.Username = v.cognitoCredentialsFields.Username
+	return &retval, nil
+}
+
+// messageTypeFields includes the GraphQL fields of MessageType requested by the fragment messageTypeFields.
+type messageTypeFields struct {
+	Auditor           string   `json:"auditor"`
+	BitmapperTemplate string   `json:"bitmapperTemplate"`
+	Description       string   `json:"description"`
+	InUse             bool     `json:"inUse"`
+	Name              string   `json:"name"`
+	ProcessorTemplate string   `json:"processorTemplate"`
+	Readme            *string  `json:"readme"`
+	Requirements      []string `json:"requirements"`
+	SampleMessage     string   `json:"sampleMessage"`
+	System            *bool    `json:"system"`
+}
+
+// GetAuditor returns messageTypeFields.Auditor, and is useful for accessing the field via an interface.
+func (v *messageTypeFields) GetAuditor() string { return v.Auditor }
+
+// GetBitmapperTemplate returns messageTypeFields.BitmapperTemplate, and is useful for accessing the field via an interface.
+func (v *messageTypeFields) GetBitmapperTemplate() string { return v.BitmapperTemplate }
+
+// GetDescription returns messageTypeFields.Description, and is useful for accessing the field via an interface.
+func (v *messageTypeFields) GetDescription() string { return v.Description }
+
+// GetInUse returns messageTypeFields.InUse, and is useful for accessing the field via an interface.
+func (v *messageTypeFields) GetInUse() bool { return v.InUse }
+
+// GetName returns messageTypeFields.Name, and is useful for accessing the field via an interface.
+func (v *messageTypeFields) GetName() string { return v.Name }
+
+// GetProcessorTemplate returns messageTypeFields.ProcessorTemplate, and is useful for accessing the field via an interface.
+func (v *messageTypeFields) GetProcessorTemplate() string { return v.ProcessorTemplate }
+
+// GetReadme returns messageTypeFields.Readme, and is useful for accessing the field via an interface.
+func (v *messageTypeFields) GetReadme() *string { return v.Readme }
+
+// GetRequirements returns messageTypeFields.Requirements, and is useful for accessing the field via an interface.
+func (v *messageTypeFields) GetRequirements() []string { return v.Requirements }
+
+// GetSampleMessage returns messageTypeFields.SampleMessage, and is useful for accessing the field via an interface.
+func (v *messageTypeFields) GetSampleMessage() string { return v.SampleMessage }
+
+// GetSystem returns messageTypeFields.System, and is useful for accessing the field via an interface.
+func (v *messageTypeFields) GetSystem() *bool { return v.System }
+
+// nodeFields includes the GraphQL fields of Node requested by the fragment nodeFields.
+//
+// nodeFields is implemented by the following types:
+// nodeFieldsAlertEmitterNode
+// nodeFieldsAppChangeReceiverNode
+// nodeFieldsAppChangeRouterNode
+// nodeFieldsAuditEmitterNode
+// nodeFieldsBitmapRouterNode
+// nodeFieldsChangeEmitterNode
+// nodeFieldsCrossTenantReceivingNode
+// nodeFieldsCrossTenantSendingNode
+// nodeFieldsDeadLetterEmitterNode
+// nodeFieldsExternalNode
+// nodeFieldsFilesDotComWebhookNode
+// nodeFieldsLoadBalancerNode
+// nodeFieldsLogEmitterNode
+// nodeFieldsManagedNode
+// nodeFieldsProcessorNode
+// nodeFieldsTimerNode
+// nodeFieldsWebhookNode
+type nodeFields interface {
+	implementsGraphQLInterfacenodeFields()
+	// GetDescription returns the interface-field "description" from its implementation.
+	GetDescription() *string
+	// GetName returns the interface-field "name" from its implementation.
+	GetName() string
+}
+
+func (v *nodeFieldsAlertEmitterNode) implementsGraphQLInterfacenodeFields()         {}
+func (v *nodeFieldsAppChangeReceiverNode) implementsGraphQLInterfacenodeFields()    {}
+func (v *nodeFieldsAppChangeRouterNode) implementsGraphQLInterfacenodeFields()      {}
+func (v *nodeFieldsAuditEmitterNode) implementsGraphQLInterfacenodeFields()         {}
+func (v *nodeFieldsBitmapRouterNode) implementsGraphQLInterfacenodeFields()         {}
+func (v *nodeFieldsChangeEmitterNode) implementsGraphQLInterfacenodeFields()        {}
+func (v *nodeFieldsCrossTenantReceivingNode) implementsGraphQLInterfacenodeFields() {}
+func (v *nodeFieldsCrossTenantSendingNode) implementsGraphQLInterfacenodeFields()   {}
+func (v *nodeFieldsDeadLetterEmitterNode) implementsGraphQLInterfacenodeFields()    {}
+func (v *nodeFieldsExternalNode) implementsGraphQLInterfacenodeFields()             {}
+func (v *nodeFieldsFilesDotComWebhookNode) implementsGraphQLInterfacenodeFields()   {}
+func (v *nodeFieldsLoadBalancerNode) implementsGraphQLInterfacenodeFields()         {}
+func (v *nodeFieldsLogEmitterNode) implementsGraphQLInterfacenodeFields()           {}
+func (v *nodeFieldsManagedNode) implementsGraphQLInterfacenodeFields()              {}
+func (v *nodeFieldsProcessorNode) implementsGraphQLInterfacenodeFields()            {}
+func (v *nodeFieldsTimerNode) implementsGraphQLInterfacenodeFields()                {}
+func (v *nodeFieldsWebhookNode) implementsGraphQLInterfacenodeFields()              {}
+
+func __unmarshalnodeFields(b []byte, v *nodeFields) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "AlertEmitterNode":
+		*v = new(nodeFieldsAlertEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "AppChangeReceiverNode":
+		*v = new(nodeFieldsAppChangeReceiverNode)
+		return json.Unmarshal(b, *v)
+	case "AppChangeRouterNode":
+		*v = new(nodeFieldsAppChangeRouterNode)
+		return json.Unmarshal(b, *v)
+	case "AuditEmitterNode":
+		*v = new(nodeFieldsAuditEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "BitmapRouterNode":
+		*v = new(nodeFieldsBitmapRouterNode)
+		return json.Unmarshal(b, *v)
+	case "ChangeEmitterNode":
+		*v = new(nodeFieldsChangeEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingNode":
+		*v = new(nodeFieldsCrossTenantReceivingNode)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingNode":
+		*v = new(nodeFieldsCrossTenantSendingNode)
+		return json.Unmarshal(b, *v)
+	case "DeadLetterEmitterNode":
+		*v = new(nodeFieldsDeadLetterEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "ExternalNode":
+		*v = new(nodeFieldsExternalNode)
+		return json.Unmarshal(b, *v)
+	case "FilesDotComWebhookNode":
+		*v = new(nodeFieldsFilesDotComWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "LoadBalancerNode":
+		*v = new(nodeFieldsLoadBalancerNode)
+		return json.Unmarshal(b, *v)
+	case "LogEmitterNode":
+		*v = new(nodeFieldsLogEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "ManagedNode":
+		*v = new(nodeFieldsManagedNode)
+		return json.Unmarshal(b, *v)
+	case "ProcessorNode":
+		*v = new(nodeFieldsProcessorNode)
+		return json.Unmarshal(b, *v)
+	case "TimerNode":
+		*v = new(nodeFieldsTimerNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(nodeFieldsWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing Node.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for nodeFields: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalnodeFields(v *nodeFields) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *nodeFieldsAlertEmitterNode:
+		typename = "AlertEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsAlertEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsAppChangeReceiverNode:
+		typename = "AppChangeReceiverNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsAppChangeReceiverNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsAppChangeRouterNode:
+		typename = "AppChangeRouterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsAppChangeRouterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsAuditEmitterNode:
+		typename = "AuditEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsAuditEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsBitmapRouterNode:
+		typename = "BitmapRouterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsBitmapRouterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsChangeEmitterNode:
+		typename = "ChangeEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsChangeEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsCrossTenantReceivingNode:
+		typename = "CrossTenantReceivingNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsCrossTenantReceivingNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsCrossTenantSendingNode:
+		typename = "CrossTenantSendingNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsCrossTenantSendingNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsDeadLetterEmitterNode:
+		typename = "DeadLetterEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsDeadLetterEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsExternalNode:
+		typename = "ExternalNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsExternalNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsFilesDotComWebhookNode:
+		typename = "FilesDotComWebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsFilesDotComWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsLoadBalancerNode:
+		typename = "LoadBalancerNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsLoadBalancerNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsLogEmitterNode:
+		typename = "LogEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsLogEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsManagedNode:
+		typename = "ManagedNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsManagedNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsProcessorNode:
+		typename = "ProcessorNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsProcessorNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsTimerNode:
+		typename = "TimerNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsTimerNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *nodeFieldsWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*nodeFieldsWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for nodeFields: "%T"`, v)
+	}
+}
+
+// nodeFields includes the GraphQL fields of AlertEmitterNode requested by the fragment nodeFields.
+type nodeFieldsAlertEmitterNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsAlertEmitterNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsAlertEmitterNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsAlertEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsAlertEmitterNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of AppChangeReceiverNode requested by the fragment nodeFields.
+type nodeFieldsAppChangeReceiverNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsAppChangeReceiverNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsAppChangeReceiverNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsAppChangeReceiverNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsAppChangeReceiverNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of AppChangeRouterNode requested by the fragment nodeFields.
+type nodeFieldsAppChangeRouterNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsAppChangeRouterNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsAppChangeRouterNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsAppChangeRouterNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsAppChangeRouterNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of AuditEmitterNode requested by the fragment nodeFields.
+type nodeFieldsAuditEmitterNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsAuditEmitterNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsAuditEmitterNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsAuditEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsAuditEmitterNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of BitmapRouterNode requested by the fragment nodeFields.
+type nodeFieldsBitmapRouterNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsBitmapRouterNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsBitmapRouterNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsBitmapRouterNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsBitmapRouterNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of ChangeEmitterNode requested by the fragment nodeFields.
+type nodeFieldsChangeEmitterNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsChangeEmitterNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsChangeEmitterNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsChangeEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsChangeEmitterNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of CrossTenantReceivingNode requested by the fragment nodeFields.
+type nodeFieldsCrossTenantReceivingNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsCrossTenantReceivingNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsCrossTenantReceivingNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsCrossTenantReceivingNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsCrossTenantReceivingNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of CrossTenantSendingNode requested by the fragment nodeFields.
+type nodeFieldsCrossTenantSendingNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsCrossTenantSendingNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsCrossTenantSendingNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsCrossTenantSendingNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsCrossTenantSendingNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of DeadLetterEmitterNode requested by the fragment nodeFields.
+type nodeFieldsDeadLetterEmitterNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsDeadLetterEmitterNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsDeadLetterEmitterNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsDeadLetterEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsDeadLetterEmitterNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of ExternalNode requested by the fragment nodeFields.
+type nodeFieldsExternalNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsExternalNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsExternalNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsExternalNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsExternalNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of FilesDotComWebhookNode requested by the fragment nodeFields.
+type nodeFieldsFilesDotComWebhookNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsFilesDotComWebhookNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsFilesDotComWebhookNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsFilesDotComWebhookNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsFilesDotComWebhookNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of LoadBalancerNode requested by the fragment nodeFields.
+type nodeFieldsLoadBalancerNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsLoadBalancerNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsLoadBalancerNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsLoadBalancerNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsLoadBalancerNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of LogEmitterNode requested by the fragment nodeFields.
+type nodeFieldsLogEmitterNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsLogEmitterNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsLogEmitterNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsLogEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsLogEmitterNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of ManagedNode requested by the fragment nodeFields.
+type nodeFieldsManagedNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsManagedNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsManagedNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsManagedNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsManagedNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of ProcessorNode requested by the fragment nodeFields.
+type nodeFieldsProcessorNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsProcessorNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsProcessorNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsProcessorNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsProcessorNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of TimerNode requested by the fragment nodeFields.
+type nodeFieldsTimerNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsTimerNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsTimerNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsTimerNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsTimerNode) GetName() string { return v.Name }
+
+// nodeFields includes the GraphQL fields of WebhookNode requested by the fragment nodeFields.
+type nodeFieldsWebhookNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns nodeFieldsWebhookNode.Description, and is useful for accessing the field via an interface.
+func (v *nodeFieldsWebhookNode) GetDescription() *string { return v.Description }
+
+// GetName returns nodeFieldsWebhookNode.Name, and is useful for accessing the field via an interface.
+func (v *nodeFieldsWebhookNode) GetName() string { return v.Name }
+
+// processorFunctionFields includes the GraphQL fields of ProcessorFunction requested by the fragment processorFunctionFields.
+type processorFunctionFields struct {
+	ArgumentMessageType processorFunctionFieldsArgumentMessageType `json:"argumentMessageType"`
+	ReturnMessageType   *processorFunctionFieldsReturnMessageType  `json:"returnMessageType"`
+}
+
+// GetArgumentMessageType returns processorFunctionFields.ArgumentMessageType, and is useful for accessing the field via an interface.
+func (v *processorFunctionFields) GetArgumentMessageType() processorFunctionFieldsArgumentMessageType {
+	return v.ArgumentMessageType
+}
+
+// GetReturnMessageType returns processorFunctionFields.ReturnMessageType, and is useful for accessing the field via an interface.
+func (v *processorFunctionFields) GetReturnMessageType() *processorFunctionFieldsReturnMessageType {
+	return v.ReturnMessageType
+}
+
+// processorFunctionFieldsArgumentMessageType includes the requested fields of the GraphQL type MessageType.
+type processorFunctionFieldsArgumentMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns processorFunctionFieldsArgumentMessageType.Name, and is useful for accessing the field via an interface.
+func (v *processorFunctionFieldsArgumentMessageType) GetName() string { return v.Name }
+
+// processorFunctionFieldsReturnMessageType includes the requested fields of the GraphQL type MessageType.
+type processorFunctionFieldsReturnMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns processorFunctionFieldsReturnMessageType.Name, and is useful for accessing the field via an interface.
+func (v *processorFunctionFieldsReturnMessageType) GetName() string { return v.Name }
+
+// tenantFields includes the GraphQL fields of Tenant requested by the fragment tenantFields.
+type tenantFields struct {
+	Active      bool    `json:"active"`
+	Config      *string `json:"config"`
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+	Region      string  `json:"region"`
+	Table       string  `json:"table"`
+}
+
+// GetActive returns tenantFields.Active, and is useful for accessing the field via an interface.
+func (v *tenantFields) GetActive() bool { return v.Active }
+
+// GetConfig returns tenantFields.Config, and is useful for accessing the field via an interface.
+func (v *tenantFields) GetConfig() *string { return v.Config }
+
+// GetDescription returns tenantFields.Description, and is useful for accessing the field via an interface.
+func (v *tenantFields) GetDescription() *string { return v.Description }
+
+// GetName returns tenantFields.Name, and is useful for accessing the field via an interface.
+func (v *tenantFields) GetName() string { return v.Name }
+
+// GetRegion returns tenantFields.Region, and is useful for accessing the field via an interface.
+func (v *tenantFields) GetRegion() string { return v.Region }
+
+// GetTable returns tenantFields.Table, and is useful for accessing the field via an interface.
+func (v *tenantFields) GetTable() string { return v.Table }
+
 func CreateApiAuthenticatorFunction(
 	ctx context.Context,
 	client graphql.Client,
@@ -2548,14 +8669,17 @@ func CreateApiAuthenticatorFunction(
 		Query: `
 mutation CreateApiAuthenticatorFunction ($code: String!, $description: String!, $name: String!, $tenant: String!, $readme: String, $requirements: [String!]) {
 	CreateApiAuthenticatorFunction(code: $code, description: $description, name: $name, tenant: $tenant, readme: $readme, requirements: $requirements) {
-		code
-		description
-		inUse
-		name
-		readme
-		requirements
-		system
+		... functionFields
 	}
+}
+fragment functionFields on Function {
+	code
+	description
+	inUse
+	name
+	readme
+	requirements
+	system
 }
 `,
 		Variables: &__CreateApiAuthenticatorFunctionInput{
@@ -2597,16 +8721,22 @@ func CreateBitmapperFunction(
 		Query: `
 mutation CreateBitmapperFunction ($argumentMessageType: String!, $code: String!, $description: String!, $name: String!, $tenant: String!, $readme: String, $requirements: [String!]) {
 	CreateBitmapperFunction(argumentMessageType: $argumentMessageType, code: $code, description: $description, name: $name, tenant: $tenant, readme: $readme, requirements: $requirements) {
-		argumentMessageType {
-			name
-		}
-		code
-		description
-		inUse
+		... functionFields
+		... bitmapperFunctionFields
+	}
+}
+fragment functionFields on Function {
+	code
+	description
+	inUse
+	name
+	readme
+	requirements
+	system
+}
+fragment bitmapperFunctionFields on BitmapperFunction {
+	argumentMessageType {
 		name
-		readme
-		requirements
-		system
 	}
 }
 `,
@@ -2634,6 +8764,222 @@ mutation CreateBitmapperFunction ($argumentMessageType: String!, $code: String!,
 	return &data, err
 }
 
+func CreateCrossAccountApp(
+	ctx context.Context,
+	client graphql.Client,
+	account string,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	tableAccess *bool,
+) (*CreateCrossAccountAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateCrossAccountApp",
+		Query: `
+mutation CreateCrossAccountApp ($account: String!, $name: String!, $tenant: String!, $config: AWSJSON, $description: String, $tableAccess: Boolean) {
+	CreateCrossAccountApp(account: $account, name: $name, tenant: $tenant, config: $config, description: $description, tableAccess: $tableAccess) {
+		... appFields
+		... crossAccountAppFields
+	}
+}
+fragment appFields on App {
+	description
+	name
+}
+fragment crossAccountAppFields on CrossAccountApp {
+	account
+	appsyncEndpoint
+	auditRecordsEndpoint
+	config
+	credentials {
+		... cognitoCredentialsFields
+	}
+	iamPolicy
+	tableAccess
+}
+fragment cognitoCredentialsFields on CognitoCredentials {
+	clientId
+	password
+	userPoolId
+	username
+}
+`,
+		Variables: &__CreateCrossAccountAppInput{
+			Account:     account,
+			Name:        name,
+			Tenant:      tenant,
+			Config:      config,
+			Description: description,
+			TableAccess: tableAccess,
+		},
+	}
+	var err error
+
+	var data CreateCrossAccountAppResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateCrossTenantReceivingApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	sendingTenant string,
+	tenant string,
+) (*CreateCrossTenantReceivingAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateCrossTenantReceivingApp",
+		Query: `
+mutation CreateCrossTenantReceivingApp ($name: String!, $sendingTenant: String!, $tenant: String!) {
+	CreateCrossTenantReceivingApp(name: $name, sendingTenant: $sendingTenant, tenant: $tenant) {
+		... appFields
+		... crossTenantReceivingAppFields
+	}
+}
+fragment appFields on App {
+	description
+	name
+}
+fragment crossTenantReceivingAppFields on CrossTenantReceivingApp {
+	sendingApp
+	sendingTenant
+}
+`,
+		Variables: &__CreateCrossTenantReceivingAppInput{
+			Name:          name,
+			SendingTenant: sendingTenant,
+			Tenant:        tenant,
+		},
+	}
+	var err error
+
+	var data CreateCrossTenantReceivingAppResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateCrossTenantSendingApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	receivingApp string,
+	receivingTenant string,
+	tenant string,
+) (*CreateCrossTenantSendingAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateCrossTenantSendingApp",
+		Query: `
+mutation CreateCrossTenantSendingApp ($name: String!, $receivingApp: String!, $receivingTenant: String!, $tenant: String!) {
+	CreateCrossTenantSendingApp(name: $name, receivingApp: $receivingApp, receivingTenant: $receivingTenant, tenant: $tenant) {
+		... appFields
+		... crossTenantSendingAppFields
+	}
+}
+fragment appFields on App {
+	description
+	name
+}
+fragment crossTenantSendingAppFields on CrossTenantSendingApp {
+	receivingApp
+	receivingTenant
+}
+`,
+		Variables: &__CreateCrossTenantSendingAppInput{
+			Name:            name,
+			ReceivingApp:    receivingApp,
+			ReceivingTenant: receivingTenant,
+			Tenant:          tenant,
+		},
+	}
+	var err error
+
+	var data CreateCrossTenantSendingAppResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateExternalApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	tableAccess *bool,
+) (*CreateExternalAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateExternalApp",
+		Query: `
+mutation CreateExternalApp ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $tableAccess: Boolean) {
+	CreateExternalApp(name: $name, tenant: $tenant, config: $config, description: $description, tableAccess: $tableAccess) {
+		... appFields
+		... externalAppFields
+	}
+}
+fragment appFields on App {
+	description
+	name
+}
+fragment externalAppFields on ExternalApp {
+	appsyncEndpoint
+	auditRecordsEndpoint
+	config
+	credentials {
+		... cognitoCredentialsFields
+	}
+	tableAccess
+}
+fragment cognitoCredentialsFields on CognitoCredentials {
+	clientId
+	password
+	userPoolId
+	username
+}
+`,
+		Variables: &__CreateExternalAppInput{
+			Name:        name,
+			Tenant:      tenant,
+			Config:      config,
+			Description: description,
+			TableAccess: tableAccess,
+		},
+	}
+	var err error
+
+	var data CreateExternalAppResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateKmsKey(
 	ctx context.Context,
 	client graphql.Client,
@@ -2646,11 +8992,14 @@ func CreateKmsKey(
 		Query: `
 mutation CreateKmsKey ($name: String!, $tenant: String!, $description: String) {
 	CreateKmsKey(name: $name, tenant: $tenant, description: $description) {
-		arn
-		description
-		inUse
-		name
+		... kmsKeyFields
 	}
+}
+fragment kmsKeyFields on KmsKey {
+	arn
+	description
+	inUse
+	name
 }
 `,
 		Variables: &__CreateKmsKeyInput{
@@ -2662,6 +9011,65 @@ mutation CreateKmsKey ($name: String!, $tenant: String!, $description: String) {
 	var err error
 
 	var data CreateKmsKeyResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateManagedApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	tableAccess *bool,
+) (*CreateManagedAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateManagedApp",
+		Query: `
+mutation CreateManagedApp ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $tableAccess: Boolean) {
+	CreateManagedApp(name: $name, tenant: $tenant, config: $config, description: $description, tableAccess: $tableAccess) {
+		... appFields
+		... managedAppFields
+	}
+}
+fragment appFields on App {
+	description
+	name
+}
+fragment managedAppFields on ManagedApp {
+	auditRecordsEndpoint
+	config
+	credentials {
+		... cognitoCredentialsFields
+	}
+	tableAccess
+}
+fragment cognitoCredentialsFields on CognitoCredentials {
+	clientId
+	password
+	userPoolId
+	username
+}
+`,
+		Variables: &__CreateManagedAppInput{
+			Name:        name,
+			Tenant:      tenant,
+			Config:      config,
+			Description: description,
+			TableAccess: tableAccess,
+		},
+	}
+	var err error
+
+	var data CreateManagedAppResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -2691,17 +9099,20 @@ func CreateMessageType(
 		Query: `
 mutation CreateMessageType ($auditor: String!, $bitmapperTemplate: String!, $description: String!, $name: String!, $processorTemplate: String!, $sampleMessage: String!, $tenant: String!, $readme: String, $requirements: [String!]) {
 	CreateMessageType(auditor: $auditor, bitmapperTemplate: $bitmapperTemplate, description: $description, name: $name, processorTemplate: $processorTemplate, sampleMessage: $sampleMessage, tenant: $tenant, readme: $readme, requirements: $requirements) {
-		auditor
-		bitmapperTemplate
-		description
-		inUse
-		name
-		processorTemplate
-		readme
-		requirements
-		sampleMessage
-		system
+		... messageTypeFields
 	}
+}
+fragment messageTypeFields on MessageType {
+	auditor
+	bitmapperTemplate
+	description
+	inUse
+	name
+	processorTemplate
+	readme
+	requirements
+	sampleMessage
+	system
 }
 `,
 		Variables: &__CreateMessageTypeInput{
@@ -2747,19 +9158,25 @@ func CreateProcessorFunction(
 		Query: `
 mutation CreateProcessorFunction ($argumentMessageType: String!, $code: String!, $description: String!, $name: String!, $tenant: String!, $readme: String, $requirements: [String!], $returnMessageType: String) {
 	CreateProcessorFunction(argumentMessageType: $argumentMessageType, code: $code, description: $description, name: $name, tenant: $tenant, readme: $readme, requirements: $requirements, returnMessageType: $returnMessageType) {
-		argumentMessageType {
-			name
-		}
-		code
-		description
-		inUse
+		... functionFields
+		... processorFunctionFields
+	}
+}
+fragment functionFields on Function {
+	code
+	description
+	inUse
+	name
+	readme
+	requirements
+	system
+}
+fragment processorFunctionFields on ProcessorFunction {
+	argumentMessageType {
 		name
-		readme
-		requirements
-		returnMessageType {
-			name
-		}
-		system
+	}
+	returnMessageType {
+		name
 	}
 }
 `,
@@ -2777,6 +9194,41 @@ mutation CreateProcessorFunction ($argumentMessageType: String!, $code: String!,
 	var err error
 
 	var data CreateProcessorFunctionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*DeleteAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteApp",
+		Query: `
+query DeleteApp ($name: String!, $tenant: String!) {
+	GetApp(name: $name, tenant: $tenant) {
+		__typename
+		Delete(drainEdges: true)
+	}
+}
+`,
+		Variables: &__DeleteAppInput{
+			Name:   name,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data DeleteAppResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -2891,6 +9343,102 @@ query DeleteMessageType ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+func ReadApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadApp",
+		Query: `
+query ReadApp ($name: String!, $tenant: String!) {
+	GetApp(name: $name, tenant: $tenant) {
+		__typename
+		... appFields
+		... on CrossAccountApp {
+			... crossAccountAppFields
+		}
+		... on CrossTenantReceivingApp {
+			... crossTenantReceivingAppFields
+		}
+		... on CrossTenantSendingApp {
+			... crossTenantSendingAppFields
+		}
+		... on ExternalApp {
+			... externalAppFields
+		}
+		... on ManagedApp {
+			... managedAppFields
+		}
+	}
+}
+fragment appFields on App {
+	description
+	name
+}
+fragment crossAccountAppFields on CrossAccountApp {
+	account
+	appsyncEndpoint
+	auditRecordsEndpoint
+	config
+	credentials {
+		... cognitoCredentialsFields
+	}
+	iamPolicy
+	tableAccess
+}
+fragment crossTenantReceivingAppFields on CrossTenantReceivingApp {
+	sendingApp
+	sendingTenant
+}
+fragment crossTenantSendingAppFields on CrossTenantSendingApp {
+	receivingApp
+	receivingTenant
+}
+fragment externalAppFields on ExternalApp {
+	appsyncEndpoint
+	auditRecordsEndpoint
+	config
+	credentials {
+		... cognitoCredentialsFields
+	}
+	tableAccess
+}
+fragment managedAppFields on ManagedApp {
+	auditRecordsEndpoint
+	config
+	credentials {
+		... cognitoCredentialsFields
+	}
+	tableAccess
+}
+fragment cognitoCredentialsFields on CognitoCredentials {
+	clientId
+	password
+	userPoolId
+	username
+}
+`,
+		Variables: &__ReadAppInput{
+			Name:   name,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data ReadAppResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func ReadFunction(
 	ctx context.Context,
 	client graphql.Client,
@@ -2903,26 +9451,35 @@ func ReadFunction(
 query ReadFunction ($name: String!, $tenant: String!) {
 	GetFunction(name: $name, tenant: $tenant) {
 		__typename
-		code
-		description
-		inUse
-		name
-		readme
-		requirements
-		system
+		... functionFields
 		... on BitmapperFunction {
-			argumentMessageType {
-				name
-			}
+			... bitmapperFunctionFields
 		}
 		... on ProcessorFunction {
-			argumentMessageType {
-				name
-			}
-			returnMessageType {
-				name
-			}
+			... processorFunctionFields
 		}
+	}
+}
+fragment functionFields on Function {
+	code
+	description
+	inUse
+	name
+	readme
+	requirements
+	system
+}
+fragment bitmapperFunctionFields on BitmapperFunction {
+	argumentMessageType {
+		name
+	}
+}
+fragment processorFunctionFields on ProcessorFunction {
+	argumentMessageType {
+		name
+	}
+	returnMessageType {
+		name
 	}
 }
 `,
@@ -2956,11 +9513,14 @@ func ReadKmsKey(
 		Query: `
 query ReadKmsKey ($name: String!, $tenant: String!) {
 	GetKmsKey(name: $name, tenant: $tenant) {
-		arn
-		description
-		inUse
-		name
+		... kmsKeyFields
 	}
+}
+fragment kmsKeyFields on KmsKey {
+	arn
+	description
+	inUse
+	name
 }
 `,
 		Variables: &__ReadKmsKeyInput{
@@ -2993,17 +9553,20 @@ func ReadMessageType(
 		Query: `
 query ReadMessageType ($name: String!, $tenant: String!) {
 	GetMessageType(name: $name, tenant: $tenant) {
-		auditor
-		bitmapperTemplate
-		description
-		inUse
-		name
-		processorTemplate
-		readme
-		requirements
-		sampleMessage
-		system
+		... messageTypeFields
 	}
+}
+fragment messageTypeFields on MessageType {
+	auditor
+	bitmapperTemplate
+	description
+	inUse
+	name
+	processorTemplate
+	readme
+	requirements
+	sampleMessage
+	system
 }
 `,
 		Variables: &__ReadMessageTypeInput{
@@ -3037,31 +9600,46 @@ func ReadNode(
 query ReadNode ($name: String!, $tenant: String!) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
-		description
-		name
+		... nodeFields
 		... on AlertEmitterNode {
-			sendMessageType {
-				name
-			}
+			... alertEmitterNodeFields
 		}
 		... on AppChangeRouterNode {
-			receiveMessageType {
-				name
-			}
-			sendMessageType {
-				name
-			}
+			... appChangeRouterNodeFields
 		}
 		... on AuditEmitterNode {
-			sendMessageType {
-				name
-			}
+			... auditEmitterNodeFields
 		}
 		... on ChangeEmitterNode {
-			sendMessageType {
-				name
-			}
+			... changeEmitterNodeFields
 		}
+	}
+}
+fragment nodeFields on Node {
+	description
+	name
+}
+fragment alertEmitterNodeFields on AlertEmitterNode {
+	sendMessageType {
+		name
+	}
+}
+fragment appChangeRouterNodeFields on AppChangeRouterNode {
+	receiveMessageType {
+		name
+	}
+	sendMessageType {
+		name
+	}
+}
+fragment auditEmitterNodeFields on AuditEmitterNode {
+	sendMessageType {
+		name
+	}
+}
+fragment changeEmitterNodeFields on ChangeEmitterNode {
+	sendMessageType {
+		name
 	}
 }
 `,
@@ -3094,13 +9672,16 @@ func ReadTenant(
 		Query: `
 query ReadTenant ($tenant: String!) {
 	GetTenant(tenant: $tenant) {
-		active
-		config
-		description
-		name
-		region
-		table
+		... tenantFields
 	}
+}
+fragment tenantFields on Tenant {
+	active
+	config
+	description
+	name
+	region
+	table
 }
 `,
 		Variables: &__ReadTenantInput{
@@ -3110,6 +9691,105 @@ query ReadTenant ($tenant: String!) {
 	var err error
 
 	var data ReadTenantResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ReadTenantAwsCredentials(
+	ctx context.Context,
+	client graphql.Client,
+	tenant string,
+	duration *int,
+) (*ReadTenantAwsCredentialsResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadTenantAwsCredentials",
+		Query: `
+query ReadTenantAwsCredentials ($tenant: String!, $duration: Int) {
+	GetTenant(tenant: $tenant) {
+		GetAwsCredentials(duration: $duration) {
+			accessKeyId
+			expiration
+			secretAccessKey
+			sessionToken
+		}
+	}
+}
+`,
+		Variables: &__ReadTenantAwsCredentialsInput{
+			Tenant:   tenant,
+			Duration: duration,
+		},
+	}
+	var err error
+
+	var data ReadTenantAwsCredentialsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateCrossTenantApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	description *string,
+) (*UpdateCrossTenantAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateCrossTenantApp",
+		Query: `
+query UpdateCrossTenantApp ($name: String!, $tenant: String!, $description: String) {
+	GetApp(name: $name, tenant: $tenant) {
+		__typename
+		... on CrossTenantReceivingApp {
+			Update(description: $description) {
+				... appFields
+				... crossTenantReceivingAppFields
+			}
+		}
+		... on CrossTenantSendingApp {
+			Update(description: $description) {
+				... appFields
+				... crossTenantSendingAppFields
+			}
+		}
+	}
+}
+fragment appFields on App {
+	description
+	name
+}
+fragment crossTenantReceivingAppFields on CrossTenantReceivingApp {
+	sendingApp
+	sendingTenant
+}
+fragment crossTenantSendingAppFields on CrossTenantSendingApp {
+	receivingApp
+	receivingTenant
+}
+`,
+		Variables: &__UpdateCrossTenantAppInput{
+			Name:        name,
+			Tenant:      tenant,
+			Description: description,
+		},
+	}
+	var err error
+
+	var data UpdateCrossTenantAppResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -3139,46 +9819,43 @@ query UpdateFunction ($name: String!, $tenant: String!, $code: String, $descript
 		__typename
 		... on ApiAuthenticatorFunction {
 			Update(code: $code, description: $description, readme: $readme, requirements: $requirements) {
-				code
-				description
-				inUse
-				name
-				readme
-				requirements
-				system
+				... functionFields
 			}
 		}
 		... on BitmapperFunction {
 			Update(code: $code, description: $description, readme: $readme, requirements: $requirements) {
-				argumentMessageType {
-					name
-				}
-				code
-				description
-				inUse
-				name
-				readme
-				requirements
-				system
+				... functionFields
+				... bitmapperFunctionFields
 			}
 		}
 		... on ProcessorFunction {
 			Update(code: $code, description: $description, readme: $readme, requirements: $requirements) {
-				argumentMessageType {
-					name
-				}
-				code
-				description
-				inUse
-				name
-				readme
-				requirements
-				returnMessageType {
-					name
-				}
-				system
+				... functionFields
+				... processorFunctionFields
 			}
 		}
+	}
+}
+fragment functionFields on Function {
+	code
+	description
+	inUse
+	name
+	readme
+	requirements
+	system
+}
+fragment bitmapperFunctionFields on BitmapperFunction {
+	argumentMessageType {
+		name
+	}
+}
+fragment processorFunctionFields on ProcessorFunction {
+	argumentMessageType {
+		name
+	}
+	returnMessageType {
+		name
 	}
 }
 `,
@@ -3218,12 +9895,15 @@ func UpdateKmsKey(
 query UpdateKmsKey ($name: String!, $tenant: String!, $description: String) {
 	GetKmsKey(name: $name, tenant: $tenant) {
 		Update(description: $description) {
-			arn
-			description
-			inUse
-			name
+			... kmsKeyFields
 		}
 	}
+}
+fragment kmsKeyFields on KmsKey {
+	arn
+	description
+	inUse
+	name
 }
 `,
 		Variables: &__UpdateKmsKeyInput{
@@ -3265,18 +9945,21 @@ func UpdateMessageType(
 query UpdateMessageType ($name: String!, $tenant: String!, $auditor: String, $bitmapperTemplate: String, $description: String, $processorTemplate: String, $readme: String, $requirements: [String!], $sampleMessage: String) {
 	GetMessageType(name: $name, tenant: $tenant) {
 		Update(auditor: $auditor, bitmapperTemplate: $bitmapperTemplate, description: $description, processorTemplate: $processorTemplate, sampleMessage: $sampleMessage, readme: $readme, requirements: $requirements) {
-			auditor
-			bitmapperTemplate
-			description
-			inUse
-			name
-			processorTemplate
-			readme
-			requirements
-			sampleMessage
-			system
+			... messageTypeFields
 		}
 	}
+}
+fragment messageTypeFields on MessageType {
+	auditor
+	bitmapperTemplate
+	description
+	inUse
+	name
+	processorTemplate
+	readme
+	requirements
+	sampleMessage
+	system
 }
 `,
 		Variables: &__UpdateMessageTypeInput{
@@ -3305,6 +9988,102 @@ query UpdateMessageType ($name: String!, $tenant: String!, $auditor: String, $bi
 	return &data, err
 }
 
+func UpdateRemotetApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	tableAccess *bool,
+) (*UpdateRemotetAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateRemotetApp",
+		Query: `
+query UpdateRemotetApp ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $tableAccess: Boolean) {
+	GetApp(name: $name, tenant: $tenant) {
+		__typename
+		... on CrossAccountApp {
+			Update(config: $config, description: $description, tableAccess: $tableAccess) {
+				... appFields
+				... crossAccountAppFields
+			}
+		}
+		... on ExternalApp {
+			Update(config: $config, description: $description, tableAccess: $tableAccess) {
+				... appFields
+				... externalAppFields
+			}
+		}
+		... on ManagedApp {
+			Update(config: $config, description: $description, tableAccess: $tableAccess) {
+				... appFields
+				... managedAppFields
+			}
+		}
+	}
+}
+fragment appFields on App {
+	description
+	name
+}
+fragment crossAccountAppFields on CrossAccountApp {
+	account
+	appsyncEndpoint
+	auditRecordsEndpoint
+	config
+	credentials {
+		... cognitoCredentialsFields
+	}
+	iamPolicy
+	tableAccess
+}
+fragment externalAppFields on ExternalApp {
+	appsyncEndpoint
+	auditRecordsEndpoint
+	config
+	credentials {
+		... cognitoCredentialsFields
+	}
+	tableAccess
+}
+fragment managedAppFields on ManagedApp {
+	auditRecordsEndpoint
+	config
+	credentials {
+		... cognitoCredentialsFields
+	}
+	tableAccess
+}
+fragment cognitoCredentialsFields on CognitoCredentials {
+	clientId
+	password
+	userPoolId
+	username
+}
+`,
+		Variables: &__UpdateRemotetAppInput{
+			Name:        name,
+			Tenant:      tenant,
+			Config:      config,
+			Description: description,
+			TableAccess: tableAccess,
+		},
+	}
+	var err error
+
+	var data UpdateRemotetAppResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func UpdateTenant(
 	ctx context.Context,
 	client graphql.Client,
@@ -3318,10 +10097,17 @@ func UpdateTenant(
 query UpdateTenant ($tenant: String!, $config: AWSJSON, $description: String) {
 	GetTenant(tenant: $tenant) {
 		Update(config: $config, description: $description) {
-			config
-			description
+			... tenantFields
 		}
 	}
+}
+fragment tenantFields on Tenant {
+	active
+	config
+	description
+	name
+	region
+	table
 }
 `,
 		Variables: &__UpdateTenantInput{

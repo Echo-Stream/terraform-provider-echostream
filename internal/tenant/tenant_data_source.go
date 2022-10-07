@@ -58,8 +58,9 @@ func (d *TenantDataSource) Read(ctx context.Context, req datasource.ReadRequest,
 		return
 	}
 
-	if err := readTenantData(ctx, d.data.Client, d.data.Tenant, &config); err != nil {
-		resp.Diagnostics.AddError("Error reading Tenant data", err.Error())
+	resp.Diagnostics.Append(readTenantData(ctx, d.data.Client, d.data.Tenant, &config)...)
+
+	if resp.Diagnostics.HasError() {
 		return
 	}
 

@@ -1,3 +1,28 @@
+fragment functionFields on Function {
+    code
+    description
+    inUse
+    name
+    readme
+    requirements
+    system
+}
+
+fragment bitmapperFunctionFields on BitmapperFunction {
+    argumentMessageType {
+        name
+    }
+}
+
+fragment processorFunctionFields on ProcessorFunction {
+    argumentMessageType {
+        name
+    }
+    returnMessageType {
+        name
+    }
+}
+
 mutation CreateApiAuthenticatorFunction(
     $code: String!,
     $description: String!,
@@ -14,13 +39,7 @@ mutation CreateApiAuthenticatorFunction(
         readme: $readme,
         requirements: $requirements
     ) {
-        code
-        description
-        inUse
-        name
-        readme
-        requirements
-        system
+        ...functionFields
     }
 }
 
@@ -42,16 +61,8 @@ mutation CreateBitmapperFunction(
         readme: $readme,
         requirements: $requirements
     ) {
-        argumentMessageType {
-            name
-        }
-        code
-        description
-        inUse
-        name
-        readme
-        requirements
-        system
+        ...functionFields
+        ...bitmapperFunctionFields
     }
 }
 
@@ -75,19 +86,8 @@ mutation CreateProcessorFunction(
         requirements: $requirements
         returnMessageType: $returnMessageType
     ) {
-        argumentMessageType {
-            name
-        }
-        code
-        description
-        inUse
-        name
-        readme
-        requirements
-        returnMessageType {
-            name
-        }
-        system
+        ...functionFields
+        ...processorFunctionFields
     }
 }
 
@@ -99,25 +99,12 @@ query DeleteFunction($name: String!, $tenant: String!) {
 
 query ReadFunction($name: String!, $tenant: String!) {
     GetFunction(name: $name, tenant: $tenant) {
-        code
-        description
-        inUse
-        name
-        readme
-        requirements
-        system
+        ...functionFields
         ... on BitmapperFunction {
-            argumentMessageType {
-                name
-            }
+            ...bitmapperFunctionFields
         }
         ... on ProcessorFunction {
-            argumentMessageType {
-                name
-            }
-            returnMessageType {
-                name
-            }
+            ...processorFunctionFields
         }
     }
 }
@@ -138,13 +125,7 @@ query UpdateFunction(
                 readme: $readme,
                 requirements: $requirements
             ) {
-                code
-                description
-                inUse
-                name
-                readme
-                requirements
-                system
+                ...functionFields
             }
         }
         ... on BitmapperFunction {
@@ -154,16 +135,8 @@ query UpdateFunction(
                 readme: $readme,
                 requirements: $requirements
             ) {
-                argumentMessageType {
-                    name
-                }
-                code
-                description
-                inUse
-                name
-                readme
-                requirements
-                system
+                ...functionFields
+                ...bitmapperFunctionFields
             }
         }        
         ... on ProcessorFunction {
@@ -173,19 +146,8 @@ query UpdateFunction(
                 readme: $readme,
                 requirements: $requirements
             ) {
-                argumentMessageType {
-                    name
-                }
-                code
-                description
-                inUse
-                name
-                readme
-                requirements
-                returnMessageType {
-                    name
-                }
-                system
+                ...functionFields
+                ...processorFunctionFields
             }
         }        
     }
