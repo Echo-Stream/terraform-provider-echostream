@@ -14,7 +14,7 @@ import (
 
 var (
 	_ xattr.TypeWithValidate = ConfigType{}
-	_ attr.Value             = ConfigValue{}
+	_ attr.Value             = Config{}
 )
 
 type ConfigType struct{}
@@ -88,24 +88,24 @@ func (ct ConfigType) Validate(ctx context.Context, in tftypes.Value, path path.P
 
 func (ct ConfigType) ValueFromTerraform(ctx context.Context, in tftypes.Value) (attr.Value, error) {
 	if !in.IsKnown() {
-		return ConfigValue{Unknown: true}, nil
+		return Config{Unknown: true}, nil
 	}
 	if in.IsNull() {
-		return ConfigValue{Null: true}, nil
+		return Config{Null: true}, nil
 	}
 	var s string
 	if err := in.As(&s); err != nil {
 		return nil, err
 	}
-	return ConfigValue{Value: s}, nil
+	return Config{Value: s}, nil
 }
 
 func (ct ConfigType) ValueType(ctx context.Context) attr.Value {
-	return ConfigValue{}
+	return Config{}
 }
 
-// ConfigValue represents a UTF-8 string value.
-type ConfigValue struct {
+// Config represents a UTF-8 string value.
+type Config struct {
 	// Unknown will be true if the value is not yet known.
 	Unknown bool
 
@@ -119,8 +119,8 @@ type ConfigValue struct {
 }
 
 // Equal returns true if `other` is a Config and has the same value as `c`.
-func (c ConfigValue) Equal(other attr.Value) bool {
-	o, ok := other.(ConfigValue)
+func (c Config) Equal(other attr.Value) bool {
+	o, ok := other.(Config)
 	if !ok {
 		return false
 	}
@@ -134,19 +134,19 @@ func (c ConfigValue) Equal(other attr.Value) bool {
 }
 
 // IsNull returns true if the Config represents a null value.
-func (c ConfigValue) IsNull() bool {
+func (c Config) IsNull() bool {
 	return c.Null
 }
 
 // IsUnknown returns true if the Config represents a currently unknown value.
-func (c ConfigValue) IsUnknown() bool {
+func (c Config) IsUnknown() bool {
 	return c.Unknown
 }
 
 // String returns a human-readable representation of the Config value.
 // The string returned here is not protected by any compatibility guarantees,
 // and is intended for logging and error reporting.
-func (c ConfigValue) String() string {
+func (c Config) String() string {
 	if c.Unknown {
 		return attr.UnknownValueString
 	}
@@ -159,7 +159,7 @@ func (c ConfigValue) String() string {
 }
 
 // ToTerraformValue returns the data contained in the *Config as a tftypes.Value.
-func (c ConfigValue) ToTerraformValue(_ context.Context) (tftypes.Value, error) {
+func (c Config) ToTerraformValue(_ context.Context) (tftypes.Value, error) {
 	if c.Null {
 		return tftypes.NewValue(tftypes.String, nil), nil
 	}
@@ -173,6 +173,6 @@ func (c ConfigValue) ToTerraformValue(_ context.Context) (tftypes.Value, error) 
 }
 
 // Type returns a ConfigType.
-func (c ConfigValue) Type(_ context.Context) attr.Type {
+func (c Config) Type(_ context.Context) attr.Type {
 	return ConfigType{}
 }

@@ -9,9 +9,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Echo-Stream/terraform-provider-echostream/internal/app"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/function"
-	kmskey "github.com/Echo-Stream/terraform-provider-echostream/internal/kms_key"
+	"github.com/Echo-Stream/terraform-provider-echostream/internal/kmskey"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/message_type"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/node"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/tenant"
@@ -345,6 +346,8 @@ func (p *echoStreamProvider) Metadata(ctx context.Context, req provider.Metadata
 func (p *echoStreamProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		func() resource.Resource { return &function.ApiAuthenticatorFunctionResource{} },
+		func() resource.Resource { return &app.CrossTenantReceivingAppResource{} },
+		func() resource.Resource { return &app.CrossTenantSendingAppResource{} },
 		func() resource.Resource { return &kmskey.KmsKeyResource{} },
 		func() resource.Resource { return &message_type.MessageTypeResource{} },
 		func() resource.Resource { return &function.BitmapperFunctionResource{} },

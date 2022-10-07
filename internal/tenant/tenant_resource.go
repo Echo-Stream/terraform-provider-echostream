@@ -148,9 +148,9 @@ func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) 
 	if echoResp, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, config, description); err == nil {
 		data.Active = types.Bool{Value: echoResp.GetTenant.Update.Active}
 		if echoResp.GetTenant.Update.Config != nil {
-			data.Config = common.ConfigValue{Value: *echoResp.GetTenant.Update.Config}
+			data.Config = common.Config{Value: *echoResp.GetTenant.Update.Config}
 		} else {
-			data.Config = common.ConfigValue{Null: true}
+			data.Config = common.Config{Null: true}
 		}
 		if echoResp.GetTenant.Update.Description != nil {
 			data.Description = types.String{Value: *echoResp.GetTenant.Update.Description}

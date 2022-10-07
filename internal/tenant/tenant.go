@@ -13,14 +13,14 @@ import (
 )
 
 type tenantModel struct {
-	Active                 types.Bool         `tfsdk:"active"`
-	AwsCredentials         types.Object       `tfsdk:"aws_credentials"`
-	AwsCredentialsDuration types.Int64        `tfsdk:"aws_credentials_duration"`
-	Config                 common.ConfigValue `tfsdk:"config"`
-	Description            types.String       `tfsdk:"description"`
-	Name                   types.String       `tfsdk:"name"`
-	Region                 types.String       `tfsdk:"region"`
-	Table                  types.String       `tfsdk:"table"`
+	Active                 types.Bool    `tfsdk:"active"`
+	AwsCredentials         types.Object  `tfsdk:"aws_credentials"`
+	AwsCredentialsDuration types.Int64   `tfsdk:"aws_credentials_duration"`
+	Config                 common.Config `tfsdk:"config"`
+	Description            types.String  `tfsdk:"description"`
+	Name                   types.String  `tfsdk:"name"`
+	Region                 types.String  `tfsdk:"region"`
+	Table                  types.String  `tfsdk:"table"`
 }
 
 func tenantDataSchema() map[string]tfsdk.Attribute {
@@ -108,9 +108,9 @@ func readTenantData(ctx context.Context, client graphql.Client, tenant string, d
 	if echoResp, err = api.ReadTenant(ctx, client, tenant); err == nil {
 		data.Active = types.Bool{Value: echoResp.GetTenant.Active}
 		if echoResp.GetTenant.Config != nil {
-			data.Config = common.ConfigValue{Value: *echoResp.GetTenant.Config}
+			data.Config = common.Config{Value: *echoResp.GetTenant.Config}
 		} else {
-			data.Config = common.ConfigValue{Null: true}
+			data.Config = common.Config{Null: true}
 		}
 		if echoResp.GetTenant.Description != nil {
 			data.Description = types.String{Value: *echoResp.GetTenant.Description}

@@ -23,16 +23,16 @@ func AwsCredentialsAttrTypes() map[string]attr.Type {
 }
 
 func AwsCredentialsAttrValues(
-	access_key_id string,
+	accessKeyIdd string,
 	expiration string,
-	secret_access_key string,
-	session_token string,
+	secretAccessKey string,
+	sessionToken string,
 ) map[string]attr.Value {
 	return map[string]attr.Value{
-		"access_key_id":     types.String{Value: access_key_id},
+		"access_key_id":     types.String{Value: accessKeyIdd},
 		"expiration":        types.String{Value: expiration},
-		"secret_access_key": types.String{Value: secret_access_key},
-		"session_token":     types.String{Value: session_token},
+		"secret_access_key": types.String{Value: secretAccessKey},
+		"session_token":     types.String{Value: sessionToken},
 	}
 }
 
