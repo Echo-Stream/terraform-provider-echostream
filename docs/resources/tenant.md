@@ -31,14 +31,26 @@ resource "echostream_tenant" "current" {
 
 ### Optional
 
+- `aws_credentials_duration` (Number)
 - `config` (String, Sensitive)
 - `description` (String)
 
 ### Read-Only
 
 - `active` (Boolean) The current Tenant's active state
+- `aws_credentials` (Attributes) (see [below for nested schema](#nestedatt--aws_credentials))
 - `name` (String)
 - `region` (String) The current Tenant's AWS region name (e.g.  - `us-east-1`)
 - `table` (String) The current Tenant's DynamoDB tabel name
+
+<a id="nestedatt--aws_credentials"></a>
+### Nested Schema for `aws_credentials`
+
+Read-Only:
+
+- `access_key_id` (String)
+- `expiration` (String)
+- `secret_access_key` (String, Sensitive)
+- `session_token` (String)
 
 
