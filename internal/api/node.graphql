@@ -30,6 +30,18 @@ fragment changeEmitterNodeFields on ChangeEmitterNode {
     }
 }
 
+fragment deadLetterEmitterNodeFields on DeadLetterEmitterNode {
+    sendMessageType {
+        name
+    }
+}
+
+fragment logEmitterNodeFields on LogEmitterNode {
+    sendMessageType {
+        name
+    }
+}
+
 query ReadNode($name: String!, $tenant: String!) {
     GetNode(name: $name, tenant: $tenant) {
         ...nodeFields
@@ -44,6 +56,12 @@ query ReadNode($name: String!, $tenant: String!) {
         }
         ... on ChangeEmitterNode {
             ...changeEmitterNodeFields
+        }
+        ... on DeadLetterEmitterNode {
+            ...deadLetterEmitterNodeFields
+        }
+        ... on LogEmitterNode {
+            ...logEmitterNodeFields
         }
     }
 }

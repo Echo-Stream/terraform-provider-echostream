@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -157,6 +158,8 @@ func (p *echoStreamProvider) DataSources(ctx context.Context) []func() datasourc
 		func() datasource.DataSource { return &node.AuditEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &function.BitmapperFunctionDataSource{} },
 		func() datasource.DataSource { return &node.ChangeEmitterNodeDataSource{} },
+		func() datasource.DataSource { return &node.DeadLetterEmitterNodeDataSource{} },
+		func() datasource.DataSource { return &node.LogEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &message_type.MessageTypeDataSource{} },
 		func() datasource.DataSource { return &function.ProcessorFunctionDataSource{} },
 		func() datasource.DataSource { return &tenant.TenantDataSource{} },
@@ -172,9 +175,92 @@ func (p *echoStreamProvider) Configure(ctx context.Context, req provider.Configu
 		return
 	}
 
+	if data.AppsyncEndpoint.IsNull() {
+		appsyncEndpoint := os.Getenv("ECHOSTREAM_APPSYNC_ENDPOINT")
+		if appsyncEndpoint != "" {
+			data.AppsyncEndpoint = types.String{Value: appsyncEndpoint}
+		} else {
+			resp.Diagnostics.AddError(
+				"Missing AppSync Endpoint Configuration",
+				"While configuring the provider, the AppSync Endpoint was not found in "+
+					"the ECHOSTREAM_APPSYNC_ENDPOINT environment variable or provider "+
+					"configuration block appsync_endpoint attribute.",
+			)
+		}
+	}
+	if data.ClientId.IsNull() {
+		clientId := os.Getenv("ECHOSTREAM_CLIENT_ID")
+		if clientId != "" {
+			data.ClientId = types.String{Value: clientId}
+		} else {
+			resp.Diagnostics.AddError(
+				"Missing Client ID Configuration",
+				"While configuring the provider, the AppSync Endpoint was not found in "+
+					"the ECHOSTREAM_CLIENT_ID environment variable or provider "+
+					"configuration block client_id attribute.",
+			)
+		}
+	}
+	if data.Password.IsNull() {
+		password := os.Getenv("ECHOSTREAM_PASSWORD")
+		if password != "" {
+			data.Password = types.String{Value: password}
+		} else {
+			resp.Diagnostics.AddError(
+				"Missing Password Configuration",
+				"While configuring the provider, the AppSync Endpoint was not found in "+
+					"the ECHOSTREAM_PASSWORD environment variable or provider "+
+					"configuration block password attribute.",
+			)
+		}
+	}
+	if data.Tenant.IsNull() {
+		tenant := os.Getenv("ECHOSTREAM_TENANT")
+		if tenant != "" {
+			data.Tenant = types.String{Value: tenant}
+		} else {
+			resp.Diagnostics.AddError(
+				"Missing Tenant Configuration",
+				"While configuring the provider, the AppSync Endpoint was not found in "+
+					"the ECHOSTREAM_TENANT environment variable or provider "+
+					"configuration block tenant attribute.",
+			)
+		}
+	}
+	if data.Username.IsNull() {
+		username := os.Getenv("ECHOSTREAM_USERNAME")
+		if username != "" {
+			data.Username = types.String{Value: username}
+		} else {
+			resp.Diagnostics.AddError(
+				"Missing Username Configuration",
+				"While configuring the provider, the AppSync Endpoint was not found in "+
+					"the ECHOSTREAM_USERNAME environment variable or provider "+
+					"configuration block username attribute.",
+			)
+		}
+	}
+	if data.UserPoolId.IsNull() {
+		userPoolId := os.Getenv("ECHOSTREAM_USER_POOL_ID")
+		if userPoolId != "" {
+			data.UserPoolId = types.String{Value: userPoolId}
+		} else {
+			resp.Diagnostics.AddError(
+				"Missing User Pool ID Configuration",
+				"While configuring the provider, the AppSync Endpoint was not found in "+
+					"the ECHOSTREAM_USER_POOL_ID environment variable or provider "+
+					"configuration block user_pool_id attribute.",
+			)
+		}
+	}
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
 	doer, err := newEchoStreamDoer(ctx, &data)
 	if err != nil {
-		resp.Diagnostics.AddError("Rrror creating api connection", err.Error())
+		resp.Diagnostics.AddError("Error creating api connection", err.Error())
 		return
 	}
 
@@ -203,38 +289,38 @@ func (p *echoStreamProvider) GetSchema(ctx context.Context) (tfsdk.Schema, diag.
 			"appsync_endpoint": {
 				Description:         "The EchoStream AppSync Endpoint to connect to",
 				MarkdownDescription: "The EchoStream AppSync Endpoint to connect to.",
-				Required:            true,
+				Optional:            true,
 				Type:                types.StringType,
 			},
 			"client_id": {
 				Description:         "",
 				MarkdownDescription: "",
-				Required:            true,
+				Optional:            true,
 				Type:                types.StringType,
 			},
 			"password": {
 				Description:         "",
 				MarkdownDescription: "",
-				Required:            true,
+				Optional:            true,
 				Sensitive:           true,
 				Type:                types.StringType,
 			},
 			"tenant": {
 				Description:         "",
 				MarkdownDescription: "",
-				Required:            true,
+				Optional:            true,
 				Type:                types.StringType,
 			},
 			"username": {
 				Description:         "",
 				MarkdownDescription: "",
-				Required:            true,
+				Optional:            true,
 				Type:                types.StringType,
 			},
 			"user_pool_id": {
 				Description:         "",
 				MarkdownDescription: "",
-				Required:            true,
+				Optional:            true,
 				Type:                types.StringType,
 			},
 		},

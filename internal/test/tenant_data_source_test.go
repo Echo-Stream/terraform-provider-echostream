@@ -24,6 +24,6 @@ func TestAccTenantDataSource(t *testing.T) {
 }
 
 const testAccTenantDataSourceConfig = `
-data "echostream_tenant_region" "test" {
+data "echostream_tenant" "test" {
 }
 `

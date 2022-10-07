@@ -4017,6 +4017,7 @@ func (v *ReadNodeGetNodeCrossTenantSendingNode) __premarshalJSON() (*__premarsha
 type ReadNodeGetNodeDeadLetterEmitterNode struct {
 	Typename                        *string `json:"__typename"`
 	nodeFieldsDeadLetterEmitterNode `json:"-"`
+	deadLetterEmitterNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeDeadLetterEmitterNode.Typename, and is useful for accessing the field via an interface.
@@ -4030,6 +4031,11 @@ func (v *ReadNodeGetNodeDeadLetterEmitterNode) GetDescription() *string {
 // GetName returns ReadNodeGetNodeDeadLetterEmitterNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeDeadLetterEmitterNode) GetName() string {
 	return v.nodeFieldsDeadLetterEmitterNode.Name
+}
+
+// GetSendMessageType returns ReadNodeGetNodeDeadLetterEmitterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeDeadLetterEmitterNode) GetSendMessageType() *deadLetterEmitterNodeFieldsSendMessageType {
+	return v.deadLetterEmitterNodeFields.SendMessageType
 }
 
 func (v *ReadNodeGetNodeDeadLetterEmitterNode) UnmarshalJSON(b []byte) error {
@@ -4054,6 +4060,11 @@ func (v *ReadNodeGetNodeDeadLetterEmitterNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.deadLetterEmitterNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4063,6 +4074,8 @@ type __premarshalReadNodeGetNodeDeadLetterEmitterNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	SendMessageType *deadLetterEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
 func (v *ReadNodeGetNodeDeadLetterEmitterNode) MarshalJSON() ([]byte, error) {
@@ -4079,6 +4092,7 @@ func (v *ReadNodeGetNodeDeadLetterEmitterNode) __premarshalJSON() (*__premarshal
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsDeadLetterEmitterNode.Description
 	retval.Name = v.nodeFieldsDeadLetterEmitterNode.Name
+	retval.SendMessageType = v.deadLetterEmitterNodeFields.SendMessageType
 	return &retval, nil
 }
 
@@ -4289,6 +4303,7 @@ func (v *ReadNodeGetNodeLoadBalancerNode) __premarshalJSON() (*__premarshalReadN
 type ReadNodeGetNodeLogEmitterNode struct {
 	Typename                 *string `json:"__typename"`
 	nodeFieldsLogEmitterNode `json:"-"`
+	logEmitterNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeLogEmitterNode.Typename, and is useful for accessing the field via an interface.
@@ -4301,6 +4316,11 @@ func (v *ReadNodeGetNodeLogEmitterNode) GetDescription() *string {
 
 // GetName returns ReadNodeGetNodeLogEmitterNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeLogEmitterNode) GetName() string { return v.nodeFieldsLogEmitterNode.Name }
+
+// GetSendMessageType returns ReadNodeGetNodeLogEmitterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeLogEmitterNode) GetSendMessageType() *logEmitterNodeFieldsSendMessageType {
+	return v.logEmitterNodeFields.SendMessageType
+}
 
 func (v *ReadNodeGetNodeLogEmitterNode) UnmarshalJSON(b []byte) error {
 
@@ -4324,6 +4344,11 @@ func (v *ReadNodeGetNodeLogEmitterNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.logEmitterNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4333,6 +4358,8 @@ type __premarshalReadNodeGetNodeLogEmitterNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	SendMessageType *logEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
 func (v *ReadNodeGetNodeLogEmitterNode) MarshalJSON() ([]byte, error) {
@@ -4349,6 +4376,7 @@ func (v *ReadNodeGetNodeLogEmitterNode) __premarshalJSON() (*__premarshalReadNod
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsLogEmitterNode.Description
 	retval.Name = v.nodeFieldsLogEmitterNode.Name
+	retval.SendMessageType = v.logEmitterNodeFields.SendMessageType
 	return &retval, nil
 }
 
@@ -7662,6 +7690,24 @@ func (v *crossTenantSendingAppFields) GetReceivingApp() string { return v.Receiv
 // GetReceivingTenant returns crossTenantSendingAppFields.ReceivingTenant, and is useful for accessing the field via an interface.
 func (v *crossTenantSendingAppFields) GetReceivingTenant() string { return v.ReceivingTenant }
 
+// deadLetterEmitterNodeFields includes the GraphQL fields of DeadLetterEmitterNode requested by the fragment deadLetterEmitterNodeFields.
+type deadLetterEmitterNodeFields struct {
+	SendMessageType *deadLetterEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
+}
+
+// GetSendMessageType returns deadLetterEmitterNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *deadLetterEmitterNodeFields) GetSendMessageType() *deadLetterEmitterNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// deadLetterEmitterNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type deadLetterEmitterNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns deadLetterEmitterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *deadLetterEmitterNodeFieldsSendMessageType) GetName() string { return v.Name }
+
 // externalAppFields includes the GraphQL fields of ExternalApp requested by the fragment externalAppFields.
 type externalAppFields struct {
 	AppsyncEndpoint      string                                         `json:"appsyncEndpoint"`
@@ -7977,6 +8023,24 @@ func (v *kmsKeyFields) GetInUse() bool { return v.InUse }
 
 // GetName returns kmsKeyFields.Name, and is useful for accessing the field via an interface.
 func (v *kmsKeyFields) GetName() string { return v.Name }
+
+// logEmitterNodeFields includes the GraphQL fields of LogEmitterNode requested by the fragment logEmitterNodeFields.
+type logEmitterNodeFields struct {
+	SendMessageType *logEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
+}
+
+// GetSendMessageType returns logEmitterNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *logEmitterNodeFields) GetSendMessageType() *logEmitterNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// logEmitterNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type logEmitterNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns logEmitterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *logEmitterNodeFieldsSendMessageType) GetName() string { return v.Name }
 
 // managedAppFields includes the GraphQL fields of ManagedApp requested by the fragment managedAppFields.
 type managedAppFields struct {
@@ -9613,6 +9677,12 @@ query ReadNode ($name: String!, $tenant: String!) {
 		... on ChangeEmitterNode {
 			... changeEmitterNodeFields
 		}
+		... on DeadLetterEmitterNode {
+			... deadLetterEmitterNodeFields
+		}
+		... on LogEmitterNode {
+			... logEmitterNodeFields
+		}
 	}
 }
 fragment nodeFields on Node {
@@ -9638,6 +9708,16 @@ fragment auditEmitterNodeFields on AuditEmitterNode {
 	}
 }
 fragment changeEmitterNodeFields on ChangeEmitterNode {
+	sendMessageType {
+		name
+	}
+}
+fragment deadLetterEmitterNodeFields on DeadLetterEmitterNode {
+	sendMessageType {
+		name
+	}
+}
+fragment logEmitterNodeFields on LogEmitterNode {
 	sendMessageType {
 		name
 	}
