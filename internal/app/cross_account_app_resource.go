@@ -132,8 +132,8 @@ func (r *CrossAccountAppResource) Delete(ctx context.Context, req resource.Delet
 func (r *CrossAccountAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
 		Attributes:          crossAccountAppSchema(),
-		Description:         "CrossAccountApps provide a way to receive messages in their Nodes using cross-account IAM access",
-		MarkdownDescription: "CrossAccountApps provide a way to receive messages in their Nodes using cross-account IAM access",
+		Description:         "CrossAccountApps provide a way to receive/send messages in their Nodes using cross-account IAM access",
+		MarkdownDescription: "CrossAccountApps provide a way to receive/send messages in their Nodes using cross-account IAM access",
 	}, nil
 }
 
