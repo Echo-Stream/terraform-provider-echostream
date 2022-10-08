@@ -232,3 +232,73 @@ func managedAppSchema() map[string]tfsdk.Attribute {
 	}
 	return schema
 }
+
+func managedAppInstanceSchema() map[string]tfsdk.Attribute {
+	return map[string]tfsdk.Attribute{
+		"app": {
+			Description:         "",
+			MarkdownDescription: "",
+			PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+			Required:            true,
+			Type:                types.StringType,
+			Validators: []tfsdk.AttributeValidator{
+				stringvalidator.LengthBetween(3, 80),
+				stringvalidator.RegexMatches(
+					regexp.MustCompile(`^[A-Za-z0-9\-\_]*$`),
+					"value must contain only lowercase/uppercase alphanumeric characters, \"-\", \"_\"",
+				),
+			},
+		},
+		"name": {
+			Description:         "",
+			MarkdownDescription: "",
+			PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+			Required:            true,
+			Type:                types.StringType,
+		},
+	}
+}
+
+type managedAppInstanceIsoModel struct {
+	App  types.String `tfsdk:"app"`
+	Name types.String `tfsdk:"name"`
+	Iso  types.String `tfsdk:"iso"`
+}
+
+func managedAppInstanceIsoSchema() map[string]tfsdk.Attribute {
+	schema := managedAppInstanceSchema()
+	maps.Copy(
+		schema,
+		map[string]tfsdk.Attribute{
+			"iso": {
+				Computed:            true,
+				Description:         "",
+				MarkdownDescription: "",
+				Type:                types.StringType,
+			},
+		},
+	)
+	return schema
+}
+
+type managedAppInstanceUserdataModel struct {
+	App      types.String `tfsdk:"app"`
+	Name     types.String `tfsdk:"name"`
+	Userdata types.String `tfsdk:"userdata"`
+}
+
+func managedAppInstanceUserdataSchema() map[string]tfsdk.Attribute {
+	schema := managedAppInstanceSchema()
+	maps.Copy(
+		schema,
+		map[string]tfsdk.Attribute{
+			"userdata": {
+				Computed:            true,
+				Description:         "",
+				MarkdownDescription: "",
+				Type:                types.StringType,
+			},
+		},
+	)
+	return schema
+}

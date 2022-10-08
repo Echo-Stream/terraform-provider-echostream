@@ -158,6 +158,22 @@ query ReadApp($name: String!, $tenant: String!) {
     }
 }
 
+query ReadManagedAppIso($name: String!, $tenant: String!) {
+    GetApp(name: $name, tenant: $tenant) {
+        ... on ManagedApp {
+            iso
+        }
+    }
+}
+
+query ReadManagedAppUserdata($name: String!, $tenant: String!) {
+    GetApp(name: $name, tenant: $tenant) {
+        ... on ManagedApp {
+            userdata
+        }
+    }
+}
+
 query UpdateCrossTenantApp(
     $name: String!,
     $tenant: String!

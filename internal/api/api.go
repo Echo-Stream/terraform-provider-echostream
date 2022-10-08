@@ -2942,6 +2942,472 @@ type ReadKmsKeyResponse struct {
 // GetGetKmsKey returns ReadKmsKeyResponse.GetKmsKey, and is useful for accessing the field via an interface.
 func (v *ReadKmsKeyResponse) GetGetKmsKey() *ReadKmsKeyGetKmsKey { return v.GetKmsKey }
 
+// ReadManagedAppIsoGetApp includes the requested fields of the GraphQL interface App.
+//
+// ReadManagedAppIsoGetApp is implemented by the following types:
+// ReadManagedAppIsoGetAppCrossAccountApp
+// ReadManagedAppIsoGetAppCrossTenantReceivingApp
+// ReadManagedAppIsoGetAppCrossTenantSendingApp
+// ReadManagedAppIsoGetAppExternalApp
+// ReadManagedAppIsoGetAppManagedApp
+type ReadManagedAppIsoGetApp interface {
+	implementsGraphQLInterfaceReadManagedAppIsoGetApp()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+}
+
+func (v *ReadManagedAppIsoGetAppCrossAccountApp) implementsGraphQLInterfaceReadManagedAppIsoGetApp() {
+}
+func (v *ReadManagedAppIsoGetAppCrossTenantReceivingApp) implementsGraphQLInterfaceReadManagedAppIsoGetApp() {
+}
+func (v *ReadManagedAppIsoGetAppCrossTenantSendingApp) implementsGraphQLInterfaceReadManagedAppIsoGetApp() {
+}
+func (v *ReadManagedAppIsoGetAppExternalApp) implementsGraphQLInterfaceReadManagedAppIsoGetApp() {}
+func (v *ReadManagedAppIsoGetAppManagedApp) implementsGraphQLInterfaceReadManagedAppIsoGetApp()  {}
+
+func __unmarshalReadManagedAppIsoGetApp(b []byte, v *ReadManagedAppIsoGetApp) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "CrossAccountApp":
+		*v = new(ReadManagedAppIsoGetAppCrossAccountApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingApp":
+		*v = new(ReadManagedAppIsoGetAppCrossTenantReceivingApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingApp":
+		*v = new(ReadManagedAppIsoGetAppCrossTenantSendingApp)
+		return json.Unmarshal(b, *v)
+	case "ExternalApp":
+		*v = new(ReadManagedAppIsoGetAppExternalApp)
+		return json.Unmarshal(b, *v)
+	case "ManagedApp":
+		*v = new(ReadManagedAppIsoGetAppManagedApp)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing App.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for ReadManagedAppIsoGetApp: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalReadManagedAppIsoGetApp(v *ReadManagedAppIsoGetApp) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *ReadManagedAppIsoGetAppCrossAccountApp:
+		typename = "CrossAccountApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadManagedAppIsoGetAppCrossAccountApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadManagedAppIsoGetAppCrossTenantReceivingApp:
+		typename = "CrossTenantReceivingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadManagedAppIsoGetAppCrossTenantReceivingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadManagedAppIsoGetAppCrossTenantSendingApp:
+		typename = "CrossTenantSendingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadManagedAppIsoGetAppCrossTenantSendingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadManagedAppIsoGetAppExternalApp:
+		typename = "ExternalApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadManagedAppIsoGetAppExternalApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadManagedAppIsoGetAppManagedApp:
+		typename = "ManagedApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadManagedAppIsoGetAppManagedApp
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for ReadManagedAppIsoGetApp: "%T"`, v)
+	}
+}
+
+// ReadManagedAppIsoGetAppCrossAccountApp includes the requested fields of the GraphQL type CrossAccountApp.
+type ReadManagedAppIsoGetAppCrossAccountApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns ReadManagedAppIsoGetAppCrossAccountApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppIsoGetAppCrossAccountApp) GetTypename() *string { return v.Typename }
+
+// ReadManagedAppIsoGetAppCrossTenantReceivingApp includes the requested fields of the GraphQL type CrossTenantReceivingApp.
+type ReadManagedAppIsoGetAppCrossTenantReceivingApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns ReadManagedAppIsoGetAppCrossTenantReceivingApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppIsoGetAppCrossTenantReceivingApp) GetTypename() *string { return v.Typename }
+
+// ReadManagedAppIsoGetAppCrossTenantSendingApp includes the requested fields of the GraphQL type CrossTenantSendingApp.
+type ReadManagedAppIsoGetAppCrossTenantSendingApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns ReadManagedAppIsoGetAppCrossTenantSendingApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppIsoGetAppCrossTenantSendingApp) GetTypename() *string { return v.Typename }
+
+// ReadManagedAppIsoGetAppExternalApp includes the requested fields of the GraphQL type ExternalApp.
+type ReadManagedAppIsoGetAppExternalApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns ReadManagedAppIsoGetAppExternalApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppIsoGetAppExternalApp) GetTypename() *string { return v.Typename }
+
+// ReadManagedAppIsoGetAppManagedApp includes the requested fields of the GraphQL type ManagedApp.
+type ReadManagedAppIsoGetAppManagedApp struct {
+	Typename *string `json:"__typename"`
+	Iso      string  `json:"iso"`
+}
+
+// GetTypename returns ReadManagedAppIsoGetAppManagedApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppIsoGetAppManagedApp) GetTypename() *string { return v.Typename }
+
+// GetIso returns ReadManagedAppIsoGetAppManagedApp.Iso, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppIsoGetAppManagedApp) GetIso() string { return v.Iso }
+
+// ReadManagedAppIsoResponse is returned by ReadManagedAppIso on success.
+type ReadManagedAppIsoResponse struct {
+	GetApp *ReadManagedAppIsoGetApp `json:"-"`
+}
+
+// GetGetApp returns ReadManagedAppIsoResponse.GetApp, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppIsoResponse) GetGetApp() *ReadManagedAppIsoGetApp { return v.GetApp }
+
+func (v *ReadManagedAppIsoResponse) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadManagedAppIsoResponse
+		GetApp json.RawMessage `json:"GetApp"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadManagedAppIsoResponse = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.GetApp
+		src := firstPass.GetApp
+		if len(src) != 0 && string(src) != "null" {
+			*dst = new(ReadManagedAppIsoGetApp)
+			err = __unmarshalReadManagedAppIsoGetApp(
+				src, *dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal ReadManagedAppIsoResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalReadManagedAppIsoResponse struct {
+	GetApp json.RawMessage `json:"GetApp"`
+}
+
+func (v *ReadManagedAppIsoResponse) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadManagedAppIsoResponse) __premarshalJSON() (*__premarshalReadManagedAppIsoResponse, error) {
+	var retval __premarshalReadManagedAppIsoResponse
+
+	{
+
+		dst := &retval.GetApp
+		src := v.GetApp
+		if src != nil {
+			var err error
+			*dst, err = __marshalReadManagedAppIsoGetApp(
+				src)
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Unable to marshal ReadManagedAppIsoResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return &retval, nil
+}
+
+// ReadManagedAppUserdataGetApp includes the requested fields of the GraphQL interface App.
+//
+// ReadManagedAppUserdataGetApp is implemented by the following types:
+// ReadManagedAppUserdataGetAppCrossAccountApp
+// ReadManagedAppUserdataGetAppCrossTenantReceivingApp
+// ReadManagedAppUserdataGetAppCrossTenantSendingApp
+// ReadManagedAppUserdataGetAppExternalApp
+// ReadManagedAppUserdataGetAppManagedApp
+type ReadManagedAppUserdataGetApp interface {
+	implementsGraphQLInterfaceReadManagedAppUserdataGetApp()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+}
+
+func (v *ReadManagedAppUserdataGetAppCrossAccountApp) implementsGraphQLInterfaceReadManagedAppUserdataGetApp() {
+}
+func (v *ReadManagedAppUserdataGetAppCrossTenantReceivingApp) implementsGraphQLInterfaceReadManagedAppUserdataGetApp() {
+}
+func (v *ReadManagedAppUserdataGetAppCrossTenantSendingApp) implementsGraphQLInterfaceReadManagedAppUserdataGetApp() {
+}
+func (v *ReadManagedAppUserdataGetAppExternalApp) implementsGraphQLInterfaceReadManagedAppUserdataGetApp() {
+}
+func (v *ReadManagedAppUserdataGetAppManagedApp) implementsGraphQLInterfaceReadManagedAppUserdataGetApp() {
+}
+
+func __unmarshalReadManagedAppUserdataGetApp(b []byte, v *ReadManagedAppUserdataGetApp) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "CrossAccountApp":
+		*v = new(ReadManagedAppUserdataGetAppCrossAccountApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingApp":
+		*v = new(ReadManagedAppUserdataGetAppCrossTenantReceivingApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingApp":
+		*v = new(ReadManagedAppUserdataGetAppCrossTenantSendingApp)
+		return json.Unmarshal(b, *v)
+	case "ExternalApp":
+		*v = new(ReadManagedAppUserdataGetAppExternalApp)
+		return json.Unmarshal(b, *v)
+	case "ManagedApp":
+		*v = new(ReadManagedAppUserdataGetAppManagedApp)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing App.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for ReadManagedAppUserdataGetApp: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalReadManagedAppUserdataGetApp(v *ReadManagedAppUserdataGetApp) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *ReadManagedAppUserdataGetAppCrossAccountApp:
+		typename = "CrossAccountApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadManagedAppUserdataGetAppCrossAccountApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadManagedAppUserdataGetAppCrossTenantReceivingApp:
+		typename = "CrossTenantReceivingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadManagedAppUserdataGetAppCrossTenantReceivingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadManagedAppUserdataGetAppCrossTenantSendingApp:
+		typename = "CrossTenantSendingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadManagedAppUserdataGetAppCrossTenantSendingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadManagedAppUserdataGetAppExternalApp:
+		typename = "ExternalApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadManagedAppUserdataGetAppExternalApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadManagedAppUserdataGetAppManagedApp:
+		typename = "ManagedApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadManagedAppUserdataGetAppManagedApp
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for ReadManagedAppUserdataGetApp: "%T"`, v)
+	}
+}
+
+// ReadManagedAppUserdataGetAppCrossAccountApp includes the requested fields of the GraphQL type CrossAccountApp.
+type ReadManagedAppUserdataGetAppCrossAccountApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns ReadManagedAppUserdataGetAppCrossAccountApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppUserdataGetAppCrossAccountApp) GetTypename() *string { return v.Typename }
+
+// ReadManagedAppUserdataGetAppCrossTenantReceivingApp includes the requested fields of the GraphQL type CrossTenantReceivingApp.
+type ReadManagedAppUserdataGetAppCrossTenantReceivingApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns ReadManagedAppUserdataGetAppCrossTenantReceivingApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppUserdataGetAppCrossTenantReceivingApp) GetTypename() *string {
+	return v.Typename
+}
+
+// ReadManagedAppUserdataGetAppCrossTenantSendingApp includes the requested fields of the GraphQL type CrossTenantSendingApp.
+type ReadManagedAppUserdataGetAppCrossTenantSendingApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns ReadManagedAppUserdataGetAppCrossTenantSendingApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppUserdataGetAppCrossTenantSendingApp) GetTypename() *string { return v.Typename }
+
+// ReadManagedAppUserdataGetAppExternalApp includes the requested fields of the GraphQL type ExternalApp.
+type ReadManagedAppUserdataGetAppExternalApp struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns ReadManagedAppUserdataGetAppExternalApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppUserdataGetAppExternalApp) GetTypename() *string { return v.Typename }
+
+// ReadManagedAppUserdataGetAppManagedApp includes the requested fields of the GraphQL type ManagedApp.
+type ReadManagedAppUserdataGetAppManagedApp struct {
+	Typename *string `json:"__typename"`
+	Userdata string  `json:"userdata"`
+}
+
+// GetTypename returns ReadManagedAppUserdataGetAppManagedApp.Typename, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppUserdataGetAppManagedApp) GetTypename() *string { return v.Typename }
+
+// GetUserdata returns ReadManagedAppUserdataGetAppManagedApp.Userdata, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppUserdataGetAppManagedApp) GetUserdata() string { return v.Userdata }
+
+// ReadManagedAppUserdataResponse is returned by ReadManagedAppUserdata on success.
+type ReadManagedAppUserdataResponse struct {
+	GetApp *ReadManagedAppUserdataGetApp `json:"-"`
+}
+
+// GetGetApp returns ReadManagedAppUserdataResponse.GetApp, and is useful for accessing the field via an interface.
+func (v *ReadManagedAppUserdataResponse) GetGetApp() *ReadManagedAppUserdataGetApp { return v.GetApp }
+
+func (v *ReadManagedAppUserdataResponse) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadManagedAppUserdataResponse
+		GetApp json.RawMessage `json:"GetApp"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadManagedAppUserdataResponse = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.GetApp
+		src := firstPass.GetApp
+		if len(src) != 0 && string(src) != "null" {
+			*dst = new(ReadManagedAppUserdataGetApp)
+			err = __unmarshalReadManagedAppUserdataGetApp(
+				src, *dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal ReadManagedAppUserdataResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalReadManagedAppUserdataResponse struct {
+	GetApp json.RawMessage `json:"GetApp"`
+}
+
+func (v *ReadManagedAppUserdataResponse) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadManagedAppUserdataResponse) __premarshalJSON() (*__premarshalReadManagedAppUserdataResponse, error) {
+	var retval __premarshalReadManagedAppUserdataResponse
+
+	{
+
+		dst := &retval.GetApp
+		src := v.GetApp
+		if src != nil {
+			var err error
+			*dst, err = __marshalReadManagedAppUserdataGetApp(
+				src)
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Unable to marshal ReadManagedAppUserdataResponse.GetApp: %w", err)
+			}
+		}
+	}
+	return &retval, nil
+}
+
 // ReadMessageTypeGetMessageType includes the requested fields of the GraphQL type MessageType.
 type ReadMessageTypeGetMessageType struct {
 	messageTypeFields `json:"-"`
@@ -7074,6 +7540,30 @@ func (v *__ReadKmsKeyInput) GetName() string { return v.Name }
 // GetTenant returns __ReadKmsKeyInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__ReadKmsKeyInput) GetTenant() string { return v.Tenant }
 
+// __ReadManagedAppIsoInput is used internally by genqlient
+type __ReadManagedAppIsoInput struct {
+	Name   string `json:"name"`
+	Tenant string `json:"tenant"`
+}
+
+// GetName returns __ReadManagedAppIsoInput.Name, and is useful for accessing the field via an interface.
+func (v *__ReadManagedAppIsoInput) GetName() string { return v.Name }
+
+// GetTenant returns __ReadManagedAppIsoInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__ReadManagedAppIsoInput) GetTenant() string { return v.Tenant }
+
+// __ReadManagedAppUserdataInput is used internally by genqlient
+type __ReadManagedAppUserdataInput struct {
+	Name   string `json:"name"`
+	Tenant string `json:"tenant"`
+}
+
+// GetName returns __ReadManagedAppUserdataInput.Name, and is useful for accessing the field via an interface.
+func (v *__ReadManagedAppUserdataInput) GetName() string { return v.Name }
+
+// GetTenant returns __ReadManagedAppUserdataInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__ReadManagedAppUserdataInput) GetTenant() string { return v.Tenant }
+
 // __ReadMessageTypeInput is used internally by genqlient
 type __ReadMessageTypeInput struct {
 	Name   string `json:"name"`
@@ -9595,6 +10085,80 @@ fragment kmsKeyFields on KmsKey {
 	var err error
 
 	var data ReadKmsKeyResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ReadManagedAppIso(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadManagedAppIsoResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadManagedAppIso",
+		Query: `
+query ReadManagedAppIso ($name: String!, $tenant: String!) {
+	GetApp(name: $name, tenant: $tenant) {
+		__typename
+		... on ManagedApp {
+			iso
+		}
+	}
+}
+`,
+		Variables: &__ReadManagedAppIsoInput{
+			Name:   name,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data ReadManagedAppIsoResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ReadManagedAppUserdata(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadManagedAppUserdataResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadManagedAppUserdata",
+		Query: `
+query ReadManagedAppUserdata ($name: String!, $tenant: String!) {
+	GetApp(name: $name, tenant: $tenant) {
+		__typename
+		... on ManagedApp {
+			userdata
+		}
+	}
+}
+`,
+		Variables: &__ReadManagedAppUserdataInput{
+			Name:   name,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data ReadManagedAppUserdataResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
