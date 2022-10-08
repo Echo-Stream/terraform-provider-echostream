@@ -139,13 +139,13 @@ func readTenantAwsCredentials(ctx context.Context, client graphql.Client, tenant
 		duration := int(data.AwsCredentialsDuration.Value)
 		if echoResp, err = api.ReadTenantAwsCredentials(ctx, client, tenant, &duration); err == nil {
 			data.AwsCredentials = types.Object{
-				AttrTypes: common.AwsCredentialsAttrTypes(),
 				Attrs: common.AwsCredentialsAttrValues(
 					echoResp.GetTenant.GetAwsCredentials.AccessKeyId,
 					echoResp.GetTenant.GetAwsCredentials.Expiration,
 					echoResp.GetTenant.GetAwsCredentials.SecretAccessKey,
 					echoResp.GetTenant.GetAwsCredentials.SessionToken,
 				),
+				AttrTypes: common.AwsCredentialsAttrTypes(),
 			}
 		}
 	} else {
