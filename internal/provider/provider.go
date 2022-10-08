@@ -351,6 +351,7 @@ func (p *echoStreamProvider) Resources(ctx context.Context) []func() resource.Re
 		func() resource.Resource { return &app.CrossTenantSendingAppResource{} },
 		func() resource.Resource { return &app.ExternalAppResource{} },
 		func() resource.Resource { return &kmskey.KmsKeyResource{} },
+		func() resource.Resource { return &app.ManagedAppResource{} },
 		func() resource.Resource { return &message_type.MessageTypeResource{} },
 		func() resource.Resource { return &function.BitmapperFunctionResource{} },
 		func() resource.Resource { return &function.ProcessorFunctionResource{} },
