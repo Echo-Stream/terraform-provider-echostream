@@ -157,6 +157,7 @@ func remoteAppSchema() map[string]tfsdk.Attribute {
 				MarkdownDescription: "",
 			},
 			"table_access": {
+				Computed:            true,
 				Description:         "",
 				MarkdownDescription: "",
 				Optional:            true,

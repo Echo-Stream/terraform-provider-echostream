@@ -346,6 +346,7 @@ func (p *echoStreamProvider) Metadata(ctx context.Context, req provider.Metadata
 func (p *echoStreamProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		func() resource.Resource { return &function.ApiAuthenticatorFunctionResource{} },
+		func() resource.Resource { return &app.CrossAccountAppResource{} },
 		func() resource.Resource { return &app.CrossTenantReceivingAppResource{} },
 		func() resource.Resource { return &app.CrossTenantSendingAppResource{} },
 		func() resource.Resource { return &kmskey.KmsKeyResource{} },
