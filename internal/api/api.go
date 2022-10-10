@@ -1581,6 +1581,150 @@ func (v *CreateManagedNodeResponse) GetCreateManagedNode() CreateManagedNodeCrea
 	return v.CreateManagedNode
 }
 
+// CreateManagedNodeTypeCreateManagedNodeType includes the requested fields of the GraphQL type ManagedNodeType.
+type CreateManagedNodeTypeCreateManagedNodeType struct {
+	managedNodeTypeFields `json:"-"`
+}
+
+// GetConfigTemplate returns CreateManagedNodeTypeCreateManagedNodeType.ConfigTemplate, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetConfigTemplate() *string {
+	return v.managedNodeTypeFields.ConfigTemplate
+}
+
+// GetDescription returns CreateManagedNodeTypeCreateManagedNodeType.Description, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetDescription() string {
+	return v.managedNodeTypeFields.Description
+}
+
+// GetImageUri returns CreateManagedNodeTypeCreateManagedNodeType.ImageUri, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetImageUri() string {
+	return v.managedNodeTypeFields.ImageUri
+}
+
+// GetInUse returns CreateManagedNodeTypeCreateManagedNodeType.InUse, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetInUse() bool {
+	return v.managedNodeTypeFields.InUse
+}
+
+// GetMountRequirements returns CreateManagedNodeTypeCreateManagedNodeType.MountRequirements, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetMountRequirements() []managedNodeTypeFieldsMountRequirementsMountRequirement {
+	return v.managedNodeTypeFields.MountRequirements
+}
+
+// GetName returns CreateManagedNodeTypeCreateManagedNodeType.Name, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetName() string {
+	return v.managedNodeTypeFields.Name
+}
+
+// GetPortRequirements returns CreateManagedNodeTypeCreateManagedNodeType.PortRequirements, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetPortRequirements() []managedNodeTypeFieldsPortRequirementsPortRequirement {
+	return v.managedNodeTypeFields.PortRequirements
+}
+
+// GetReadme returns CreateManagedNodeTypeCreateManagedNodeType.Readme, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetReadme() *string {
+	return v.managedNodeTypeFields.Readme
+}
+
+// GetReceiveMessageType returns CreateManagedNodeTypeCreateManagedNodeType.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetReceiveMessageType() *managedNodeTypeFieldsReceiveMessageType {
+	return v.managedNodeTypeFields.ReceiveMessageType
+}
+
+// GetSendMessageType returns CreateManagedNodeTypeCreateManagedNodeType.SendMessageType, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetSendMessageType() *managedNodeTypeFieldsSendMessageType {
+	return v.managedNodeTypeFields.SendMessageType
+}
+
+// GetSystem returns CreateManagedNodeTypeCreateManagedNodeType.System, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeCreateManagedNodeType) GetSystem() *bool {
+	return v.managedNodeTypeFields.System
+}
+
+func (v *CreateManagedNodeTypeCreateManagedNodeType) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateManagedNodeTypeCreateManagedNodeType
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateManagedNodeTypeCreateManagedNodeType = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.managedNodeTypeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateManagedNodeTypeCreateManagedNodeType struct {
+	ConfigTemplate *string `json:"configTemplate"`
+
+	Description string `json:"description"`
+
+	ImageUri string `json:"imageUri"`
+
+	InUse bool `json:"inUse"`
+
+	MountRequirements []managedNodeTypeFieldsMountRequirementsMountRequirement `json:"mountRequirements"`
+
+	Name string `json:"name"`
+
+	PortRequirements []managedNodeTypeFieldsPortRequirementsPortRequirement `json:"portRequirements"`
+
+	Readme *string `json:"readme"`
+
+	ReceiveMessageType *managedNodeTypeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	SendMessageType *managedNodeTypeFieldsSendMessageType `json:"sendMessageType"`
+
+	System *bool `json:"system"`
+}
+
+func (v *CreateManagedNodeTypeCreateManagedNodeType) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateManagedNodeTypeCreateManagedNodeType) __premarshalJSON() (*__premarshalCreateManagedNodeTypeCreateManagedNodeType, error) {
+	var retval __premarshalCreateManagedNodeTypeCreateManagedNodeType
+
+	retval.ConfigTemplate = v.managedNodeTypeFields.ConfigTemplate
+	retval.Description = v.managedNodeTypeFields.Description
+	retval.ImageUri = v.managedNodeTypeFields.ImageUri
+	retval.InUse = v.managedNodeTypeFields.InUse
+	retval.MountRequirements = v.managedNodeTypeFields.MountRequirements
+	retval.Name = v.managedNodeTypeFields.Name
+	retval.PortRequirements = v.managedNodeTypeFields.PortRequirements
+	retval.Readme = v.managedNodeTypeFields.Readme
+	retval.ReceiveMessageType = v.managedNodeTypeFields.ReceiveMessageType
+	retval.SendMessageType = v.managedNodeTypeFields.SendMessageType
+	retval.System = v.managedNodeTypeFields.System
+	return &retval, nil
+}
+
+// CreateManagedNodeTypeResponse is returned by CreateManagedNodeType on success.
+type CreateManagedNodeTypeResponse struct {
+	CreateManagedNodeType CreateManagedNodeTypeCreateManagedNodeType `json:"CreateManagedNodeType"`
+}
+
+// GetCreateManagedNodeType returns CreateManagedNodeTypeResponse.CreateManagedNodeType, and is useful for accessing the field via an interface.
+func (v *CreateManagedNodeTypeResponse) GetCreateManagedNodeType() CreateManagedNodeTypeCreateManagedNodeType {
+	return v.CreateManagedNodeType
+}
+
 // CreateMessageTypeCreateMessageType includes the requested fields of the GraphQL type MessageType.
 type CreateMessageTypeCreateMessageType struct {
 	messageTypeFields `json:"-"`
@@ -2666,6 +2810,24 @@ type DeleteKmsKeyResponse struct {
 // GetGetKmsKey returns DeleteKmsKeyResponse.GetKmsKey, and is useful for accessing the field via an interface.
 func (v *DeleteKmsKeyResponse) GetGetKmsKey() *DeleteKmsKeyGetKmsKey { return v.GetKmsKey }
 
+// DeleteManagedNodeTypeGetManagedNodeType includes the requested fields of the GraphQL type ManagedNodeType.
+type DeleteManagedNodeTypeGetManagedNodeType struct {
+	Delete bool `json:"Delete"`
+}
+
+// GetDelete returns DeleteManagedNodeTypeGetManagedNodeType.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteManagedNodeTypeGetManagedNodeType) GetDelete() bool { return v.Delete }
+
+// DeleteManagedNodeTypeResponse is returned by DeleteManagedNodeType on success.
+type DeleteManagedNodeTypeResponse struct {
+	GetManagedNodeType *DeleteManagedNodeTypeGetManagedNodeType `json:"GetManagedNodeType"`
+}
+
+// GetGetManagedNodeType returns DeleteManagedNodeTypeResponse.GetManagedNodeType, and is useful for accessing the field via an interface.
+func (v *DeleteManagedNodeTypeResponse) GetGetManagedNodeType() *DeleteManagedNodeTypeGetManagedNodeType {
+	return v.GetManagedNodeType
+}
+
 // DeleteMessageTypeGetMessageType includes the requested fields of the GraphQL type MessageType.
 type DeleteMessageTypeGetMessageType struct {
 	Delete bool `json:"Delete"`
@@ -3220,6 +3382,21 @@ func (v *MountInput) GetSource() *string { return v.Source }
 // GetTarget returns MountInput.Target, and is useful for accessing the field via an interface.
 func (v *MountInput) GetTarget() string { return v.Target }
 
+type MountRequirementInput struct {
+	Description string  `json:"description"`
+	Source      *string `json:"source"`
+	Target      string  `json:"target"`
+}
+
+// GetDescription returns MountRequirementInput.Description, and is useful for accessing the field via an interface.
+func (v *MountRequirementInput) GetDescription() string { return v.Description }
+
+// GetSource returns MountRequirementInput.Source, and is useful for accessing the field via an interface.
+func (v *MountRequirementInput) GetSource() *string { return v.Source }
+
+// GetTarget returns MountRequirementInput.Target, and is useful for accessing the field via an interface.
+func (v *MountRequirementInput) GetTarget() string { return v.Target }
+
 type PortInput struct {
 	ContainerPort int      `json:"containerPort"`
 	HostAddress   *string  `json:"hostAddress"`
@@ -3238,6 +3415,21 @@ func (v *PortInput) GetHostPort() int { return v.HostPort }
 
 // GetProtocol returns PortInput.Protocol, and is useful for accessing the field via an interface.
 func (v *PortInput) GetProtocol() Protocol { return v.Protocol }
+
+type PortRequirementInput struct {
+	ContainerPort int      `json:"containerPort"`
+	Description   string   `json:"description"`
+	Protocol      Protocol `json:"protocol"`
+}
+
+// GetContainerPort returns PortRequirementInput.ContainerPort, and is useful for accessing the field via an interface.
+func (v *PortRequirementInput) GetContainerPort() int { return v.ContainerPort }
+
+// GetDescription returns PortRequirementInput.Description, and is useful for accessing the field via an interface.
+func (v *PortRequirementInput) GetDescription() string { return v.Description }
+
+// GetProtocol returns PortRequirementInput.Protocol, and is useful for accessing the field via an interface.
+func (v *PortRequirementInput) GetProtocol() Protocol { return v.Protocol }
 
 type Protocol string
 
@@ -5046,6 +5238,146 @@ func (v *ReadManagedAppUserdataResponse) __premarshalJSON() (*__premarshalReadMa
 		}
 	}
 	return &retval, nil
+}
+
+// ReadManagedNodeTypeGetManagedNodeType includes the requested fields of the GraphQL type ManagedNodeType.
+type ReadManagedNodeTypeGetManagedNodeType struct {
+	managedNodeTypeFields `json:"-"`
+}
+
+// GetConfigTemplate returns ReadManagedNodeTypeGetManagedNodeType.ConfigTemplate, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetConfigTemplate() *string {
+	return v.managedNodeTypeFields.ConfigTemplate
+}
+
+// GetDescription returns ReadManagedNodeTypeGetManagedNodeType.Description, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetDescription() string {
+	return v.managedNodeTypeFields.Description
+}
+
+// GetImageUri returns ReadManagedNodeTypeGetManagedNodeType.ImageUri, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetImageUri() string {
+	return v.managedNodeTypeFields.ImageUri
+}
+
+// GetInUse returns ReadManagedNodeTypeGetManagedNodeType.InUse, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetInUse() bool { return v.managedNodeTypeFields.InUse }
+
+// GetMountRequirements returns ReadManagedNodeTypeGetManagedNodeType.MountRequirements, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetMountRequirements() []managedNodeTypeFieldsMountRequirementsMountRequirement {
+	return v.managedNodeTypeFields.MountRequirements
+}
+
+// GetName returns ReadManagedNodeTypeGetManagedNodeType.Name, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetName() string { return v.managedNodeTypeFields.Name }
+
+// GetPortRequirements returns ReadManagedNodeTypeGetManagedNodeType.PortRequirements, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetPortRequirements() []managedNodeTypeFieldsPortRequirementsPortRequirement {
+	return v.managedNodeTypeFields.PortRequirements
+}
+
+// GetReadme returns ReadManagedNodeTypeGetManagedNodeType.Readme, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetReadme() *string {
+	return v.managedNodeTypeFields.Readme
+}
+
+// GetReceiveMessageType returns ReadManagedNodeTypeGetManagedNodeType.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetReceiveMessageType() *managedNodeTypeFieldsReceiveMessageType {
+	return v.managedNodeTypeFields.ReceiveMessageType
+}
+
+// GetSendMessageType returns ReadManagedNodeTypeGetManagedNodeType.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetSendMessageType() *managedNodeTypeFieldsSendMessageType {
+	return v.managedNodeTypeFields.SendMessageType
+}
+
+// GetSystem returns ReadManagedNodeTypeGetManagedNodeType.System, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeGetManagedNodeType) GetSystem() *bool {
+	return v.managedNodeTypeFields.System
+}
+
+func (v *ReadManagedNodeTypeGetManagedNodeType) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadManagedNodeTypeGetManagedNodeType
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadManagedNodeTypeGetManagedNodeType = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.managedNodeTypeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadManagedNodeTypeGetManagedNodeType struct {
+	ConfigTemplate *string `json:"configTemplate"`
+
+	Description string `json:"description"`
+
+	ImageUri string `json:"imageUri"`
+
+	InUse bool `json:"inUse"`
+
+	MountRequirements []managedNodeTypeFieldsMountRequirementsMountRequirement `json:"mountRequirements"`
+
+	Name string `json:"name"`
+
+	PortRequirements []managedNodeTypeFieldsPortRequirementsPortRequirement `json:"portRequirements"`
+
+	Readme *string `json:"readme"`
+
+	ReceiveMessageType *managedNodeTypeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	SendMessageType *managedNodeTypeFieldsSendMessageType `json:"sendMessageType"`
+
+	System *bool `json:"system"`
+}
+
+func (v *ReadManagedNodeTypeGetManagedNodeType) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadManagedNodeTypeGetManagedNodeType) __premarshalJSON() (*__premarshalReadManagedNodeTypeGetManagedNodeType, error) {
+	var retval __premarshalReadManagedNodeTypeGetManagedNodeType
+
+	retval.ConfigTemplate = v.managedNodeTypeFields.ConfigTemplate
+	retval.Description = v.managedNodeTypeFields.Description
+	retval.ImageUri = v.managedNodeTypeFields.ImageUri
+	retval.InUse = v.managedNodeTypeFields.InUse
+	retval.MountRequirements = v.managedNodeTypeFields.MountRequirements
+	retval.Name = v.managedNodeTypeFields.Name
+	retval.PortRequirements = v.managedNodeTypeFields.PortRequirements
+	retval.Readme = v.managedNodeTypeFields.Readme
+	retval.ReceiveMessageType = v.managedNodeTypeFields.ReceiveMessageType
+	retval.SendMessageType = v.managedNodeTypeFields.SendMessageType
+	retval.System = v.managedNodeTypeFields.System
+	return &retval, nil
+}
+
+// ReadManagedNodeTypeResponse is returned by ReadManagedNodeType on success.
+type ReadManagedNodeTypeResponse struct {
+	GetManagedNodeType *ReadManagedNodeTypeGetManagedNodeType `json:"GetManagedNodeType"`
+}
+
+// GetGetManagedNodeType returns ReadManagedNodeTypeResponse.GetManagedNodeType, and is useful for accessing the field via an interface.
+func (v *ReadManagedNodeTypeResponse) GetGetManagedNodeType() *ReadManagedNodeTypeGetManagedNodeType {
+	return v.GetManagedNodeType
 }
 
 // ReadMessageTypeGetMessageType includes the requested fields of the GraphQL type MessageType.
@@ -12813,6 +13145,160 @@ func (v *UpdateManagedNodeResponse) __premarshalJSON() (*__premarshalUpdateManag
 	return &retval, nil
 }
 
+// UpdateManagedNodeTypeGetManagedNodeType includes the requested fields of the GraphQL type ManagedNodeType.
+type UpdateManagedNodeTypeGetManagedNodeType struct {
+	Update UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType `json:"Update"`
+}
+
+// GetUpdate returns UpdateManagedNodeTypeGetManagedNodeType.Update, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeType) GetUpdate() UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType {
+	return v.Update
+}
+
+// UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType includes the requested fields of the GraphQL type ManagedNodeType.
+type UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType struct {
+	managedNodeTypeFields `json:"-"`
+}
+
+// GetConfigTemplate returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.ConfigTemplate, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetConfigTemplate() *string {
+	return v.managedNodeTypeFields.ConfigTemplate
+}
+
+// GetDescription returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.Description, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetDescription() string {
+	return v.managedNodeTypeFields.Description
+}
+
+// GetImageUri returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.ImageUri, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetImageUri() string {
+	return v.managedNodeTypeFields.ImageUri
+}
+
+// GetInUse returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.InUse, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetInUse() bool {
+	return v.managedNodeTypeFields.InUse
+}
+
+// GetMountRequirements returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.MountRequirements, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetMountRequirements() []managedNodeTypeFieldsMountRequirementsMountRequirement {
+	return v.managedNodeTypeFields.MountRequirements
+}
+
+// GetName returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.Name, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetName() string {
+	return v.managedNodeTypeFields.Name
+}
+
+// GetPortRequirements returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.PortRequirements, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetPortRequirements() []managedNodeTypeFieldsPortRequirementsPortRequirement {
+	return v.managedNodeTypeFields.PortRequirements
+}
+
+// GetReadme returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.Readme, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetReadme() *string {
+	return v.managedNodeTypeFields.Readme
+}
+
+// GetReceiveMessageType returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetReceiveMessageType() *managedNodeTypeFieldsReceiveMessageType {
+	return v.managedNodeTypeFields.ReceiveMessageType
+}
+
+// GetSendMessageType returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.SendMessageType, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetSendMessageType() *managedNodeTypeFieldsSendMessageType {
+	return v.managedNodeTypeFields.SendMessageType
+}
+
+// GetSystem returns UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType.System, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) GetSystem() *bool {
+	return v.managedNodeTypeFields.System
+}
+
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.managedNodeTypeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType struct {
+	ConfigTemplate *string `json:"configTemplate"`
+
+	Description string `json:"description"`
+
+	ImageUri string `json:"imageUri"`
+
+	InUse bool `json:"inUse"`
+
+	MountRequirements []managedNodeTypeFieldsMountRequirementsMountRequirement `json:"mountRequirements"`
+
+	Name string `json:"name"`
+
+	PortRequirements []managedNodeTypeFieldsPortRequirementsPortRequirement `json:"portRequirements"`
+
+	Readme *string `json:"readme"`
+
+	ReceiveMessageType *managedNodeTypeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	SendMessageType *managedNodeTypeFieldsSendMessageType `json:"sendMessageType"`
+
+	System *bool `json:"system"`
+}
+
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType) __premarshalJSON() (*__premarshalUpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType, error) {
+	var retval __premarshalUpdateManagedNodeTypeGetManagedNodeTypeUpdateManagedNodeType
+
+	retval.ConfigTemplate = v.managedNodeTypeFields.ConfigTemplate
+	retval.Description = v.managedNodeTypeFields.Description
+	retval.ImageUri = v.managedNodeTypeFields.ImageUri
+	retval.InUse = v.managedNodeTypeFields.InUse
+	retval.MountRequirements = v.managedNodeTypeFields.MountRequirements
+	retval.Name = v.managedNodeTypeFields.Name
+	retval.PortRequirements = v.managedNodeTypeFields.PortRequirements
+	retval.Readme = v.managedNodeTypeFields.Readme
+	retval.ReceiveMessageType = v.managedNodeTypeFields.ReceiveMessageType
+	retval.SendMessageType = v.managedNodeTypeFields.SendMessageType
+	retval.System = v.managedNodeTypeFields.System
+	return &retval, nil
+}
+
+// UpdateManagedNodeTypeResponse is returned by UpdateManagedNodeType on success.
+type UpdateManagedNodeTypeResponse struct {
+	GetManagedNodeType *UpdateManagedNodeTypeGetManagedNodeType `json:"GetManagedNodeType"`
+}
+
+// GetGetManagedNodeType returns UpdateManagedNodeTypeResponse.GetManagedNodeType, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeTypeResponse) GetGetManagedNodeType() *UpdateManagedNodeTypeGetManagedNodeType {
+	return v.GetManagedNodeType
+}
+
 // UpdateMessageTypeGetMessageType includes the requested fields of the GraphQL type MessageType.
 type UpdateMessageTypeGetMessageType struct {
 	Update UpdateMessageTypeGetMessageTypeUpdateMessageType `json:"Update"`
@@ -15862,6 +16348,54 @@ func (v *__CreateManagedNodeInput) GetMounts() []MountInput { return v.Mounts }
 // GetPorts returns __CreateManagedNodeInput.Ports, and is useful for accessing the field via an interface.
 func (v *__CreateManagedNodeInput) GetPorts() []PortInput { return v.Ports }
 
+// __CreateManagedNodeTypeInput is used internally by genqlient
+type __CreateManagedNodeTypeInput struct {
+	Description        string                  `json:"description"`
+	ImageUri           string                  `json:"imageUri"`
+	Name               string                  `json:"name"`
+	Tenant             string                  `json:"tenant"`
+	ConfigTemplate     *string                 `json:"configTemplate"`
+	MountRequirements  []MountRequirementInput `json:"mountRequirements"`
+	PortRequirements   []PortRequirementInput  `json:"portRequirements"`
+	Readme             *string                 `json:"readme"`
+	ReceiveMessageType *string                 `json:"receiveMessageType"`
+	SendMessageType    *string                 `json:"sendMessageType"`
+}
+
+// GetDescription returns __CreateManagedNodeTypeInput.Description, and is useful for accessing the field via an interface.
+func (v *__CreateManagedNodeTypeInput) GetDescription() string { return v.Description }
+
+// GetImageUri returns __CreateManagedNodeTypeInput.ImageUri, and is useful for accessing the field via an interface.
+func (v *__CreateManagedNodeTypeInput) GetImageUri() string { return v.ImageUri }
+
+// GetName returns __CreateManagedNodeTypeInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateManagedNodeTypeInput) GetName() string { return v.Name }
+
+// GetTenant returns __CreateManagedNodeTypeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateManagedNodeTypeInput) GetTenant() string { return v.Tenant }
+
+// GetConfigTemplate returns __CreateManagedNodeTypeInput.ConfigTemplate, and is useful for accessing the field via an interface.
+func (v *__CreateManagedNodeTypeInput) GetConfigTemplate() *string { return v.ConfigTemplate }
+
+// GetMountRequirements returns __CreateManagedNodeTypeInput.MountRequirements, and is useful for accessing the field via an interface.
+func (v *__CreateManagedNodeTypeInput) GetMountRequirements() []MountRequirementInput {
+	return v.MountRequirements
+}
+
+// GetPortRequirements returns __CreateManagedNodeTypeInput.PortRequirements, and is useful for accessing the field via an interface.
+func (v *__CreateManagedNodeTypeInput) GetPortRequirements() []PortRequirementInput {
+	return v.PortRequirements
+}
+
+// GetReadme returns __CreateManagedNodeTypeInput.Readme, and is useful for accessing the field via an interface.
+func (v *__CreateManagedNodeTypeInput) GetReadme() *string { return v.Readme }
+
+// GetReceiveMessageType returns __CreateManagedNodeTypeInput.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *__CreateManagedNodeTypeInput) GetReceiveMessageType() *string { return v.ReceiveMessageType }
+
+// GetSendMessageType returns __CreateManagedNodeTypeInput.SendMessageType, and is useful for accessing the field via an interface.
+func (v *__CreateManagedNodeTypeInput) GetSendMessageType() *string { return v.SendMessageType }
+
 // __CreateMessageTypeInput is used internally by genqlient
 type __CreateMessageTypeInput struct {
 	Auditor           string   `json:"auditor"`
@@ -16088,6 +16622,18 @@ func (v *__DeleteKmsKeyInput) GetName() string { return v.Name }
 // GetTenant returns __DeleteKmsKeyInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__DeleteKmsKeyInput) GetTenant() string { return v.Tenant }
 
+// __DeleteManagedNodeTypeInput is used internally by genqlient
+type __DeleteManagedNodeTypeInput struct {
+	Name   string `json:"name"`
+	Tenant string `json:"tenant"`
+}
+
+// GetName returns __DeleteManagedNodeTypeInput.Name, and is useful for accessing the field via an interface.
+func (v *__DeleteManagedNodeTypeInput) GetName() string { return v.Name }
+
+// GetTenant returns __DeleteManagedNodeTypeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__DeleteManagedNodeTypeInput) GetTenant() string { return v.Tenant }
+
 // __DeleteMessageTypeInput is used internally by genqlient
 type __DeleteMessageTypeInput struct {
 	Name   string `json:"name"`
@@ -16171,6 +16717,18 @@ func (v *__ReadManagedAppUserdataInput) GetName() string { return v.Name }
 
 // GetTenant returns __ReadManagedAppUserdataInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__ReadManagedAppUserdataInput) GetTenant() string { return v.Tenant }
+
+// __ReadManagedNodeTypeInput is used internally by genqlient
+type __ReadManagedNodeTypeInput struct {
+	Name   string `json:"name"`
+	Tenant string `json:"tenant"`
+}
+
+// GetName returns __ReadManagedNodeTypeInput.Name, and is useful for accessing the field via an interface.
+func (v *__ReadManagedNodeTypeInput) GetName() string { return v.Name }
+
+// GetTenant returns __ReadManagedNodeTypeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__ReadManagedNodeTypeInput) GetTenant() string { return v.Tenant }
 
 // __ReadMessageTypeInput is used internally by genqlient
 type __ReadMessageTypeInput struct {
@@ -16463,6 +17021,30 @@ func (v *__UpdateManagedNodeInput) GetMounts() []MountInput { return v.Mounts }
 
 // GetPorts returns __UpdateManagedNodeInput.Ports, and is useful for accessing the field via an interface.
 func (v *__UpdateManagedNodeInput) GetPorts() []PortInput { return v.Ports }
+
+// __UpdateManagedNodeTypeInput is used internally by genqlient
+type __UpdateManagedNodeTypeInput struct {
+	Name        string  `json:"name"`
+	Tenant      string  `json:"tenant"`
+	Description *string `json:"description"`
+	ImageUri    *string `json:"imageUri"`
+	Readme      *string `json:"readme"`
+}
+
+// GetName returns __UpdateManagedNodeTypeInput.Name, and is useful for accessing the field via an interface.
+func (v *__UpdateManagedNodeTypeInput) GetName() string { return v.Name }
+
+// GetTenant returns __UpdateManagedNodeTypeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__UpdateManagedNodeTypeInput) GetTenant() string { return v.Tenant }
+
+// GetDescription returns __UpdateManagedNodeTypeInput.Description, and is useful for accessing the field via an interface.
+func (v *__UpdateManagedNodeTypeInput) GetDescription() *string { return v.Description }
+
+// GetImageUri returns __UpdateManagedNodeTypeInput.ImageUri, and is useful for accessing the field via an interface.
+func (v *__UpdateManagedNodeTypeInput) GetImageUri() *string { return v.ImageUri }
+
+// GetReadme returns __UpdateManagedNodeTypeInput.Readme, and is useful for accessing the field via an interface.
+func (v *__UpdateManagedNodeTypeInput) GetReadme() *string { return v.Readme }
 
 // __UpdateMessageTypeInput is used internally by genqlient
 type __UpdateMessageTypeInput struct {
@@ -18334,6 +18916,118 @@ type managedNodeFieldsSendMessageType struct {
 // GetName returns managedNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
 func (v *managedNodeFieldsSendMessageType) GetName() string { return v.Name }
 
+// managedNodeTypeFields includes the GraphQL fields of ManagedNodeType requested by the fragment managedNodeTypeFields.
+type managedNodeTypeFields struct {
+	ConfigTemplate     *string                                                  `json:"configTemplate"`
+	Description        string                                                   `json:"description"`
+	ImageUri           string                                                   `json:"imageUri"`
+	InUse              bool                                                     `json:"inUse"`
+	MountRequirements  []managedNodeTypeFieldsMountRequirementsMountRequirement `json:"mountRequirements"`
+	Name               string                                                   `json:"name"`
+	PortRequirements   []managedNodeTypeFieldsPortRequirementsPortRequirement   `json:"portRequirements"`
+	Readme             *string                                                  `json:"readme"`
+	ReceiveMessageType *managedNodeTypeFieldsReceiveMessageType                 `json:"receiveMessageType"`
+	SendMessageType    *managedNodeTypeFieldsSendMessageType                    `json:"sendMessageType"`
+	System             *bool                                                    `json:"system"`
+}
+
+// GetConfigTemplate returns managedNodeTypeFields.ConfigTemplate, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetConfigTemplate() *string { return v.ConfigTemplate }
+
+// GetDescription returns managedNodeTypeFields.Description, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetDescription() string { return v.Description }
+
+// GetImageUri returns managedNodeTypeFields.ImageUri, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetImageUri() string { return v.ImageUri }
+
+// GetInUse returns managedNodeTypeFields.InUse, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetInUse() bool { return v.InUse }
+
+// GetMountRequirements returns managedNodeTypeFields.MountRequirements, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetMountRequirements() []managedNodeTypeFieldsMountRequirementsMountRequirement {
+	return v.MountRequirements
+}
+
+// GetName returns managedNodeTypeFields.Name, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetName() string { return v.Name }
+
+// GetPortRequirements returns managedNodeTypeFields.PortRequirements, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetPortRequirements() []managedNodeTypeFieldsPortRequirementsPortRequirement {
+	return v.PortRequirements
+}
+
+// GetReadme returns managedNodeTypeFields.Readme, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetReadme() *string { return v.Readme }
+
+// GetReceiveMessageType returns managedNodeTypeFields.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetReceiveMessageType() *managedNodeTypeFieldsReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// GetSendMessageType returns managedNodeTypeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetSendMessageType() *managedNodeTypeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// GetSystem returns managedNodeTypeFields.System, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFields) GetSystem() *bool { return v.System }
+
+// managedNodeTypeFieldsMountRequirementsMountRequirement includes the requested fields of the GraphQL type MountRequirement.
+type managedNodeTypeFieldsMountRequirementsMountRequirement struct {
+	Description string  `json:"description"`
+	Source      *string `json:"source"`
+	Target      string  `json:"target"`
+}
+
+// GetDescription returns managedNodeTypeFieldsMountRequirementsMountRequirement.Description, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFieldsMountRequirementsMountRequirement) GetDescription() string {
+	return v.Description
+}
+
+// GetSource returns managedNodeTypeFieldsMountRequirementsMountRequirement.Source, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFieldsMountRequirementsMountRequirement) GetSource() *string { return v.Source }
+
+// GetTarget returns managedNodeTypeFieldsMountRequirementsMountRequirement.Target, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFieldsMountRequirementsMountRequirement) GetTarget() string { return v.Target }
+
+// managedNodeTypeFieldsPortRequirementsPortRequirement includes the requested fields of the GraphQL type PortRequirement.
+type managedNodeTypeFieldsPortRequirementsPortRequirement struct {
+	ContainerPort int      `json:"containerPort"`
+	Description   string   `json:"description"`
+	Protocol      Protocol `json:"protocol"`
+}
+
+// GetContainerPort returns managedNodeTypeFieldsPortRequirementsPortRequirement.ContainerPort, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFieldsPortRequirementsPortRequirement) GetContainerPort() int {
+	return v.ContainerPort
+}
+
+// GetDescription returns managedNodeTypeFieldsPortRequirementsPortRequirement.Description, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFieldsPortRequirementsPortRequirement) GetDescription() string {
+	return v.Description
+}
+
+// GetProtocol returns managedNodeTypeFieldsPortRequirementsPortRequirement.Protocol, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFieldsPortRequirementsPortRequirement) GetProtocol() Protocol {
+	return v.Protocol
+}
+
+// managedNodeTypeFieldsReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type managedNodeTypeFieldsReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns managedNodeTypeFieldsReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFieldsReceiveMessageType) GetName() string { return v.Name }
+
+// managedNodeTypeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type managedNodeTypeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns managedNodeTypeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *managedNodeTypeFieldsSendMessageType) GetName() string { return v.Name }
+
 // messageTypeFields includes the GraphQL fields of MessageType requested by the fragment messageTypeFields.
 type messageTypeFields struct {
 	Auditor           string   `json:"auditor"`
@@ -19872,6 +20566,81 @@ fragment managedNodeFields on ManagedNode {
 	return &data, err
 }
 
+func CreateManagedNodeType(
+	ctx context.Context,
+	client graphql.Client,
+	description string,
+	imageUri string,
+	name string,
+	tenant string,
+	configTemplate *string,
+	mountRequirements []MountRequirementInput,
+	portRequirements []PortRequirementInput,
+	readme *string,
+	receiveMessageType *string,
+	sendMessageType *string,
+) (*CreateManagedNodeTypeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateManagedNodeType",
+		Query: `
+mutation CreateManagedNodeType ($description: String!, $imageUri: String!, $name: String!, $tenant: String!, $configTemplate: AWSJSON, $mountRequirements: [MountRequirementInput!], $portRequirements: [PortRequirementInput!], $readme: String, $receiveMessageType: String, $sendMessageType: String) {
+	CreateManagedNodeType(description: $description, imageUri: $imageUri, name: $name, tenant: $tenant, configTemplate: $configTemplate, mountRequirements: $mountRequirements, portRequirements: $portRequirements, readme: $readme, receiveMessageType: $receiveMessageType, sendMessageType: $sendMessageType) {
+		... managedNodeTypeFields
+	}
+}
+fragment managedNodeTypeFields on ManagedNodeType {
+	configTemplate
+	description
+	imageUri
+	inUse
+	mountRequirements {
+		description
+		source
+		target
+	}
+	name
+	portRequirements {
+		containerPort
+		description
+		protocol
+	}
+	readme
+	receiveMessageType {
+		name
+	}
+	sendMessageType {
+		name
+	}
+	system
+}
+`,
+		Variables: &__CreateManagedNodeTypeInput{
+			Description:        description,
+			ImageUri:           imageUri,
+			Name:               name,
+			Tenant:             tenant,
+			ConfigTemplate:     configTemplate,
+			MountRequirements:  mountRequirements,
+			PortRequirements:   portRequirements,
+			Readme:             readme,
+			ReceiveMessageType: receiveMessageType,
+			SendMessageType:    sendMessageType,
+		},
+	}
+	var err error
+
+	var data CreateManagedNodeTypeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateMessageType(
 	ctx context.Context,
 	client graphql.Client,
@@ -20288,6 +21057,40 @@ query DeleteKmsKey ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+func DeleteManagedNodeType(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*DeleteManagedNodeTypeResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteManagedNodeType",
+		Query: `
+query DeleteManagedNodeType ($name: String!, $tenant: String!) {
+	GetManagedNodeType(name: $name, tenant: $tenant) {
+		Delete
+	}
+}
+`,
+		Variables: &__DeleteManagedNodeTypeInput{
+			Name:   name,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data DeleteManagedNodeTypeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteMessageType(
 	ctx context.Context,
 	client graphql.Client,
@@ -20648,6 +21451,65 @@ query ReadManagedAppUserdata ($name: String!, $tenant: String!) {
 	var err error
 
 	var data ReadManagedAppUserdataResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ReadManagedNodeType(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadManagedNodeTypeResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadManagedNodeType",
+		Query: `
+query ReadManagedNodeType ($name: String!, $tenant: String!) {
+	GetManagedNodeType(name: $name, tenant: $tenant) {
+		... managedNodeTypeFields
+	}
+}
+fragment managedNodeTypeFields on ManagedNodeType {
+	configTemplate
+	description
+	imageUri
+	inUse
+	mountRequirements {
+		description
+		source
+		target
+	}
+	name
+	portRequirements {
+		containerPort
+		description
+		protocol
+	}
+	readme
+	receiveMessageType {
+		name
+	}
+	sendMessageType {
+		name
+	}
+	system
+}
+`,
+		Variables: &__ReadManagedNodeTypeInput{
+			Name:   name,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data ReadManagedNodeTypeResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -21681,6 +22543,73 @@ fragment managedNodeFields on ManagedNode {
 	var err error
 
 	var data UpdateManagedNodeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateManagedNodeType(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	description *string,
+	imageUri *string,
+	readme *string,
+) (*UpdateManagedNodeTypeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateManagedNodeType",
+		Query: `
+query UpdateManagedNodeType ($name: String!, $tenant: String!, $description: String, $imageUri: String, $readme: String) {
+	GetManagedNodeType(name: $name, tenant: $tenant) {
+		Update(description: $description, imageUri: $imageUri, readme: $readme) {
+			... managedNodeTypeFields
+		}
+	}
+}
+fragment managedNodeTypeFields on ManagedNodeType {
+	configTemplate
+	description
+	imageUri
+	inUse
+	mountRequirements {
+		description
+		source
+		target
+	}
+	name
+	portRequirements {
+		containerPort
+		description
+		protocol
+	}
+	readme
+	receiveMessageType {
+		name
+	}
+	sendMessageType {
+		name
+	}
+	system
+}
+`,
+		Variables: &__UpdateManagedNodeTypeInput{
+			Name:        name,
+			Tenant:      tenant,
+			Description: description,
+			ImageUri:    imageUri,
+			Readme:      readme,
+		},
+	}
+	var err error
+
+	var data UpdateManagedNodeTypeResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

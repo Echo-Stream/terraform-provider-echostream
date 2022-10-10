@@ -1,0 +1,83 @@
+fragment managedNodeTypeFields on ManagedNodeType {
+    configTemplate
+    description
+    imageUri
+    inUse
+    mountRequirements {
+        description
+        source
+        target
+    }
+    name
+    portRequirements {
+        containerPort
+        description
+        protocol
+    }
+    readme
+    receiveMessageType {
+        name
+    }
+    sendMessageType {
+        name
+    }
+    system
+}
+
+mutation CreateManagedNodeType(
+    $description: String!,
+    $imageUri: String!,
+    $name: String!, 
+    $tenant: String!,
+    $configTemplate: AWSJSON,
+    $mountRequirements: [MountRequirementInput!],
+    $portRequirements: [PortRequirementInput!],
+    $readme: String,
+    $receiveMessageType: String,
+    $sendMessageType: String
+) {
+    CreateManagedNodeType(
+        description: $description,
+        imageUri: $imageUri,
+        name: $name,
+        tenant: $tenant,
+        configTemplate: $configTemplate,
+        mountRequirements: $mountRequirements,
+        portRequirements: $portRequirements,
+        readme: $readme,
+        receiveMessageType: $receiveMessageType,
+        sendMessageType: $sendMessageType
+    ) {
+        ...managedNodeTypeFields
+    }
+}
+
+query DeleteManagedNodeType($name: String!, $tenant: String!) {
+    GetManagedNodeType(name: $name, tenant: $tenant) {
+        Delete
+    }
+}
+
+query ReadManagedNodeType($name: String!, $tenant: String!) {
+    GetManagedNodeType(name: $name, tenant: $tenant) {
+        ...managedNodeTypeFields
+    }
+}
+
+query UpdateManagedNodeType(
+    $name: String!,
+    $tenant: String!,
+    $description: String,
+    $imageUri: String,
+    $readme: String
+) {
+    GetManagedNodeType(name: $name, tenant: $tenant) {
+        Update(
+            description: $description,
+            imageUri: $imageUri,
+            readme: $readme
+        ) {
+            ...managedNodeTypeFields
+        }
+    }
+}
