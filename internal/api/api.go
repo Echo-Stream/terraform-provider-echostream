@@ -838,6 +838,126 @@ func (v *CreateCrossTenantSendingNodeResponse) GetCreateCrossTenantSendingNode()
 	return v.CreateCrossTenantSendingNode
 }
 
+// CreateEdgeCreateEdge includes the requested fields of the GraphQL type Edge.
+type CreateEdgeCreateEdge struct {
+	edgeFields `json:"-"`
+}
+
+// GetDescription returns CreateEdgeCreateEdge.Description, and is useful for accessing the field via an interface.
+func (v *CreateEdgeCreateEdge) GetDescription() *string { return v.edgeFields.Description }
+
+// GetKmsKey returns CreateEdgeCreateEdge.KmsKey, and is useful for accessing the field via an interface.
+func (v *CreateEdgeCreateEdge) GetKmsKey() *edgeFieldsKmsKey { return v.edgeFields.KmsKey }
+
+// GetMaxReceiveCount returns CreateEdgeCreateEdge.MaxReceiveCount, and is useful for accessing the field via an interface.
+func (v *CreateEdgeCreateEdge) GetMaxReceiveCount() *int { return v.edgeFields.MaxReceiveCount }
+
+// GetMessageType returns CreateEdgeCreateEdge.MessageType, and is useful for accessing the field via an interface.
+func (v *CreateEdgeCreateEdge) GetMessageType() edgeFieldsMessageType {
+	return v.edgeFields.MessageType
+}
+
+// GetQueue returns CreateEdgeCreateEdge.Queue, and is useful for accessing the field via an interface.
+func (v *CreateEdgeCreateEdge) GetQueue() string { return v.edgeFields.Queue }
+
+// GetSource returns CreateEdgeCreateEdge.Source, and is useful for accessing the field via an interface.
+func (v *CreateEdgeCreateEdge) GetSource() edgeFieldsSourceNode { return v.edgeFields.Source }
+
+// GetTarget returns CreateEdgeCreateEdge.Target, and is useful for accessing the field via an interface.
+func (v *CreateEdgeCreateEdge) GetTarget() edgeFieldsTargetNode { return v.edgeFields.Target }
+
+func (v *CreateEdgeCreateEdge) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateEdgeCreateEdge
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateEdgeCreateEdge = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.edgeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateEdgeCreateEdge struct {
+	Description *string `json:"description"`
+
+	KmsKey *edgeFieldsKmsKey `json:"kmsKey"`
+
+	MaxReceiveCount *int `json:"maxReceiveCount"`
+
+	MessageType edgeFieldsMessageType `json:"messageType"`
+
+	Queue string `json:"queue"`
+
+	Source json.RawMessage `json:"source"`
+
+	Target json.RawMessage `json:"target"`
+}
+
+func (v *CreateEdgeCreateEdge) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateEdgeCreateEdge) __premarshalJSON() (*__premarshalCreateEdgeCreateEdge, error) {
+	var retval __premarshalCreateEdgeCreateEdge
+
+	retval.Description = v.edgeFields.Description
+	retval.KmsKey = v.edgeFields.KmsKey
+	retval.MaxReceiveCount = v.edgeFields.MaxReceiveCount
+	retval.MessageType = v.edgeFields.MessageType
+	retval.Queue = v.edgeFields.Queue
+	{
+
+		dst := &retval.Source
+		src := v.edgeFields.Source
+		var err error
+		*dst, err = __marshaledgeFieldsSourceNode(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal CreateEdgeCreateEdge.edgeFields.Source: %w", err)
+		}
+	}
+	{
+
+		dst := &retval.Target
+		src := v.edgeFields.Target
+		var err error
+		*dst, err = __marshaledgeFieldsTargetNode(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal CreateEdgeCreateEdge.edgeFields.Target: %w", err)
+		}
+	}
+	return &retval, nil
+}
+
+// CreateEdgeResponse is returned by CreateEdge on success.
+type CreateEdgeResponse struct {
+	CreateEdge CreateEdgeCreateEdge `json:"CreateEdge"`
+}
+
+// GetCreateEdge returns CreateEdgeResponse.CreateEdge, and is useful for accessing the field via an interface.
+func (v *CreateEdgeResponse) GetCreateEdge() CreateEdgeCreateEdge { return v.CreateEdge }
+
 // CreateExternalAppCreateExternalApp includes the requested fields of the GraphQL type ExternalApp.
 type CreateExternalAppCreateExternalApp struct {
 	appFieldsExternalApp `json:"-"`
@@ -2595,6 +2715,22 @@ func (v *DeleteAppResponse) __premarshalJSON() (*__premarshalDeleteAppResponse, 
 	return &retval, nil
 }
 
+// DeleteEdgeGetEdge includes the requested fields of the GraphQL type Edge.
+type DeleteEdgeGetEdge struct {
+	Delete bool `json:"Delete"`
+}
+
+// GetDelete returns DeleteEdgeGetEdge.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteEdgeGetEdge) GetDelete() bool { return v.Delete }
+
+// DeleteEdgeResponse is returned by DeleteEdge on success.
+type DeleteEdgeResponse struct {
+	GetEdge *DeleteEdgeGetEdge `json:"GetEdge"`
+}
+
+// GetGetEdge returns DeleteEdgeResponse.GetEdge, and is useful for accessing the field via an interface.
+func (v *DeleteEdgeResponse) GetGetEdge() *DeleteEdgeGetEdge { return v.GetEdge }
+
 // DeleteFunctionGetFunction includes the requested fields of the GraphQL interface Function.
 //
 // DeleteFunctionGetFunction is implemented by the following types:
@@ -3397,6 +3533,134 @@ func (v *MountRequirementInput) GetSource() *string { return v.Source }
 // GetTarget returns MountRequirementInput.Target, and is useful for accessing the field via an interface.
 func (v *MountRequirementInput) GetTarget() string { return v.Target }
 
+// MoveEdgeGetEdge includes the requested fields of the GraphQL type Edge.
+type MoveEdgeGetEdge struct {
+	Move MoveEdgeGetEdgeMoveEdge `json:"Move"`
+}
+
+// GetMove returns MoveEdgeGetEdge.Move, and is useful for accessing the field via an interface.
+func (v *MoveEdgeGetEdge) GetMove() MoveEdgeGetEdgeMoveEdge { return v.Move }
+
+// MoveEdgeGetEdgeMoveEdge includes the requested fields of the GraphQL type Edge.
+type MoveEdgeGetEdgeMoveEdge struct {
+	edgeFields `json:"-"`
+}
+
+// GetDescription returns MoveEdgeGetEdgeMoveEdge.Description, and is useful for accessing the field via an interface.
+func (v *MoveEdgeGetEdgeMoveEdge) GetDescription() *string { return v.edgeFields.Description }
+
+// GetKmsKey returns MoveEdgeGetEdgeMoveEdge.KmsKey, and is useful for accessing the field via an interface.
+func (v *MoveEdgeGetEdgeMoveEdge) GetKmsKey() *edgeFieldsKmsKey { return v.edgeFields.KmsKey }
+
+// GetMaxReceiveCount returns MoveEdgeGetEdgeMoveEdge.MaxReceiveCount, and is useful for accessing the field via an interface.
+func (v *MoveEdgeGetEdgeMoveEdge) GetMaxReceiveCount() *int { return v.edgeFields.MaxReceiveCount }
+
+// GetMessageType returns MoveEdgeGetEdgeMoveEdge.MessageType, and is useful for accessing the field via an interface.
+func (v *MoveEdgeGetEdgeMoveEdge) GetMessageType() edgeFieldsMessageType {
+	return v.edgeFields.MessageType
+}
+
+// GetQueue returns MoveEdgeGetEdgeMoveEdge.Queue, and is useful for accessing the field via an interface.
+func (v *MoveEdgeGetEdgeMoveEdge) GetQueue() string { return v.edgeFields.Queue }
+
+// GetSource returns MoveEdgeGetEdgeMoveEdge.Source, and is useful for accessing the field via an interface.
+func (v *MoveEdgeGetEdgeMoveEdge) GetSource() edgeFieldsSourceNode { return v.edgeFields.Source }
+
+// GetTarget returns MoveEdgeGetEdgeMoveEdge.Target, and is useful for accessing the field via an interface.
+func (v *MoveEdgeGetEdgeMoveEdge) GetTarget() edgeFieldsTargetNode { return v.edgeFields.Target }
+
+func (v *MoveEdgeGetEdgeMoveEdge) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*MoveEdgeGetEdgeMoveEdge
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.MoveEdgeGetEdgeMoveEdge = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.edgeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalMoveEdgeGetEdgeMoveEdge struct {
+	Description *string `json:"description"`
+
+	KmsKey *edgeFieldsKmsKey `json:"kmsKey"`
+
+	MaxReceiveCount *int `json:"maxReceiveCount"`
+
+	MessageType edgeFieldsMessageType `json:"messageType"`
+
+	Queue string `json:"queue"`
+
+	Source json.RawMessage `json:"source"`
+
+	Target json.RawMessage `json:"target"`
+}
+
+func (v *MoveEdgeGetEdgeMoveEdge) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *MoveEdgeGetEdgeMoveEdge) __premarshalJSON() (*__premarshalMoveEdgeGetEdgeMoveEdge, error) {
+	var retval __premarshalMoveEdgeGetEdgeMoveEdge
+
+	retval.Description = v.edgeFields.Description
+	retval.KmsKey = v.edgeFields.KmsKey
+	retval.MaxReceiveCount = v.edgeFields.MaxReceiveCount
+	retval.MessageType = v.edgeFields.MessageType
+	retval.Queue = v.edgeFields.Queue
+	{
+
+		dst := &retval.Source
+		src := v.edgeFields.Source
+		var err error
+		*dst, err = __marshaledgeFieldsSourceNode(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal MoveEdgeGetEdgeMoveEdge.edgeFields.Source: %w", err)
+		}
+	}
+	{
+
+		dst := &retval.Target
+		src := v.edgeFields.Target
+		var err error
+		*dst, err = __marshaledgeFieldsTargetNode(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal MoveEdgeGetEdgeMoveEdge.edgeFields.Target: %w", err)
+		}
+	}
+	return &retval, nil
+}
+
+// MoveEdgeResponse is returned by MoveEdge on success.
+type MoveEdgeResponse struct {
+	GetEdge *MoveEdgeGetEdge `json:"GetEdge"`
+}
+
+// GetGetEdge returns MoveEdgeResponse.GetEdge, and is useful for accessing the field via an interface.
+func (v *MoveEdgeResponse) GetGetEdge() *MoveEdgeGetEdge { return v.GetEdge }
+
 type PortInput struct {
 	ContainerPort int      `json:"containerPort"`
 	HostAddress   *string  `json:"hostAddress"`
@@ -4158,6 +4422,124 @@ func (v *ReadAppResponse) __premarshalJSON() (*__premarshalReadAppResponse, erro
 	}
 	return &retval, nil
 }
+
+// ReadEdgeGetEdge includes the requested fields of the GraphQL type Edge.
+type ReadEdgeGetEdge struct {
+	edgeFields `json:"-"`
+}
+
+// GetDescription returns ReadEdgeGetEdge.Description, and is useful for accessing the field via an interface.
+func (v *ReadEdgeGetEdge) GetDescription() *string { return v.edgeFields.Description }
+
+// GetKmsKey returns ReadEdgeGetEdge.KmsKey, and is useful for accessing the field via an interface.
+func (v *ReadEdgeGetEdge) GetKmsKey() *edgeFieldsKmsKey { return v.edgeFields.KmsKey }
+
+// GetMaxReceiveCount returns ReadEdgeGetEdge.MaxReceiveCount, and is useful for accessing the field via an interface.
+func (v *ReadEdgeGetEdge) GetMaxReceiveCount() *int { return v.edgeFields.MaxReceiveCount }
+
+// GetMessageType returns ReadEdgeGetEdge.MessageType, and is useful for accessing the field via an interface.
+func (v *ReadEdgeGetEdge) GetMessageType() edgeFieldsMessageType { return v.edgeFields.MessageType }
+
+// GetQueue returns ReadEdgeGetEdge.Queue, and is useful for accessing the field via an interface.
+func (v *ReadEdgeGetEdge) GetQueue() string { return v.edgeFields.Queue }
+
+// GetSource returns ReadEdgeGetEdge.Source, and is useful for accessing the field via an interface.
+func (v *ReadEdgeGetEdge) GetSource() edgeFieldsSourceNode { return v.edgeFields.Source }
+
+// GetTarget returns ReadEdgeGetEdge.Target, and is useful for accessing the field via an interface.
+func (v *ReadEdgeGetEdge) GetTarget() edgeFieldsTargetNode { return v.edgeFields.Target }
+
+func (v *ReadEdgeGetEdge) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadEdgeGetEdge
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadEdgeGetEdge = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.edgeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadEdgeGetEdge struct {
+	Description *string `json:"description"`
+
+	KmsKey *edgeFieldsKmsKey `json:"kmsKey"`
+
+	MaxReceiveCount *int `json:"maxReceiveCount"`
+
+	MessageType edgeFieldsMessageType `json:"messageType"`
+
+	Queue string `json:"queue"`
+
+	Source json.RawMessage `json:"source"`
+
+	Target json.RawMessage `json:"target"`
+}
+
+func (v *ReadEdgeGetEdge) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadEdgeGetEdge) __premarshalJSON() (*__premarshalReadEdgeGetEdge, error) {
+	var retval __premarshalReadEdgeGetEdge
+
+	retval.Description = v.edgeFields.Description
+	retval.KmsKey = v.edgeFields.KmsKey
+	retval.MaxReceiveCount = v.edgeFields.MaxReceiveCount
+	retval.MessageType = v.edgeFields.MessageType
+	retval.Queue = v.edgeFields.Queue
+	{
+
+		dst := &retval.Source
+		src := v.edgeFields.Source
+		var err error
+		*dst, err = __marshaledgeFieldsSourceNode(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal ReadEdgeGetEdge.edgeFields.Source: %w", err)
+		}
+	}
+	{
+
+		dst := &retval.Target
+		src := v.edgeFields.Target
+		var err error
+		*dst, err = __marshaledgeFieldsTargetNode(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal ReadEdgeGetEdge.edgeFields.Target: %w", err)
+		}
+	}
+	return &retval, nil
+}
+
+// ReadEdgeResponse is returned by ReadEdge on success.
+type ReadEdgeResponse struct {
+	GetEdge *ReadEdgeGetEdge `json:"GetEdge"`
+}
+
+// GetGetEdge returns ReadEdgeResponse.GetEdge, and is useful for accessing the field via an interface.
+func (v *ReadEdgeResponse) GetGetEdge() *ReadEdgeGetEdge { return v.GetEdge }
 
 // ReadFunctionGetFunction includes the requested fields of the GraphQL interface Function.
 //
@@ -10077,6 +10459,134 @@ func (v *UpdateCrossTenantSendingNodeResponse) __premarshalJSON() (*__premarshal
 	}
 	return &retval, nil
 }
+
+// UpdateEdgeGetEdge includes the requested fields of the GraphQL type Edge.
+type UpdateEdgeGetEdge struct {
+	Update UpdateEdgeGetEdgeUpdateEdge `json:"Update"`
+}
+
+// GetUpdate returns UpdateEdgeGetEdge.Update, and is useful for accessing the field via an interface.
+func (v *UpdateEdgeGetEdge) GetUpdate() UpdateEdgeGetEdgeUpdateEdge { return v.Update }
+
+// UpdateEdgeGetEdgeUpdateEdge includes the requested fields of the GraphQL type Edge.
+type UpdateEdgeGetEdgeUpdateEdge struct {
+	edgeFields `json:"-"`
+}
+
+// GetDescription returns UpdateEdgeGetEdgeUpdateEdge.Description, and is useful for accessing the field via an interface.
+func (v *UpdateEdgeGetEdgeUpdateEdge) GetDescription() *string { return v.edgeFields.Description }
+
+// GetKmsKey returns UpdateEdgeGetEdgeUpdateEdge.KmsKey, and is useful for accessing the field via an interface.
+func (v *UpdateEdgeGetEdgeUpdateEdge) GetKmsKey() *edgeFieldsKmsKey { return v.edgeFields.KmsKey }
+
+// GetMaxReceiveCount returns UpdateEdgeGetEdgeUpdateEdge.MaxReceiveCount, and is useful for accessing the field via an interface.
+func (v *UpdateEdgeGetEdgeUpdateEdge) GetMaxReceiveCount() *int { return v.edgeFields.MaxReceiveCount }
+
+// GetMessageType returns UpdateEdgeGetEdgeUpdateEdge.MessageType, and is useful for accessing the field via an interface.
+func (v *UpdateEdgeGetEdgeUpdateEdge) GetMessageType() edgeFieldsMessageType {
+	return v.edgeFields.MessageType
+}
+
+// GetQueue returns UpdateEdgeGetEdgeUpdateEdge.Queue, and is useful for accessing the field via an interface.
+func (v *UpdateEdgeGetEdgeUpdateEdge) GetQueue() string { return v.edgeFields.Queue }
+
+// GetSource returns UpdateEdgeGetEdgeUpdateEdge.Source, and is useful for accessing the field via an interface.
+func (v *UpdateEdgeGetEdgeUpdateEdge) GetSource() edgeFieldsSourceNode { return v.edgeFields.Source }
+
+// GetTarget returns UpdateEdgeGetEdgeUpdateEdge.Target, and is useful for accessing the field via an interface.
+func (v *UpdateEdgeGetEdgeUpdateEdge) GetTarget() edgeFieldsTargetNode { return v.edgeFields.Target }
+
+func (v *UpdateEdgeGetEdgeUpdateEdge) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateEdgeGetEdgeUpdateEdge
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateEdgeGetEdgeUpdateEdge = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.edgeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateEdgeGetEdgeUpdateEdge struct {
+	Description *string `json:"description"`
+
+	KmsKey *edgeFieldsKmsKey `json:"kmsKey"`
+
+	MaxReceiveCount *int `json:"maxReceiveCount"`
+
+	MessageType edgeFieldsMessageType `json:"messageType"`
+
+	Queue string `json:"queue"`
+
+	Source json.RawMessage `json:"source"`
+
+	Target json.RawMessage `json:"target"`
+}
+
+func (v *UpdateEdgeGetEdgeUpdateEdge) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateEdgeGetEdgeUpdateEdge) __premarshalJSON() (*__premarshalUpdateEdgeGetEdgeUpdateEdge, error) {
+	var retval __premarshalUpdateEdgeGetEdgeUpdateEdge
+
+	retval.Description = v.edgeFields.Description
+	retval.KmsKey = v.edgeFields.KmsKey
+	retval.MaxReceiveCount = v.edgeFields.MaxReceiveCount
+	retval.MessageType = v.edgeFields.MessageType
+	retval.Queue = v.edgeFields.Queue
+	{
+
+		dst := &retval.Source
+		src := v.edgeFields.Source
+		var err error
+		*dst, err = __marshaledgeFieldsSourceNode(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal UpdateEdgeGetEdgeUpdateEdge.edgeFields.Source: %w", err)
+		}
+	}
+	{
+
+		dst := &retval.Target
+		src := v.edgeFields.Target
+		var err error
+		*dst, err = __marshaledgeFieldsTargetNode(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal UpdateEdgeGetEdgeUpdateEdge.edgeFields.Target: %w", err)
+		}
+	}
+	return &retval, nil
+}
+
+// UpdateEdgeResponse is returned by UpdateEdge on success.
+type UpdateEdgeResponse struct {
+	GetEdge *UpdateEdgeGetEdge `json:"GetEdge"`
+}
+
+// GetGetEdge returns UpdateEdgeResponse.GetEdge, and is useful for accessing the field via an interface.
+func (v *UpdateEdgeResponse) GetGetEdge() *UpdateEdgeGetEdge { return v.GetEdge }
 
 // UpdateExternalNodeGetNode includes the requested fields of the GraphQL interface Node.
 //
@@ -16172,6 +16682,34 @@ func (v *__CreateCrossTenantSendingNodeInput) GetSequentialProcessing() *bool {
 	return v.SequentialProcessing
 }
 
+// __CreateEdgeInput is used internally by genqlient
+type __CreateEdgeInput struct {
+	Source          string  `json:"source"`
+	Target          string  `json:"target"`
+	Tenant          string  `json:"tenant"`
+	Description     *string `json:"description"`
+	KmsKey          *string `json:"kmsKey"`
+	MaxReceiveCount *int    `json:"maxReceiveCount"`
+}
+
+// GetSource returns __CreateEdgeInput.Source, and is useful for accessing the field via an interface.
+func (v *__CreateEdgeInput) GetSource() string { return v.Source }
+
+// GetTarget returns __CreateEdgeInput.Target, and is useful for accessing the field via an interface.
+func (v *__CreateEdgeInput) GetTarget() string { return v.Target }
+
+// GetTenant returns __CreateEdgeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateEdgeInput) GetTenant() string { return v.Tenant }
+
+// GetDescription returns __CreateEdgeInput.Description, and is useful for accessing the field via an interface.
+func (v *__CreateEdgeInput) GetDescription() *string { return v.Description }
+
+// GetKmsKey returns __CreateEdgeInput.KmsKey, and is useful for accessing the field via an interface.
+func (v *__CreateEdgeInput) GetKmsKey() *string { return v.KmsKey }
+
+// GetMaxReceiveCount returns __CreateEdgeInput.MaxReceiveCount, and is useful for accessing the field via an interface.
+func (v *__CreateEdgeInput) GetMaxReceiveCount() *int { return v.MaxReceiveCount }
+
 // __CreateExternalAppInput is used internally by genqlient
 type __CreateExternalAppInput struct {
 	Name        string  `json:"name"`
@@ -16598,6 +17136,22 @@ func (v *__DeleteAppInput) GetName() string { return v.Name }
 // GetTenant returns __DeleteAppInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__DeleteAppInput) GetTenant() string { return v.Tenant }
 
+// __DeleteEdgeInput is used internally by genqlient
+type __DeleteEdgeInput struct {
+	Source string `json:"source"`
+	Target string `json:"target"`
+	Tenant string `json:"tenant"`
+}
+
+// GetSource returns __DeleteEdgeInput.Source, and is useful for accessing the field via an interface.
+func (v *__DeleteEdgeInput) GetSource() string { return v.Source }
+
+// GetTarget returns __DeleteEdgeInput.Target, and is useful for accessing the field via an interface.
+func (v *__DeleteEdgeInput) GetTarget() string { return v.Target }
+
+// GetTenant returns __DeleteEdgeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__DeleteEdgeInput) GetTenant() string { return v.Tenant }
+
 // __DeleteFunctionInput is used internally by genqlient
 type __DeleteFunctionInput struct {
 	Name   string `json:"name"`
@@ -16658,6 +17212,30 @@ func (v *__DeleteNodeInput) GetName() string { return v.Name }
 // GetTenant returns __DeleteNodeInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__DeleteNodeInput) GetTenant() string { return v.Tenant }
 
+// __MoveEdgeInput is used internally by genqlient
+type __MoveEdgeInput struct {
+	Source    string `json:"source"`
+	Target    string `json:"target"`
+	Tenant    string `json:"tenant"`
+	NewSource string `json:"newSource"`
+	NewTarget string `json:"newTarget"`
+}
+
+// GetSource returns __MoveEdgeInput.Source, and is useful for accessing the field via an interface.
+func (v *__MoveEdgeInput) GetSource() string { return v.Source }
+
+// GetTarget returns __MoveEdgeInput.Target, and is useful for accessing the field via an interface.
+func (v *__MoveEdgeInput) GetTarget() string { return v.Target }
+
+// GetTenant returns __MoveEdgeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__MoveEdgeInput) GetTenant() string { return v.Tenant }
+
+// GetNewSource returns __MoveEdgeInput.NewSource, and is useful for accessing the field via an interface.
+func (v *__MoveEdgeInput) GetNewSource() string { return v.NewSource }
+
+// GetNewTarget returns __MoveEdgeInput.NewTarget, and is useful for accessing the field via an interface.
+func (v *__MoveEdgeInput) GetNewTarget() string { return v.NewTarget }
+
 // __ReadAppInput is used internally by genqlient
 type __ReadAppInput struct {
 	Name   string `json:"name"`
@@ -16669,6 +17247,22 @@ func (v *__ReadAppInput) GetName() string { return v.Name }
 
 // GetTenant returns __ReadAppInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__ReadAppInput) GetTenant() string { return v.Tenant }
+
+// __ReadEdgeInput is used internally by genqlient
+type __ReadEdgeInput struct {
+	Source string `json:"source"`
+	Target string `json:"target"`
+	Tenant string `json:"tenant"`
+}
+
+// GetSource returns __ReadEdgeInput.Source, and is useful for accessing the field via an interface.
+func (v *__ReadEdgeInput) GetSource() string { return v.Source }
+
+// GetTarget returns __ReadEdgeInput.Target, and is useful for accessing the field via an interface.
+func (v *__ReadEdgeInput) GetTarget() string { return v.Target }
+
+// GetTenant returns __ReadEdgeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__ReadEdgeInput) GetTenant() string { return v.Tenant }
 
 // __ReadFunctionInput is used internally by genqlient
 type __ReadFunctionInput struct {
@@ -16889,6 +17483,26 @@ func (v *__UpdateCrossTenantSendingNodeInput) GetRequirements() []string { retur
 func (v *__UpdateCrossTenantSendingNodeInput) GetSequentialProcessing() *bool {
 	return v.SequentialProcessing
 }
+
+// __UpdateEdgeInput is used internally by genqlient
+type __UpdateEdgeInput struct {
+	Source      string  `json:"source"`
+	Target      string  `json:"target"`
+	Tenant      string  `json:"tenant"`
+	Description *string `json:"description"`
+}
+
+// GetSource returns __UpdateEdgeInput.Source, and is useful for accessing the field via an interface.
+func (v *__UpdateEdgeInput) GetSource() string { return v.Source }
+
+// GetTarget returns __UpdateEdgeInput.Target, and is useful for accessing the field via an interface.
+func (v *__UpdateEdgeInput) GetTarget() string { return v.Target }
+
+// GetTenant returns __UpdateEdgeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__UpdateEdgeInput) GetTenant() string { return v.Tenant }
+
+// GetDescription returns __UpdateEdgeInput.Description, and is useful for accessing the field via an interface.
+func (v *__UpdateEdgeInput) GetDescription() *string { return v.Description }
 
 // __UpdateExternalNodeInput is used internally by genqlient
 type __UpdateExternalNodeInput struct {
@@ -18108,6 +18722,1104 @@ type deadLetterEmitterNodeFieldsSendMessageType struct {
 
 // GetName returns deadLetterEmitterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
 func (v *deadLetterEmitterNodeFieldsSendMessageType) GetName() string { return v.Name }
+
+// edgeFields includes the GraphQL fields of Edge requested by the fragment edgeFields.
+type edgeFields struct {
+	Description     *string               `json:"description"`
+	KmsKey          *edgeFieldsKmsKey     `json:"kmsKey"`
+	MaxReceiveCount *int                  `json:"maxReceiveCount"`
+	MessageType     edgeFieldsMessageType `json:"messageType"`
+	Queue           string                `json:"queue"`
+	Source          edgeFieldsSourceNode  `json:"-"`
+	Target          edgeFieldsTargetNode  `json:"-"`
+}
+
+// GetDescription returns edgeFields.Description, and is useful for accessing the field via an interface.
+func (v *edgeFields) GetDescription() *string { return v.Description }
+
+// GetKmsKey returns edgeFields.KmsKey, and is useful for accessing the field via an interface.
+func (v *edgeFields) GetKmsKey() *edgeFieldsKmsKey { return v.KmsKey }
+
+// GetMaxReceiveCount returns edgeFields.MaxReceiveCount, and is useful for accessing the field via an interface.
+func (v *edgeFields) GetMaxReceiveCount() *int { return v.MaxReceiveCount }
+
+// GetMessageType returns edgeFields.MessageType, and is useful for accessing the field via an interface.
+func (v *edgeFields) GetMessageType() edgeFieldsMessageType { return v.MessageType }
+
+// GetQueue returns edgeFields.Queue, and is useful for accessing the field via an interface.
+func (v *edgeFields) GetQueue() string { return v.Queue }
+
+// GetSource returns edgeFields.Source, and is useful for accessing the field via an interface.
+func (v *edgeFields) GetSource() edgeFieldsSourceNode { return v.Source }
+
+// GetTarget returns edgeFields.Target, and is useful for accessing the field via an interface.
+func (v *edgeFields) GetTarget() edgeFieldsTargetNode { return v.Target }
+
+func (v *edgeFields) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*edgeFields
+		Source json.RawMessage `json:"source"`
+		Target json.RawMessage `json:"target"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.edgeFields = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.Source
+		src := firstPass.Source
+		if len(src) != 0 && string(src) != "null" {
+			err = __unmarshaledgeFieldsSourceNode(
+				src, dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal edgeFields.Source: %w", err)
+			}
+		}
+	}
+
+	{
+		dst := &v.Target
+		src := firstPass.Target
+		if len(src) != 0 && string(src) != "null" {
+			err = __unmarshaledgeFieldsTargetNode(
+				src, dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal edgeFields.Target: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshaledgeFields struct {
+	Description *string `json:"description"`
+
+	KmsKey *edgeFieldsKmsKey `json:"kmsKey"`
+
+	MaxReceiveCount *int `json:"maxReceiveCount"`
+
+	MessageType edgeFieldsMessageType `json:"messageType"`
+
+	Queue string `json:"queue"`
+
+	Source json.RawMessage `json:"source"`
+
+	Target json.RawMessage `json:"target"`
+}
+
+func (v *edgeFields) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *edgeFields) __premarshalJSON() (*__premarshaledgeFields, error) {
+	var retval __premarshaledgeFields
+
+	retval.Description = v.Description
+	retval.KmsKey = v.KmsKey
+	retval.MaxReceiveCount = v.MaxReceiveCount
+	retval.MessageType = v.MessageType
+	retval.Queue = v.Queue
+	{
+
+		dst := &retval.Source
+		src := v.Source
+		var err error
+		*dst, err = __marshaledgeFieldsSourceNode(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal edgeFields.Source: %w", err)
+		}
+	}
+	{
+
+		dst := &retval.Target
+		src := v.Target
+		var err error
+		*dst, err = __marshaledgeFieldsTargetNode(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal edgeFields.Target: %w", err)
+		}
+	}
+	return &retval, nil
+}
+
+// edgeFieldsKmsKey includes the requested fields of the GraphQL type KmsKey.
+type edgeFieldsKmsKey struct {
+	Name string `json:"name"`
+}
+
+// GetName returns edgeFieldsKmsKey.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsKmsKey) GetName() string { return v.Name }
+
+// edgeFieldsMessageType includes the requested fields of the GraphQL type MessageType.
+type edgeFieldsMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns edgeFieldsMessageType.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsMessageType) GetName() string { return v.Name }
+
+// edgeFieldsSourceAlertEmitterNode includes the requested fields of the GraphQL type AlertEmitterNode.
+type edgeFieldsSourceAlertEmitterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceAlertEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceAlertEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceAlertEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceAlertEmitterNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceAppChangeReceiverNode includes the requested fields of the GraphQL type AppChangeReceiverNode.
+type edgeFieldsSourceAppChangeReceiverNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceAppChangeReceiverNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceAppChangeReceiverNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceAppChangeReceiverNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceAppChangeReceiverNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceAppChangeRouterNode includes the requested fields of the GraphQL type AppChangeRouterNode.
+type edgeFieldsSourceAppChangeRouterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceAppChangeRouterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceAppChangeRouterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceAppChangeRouterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceAppChangeRouterNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceAuditEmitterNode includes the requested fields of the GraphQL type AuditEmitterNode.
+type edgeFieldsSourceAuditEmitterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceAuditEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceAuditEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceAuditEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceAuditEmitterNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceBitmapRouterNode includes the requested fields of the GraphQL type BitmapRouterNode.
+type edgeFieldsSourceBitmapRouterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceBitmapRouterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceBitmapRouterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceBitmapRouterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceBitmapRouterNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceChangeEmitterNode includes the requested fields of the GraphQL type ChangeEmitterNode.
+type edgeFieldsSourceChangeEmitterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceChangeEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceChangeEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceChangeEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceChangeEmitterNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceCrossTenantReceivingNode includes the requested fields of the GraphQL type CrossTenantReceivingNode.
+type edgeFieldsSourceCrossTenantReceivingNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceCrossTenantReceivingNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceCrossTenantReceivingNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceCrossTenantReceivingNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceCrossTenantReceivingNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceCrossTenantSendingNode includes the requested fields of the GraphQL type CrossTenantSendingNode.
+type edgeFieldsSourceCrossTenantSendingNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceCrossTenantSendingNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceCrossTenantSendingNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceCrossTenantSendingNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceCrossTenantSendingNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceDeadLetterEmitterNode includes the requested fields of the GraphQL type DeadLetterEmitterNode.
+type edgeFieldsSourceDeadLetterEmitterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceDeadLetterEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceDeadLetterEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceDeadLetterEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceDeadLetterEmitterNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceExternalNode includes the requested fields of the GraphQL type ExternalNode.
+type edgeFieldsSourceExternalNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceExternalNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceExternalNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceExternalNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceExternalNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceFilesDotComWebhookNode includes the requested fields of the GraphQL type FilesDotComWebhookNode.
+type edgeFieldsSourceFilesDotComWebhookNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceFilesDotComWebhookNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceFilesDotComWebhookNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceFilesDotComWebhookNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceFilesDotComWebhookNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceLoadBalancerNode includes the requested fields of the GraphQL type LoadBalancerNode.
+type edgeFieldsSourceLoadBalancerNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceLoadBalancerNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceLoadBalancerNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceLoadBalancerNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceLoadBalancerNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceLogEmitterNode includes the requested fields of the GraphQL type LogEmitterNode.
+type edgeFieldsSourceLogEmitterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceLogEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceLogEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceLogEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceLogEmitterNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceManagedNode includes the requested fields of the GraphQL type ManagedNode.
+type edgeFieldsSourceManagedNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceManagedNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceManagedNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceManagedNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceManagedNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceNode includes the requested fields of the GraphQL interface Node.
+//
+// edgeFieldsSourceNode is implemented by the following types:
+// edgeFieldsSourceAlertEmitterNode
+// edgeFieldsSourceAppChangeReceiverNode
+// edgeFieldsSourceAppChangeRouterNode
+// edgeFieldsSourceAuditEmitterNode
+// edgeFieldsSourceBitmapRouterNode
+// edgeFieldsSourceChangeEmitterNode
+// edgeFieldsSourceCrossTenantReceivingNode
+// edgeFieldsSourceCrossTenantSendingNode
+// edgeFieldsSourceDeadLetterEmitterNode
+// edgeFieldsSourceExternalNode
+// edgeFieldsSourceFilesDotComWebhookNode
+// edgeFieldsSourceLoadBalancerNode
+// edgeFieldsSourceLogEmitterNode
+// edgeFieldsSourceManagedNode
+// edgeFieldsSourceProcessorNode
+// edgeFieldsSourceTimerNode
+// edgeFieldsSourceWebhookNode
+type edgeFieldsSourceNode interface {
+	implementsGraphQLInterfaceedgeFieldsSourceNode()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+	// GetName returns the interface-field "name" from its implementation.
+	GetName() string
+}
+
+func (v *edgeFieldsSourceAlertEmitterNode) implementsGraphQLInterfaceedgeFieldsSourceNode()         {}
+func (v *edgeFieldsSourceAppChangeReceiverNode) implementsGraphQLInterfaceedgeFieldsSourceNode()    {}
+func (v *edgeFieldsSourceAppChangeRouterNode) implementsGraphQLInterfaceedgeFieldsSourceNode()      {}
+func (v *edgeFieldsSourceAuditEmitterNode) implementsGraphQLInterfaceedgeFieldsSourceNode()         {}
+func (v *edgeFieldsSourceBitmapRouterNode) implementsGraphQLInterfaceedgeFieldsSourceNode()         {}
+func (v *edgeFieldsSourceChangeEmitterNode) implementsGraphQLInterfaceedgeFieldsSourceNode()        {}
+func (v *edgeFieldsSourceCrossTenantReceivingNode) implementsGraphQLInterfaceedgeFieldsSourceNode() {}
+func (v *edgeFieldsSourceCrossTenantSendingNode) implementsGraphQLInterfaceedgeFieldsSourceNode()   {}
+func (v *edgeFieldsSourceDeadLetterEmitterNode) implementsGraphQLInterfaceedgeFieldsSourceNode()    {}
+func (v *edgeFieldsSourceExternalNode) implementsGraphQLInterfaceedgeFieldsSourceNode()             {}
+func (v *edgeFieldsSourceFilesDotComWebhookNode) implementsGraphQLInterfaceedgeFieldsSourceNode()   {}
+func (v *edgeFieldsSourceLoadBalancerNode) implementsGraphQLInterfaceedgeFieldsSourceNode()         {}
+func (v *edgeFieldsSourceLogEmitterNode) implementsGraphQLInterfaceedgeFieldsSourceNode()           {}
+func (v *edgeFieldsSourceManagedNode) implementsGraphQLInterfaceedgeFieldsSourceNode()              {}
+func (v *edgeFieldsSourceProcessorNode) implementsGraphQLInterfaceedgeFieldsSourceNode()            {}
+func (v *edgeFieldsSourceTimerNode) implementsGraphQLInterfaceedgeFieldsSourceNode()                {}
+func (v *edgeFieldsSourceWebhookNode) implementsGraphQLInterfaceedgeFieldsSourceNode()              {}
+
+func __unmarshaledgeFieldsSourceNode(b []byte, v *edgeFieldsSourceNode) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "AlertEmitterNode":
+		*v = new(edgeFieldsSourceAlertEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "AppChangeReceiverNode":
+		*v = new(edgeFieldsSourceAppChangeReceiverNode)
+		return json.Unmarshal(b, *v)
+	case "AppChangeRouterNode":
+		*v = new(edgeFieldsSourceAppChangeRouterNode)
+		return json.Unmarshal(b, *v)
+	case "AuditEmitterNode":
+		*v = new(edgeFieldsSourceAuditEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "BitmapRouterNode":
+		*v = new(edgeFieldsSourceBitmapRouterNode)
+		return json.Unmarshal(b, *v)
+	case "ChangeEmitterNode":
+		*v = new(edgeFieldsSourceChangeEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingNode":
+		*v = new(edgeFieldsSourceCrossTenantReceivingNode)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingNode":
+		*v = new(edgeFieldsSourceCrossTenantSendingNode)
+		return json.Unmarshal(b, *v)
+	case "DeadLetterEmitterNode":
+		*v = new(edgeFieldsSourceDeadLetterEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "ExternalNode":
+		*v = new(edgeFieldsSourceExternalNode)
+		return json.Unmarshal(b, *v)
+	case "FilesDotComWebhookNode":
+		*v = new(edgeFieldsSourceFilesDotComWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "LoadBalancerNode":
+		*v = new(edgeFieldsSourceLoadBalancerNode)
+		return json.Unmarshal(b, *v)
+	case "LogEmitterNode":
+		*v = new(edgeFieldsSourceLogEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "ManagedNode":
+		*v = new(edgeFieldsSourceManagedNode)
+		return json.Unmarshal(b, *v)
+	case "ProcessorNode":
+		*v = new(edgeFieldsSourceProcessorNode)
+		return json.Unmarshal(b, *v)
+	case "TimerNode":
+		*v = new(edgeFieldsSourceTimerNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(edgeFieldsSourceWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing Node.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for edgeFieldsSourceNode: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshaledgeFieldsSourceNode(v *edgeFieldsSourceNode) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *edgeFieldsSourceAlertEmitterNode:
+		typename = "AlertEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceAlertEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceAppChangeReceiverNode:
+		typename = "AppChangeReceiverNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceAppChangeReceiverNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceAppChangeRouterNode:
+		typename = "AppChangeRouterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceAppChangeRouterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceAuditEmitterNode:
+		typename = "AuditEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceAuditEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceBitmapRouterNode:
+		typename = "BitmapRouterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceBitmapRouterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceChangeEmitterNode:
+		typename = "ChangeEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceChangeEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceCrossTenantReceivingNode:
+		typename = "CrossTenantReceivingNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceCrossTenantReceivingNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceCrossTenantSendingNode:
+		typename = "CrossTenantSendingNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceCrossTenantSendingNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceDeadLetterEmitterNode:
+		typename = "DeadLetterEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceDeadLetterEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceExternalNode:
+		typename = "ExternalNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceExternalNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceFilesDotComWebhookNode:
+		typename = "FilesDotComWebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceFilesDotComWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceLoadBalancerNode:
+		typename = "LoadBalancerNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceLoadBalancerNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceLogEmitterNode:
+		typename = "LogEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceLogEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceManagedNode:
+		typename = "ManagedNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceManagedNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceProcessorNode:
+		typename = "ProcessorNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceProcessorNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceTimerNode:
+		typename = "TimerNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceTimerNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsSourceWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsSourceWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for edgeFieldsSourceNode: "%T"`, v)
+	}
+}
+
+// edgeFieldsSourceProcessorNode includes the requested fields of the GraphQL type ProcessorNode.
+type edgeFieldsSourceProcessorNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceProcessorNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceProcessorNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceProcessorNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceProcessorNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceTimerNode includes the requested fields of the GraphQL type TimerNode.
+type edgeFieldsSourceTimerNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceTimerNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceTimerNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceTimerNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceTimerNode) GetName() string { return v.Name }
+
+// edgeFieldsSourceWebhookNode includes the requested fields of the GraphQL type WebhookNode.
+type edgeFieldsSourceWebhookNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsSourceWebhookNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceWebhookNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsSourceWebhookNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsSourceWebhookNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetAlertEmitterNode includes the requested fields of the GraphQL type AlertEmitterNode.
+type edgeFieldsTargetAlertEmitterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetAlertEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetAlertEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetAlertEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetAlertEmitterNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetAppChangeReceiverNode includes the requested fields of the GraphQL type AppChangeReceiverNode.
+type edgeFieldsTargetAppChangeReceiverNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetAppChangeReceiverNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetAppChangeReceiverNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetAppChangeReceiverNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetAppChangeReceiverNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetAppChangeRouterNode includes the requested fields of the GraphQL type AppChangeRouterNode.
+type edgeFieldsTargetAppChangeRouterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetAppChangeRouterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetAppChangeRouterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetAppChangeRouterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetAppChangeRouterNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetAuditEmitterNode includes the requested fields of the GraphQL type AuditEmitterNode.
+type edgeFieldsTargetAuditEmitterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetAuditEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetAuditEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetAuditEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetAuditEmitterNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetBitmapRouterNode includes the requested fields of the GraphQL type BitmapRouterNode.
+type edgeFieldsTargetBitmapRouterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetBitmapRouterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetBitmapRouterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetBitmapRouterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetBitmapRouterNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetChangeEmitterNode includes the requested fields of the GraphQL type ChangeEmitterNode.
+type edgeFieldsTargetChangeEmitterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetChangeEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetChangeEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetChangeEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetChangeEmitterNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetCrossTenantReceivingNode includes the requested fields of the GraphQL type CrossTenantReceivingNode.
+type edgeFieldsTargetCrossTenantReceivingNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetCrossTenantReceivingNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetCrossTenantReceivingNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetCrossTenantReceivingNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetCrossTenantReceivingNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetCrossTenantSendingNode includes the requested fields of the GraphQL type CrossTenantSendingNode.
+type edgeFieldsTargetCrossTenantSendingNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetCrossTenantSendingNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetCrossTenantSendingNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetCrossTenantSendingNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetCrossTenantSendingNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetDeadLetterEmitterNode includes the requested fields of the GraphQL type DeadLetterEmitterNode.
+type edgeFieldsTargetDeadLetterEmitterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetDeadLetterEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetDeadLetterEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetDeadLetterEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetDeadLetterEmitterNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetExternalNode includes the requested fields of the GraphQL type ExternalNode.
+type edgeFieldsTargetExternalNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetExternalNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetExternalNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetExternalNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetExternalNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetFilesDotComWebhookNode includes the requested fields of the GraphQL type FilesDotComWebhookNode.
+type edgeFieldsTargetFilesDotComWebhookNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetFilesDotComWebhookNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetFilesDotComWebhookNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetFilesDotComWebhookNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetFilesDotComWebhookNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetLoadBalancerNode includes the requested fields of the GraphQL type LoadBalancerNode.
+type edgeFieldsTargetLoadBalancerNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetLoadBalancerNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetLoadBalancerNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetLoadBalancerNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetLoadBalancerNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetLogEmitterNode includes the requested fields of the GraphQL type LogEmitterNode.
+type edgeFieldsTargetLogEmitterNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetLogEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetLogEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetLogEmitterNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetLogEmitterNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetManagedNode includes the requested fields of the GraphQL type ManagedNode.
+type edgeFieldsTargetManagedNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetManagedNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetManagedNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetManagedNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetManagedNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetNode includes the requested fields of the GraphQL interface Node.
+//
+// edgeFieldsTargetNode is implemented by the following types:
+// edgeFieldsTargetAlertEmitterNode
+// edgeFieldsTargetAppChangeReceiverNode
+// edgeFieldsTargetAppChangeRouterNode
+// edgeFieldsTargetAuditEmitterNode
+// edgeFieldsTargetBitmapRouterNode
+// edgeFieldsTargetChangeEmitterNode
+// edgeFieldsTargetCrossTenantReceivingNode
+// edgeFieldsTargetCrossTenantSendingNode
+// edgeFieldsTargetDeadLetterEmitterNode
+// edgeFieldsTargetExternalNode
+// edgeFieldsTargetFilesDotComWebhookNode
+// edgeFieldsTargetLoadBalancerNode
+// edgeFieldsTargetLogEmitterNode
+// edgeFieldsTargetManagedNode
+// edgeFieldsTargetProcessorNode
+// edgeFieldsTargetTimerNode
+// edgeFieldsTargetWebhookNode
+type edgeFieldsTargetNode interface {
+	implementsGraphQLInterfaceedgeFieldsTargetNode()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+	// GetName returns the interface-field "name" from its implementation.
+	GetName() string
+}
+
+func (v *edgeFieldsTargetAlertEmitterNode) implementsGraphQLInterfaceedgeFieldsTargetNode()         {}
+func (v *edgeFieldsTargetAppChangeReceiverNode) implementsGraphQLInterfaceedgeFieldsTargetNode()    {}
+func (v *edgeFieldsTargetAppChangeRouterNode) implementsGraphQLInterfaceedgeFieldsTargetNode()      {}
+func (v *edgeFieldsTargetAuditEmitterNode) implementsGraphQLInterfaceedgeFieldsTargetNode()         {}
+func (v *edgeFieldsTargetBitmapRouterNode) implementsGraphQLInterfaceedgeFieldsTargetNode()         {}
+func (v *edgeFieldsTargetChangeEmitterNode) implementsGraphQLInterfaceedgeFieldsTargetNode()        {}
+func (v *edgeFieldsTargetCrossTenantReceivingNode) implementsGraphQLInterfaceedgeFieldsTargetNode() {}
+func (v *edgeFieldsTargetCrossTenantSendingNode) implementsGraphQLInterfaceedgeFieldsTargetNode()   {}
+func (v *edgeFieldsTargetDeadLetterEmitterNode) implementsGraphQLInterfaceedgeFieldsTargetNode()    {}
+func (v *edgeFieldsTargetExternalNode) implementsGraphQLInterfaceedgeFieldsTargetNode()             {}
+func (v *edgeFieldsTargetFilesDotComWebhookNode) implementsGraphQLInterfaceedgeFieldsTargetNode()   {}
+func (v *edgeFieldsTargetLoadBalancerNode) implementsGraphQLInterfaceedgeFieldsTargetNode()         {}
+func (v *edgeFieldsTargetLogEmitterNode) implementsGraphQLInterfaceedgeFieldsTargetNode()           {}
+func (v *edgeFieldsTargetManagedNode) implementsGraphQLInterfaceedgeFieldsTargetNode()              {}
+func (v *edgeFieldsTargetProcessorNode) implementsGraphQLInterfaceedgeFieldsTargetNode()            {}
+func (v *edgeFieldsTargetTimerNode) implementsGraphQLInterfaceedgeFieldsTargetNode()                {}
+func (v *edgeFieldsTargetWebhookNode) implementsGraphQLInterfaceedgeFieldsTargetNode()              {}
+
+func __unmarshaledgeFieldsTargetNode(b []byte, v *edgeFieldsTargetNode) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "AlertEmitterNode":
+		*v = new(edgeFieldsTargetAlertEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "AppChangeReceiverNode":
+		*v = new(edgeFieldsTargetAppChangeReceiverNode)
+		return json.Unmarshal(b, *v)
+	case "AppChangeRouterNode":
+		*v = new(edgeFieldsTargetAppChangeRouterNode)
+		return json.Unmarshal(b, *v)
+	case "AuditEmitterNode":
+		*v = new(edgeFieldsTargetAuditEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "BitmapRouterNode":
+		*v = new(edgeFieldsTargetBitmapRouterNode)
+		return json.Unmarshal(b, *v)
+	case "ChangeEmitterNode":
+		*v = new(edgeFieldsTargetChangeEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingNode":
+		*v = new(edgeFieldsTargetCrossTenantReceivingNode)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingNode":
+		*v = new(edgeFieldsTargetCrossTenantSendingNode)
+		return json.Unmarshal(b, *v)
+	case "DeadLetterEmitterNode":
+		*v = new(edgeFieldsTargetDeadLetterEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "ExternalNode":
+		*v = new(edgeFieldsTargetExternalNode)
+		return json.Unmarshal(b, *v)
+	case "FilesDotComWebhookNode":
+		*v = new(edgeFieldsTargetFilesDotComWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "LoadBalancerNode":
+		*v = new(edgeFieldsTargetLoadBalancerNode)
+		return json.Unmarshal(b, *v)
+	case "LogEmitterNode":
+		*v = new(edgeFieldsTargetLogEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "ManagedNode":
+		*v = new(edgeFieldsTargetManagedNode)
+		return json.Unmarshal(b, *v)
+	case "ProcessorNode":
+		*v = new(edgeFieldsTargetProcessorNode)
+		return json.Unmarshal(b, *v)
+	case "TimerNode":
+		*v = new(edgeFieldsTargetTimerNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(edgeFieldsTargetWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing Node.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for edgeFieldsTargetNode: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshaledgeFieldsTargetNode(v *edgeFieldsTargetNode) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *edgeFieldsTargetAlertEmitterNode:
+		typename = "AlertEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetAlertEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetAppChangeReceiverNode:
+		typename = "AppChangeReceiverNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetAppChangeReceiverNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetAppChangeRouterNode:
+		typename = "AppChangeRouterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetAppChangeRouterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetAuditEmitterNode:
+		typename = "AuditEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetAuditEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetBitmapRouterNode:
+		typename = "BitmapRouterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetBitmapRouterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetChangeEmitterNode:
+		typename = "ChangeEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetChangeEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetCrossTenantReceivingNode:
+		typename = "CrossTenantReceivingNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetCrossTenantReceivingNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetCrossTenantSendingNode:
+		typename = "CrossTenantSendingNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetCrossTenantSendingNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetDeadLetterEmitterNode:
+		typename = "DeadLetterEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetDeadLetterEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetExternalNode:
+		typename = "ExternalNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetExternalNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetFilesDotComWebhookNode:
+		typename = "FilesDotComWebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetFilesDotComWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetLoadBalancerNode:
+		typename = "LoadBalancerNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetLoadBalancerNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetLogEmitterNode:
+		typename = "LogEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetLogEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetManagedNode:
+		typename = "ManagedNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetManagedNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetProcessorNode:
+		typename = "ProcessorNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetProcessorNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetTimerNode:
+		typename = "TimerNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetTimerNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *edgeFieldsTargetWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*edgeFieldsTargetWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for edgeFieldsTargetNode: "%T"`, v)
+	}
+}
+
+// edgeFieldsTargetProcessorNode includes the requested fields of the GraphQL type ProcessorNode.
+type edgeFieldsTargetProcessorNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetProcessorNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetProcessorNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetProcessorNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetProcessorNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetTimerNode includes the requested fields of the GraphQL type TimerNode.
+type edgeFieldsTargetTimerNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetTimerNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetTimerNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetTimerNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetTimerNode) GetName() string { return v.Name }
+
+// edgeFieldsTargetWebhookNode includes the requested fields of the GraphQL type WebhookNode.
+type edgeFieldsTargetWebhookNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns edgeFieldsTargetWebhookNode.Typename, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetWebhookNode) GetTypename() *string { return v.Typename }
+
+// GetName returns edgeFieldsTargetWebhookNode.Name, and is useful for accessing the field via an interface.
+func (v *edgeFieldsTargetWebhookNode) GetName() string { return v.Name }
 
 // externalAppFields includes the GraphQL fields of ExternalApp requested by the fragment externalAppFields.
 type externalAppFields struct {
@@ -20158,6 +21870,67 @@ fragment crossTenantSendingNodeFields on CrossTenantSendingNode {
 	return &data, err
 }
 
+func CreateEdge(
+	ctx context.Context,
+	client graphql.Client,
+	source string,
+	target string,
+	tenant string,
+	description *string,
+	kmsKey *string,
+	maxReceiveCount *int,
+) (*CreateEdgeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateEdge",
+		Query: `
+mutation CreateEdge ($source: String!, $target: String!, $tenant: String!, $description: String, $kmsKey: String, $maxReceiveCount: Int) {
+	CreateEdge(source: $source, target: $target, tenant: $tenant, description: $description, kmsKey: $kmsKey, maxReceiveCount: $maxReceiveCount) {
+		... edgeFields
+	}
+}
+fragment edgeFields on Edge {
+	description
+	kmsKey {
+		name
+	}
+	maxReceiveCount
+	messageType {
+		name
+	}
+	queue
+	source {
+		__typename
+		name
+	}
+	target {
+		__typename
+		name
+	}
+}
+`,
+		Variables: &__CreateEdgeInput{
+			Source:          source,
+			Target:          target,
+			Tenant:          tenant,
+			Description:     description,
+			KmsKey:          kmsKey,
+			MaxReceiveCount: maxReceiveCount,
+		},
+	}
+	var err error
+
+	var data CreateEdgeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateExternalApp(
 	ctx context.Context,
 	client graphql.Client,
@@ -20988,6 +22761,42 @@ query DeleteApp ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+func DeleteEdge(
+	ctx context.Context,
+	client graphql.Client,
+	source string,
+	target string,
+	tenant string,
+) (*DeleteEdgeResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteEdge",
+		Query: `
+query DeleteEdge ($source: String!, $target: String!, $tenant: String!) {
+	GetEdge(source: $source, target: $target, tenant: $tenant) {
+		Delete(drain: true)
+	}
+}
+`,
+		Variables: &__DeleteEdgeInput{
+			Source: source,
+			Target: target,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data DeleteEdgeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func DeleteFunction(
 	ctx context.Context,
 	client graphql.Client,
@@ -21189,6 +22998,67 @@ query DeleteNode ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+func MoveEdge(
+	ctx context.Context,
+	client graphql.Client,
+	source string,
+	target string,
+	tenant string,
+	newSource string,
+	newTarget string,
+) (*MoveEdgeResponse, error) {
+	req := &graphql.Request{
+		OpName: "MoveEdge",
+		Query: `
+query MoveEdge ($source: String!, $target: String!, $tenant: String!, $newSource: String!, $newTarget: String!) {
+	GetEdge(source: $source, target: $target, tenant: $tenant) {
+		Move(source: $newSource, target: $newTarget) {
+			... edgeFields
+		}
+	}
+}
+fragment edgeFields on Edge {
+	description
+	kmsKey {
+		name
+	}
+	maxReceiveCount
+	messageType {
+		name
+	}
+	queue
+	source {
+		__typename
+		name
+	}
+	target {
+		__typename
+		name
+	}
+}
+`,
+		Variables: &__MoveEdgeInput{
+			Source:    source,
+			Target:    target,
+			Tenant:    tenant,
+			NewSource: newSource,
+			NewTarget: newTarget,
+		},
+	}
+	var err error
+
+	var data MoveEdgeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func ReadApp(
 	ctx context.Context,
 	client graphql.Client,
@@ -21274,6 +23144,61 @@ fragment cognitoCredentialsFields on CognitoCredentials {
 	var err error
 
 	var data ReadAppResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ReadEdge(
+	ctx context.Context,
+	client graphql.Client,
+	source string,
+	target string,
+	tenant string,
+) (*ReadEdgeResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadEdge",
+		Query: `
+query ReadEdge ($source: String!, $target: String!, $tenant: String!) {
+	GetEdge(source: $source, target: $target, tenant: $tenant) {
+		... edgeFields
+	}
+}
+fragment edgeFields on Edge {
+	description
+	kmsKey {
+		name
+	}
+	maxReceiveCount
+	messageType {
+		name
+	}
+	queue
+	source {
+		__typename
+		name
+	}
+	target {
+		__typename
+		name
+	}
+}
+`,
+		Variables: &__ReadEdgeInput{
+			Source: source,
+			Target: target,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data ReadEdgeResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -22163,6 +24088,65 @@ fragment crossTenantSendingNodeFields on CrossTenantSendingNode {
 	var err error
 
 	var data UpdateCrossTenantSendingNodeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateEdge(
+	ctx context.Context,
+	client graphql.Client,
+	source string,
+	target string,
+	tenant string,
+	description *string,
+) (*UpdateEdgeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateEdge",
+		Query: `
+query UpdateEdge ($source: String!, $target: String!, $tenant: String!, $description: String) {
+	GetEdge(source: $source, target: $target, tenant: $tenant) {
+		Update(description: $description) {
+			... edgeFields
+		}
+	}
+}
+fragment edgeFields on Edge {
+	description
+	kmsKey {
+		name
+	}
+	maxReceiveCount
+	messageType {
+		name
+	}
+	queue
+	source {
+		__typename
+		name
+	}
+	target {
+		__typename
+		name
+	}
+}
+`,
+		Variables: &__UpdateEdgeInput{
+			Source:      source,
+			Target:      target,
+			Tenant:      tenant,
+			Description: description,
+		},
+	}
+	var err error
+
+	var data UpdateEdgeResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

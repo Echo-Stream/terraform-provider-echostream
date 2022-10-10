@@ -1,0 +1,76 @@
+fragment edgeFields on Edge {
+    description
+    kmsKey {
+        name
+    }
+    maxReceiveCount
+    messageType {
+        name
+    }
+    queue
+    source {
+        name
+    }
+    target {
+        name
+    }
+}
+
+mutation CreateEdge(
+    $source: String!,
+    $target: String!,
+    $tenant: String!,
+    $description: String,
+    $kmsKey: String,
+    $maxReceiveCount: Int
+) {
+    CreateEdge(
+        source: $source,
+        target: $target,
+        tenant: $tenant,
+        description: $description,
+        kmsKey: $kmsKey,
+        maxReceiveCount: $maxReceiveCount
+    ) {
+        ...edgeFields
+    }
+}
+
+query DeleteEdge($source: String!, $target: String!, $tenant: String!) {
+    GetEdge(source: $source, target: $target, tenant: $tenant) {
+        Delete(drain: true)
+    }
+}
+
+query MoveEdge(
+    $source: String!,
+    $target: String!,
+    $tenant: String!,
+    $newSource: String!,
+    $newTarget: String!
+) {
+    GetEdge(source: $source, target: $target, tenant: $tenant) {
+        Move(source: $newSource, target: $newTarget) {
+            ...edgeFields
+        }
+    }
+}
+
+query ReadEdge($source: String!, $target: String!, $tenant: String!) {
+    GetEdge(source: $source, target: $target, tenant: $tenant) {
+        ...edgeFields
+    }
+}
+
+query UpdateEdge(
+    $source: String!,
+    $target: String!,
+    $tenant: String!,
+    $description: String
+) {
+    GetEdge(source: $source, target: $target, tenant: $tenant) {
+        Update(description: $description) {
+            ...edgeFields
+        }
+    }
+}
