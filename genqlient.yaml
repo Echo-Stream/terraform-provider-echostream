@@ -7,6 +7,8 @@ package: api
 bindings:
   AWSDateTime:
     type: string
+  AWSIPAddress:
+    type: string
   AWSJSON:
     type: string
   AWSURL:
