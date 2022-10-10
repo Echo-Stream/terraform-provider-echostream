@@ -155,6 +155,7 @@ func (p *echoStreamProvider) DataSources(ctx context.Context) []func() datasourc
 	return []func() datasource.DataSource{
 		func() datasource.DataSource { return &node.AlertEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &function.ApiAuthenticatorFunctionDataSource{} },
+		func() datasource.DataSource { return &node.AppChangeReceiverNodeDataSource{} },
 		func() datasource.DataSource { return &node.AppChangeRouterNodeDataSource{} },
 		func() datasource.DataSource { return &node.AuditEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &function.BitmapperFunctionDataSource{} },
