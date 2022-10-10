@@ -1607,6 +1607,23 @@ func (v *DeleteMessageTypeResponse) GetGetMessageType() *DeleteMessageTypeGetMes
 	return v.GetMessageType
 }
 
+type LogLevel string
+
+const (
+	LogLevelDebug   LogLevel = "DEBUG"
+	LogLevelError   LogLevel = "ERROR"
+	LogLevelInfo    LogLevel = "INFO"
+	LogLevelWarning LogLevel = "WARNING"
+)
+
+type Protocol string
+
+const (
+	ProtocolSctp Protocol = "sctp"
+	ProtocolTcp  Protocol = "tcp"
+	ProtocolUdp  Protocol = "udp"
+)
+
 // ReadAppGetApp includes the requested fields of the GraphQL interface App.
 //
 // ReadAppGetApp is implemented by the following types:
@@ -3954,6 +3971,7 @@ func (v *ReadNodeGetNodeAlertEmitterNode) __premarshalJSON() (*__premarshalReadN
 type ReadNodeGetNodeAppChangeReceiverNode struct {
 	Typename                        *string `json:"__typename"`
 	nodeFieldsAppChangeReceiverNode `json:"-"`
+	appChangeReceiverNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeAppChangeReceiverNode.Typename, and is useful for accessing the field via an interface.
@@ -3967,6 +3985,16 @@ func (v *ReadNodeGetNodeAppChangeReceiverNode) GetDescription() *string {
 // GetName returns ReadNodeGetNodeAppChangeReceiverNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeAppChangeReceiverNode) GetName() string {
 	return v.nodeFieldsAppChangeReceiverNode.Name
+}
+
+// GetApp returns ReadNodeGetNodeAppChangeReceiverNode.App, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeAppChangeReceiverNode) GetApp() appChangeReceiverNodeFieldsApp {
+	return v.appChangeReceiverNodeFields.App
+}
+
+// GetReceiveMessageType returns ReadNodeGetNodeAppChangeReceiverNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeAppChangeReceiverNode) GetReceiveMessageType() *appChangeReceiverNodeFieldsReceiveMessageType {
+	return v.appChangeReceiverNodeFields.ReceiveMessageType
 }
 
 func (v *ReadNodeGetNodeAppChangeReceiverNode) UnmarshalJSON(b []byte) error {
@@ -3991,6 +4019,11 @@ func (v *ReadNodeGetNodeAppChangeReceiverNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.appChangeReceiverNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4000,6 +4033,10 @@ type __premarshalReadNodeGetNodeAppChangeReceiverNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	App json.RawMessage `json:"app"`
+
+	ReceiveMessageType *appChangeReceiverNodeFieldsReceiveMessageType `json:"receiveMessageType"`
 }
 
 func (v *ReadNodeGetNodeAppChangeReceiverNode) MarshalJSON() ([]byte, error) {
@@ -4016,6 +4053,19 @@ func (v *ReadNodeGetNodeAppChangeReceiverNode) __premarshalJSON() (*__premarshal
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsAppChangeReceiverNode.Description
 	retval.Name = v.nodeFieldsAppChangeReceiverNode.Name
+	{
+
+		dst := &retval.App
+		src := v.appChangeReceiverNodeFields.App
+		var err error
+		*dst, err = __marshalappChangeReceiverNodeFieldsApp(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal ReadNodeGetNodeAppChangeReceiverNode.appChangeReceiverNodeFields.App: %w", err)
+		}
+	}
+	retval.ReceiveMessageType = v.appChangeReceiverNodeFields.ReceiveMessageType
 	return &retval, nil
 }
 
@@ -4195,6 +4245,7 @@ func (v *ReadNodeGetNodeAuditEmitterNode) __premarshalJSON() (*__premarshalReadN
 type ReadNodeGetNodeBitmapRouterNode struct {
 	Typename                   *string `json:"__typename"`
 	nodeFieldsBitmapRouterNode `json:"-"`
+	bitmapRouterNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeBitmapRouterNode.Typename, and is useful for accessing the field via an interface.
@@ -4207,6 +4258,36 @@ func (v *ReadNodeGetNodeBitmapRouterNode) GetDescription() *string {
 
 // GetName returns ReadNodeGetNodeBitmapRouterNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeBitmapRouterNode) GetName() string { return v.nodeFieldsBitmapRouterNode.Name }
+
+// GetInlineBitmapper returns ReadNodeGetNodeBitmapRouterNode.InlineBitmapper, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeBitmapRouterNode) GetInlineBitmapper() *string {
+	return v.bitmapRouterNodeFields.InlineBitmapper
+}
+
+// GetLoggingLevel returns ReadNodeGetNodeBitmapRouterNode.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeBitmapRouterNode) GetLoggingLevel() *LogLevel {
+	return v.bitmapRouterNodeFields.LoggingLevel
+}
+
+// GetManagedBitmapper returns ReadNodeGetNodeBitmapRouterNode.ManagedBitmapper, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeBitmapRouterNode) GetManagedBitmapper() *bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction {
+	return v.bitmapRouterNodeFields.ManagedBitmapper
+}
+
+// GetReceiveMessageType returns ReadNodeGetNodeBitmapRouterNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeBitmapRouterNode) GetReceiveMessageType() *bitmapRouterNodeFieldsReceiveMessageType {
+	return v.bitmapRouterNodeFields.ReceiveMessageType
+}
+
+// GetRequirements returns ReadNodeGetNodeBitmapRouterNode.Requirements, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeBitmapRouterNode) GetRequirements() []string {
+	return v.bitmapRouterNodeFields.Requirements
+}
+
+// GetSendMessageType returns ReadNodeGetNodeBitmapRouterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeBitmapRouterNode) GetSendMessageType() *bitmapRouterNodeFieldsSendMessageType {
+	return v.bitmapRouterNodeFields.SendMessageType
+}
 
 func (v *ReadNodeGetNodeBitmapRouterNode) UnmarshalJSON(b []byte) error {
 
@@ -4230,6 +4311,11 @@ func (v *ReadNodeGetNodeBitmapRouterNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.bitmapRouterNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4239,6 +4325,18 @@ type __premarshalReadNodeGetNodeBitmapRouterNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	InlineBitmapper *string `json:"inlineBitmapper"`
+
+	LoggingLevel *LogLevel `json:"loggingLevel"`
+
+	ManagedBitmapper *bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction `json:"managedBitmapper"`
+
+	ReceiveMessageType *bitmapRouterNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	Requirements []string `json:"requirements"`
+
+	SendMessageType *bitmapRouterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
 func (v *ReadNodeGetNodeBitmapRouterNode) MarshalJSON() ([]byte, error) {
@@ -4255,6 +4353,12 @@ func (v *ReadNodeGetNodeBitmapRouterNode) __premarshalJSON() (*__premarshalReadN
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsBitmapRouterNode.Description
 	retval.Name = v.nodeFieldsBitmapRouterNode.Name
+	retval.InlineBitmapper = v.bitmapRouterNodeFields.InlineBitmapper
+	retval.LoggingLevel = v.bitmapRouterNodeFields.LoggingLevel
+	retval.ManagedBitmapper = v.bitmapRouterNodeFields.ManagedBitmapper
+	retval.ReceiveMessageType = v.bitmapRouterNodeFields.ReceiveMessageType
+	retval.Requirements = v.bitmapRouterNodeFields.Requirements
+	retval.SendMessageType = v.bitmapRouterNodeFields.SendMessageType
 	return &retval, nil
 }
 
@@ -4345,6 +4449,7 @@ func (v *ReadNodeGetNodeChangeEmitterNode) __premarshalJSON() (*__premarshalRead
 type ReadNodeGetNodeCrossTenantReceivingNode struct {
 	Typename                           *string `json:"__typename"`
 	nodeFieldsCrossTenantReceivingNode `json:"-"`
+	crossTenantReceivingNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeCrossTenantReceivingNode.Typename, and is useful for accessing the field via an interface.
@@ -4358,6 +4463,16 @@ func (v *ReadNodeGetNodeCrossTenantReceivingNode) GetDescription() *string {
 // GetName returns ReadNodeGetNodeCrossTenantReceivingNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeCrossTenantReceivingNode) GetName() string {
 	return v.nodeFieldsCrossTenantReceivingNode.Name
+}
+
+// GetApp returns ReadNodeGetNodeCrossTenantReceivingNode.App, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantReceivingNode) GetApp() crossTenantReceivingNodeFieldsAppCrossTenantReceivingApp {
+	return v.crossTenantReceivingNodeFields.App
+}
+
+// GetSendMessageType returns ReadNodeGetNodeCrossTenantReceivingNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantReceivingNode) GetSendMessageType() *crossTenantReceivingNodeFieldsSendMessageType {
+	return v.crossTenantReceivingNodeFields.SendMessageType
 }
 
 func (v *ReadNodeGetNodeCrossTenantReceivingNode) UnmarshalJSON(b []byte) error {
@@ -4382,6 +4497,11 @@ func (v *ReadNodeGetNodeCrossTenantReceivingNode) UnmarshalJSON(b []byte) error 
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.crossTenantReceivingNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4391,6 +4511,10 @@ type __premarshalReadNodeGetNodeCrossTenantReceivingNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	App crossTenantReceivingNodeFieldsAppCrossTenantReceivingApp `json:"app"`
+
+	SendMessageType *crossTenantReceivingNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
 func (v *ReadNodeGetNodeCrossTenantReceivingNode) MarshalJSON() ([]byte, error) {
@@ -4407,6 +4531,8 @@ func (v *ReadNodeGetNodeCrossTenantReceivingNode) __premarshalJSON() (*__premars
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsCrossTenantReceivingNode.Description
 	retval.Name = v.nodeFieldsCrossTenantReceivingNode.Name
+	retval.App = v.crossTenantReceivingNodeFields.App
+	retval.SendMessageType = v.crossTenantReceivingNodeFields.SendMessageType
 	return &retval, nil
 }
 
@@ -4414,6 +4540,7 @@ func (v *ReadNodeGetNodeCrossTenantReceivingNode) __premarshalJSON() (*__premars
 type ReadNodeGetNodeCrossTenantSendingNode struct {
 	Typename                         *string `json:"__typename"`
 	nodeFieldsCrossTenantSendingNode `json:"-"`
+	crossTenantSendingNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeCrossTenantSendingNode.Typename, and is useful for accessing the field via an interface.
@@ -4427,6 +4554,46 @@ func (v *ReadNodeGetNodeCrossTenantSendingNode) GetDescription() *string {
 // GetName returns ReadNodeGetNodeCrossTenantSendingNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeCrossTenantSendingNode) GetName() string {
 	return v.nodeFieldsCrossTenantSendingNode.Name
+}
+
+// GetApp returns ReadNodeGetNodeCrossTenantSendingNode.App, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetApp() crossTenantSendingNodeFieldsAppCrossTenantSendingApp {
+	return v.crossTenantSendingNodeFields.App
+}
+
+// GetInlineProcessor returns ReadNodeGetNodeCrossTenantSendingNode.InlineProcessor, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetInlineProcessor() *string {
+	return v.crossTenantSendingNodeFields.InlineProcessor
+}
+
+// GetLoggingLevel returns ReadNodeGetNodeCrossTenantSendingNode.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetLoggingLevel() *LogLevel {
+	return v.crossTenantSendingNodeFields.LoggingLevel
+}
+
+// GetManagedProcessor returns ReadNodeGetNodeCrossTenantSendingNode.ManagedProcessor, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetManagedProcessor() *crossTenantSendingNodeFieldsManagedProcessorProcessorFunction {
+	return v.crossTenantSendingNodeFields.ManagedProcessor
+}
+
+// GetReceiveMessageType returns ReadNodeGetNodeCrossTenantSendingNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetReceiveMessageType() *crossTenantSendingNodeFieldsReceiveMessageType {
+	return v.crossTenantSendingNodeFields.ReceiveMessageType
+}
+
+// GetRequirements returns ReadNodeGetNodeCrossTenantSendingNode.Requirements, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetRequirements() []string {
+	return v.crossTenantSendingNodeFields.Requirements
+}
+
+// GetSendMessageType returns ReadNodeGetNodeCrossTenantSendingNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetSendMessageType() *crossTenantSendingNodeFieldsSendMessageType {
+	return v.crossTenantSendingNodeFields.SendMessageType
+}
+
+// GetSequentialProcessing returns ReadNodeGetNodeCrossTenantSendingNode.SequentialProcessing, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetSequentialProcessing() *bool {
+	return v.crossTenantSendingNodeFields.SequentialProcessing
 }
 
 func (v *ReadNodeGetNodeCrossTenantSendingNode) UnmarshalJSON(b []byte) error {
@@ -4451,6 +4618,11 @@ func (v *ReadNodeGetNodeCrossTenantSendingNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.crossTenantSendingNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4460,6 +4632,22 @@ type __premarshalReadNodeGetNodeCrossTenantSendingNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	App crossTenantSendingNodeFieldsAppCrossTenantSendingApp `json:"app"`
+
+	InlineProcessor *string `json:"inlineProcessor"`
+
+	LoggingLevel *LogLevel `json:"loggingLevel"`
+
+	ManagedProcessor *crossTenantSendingNodeFieldsManagedProcessorProcessorFunction `json:"managedProcessor"`
+
+	ReceiveMessageType *crossTenantSendingNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	Requirements []string `json:"requirements"`
+
+	SendMessageType *crossTenantSendingNodeFieldsSendMessageType `json:"sendMessageType"`
+
+	SequentialProcessing *bool `json:"sequentialProcessing"`
 }
 
 func (v *ReadNodeGetNodeCrossTenantSendingNode) MarshalJSON() ([]byte, error) {
@@ -4476,6 +4664,14 @@ func (v *ReadNodeGetNodeCrossTenantSendingNode) __premarshalJSON() (*__premarsha
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsCrossTenantSendingNode.Description
 	retval.Name = v.nodeFieldsCrossTenantSendingNode.Name
+	retval.App = v.crossTenantSendingNodeFields.App
+	retval.InlineProcessor = v.crossTenantSendingNodeFields.InlineProcessor
+	retval.LoggingLevel = v.crossTenantSendingNodeFields.LoggingLevel
+	retval.ManagedProcessor = v.crossTenantSendingNodeFields.ManagedProcessor
+	retval.ReceiveMessageType = v.crossTenantSendingNodeFields.ReceiveMessageType
+	retval.Requirements = v.crossTenantSendingNodeFields.Requirements
+	retval.SendMessageType = v.crossTenantSendingNodeFields.SendMessageType
+	retval.SequentialProcessing = v.crossTenantSendingNodeFields.SequentialProcessing
 	return &retval, nil
 }
 
@@ -4566,6 +4762,7 @@ func (v *ReadNodeGetNodeDeadLetterEmitterNode) __premarshalJSON() (*__premarshal
 type ReadNodeGetNodeExternalNode struct {
 	Typename               *string `json:"__typename"`
 	nodeFieldsExternalNode `json:"-"`
+	externalNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeExternalNode.Typename, and is useful for accessing the field via an interface.
@@ -4578,6 +4775,24 @@ func (v *ReadNodeGetNodeExternalNode) GetDescription() *string {
 
 // GetName returns ReadNodeGetNodeExternalNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeExternalNode) GetName() string { return v.nodeFieldsExternalNode.Name }
+
+// GetApp returns ReadNodeGetNodeExternalNode.App, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeExternalNode) GetApp() externalNodeFieldsAppRemoteApp {
+	return v.externalNodeFields.App
+}
+
+// GetConfig returns ReadNodeGetNodeExternalNode.Config, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeExternalNode) GetConfig() *string { return v.externalNodeFields.Config }
+
+// GetReceiveMessageType returns ReadNodeGetNodeExternalNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeExternalNode) GetReceiveMessageType() *externalNodeFieldsReceiveMessageType {
+	return v.externalNodeFields.ReceiveMessageType
+}
+
+// GetSendMessageType returns ReadNodeGetNodeExternalNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeExternalNode) GetSendMessageType() *externalNodeFieldsSendMessageType {
+	return v.externalNodeFields.SendMessageType
+}
 
 func (v *ReadNodeGetNodeExternalNode) UnmarshalJSON(b []byte) error {
 
@@ -4601,6 +4816,11 @@ func (v *ReadNodeGetNodeExternalNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.externalNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4610,6 +4830,14 @@ type __premarshalReadNodeGetNodeExternalNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	App json.RawMessage `json:"app"`
+
+	Config *string `json:"config"`
+
+	ReceiveMessageType *externalNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	SendMessageType *externalNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
 func (v *ReadNodeGetNodeExternalNode) MarshalJSON() ([]byte, error) {
@@ -4626,6 +4854,21 @@ func (v *ReadNodeGetNodeExternalNode) __premarshalJSON() (*__premarshalReadNodeG
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsExternalNode.Description
 	retval.Name = v.nodeFieldsExternalNode.Name
+	{
+
+		dst := &retval.App
+		src := v.externalNodeFields.App
+		var err error
+		*dst, err = __marshalexternalNodeFieldsAppRemoteApp(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal ReadNodeGetNodeExternalNode.externalNodeFields.App: %w", err)
+		}
+	}
+	retval.Config = v.externalNodeFields.Config
+	retval.ReceiveMessageType = v.externalNodeFields.ReceiveMessageType
+	retval.SendMessageType = v.externalNodeFields.SendMessageType
 	return &retval, nil
 }
 
@@ -4633,6 +4876,7 @@ func (v *ReadNodeGetNodeExternalNode) __premarshalJSON() (*__premarshalReadNodeG
 type ReadNodeGetNodeFilesDotComWebhookNode struct {
 	Typename                         *string `json:"__typename"`
 	nodeFieldsFilesDotComWebhookNode `json:"-"`
+	filesDotComWebhookNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeFilesDotComWebhookNode.Typename, and is useful for accessing the field via an interface.
@@ -4646,6 +4890,16 @@ func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetDescription() *string {
 // GetName returns ReadNodeGetNodeFilesDotComWebhookNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetName() string {
 	return v.nodeFieldsFilesDotComWebhookNode.Name
+}
+
+// GetEndpoint returns ReadNodeGetNodeFilesDotComWebhookNode.Endpoint, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetEndpoint() string {
+	return v.filesDotComWebhookNodeFields.Endpoint
+}
+
+// GetSendMessageType returns ReadNodeGetNodeFilesDotComWebhookNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetSendMessageType() *filesDotComWebhookNodeFieldsSendMessageType {
+	return v.filesDotComWebhookNodeFields.SendMessageType
 }
 
 func (v *ReadNodeGetNodeFilesDotComWebhookNode) UnmarshalJSON(b []byte) error {
@@ -4670,6 +4924,11 @@ func (v *ReadNodeGetNodeFilesDotComWebhookNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.filesDotComWebhookNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4679,6 +4938,10 @@ type __premarshalReadNodeGetNodeFilesDotComWebhookNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	Endpoint string `json:"endpoint"`
+
+	SendMessageType *filesDotComWebhookNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
 func (v *ReadNodeGetNodeFilesDotComWebhookNode) MarshalJSON() ([]byte, error) {
@@ -4695,6 +4958,8 @@ func (v *ReadNodeGetNodeFilesDotComWebhookNode) __premarshalJSON() (*__premarsha
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsFilesDotComWebhookNode.Description
 	retval.Name = v.nodeFieldsFilesDotComWebhookNode.Name
+	retval.Endpoint = v.filesDotComWebhookNodeFields.Endpoint
+	retval.SendMessageType = v.filesDotComWebhookNodeFields.SendMessageType
 	return &retval, nil
 }
 
@@ -4702,6 +4967,7 @@ func (v *ReadNodeGetNodeFilesDotComWebhookNode) __premarshalJSON() (*__premarsha
 type ReadNodeGetNodeLoadBalancerNode struct {
 	Typename                   *string `json:"__typename"`
 	nodeFieldsLoadBalancerNode `json:"-"`
+	loadBalancerNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeLoadBalancerNode.Typename, and is useful for accessing the field via an interface.
@@ -4714,6 +4980,16 @@ func (v *ReadNodeGetNodeLoadBalancerNode) GetDescription() *string {
 
 // GetName returns ReadNodeGetNodeLoadBalancerNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeLoadBalancerNode) GetName() string { return v.nodeFieldsLoadBalancerNode.Name }
+
+// GetReceiveMessageType returns ReadNodeGetNodeLoadBalancerNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeLoadBalancerNode) GetReceiveMessageType() *loadBalancerNodeFieldsReceiveMessageType {
+	return v.loadBalancerNodeFields.ReceiveMessageType
+}
+
+// GetSendMessageType returns ReadNodeGetNodeLoadBalancerNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeLoadBalancerNode) GetSendMessageType() *loadBalancerNodeFieldsSendMessageType {
+	return v.loadBalancerNodeFields.SendMessageType
+}
 
 func (v *ReadNodeGetNodeLoadBalancerNode) UnmarshalJSON(b []byte) error {
 
@@ -4737,6 +5013,11 @@ func (v *ReadNodeGetNodeLoadBalancerNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.loadBalancerNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4746,6 +5027,10 @@ type __premarshalReadNodeGetNodeLoadBalancerNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	ReceiveMessageType *loadBalancerNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	SendMessageType *loadBalancerNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
 func (v *ReadNodeGetNodeLoadBalancerNode) MarshalJSON() ([]byte, error) {
@@ -4762,6 +5047,8 @@ func (v *ReadNodeGetNodeLoadBalancerNode) __premarshalJSON() (*__premarshalReadN
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsLoadBalancerNode.Description
 	retval.Name = v.nodeFieldsLoadBalancerNode.Name
+	retval.ReceiveMessageType = v.loadBalancerNodeFields.ReceiveMessageType
+	retval.SendMessageType = v.loadBalancerNodeFields.SendMessageType
 	return &retval, nil
 }
 
@@ -4850,6 +5137,7 @@ func (v *ReadNodeGetNodeLogEmitterNode) __premarshalJSON() (*__premarshalReadNod
 type ReadNodeGetNodeManagedNode struct {
 	Typename              *string `json:"__typename"`
 	nodeFieldsManagedNode `json:"-"`
+	managedNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeManagedNode.Typename, and is useful for accessing the field via an interface.
@@ -4862,6 +5150,44 @@ func (v *ReadNodeGetNodeManagedNode) GetDescription() *string {
 
 // GetName returns ReadNodeGetNodeManagedNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeManagedNode) GetName() string { return v.nodeFieldsManagedNode.Name }
+
+// GetApp returns ReadNodeGetNodeManagedNode.App, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeManagedNode) GetApp() managedNodeFieldsAppManagedApp {
+	return v.managedNodeFields.App
+}
+
+// GetConfig returns ReadNodeGetNodeManagedNode.Config, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeManagedNode) GetConfig() *string { return v.managedNodeFields.Config }
+
+// GetLoggingLevel returns ReadNodeGetNodeManagedNode.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeManagedNode) GetLoggingLevel() *LogLevel {
+	return v.managedNodeFields.LoggingLevel
+}
+
+// GetManagedNodeType returns ReadNodeGetNodeManagedNode.ManagedNodeType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeManagedNode) GetManagedNodeType() managedNodeFieldsManagedNodeType {
+	return v.managedNodeFields.ManagedNodeType
+}
+
+// GetMounts returns ReadNodeGetNodeManagedNode.Mounts, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeManagedNode) GetMounts() []managedNodeFieldsMountsMount {
+	return v.managedNodeFields.Mounts
+}
+
+// GetPorts returns ReadNodeGetNodeManagedNode.Ports, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeManagedNode) GetPorts() []managedNodeFieldsPortsPort {
+	return v.managedNodeFields.Ports
+}
+
+// GetReceiveMessageType returns ReadNodeGetNodeManagedNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeManagedNode) GetReceiveMessageType() *managedNodeFieldsReceiveMessageType {
+	return v.managedNodeFields.ReceiveMessageType
+}
+
+// GetSendMessageType returns ReadNodeGetNodeManagedNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeManagedNode) GetSendMessageType() *managedNodeFieldsSendMessageType {
+	return v.managedNodeFields.SendMessageType
+}
 
 func (v *ReadNodeGetNodeManagedNode) UnmarshalJSON(b []byte) error {
 
@@ -4885,6 +5211,11 @@ func (v *ReadNodeGetNodeManagedNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.managedNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4894,6 +5225,22 @@ type __premarshalReadNodeGetNodeManagedNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	App managedNodeFieldsAppManagedApp `json:"app"`
+
+	Config *string `json:"config"`
+
+	LoggingLevel *LogLevel `json:"loggingLevel"`
+
+	ManagedNodeType managedNodeFieldsManagedNodeType `json:"managedNodeType"`
+
+	Mounts []managedNodeFieldsMountsMount `json:"mounts"`
+
+	Ports []managedNodeFieldsPortsPort `json:"ports"`
+
+	ReceiveMessageType *managedNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	SendMessageType *managedNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
 func (v *ReadNodeGetNodeManagedNode) MarshalJSON() ([]byte, error) {
@@ -4910,6 +5257,14 @@ func (v *ReadNodeGetNodeManagedNode) __premarshalJSON() (*__premarshalReadNodeGe
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsManagedNode.Description
 	retval.Name = v.nodeFieldsManagedNode.Name
+	retval.App = v.managedNodeFields.App
+	retval.Config = v.managedNodeFields.Config
+	retval.LoggingLevel = v.managedNodeFields.LoggingLevel
+	retval.ManagedNodeType = v.managedNodeFields.ManagedNodeType
+	retval.Mounts = v.managedNodeFields.Mounts
+	retval.Ports = v.managedNodeFields.Ports
+	retval.ReceiveMessageType = v.managedNodeFields.ReceiveMessageType
+	retval.SendMessageType = v.managedNodeFields.SendMessageType
 	return &retval, nil
 }
 
@@ -4917,6 +5272,7 @@ func (v *ReadNodeGetNodeManagedNode) __premarshalJSON() (*__premarshalReadNodeGe
 type ReadNodeGetNodeProcessorNode struct {
 	Typename                *string `json:"__typename"`
 	nodeFieldsProcessorNode `json:"-"`
+	processorNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeProcessorNode.Typename, and is useful for accessing the field via an interface.
@@ -4929,6 +5285,44 @@ func (v *ReadNodeGetNodeProcessorNode) GetDescription() *string {
 
 // GetName returns ReadNodeGetNodeProcessorNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeProcessorNode) GetName() string { return v.nodeFieldsProcessorNode.Name }
+
+// GetConfig returns ReadNodeGetNodeProcessorNode.Config, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeProcessorNode) GetConfig() *string { return v.processorNodeFields.Config }
+
+// GetInlineProcessor returns ReadNodeGetNodeProcessorNode.InlineProcessor, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeProcessorNode) GetInlineProcessor() *string {
+	return v.processorNodeFields.InlineProcessor
+}
+
+// GetLoggingLevel returns ReadNodeGetNodeProcessorNode.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeProcessorNode) GetLoggingLevel() *LogLevel {
+	return v.processorNodeFields.LoggingLevel
+}
+
+// GetManagedProcessor returns ReadNodeGetNodeProcessorNode.ManagedProcessor, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeProcessorNode) GetManagedProcessor() *processorNodeFieldsManagedProcessorProcessorFunction {
+	return v.processorNodeFields.ManagedProcessor
+}
+
+// GetReceiveMessageType returns ReadNodeGetNodeProcessorNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeProcessorNode) GetReceiveMessageType() *processorNodeFieldsReceiveMessageType {
+	return v.processorNodeFields.ReceiveMessageType
+}
+
+// GetRequirements returns ReadNodeGetNodeProcessorNode.Requirements, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeProcessorNode) GetRequirements() []string {
+	return v.processorNodeFields.Requirements
+}
+
+// GetSendMessageType returns ReadNodeGetNodeProcessorNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeProcessorNode) GetSendMessageType() *processorNodeFieldsSendMessageType {
+	return v.processorNodeFields.SendMessageType
+}
+
+// GetSequentialProcessing returns ReadNodeGetNodeProcessorNode.SequentialProcessing, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeProcessorNode) GetSequentialProcessing() *bool {
+	return v.processorNodeFields.SequentialProcessing
+}
 
 func (v *ReadNodeGetNodeProcessorNode) UnmarshalJSON(b []byte) error {
 
@@ -4952,6 +5346,11 @@ func (v *ReadNodeGetNodeProcessorNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.processorNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -4961,6 +5360,22 @@ type __premarshalReadNodeGetNodeProcessorNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	Config *string `json:"config"`
+
+	InlineProcessor *string `json:"inlineProcessor"`
+
+	LoggingLevel *LogLevel `json:"loggingLevel"`
+
+	ManagedProcessor *processorNodeFieldsManagedProcessorProcessorFunction `json:"managedProcessor"`
+
+	ReceiveMessageType *processorNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	Requirements []string `json:"requirements"`
+
+	SendMessageType *processorNodeFieldsSendMessageType `json:"sendMessageType"`
+
+	SequentialProcessing *bool `json:"sequentialProcessing"`
 }
 
 func (v *ReadNodeGetNodeProcessorNode) MarshalJSON() ([]byte, error) {
@@ -4977,6 +5392,14 @@ func (v *ReadNodeGetNodeProcessorNode) __premarshalJSON() (*__premarshalReadNode
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsProcessorNode.Description
 	retval.Name = v.nodeFieldsProcessorNode.Name
+	retval.Config = v.processorNodeFields.Config
+	retval.InlineProcessor = v.processorNodeFields.InlineProcessor
+	retval.LoggingLevel = v.processorNodeFields.LoggingLevel
+	retval.ManagedProcessor = v.processorNodeFields.ManagedProcessor
+	retval.ReceiveMessageType = v.processorNodeFields.ReceiveMessageType
+	retval.Requirements = v.processorNodeFields.Requirements
+	retval.SendMessageType = v.processorNodeFields.SendMessageType
+	retval.SequentialProcessing = v.processorNodeFields.SequentialProcessing
 	return &retval, nil
 }
 
@@ -4984,6 +5407,7 @@ func (v *ReadNodeGetNodeProcessorNode) __premarshalJSON() (*__premarshalReadNode
 type ReadNodeGetNodeTimerNode struct {
 	Typename            *string `json:"__typename"`
 	nodeFieldsTimerNode `json:"-"`
+	timerNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
@@ -4994,6 +5418,16 @@ func (v *ReadNodeGetNodeTimerNode) GetDescription() *string { return v.nodeField
 
 // GetName returns ReadNodeGetNodeTimerNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeTimerNode) GetName() string { return v.nodeFieldsTimerNode.Name }
+
+// GetScheduleExpression returns ReadNodeGetNodeTimerNode.ScheduleExpression, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeTimerNode) GetScheduleExpression() string {
+	return v.timerNodeFields.ScheduleExpression
+}
+
+// GetSendMessageType returns ReadNodeGetNodeTimerNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeTimerNode) GetSendMessageType() *timerNodeFieldsSendMessageType {
+	return v.timerNodeFields.SendMessageType
+}
 
 func (v *ReadNodeGetNodeTimerNode) UnmarshalJSON(b []byte) error {
 
@@ -5017,6 +5451,11 @@ func (v *ReadNodeGetNodeTimerNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.timerNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -5026,6 +5465,10 @@ type __premarshalReadNodeGetNodeTimerNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	ScheduleExpression string `json:"scheduleExpression"`
+
+	SendMessageType *timerNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
 func (v *ReadNodeGetNodeTimerNode) MarshalJSON() ([]byte, error) {
@@ -5042,6 +5485,8 @@ func (v *ReadNodeGetNodeTimerNode) __premarshalJSON() (*__premarshalReadNodeGetN
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsTimerNode.Description
 	retval.Name = v.nodeFieldsTimerNode.Name
+	retval.ScheduleExpression = v.timerNodeFields.ScheduleExpression
+	retval.SendMessageType = v.timerNodeFields.SendMessageType
 	return &retval, nil
 }
 
@@ -5049,6 +5494,7 @@ func (v *ReadNodeGetNodeTimerNode) __premarshalJSON() (*__premarshalReadNodeGetN
 type ReadNodeGetNodeWebhookNode struct {
 	Typename              *string `json:"__typename"`
 	nodeFieldsWebhookNode `json:"-"`
+	webhookNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeWebhookNode.Typename, and is useful for accessing the field via an interface.
@@ -5061,6 +5507,37 @@ func (v *ReadNodeGetNodeWebhookNode) GetDescription() *string {
 
 // GetName returns ReadNodeGetNodeWebhookNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeWebhookNode) GetName() string { return v.nodeFieldsWebhookNode.Name }
+
+// GetConfig returns ReadNodeGetNodeWebhookNode.Config, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebhookNode) GetConfig() *string { return v.webhookNodeFields.Config }
+
+// GetEndpoint returns ReadNodeGetNodeWebhookNode.Endpoint, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebhookNode) GetEndpoint() string { return v.webhookNodeFields.Endpoint }
+
+// GetInlineApiAuthenticator returns ReadNodeGetNodeWebhookNode.InlineApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebhookNode) GetInlineApiAuthenticator() *string {
+	return v.webhookNodeFields.InlineApiAuthenticator
+}
+
+// GetLoggingLevel returns ReadNodeGetNodeWebhookNode.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebhookNode) GetLoggingLevel() *LogLevel {
+	return v.webhookNodeFields.LoggingLevel
+}
+
+// GetManagedApiAuthenticator returns ReadNodeGetNodeWebhookNode.ManagedApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebhookNode) GetManagedApiAuthenticator() *webhookNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction {
+	return v.webhookNodeFields.ManagedApiAuthenticator
+}
+
+// GetRequirements returns ReadNodeGetNodeWebhookNode.Requirements, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebhookNode) GetRequirements() []string {
+	return v.webhookNodeFields.Requirements
+}
+
+// GetSendMessageType returns ReadNodeGetNodeWebhookNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebhookNode) GetSendMessageType() *webhookNodeFieldsSendMessageType {
+	return v.webhookNodeFields.SendMessageType
+}
 
 func (v *ReadNodeGetNodeWebhookNode) UnmarshalJSON(b []byte) error {
 
@@ -5084,6 +5561,11 @@ func (v *ReadNodeGetNodeWebhookNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.webhookNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -5093,6 +5575,20 @@ type __premarshalReadNodeGetNodeWebhookNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	Config *string `json:"config"`
+
+	Endpoint string `json:"endpoint"`
+
+	InlineApiAuthenticator *string `json:"inlineApiAuthenticator"`
+
+	LoggingLevel *LogLevel `json:"loggingLevel"`
+
+	ManagedApiAuthenticator *webhookNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction `json:"managedApiAuthenticator"`
+
+	Requirements []string `json:"requirements"`
+
+	SendMessageType *webhookNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
 func (v *ReadNodeGetNodeWebhookNode) MarshalJSON() ([]byte, error) {
@@ -5109,6 +5605,13 @@ func (v *ReadNodeGetNodeWebhookNode) __premarshalJSON() (*__premarshalReadNodeGe
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsWebhookNode.Description
 	retval.Name = v.nodeFieldsWebhookNode.Name
+	retval.Config = v.webhookNodeFields.Config
+	retval.Endpoint = v.webhookNodeFields.Endpoint
+	retval.InlineApiAuthenticator = v.webhookNodeFields.InlineApiAuthenticator
+	retval.LoggingLevel = v.webhookNodeFields.LoggingLevel
+	retval.ManagedApiAuthenticator = v.webhookNodeFields.ManagedApiAuthenticator
+	retval.Requirements = v.webhookNodeFields.Requirements
+	retval.SendMessageType = v.webhookNodeFields.SendMessageType
 	return &retval, nil
 }
 
@@ -7766,6 +8269,275 @@ type alertEmitterNodeFieldsSendMessageType struct {
 // GetName returns alertEmitterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
 func (v *alertEmitterNodeFieldsSendMessageType) GetName() string { return v.Name }
 
+// appChangeReceiverNodeFields includes the GraphQL fields of AppChangeReceiverNode requested by the fragment appChangeReceiverNodeFields.
+type appChangeReceiverNodeFields struct {
+	App                appChangeReceiverNodeFieldsApp                 `json:"-"`
+	ReceiveMessageType *appChangeReceiverNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+}
+
+// GetApp returns appChangeReceiverNodeFields.App, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFields) GetApp() appChangeReceiverNodeFieldsApp { return v.App }
+
+// GetReceiveMessageType returns appChangeReceiverNodeFields.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFields) GetReceiveMessageType() *appChangeReceiverNodeFieldsReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+func (v *appChangeReceiverNodeFields) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*appChangeReceiverNodeFields
+		App json.RawMessage `json:"app"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.appChangeReceiverNodeFields = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.App
+		src := firstPass.App
+		if len(src) != 0 && string(src) != "null" {
+			err = __unmarshalappChangeReceiverNodeFieldsApp(
+				src, dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal appChangeReceiverNodeFields.App: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalappChangeReceiverNodeFields struct {
+	App json.RawMessage `json:"app"`
+
+	ReceiveMessageType *appChangeReceiverNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+}
+
+func (v *appChangeReceiverNodeFields) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *appChangeReceiverNodeFields) __premarshalJSON() (*__premarshalappChangeReceiverNodeFields, error) {
+	var retval __premarshalappChangeReceiverNodeFields
+
+	{
+
+		dst := &retval.App
+		src := v.App
+		var err error
+		*dst, err = __marshalappChangeReceiverNodeFieldsApp(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal appChangeReceiverNodeFields.App: %w", err)
+		}
+	}
+	retval.ReceiveMessageType = v.ReceiveMessageType
+	return &retval, nil
+}
+
+// appChangeReceiverNodeFieldsApp includes the requested fields of the GraphQL interface App.
+//
+// appChangeReceiverNodeFieldsApp is implemented by the following types:
+// appChangeReceiverNodeFieldsAppCrossAccountApp
+// appChangeReceiverNodeFieldsAppCrossTenantReceivingApp
+// appChangeReceiverNodeFieldsAppCrossTenantSendingApp
+// appChangeReceiverNodeFieldsAppExternalApp
+// appChangeReceiverNodeFieldsAppManagedApp
+type appChangeReceiverNodeFieldsApp interface {
+	implementsGraphQLInterfaceappChangeReceiverNodeFieldsApp()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+	// GetName returns the interface-field "name" from its implementation.
+	GetName() string
+}
+
+func (v *appChangeReceiverNodeFieldsAppCrossAccountApp) implementsGraphQLInterfaceappChangeReceiverNodeFieldsApp() {
+}
+func (v *appChangeReceiverNodeFieldsAppCrossTenantReceivingApp) implementsGraphQLInterfaceappChangeReceiverNodeFieldsApp() {
+}
+func (v *appChangeReceiverNodeFieldsAppCrossTenantSendingApp) implementsGraphQLInterfaceappChangeReceiverNodeFieldsApp() {
+}
+func (v *appChangeReceiverNodeFieldsAppExternalApp) implementsGraphQLInterfaceappChangeReceiverNodeFieldsApp() {
+}
+func (v *appChangeReceiverNodeFieldsAppManagedApp) implementsGraphQLInterfaceappChangeReceiverNodeFieldsApp() {
+}
+
+func __unmarshalappChangeReceiverNodeFieldsApp(b []byte, v *appChangeReceiverNodeFieldsApp) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "CrossAccountApp":
+		*v = new(appChangeReceiverNodeFieldsAppCrossAccountApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingApp":
+		*v = new(appChangeReceiverNodeFieldsAppCrossTenantReceivingApp)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingApp":
+		*v = new(appChangeReceiverNodeFieldsAppCrossTenantSendingApp)
+		return json.Unmarshal(b, *v)
+	case "ExternalApp":
+		*v = new(appChangeReceiverNodeFieldsAppExternalApp)
+		return json.Unmarshal(b, *v)
+	case "ManagedApp":
+		*v = new(appChangeReceiverNodeFieldsAppManagedApp)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing App.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for appChangeReceiverNodeFieldsApp: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalappChangeReceiverNodeFieldsApp(v *appChangeReceiverNodeFieldsApp) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *appChangeReceiverNodeFieldsAppCrossAccountApp:
+		typename = "CrossAccountApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*appChangeReceiverNodeFieldsAppCrossAccountApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *appChangeReceiverNodeFieldsAppCrossTenantReceivingApp:
+		typename = "CrossTenantReceivingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*appChangeReceiverNodeFieldsAppCrossTenantReceivingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *appChangeReceiverNodeFieldsAppCrossTenantSendingApp:
+		typename = "CrossTenantSendingApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*appChangeReceiverNodeFieldsAppCrossTenantSendingApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *appChangeReceiverNodeFieldsAppExternalApp:
+		typename = "ExternalApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*appChangeReceiverNodeFieldsAppExternalApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *appChangeReceiverNodeFieldsAppManagedApp:
+		typename = "ManagedApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*appChangeReceiverNodeFieldsAppManagedApp
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for appChangeReceiverNodeFieldsApp: "%T"`, v)
+	}
+}
+
+// appChangeReceiverNodeFieldsAppCrossAccountApp includes the requested fields of the GraphQL type CrossAccountApp.
+type appChangeReceiverNodeFieldsAppCrossAccountApp struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns appChangeReceiverNodeFieldsAppCrossAccountApp.Typename, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsAppCrossAccountApp) GetTypename() *string { return v.Typename }
+
+// GetName returns appChangeReceiverNodeFieldsAppCrossAccountApp.Name, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsAppCrossAccountApp) GetName() string { return v.Name }
+
+// appChangeReceiverNodeFieldsAppCrossTenantReceivingApp includes the requested fields of the GraphQL type CrossTenantReceivingApp.
+type appChangeReceiverNodeFieldsAppCrossTenantReceivingApp struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns appChangeReceiverNodeFieldsAppCrossTenantReceivingApp.Typename, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsAppCrossTenantReceivingApp) GetTypename() *string {
+	return v.Typename
+}
+
+// GetName returns appChangeReceiverNodeFieldsAppCrossTenantReceivingApp.Name, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsAppCrossTenantReceivingApp) GetName() string { return v.Name }
+
+// appChangeReceiverNodeFieldsAppCrossTenantSendingApp includes the requested fields of the GraphQL type CrossTenantSendingApp.
+type appChangeReceiverNodeFieldsAppCrossTenantSendingApp struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns appChangeReceiverNodeFieldsAppCrossTenantSendingApp.Typename, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsAppCrossTenantSendingApp) GetTypename() *string {
+	return v.Typename
+}
+
+// GetName returns appChangeReceiverNodeFieldsAppCrossTenantSendingApp.Name, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsAppCrossTenantSendingApp) GetName() string { return v.Name }
+
+// appChangeReceiverNodeFieldsAppExternalApp includes the requested fields of the GraphQL type ExternalApp.
+type appChangeReceiverNodeFieldsAppExternalApp struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns appChangeReceiverNodeFieldsAppExternalApp.Typename, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsAppExternalApp) GetTypename() *string { return v.Typename }
+
+// GetName returns appChangeReceiverNodeFieldsAppExternalApp.Name, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsAppExternalApp) GetName() string { return v.Name }
+
+// appChangeReceiverNodeFieldsAppManagedApp includes the requested fields of the GraphQL type ManagedApp.
+type appChangeReceiverNodeFieldsAppManagedApp struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns appChangeReceiverNodeFieldsAppManagedApp.Typename, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsAppManagedApp) GetTypename() *string { return v.Typename }
+
+// GetName returns appChangeReceiverNodeFieldsAppManagedApp.Name, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsAppManagedApp) GetName() string { return v.Name }
+
+// appChangeReceiverNodeFieldsReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type appChangeReceiverNodeFieldsReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns appChangeReceiverNodeFieldsReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *appChangeReceiverNodeFieldsReceiveMessageType) GetName() string { return v.Name }
+
 // appChangeRouterNodeFields includes the GraphQL fields of AppChangeRouterNode requested by the fragment appChangeRouterNodeFields.
 type appChangeRouterNodeFields struct {
 	ReceiveMessageType *appChangeRouterNodeFieldsReceiveMessageType `json:"receiveMessageType"`
@@ -7988,6 +8760,64 @@ type auditEmitterNodeFieldsSendMessageType struct {
 // GetName returns auditEmitterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
 func (v *auditEmitterNodeFieldsSendMessageType) GetName() string { return v.Name }
 
+// bitmapRouterNodeFields includes the GraphQL fields of BitmapRouterNode requested by the fragment bitmapRouterNodeFields.
+type bitmapRouterNodeFields struct {
+	InlineBitmapper    *string                                                  `json:"inlineBitmapper"`
+	LoggingLevel       *LogLevel                                                `json:"loggingLevel"`
+	ManagedBitmapper   *bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction `json:"managedBitmapper"`
+	ReceiveMessageType *bitmapRouterNodeFieldsReceiveMessageType                `json:"receiveMessageType"`
+	Requirements       []string                                                 `json:"requirements"`
+	SendMessageType    *bitmapRouterNodeFieldsSendMessageType                   `json:"sendMessageType"`
+}
+
+// GetInlineBitmapper returns bitmapRouterNodeFields.InlineBitmapper, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFields) GetInlineBitmapper() *string { return v.InlineBitmapper }
+
+// GetLoggingLevel returns bitmapRouterNodeFields.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFields) GetLoggingLevel() *LogLevel { return v.LoggingLevel }
+
+// GetManagedBitmapper returns bitmapRouterNodeFields.ManagedBitmapper, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFields) GetManagedBitmapper() *bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction {
+	return v.ManagedBitmapper
+}
+
+// GetReceiveMessageType returns bitmapRouterNodeFields.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFields) GetReceiveMessageType() *bitmapRouterNodeFieldsReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// GetRequirements returns bitmapRouterNodeFields.Requirements, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFields) GetRequirements() []string { return v.Requirements }
+
+// GetSendMessageType returns bitmapRouterNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFields) GetSendMessageType() *bitmapRouterNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction includes the requested fields of the GraphQL type BitmapperFunction.
+type bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction struct {
+	Name string `json:"name"`
+}
+
+// GetName returns bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction.Name, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction) GetName() string { return v.Name }
+
+// bitmapRouterNodeFieldsReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type bitmapRouterNodeFieldsReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns bitmapRouterNodeFieldsReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFieldsReceiveMessageType) GetName() string { return v.Name }
+
+// bitmapRouterNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type bitmapRouterNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns bitmapRouterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFieldsSendMessageType) GetName() string { return v.Name }
+
 // bitmapperFunctionFields includes the GraphQL fields of BitmapperFunction requested by the fragment bitmapperFunctionFields.
 type bitmapperFunctionFields struct {
 	ArgumentMessageType bitmapperFunctionFieldsArgumentMessageType `json:"argumentMessageType"`
@@ -8168,6 +8998,38 @@ func (v *crossTenantReceivingAppFields) GetSendingApp() *string { return v.Sendi
 // GetSendingTenant returns crossTenantReceivingAppFields.SendingTenant, and is useful for accessing the field via an interface.
 func (v *crossTenantReceivingAppFields) GetSendingTenant() string { return v.SendingTenant }
 
+// crossTenantReceivingNodeFields includes the GraphQL fields of CrossTenantReceivingNode requested by the fragment crossTenantReceivingNodeFields.
+type crossTenantReceivingNodeFields struct {
+	App             crossTenantReceivingNodeFieldsAppCrossTenantReceivingApp `json:"app"`
+	SendMessageType *crossTenantReceivingNodeFieldsSendMessageType           `json:"sendMessageType"`
+}
+
+// GetApp returns crossTenantReceivingNodeFields.App, and is useful for accessing the field via an interface.
+func (v *crossTenantReceivingNodeFields) GetApp() crossTenantReceivingNodeFieldsAppCrossTenantReceivingApp {
+	return v.App
+}
+
+// GetSendMessageType returns crossTenantReceivingNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *crossTenantReceivingNodeFields) GetSendMessageType() *crossTenantReceivingNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// crossTenantReceivingNodeFieldsAppCrossTenantReceivingApp includes the requested fields of the GraphQL type CrossTenantReceivingApp.
+type crossTenantReceivingNodeFieldsAppCrossTenantReceivingApp struct {
+	Name string `json:"name"`
+}
+
+// GetName returns crossTenantReceivingNodeFieldsAppCrossTenantReceivingApp.Name, and is useful for accessing the field via an interface.
+func (v *crossTenantReceivingNodeFieldsAppCrossTenantReceivingApp) GetName() string { return v.Name }
+
+// crossTenantReceivingNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type crossTenantReceivingNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns crossTenantReceivingNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *crossTenantReceivingNodeFieldsSendMessageType) GetName() string { return v.Name }
+
 // crossTenantSendingAppFields includes the GraphQL fields of CrossTenantSendingApp requested by the fragment crossTenantSendingAppFields.
 type crossTenantSendingAppFields struct {
 	ReceivingApp    string `json:"receivingApp"`
@@ -8179,6 +9041,84 @@ func (v *crossTenantSendingAppFields) GetReceivingApp() string { return v.Receiv
 
 // GetReceivingTenant returns crossTenantSendingAppFields.ReceivingTenant, and is useful for accessing the field via an interface.
 func (v *crossTenantSendingAppFields) GetReceivingTenant() string { return v.ReceivingTenant }
+
+// crossTenantSendingNodeFields includes the GraphQL fields of CrossTenantSendingNode requested by the fragment crossTenantSendingNodeFields.
+type crossTenantSendingNodeFields struct {
+	App                  crossTenantSendingNodeFieldsAppCrossTenantSendingApp           `json:"app"`
+	InlineProcessor      *string                                                        `json:"inlineProcessor"`
+	LoggingLevel         *LogLevel                                                      `json:"loggingLevel"`
+	ManagedProcessor     *crossTenantSendingNodeFieldsManagedProcessorProcessorFunction `json:"managedProcessor"`
+	ReceiveMessageType   *crossTenantSendingNodeFieldsReceiveMessageType                `json:"receiveMessageType"`
+	Requirements         []string                                                       `json:"requirements"`
+	SendMessageType      *crossTenantSendingNodeFieldsSendMessageType                   `json:"sendMessageType"`
+	SequentialProcessing *bool                                                          `json:"sequentialProcessing"`
+}
+
+// GetApp returns crossTenantSendingNodeFields.App, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFields) GetApp() crossTenantSendingNodeFieldsAppCrossTenantSendingApp {
+	return v.App
+}
+
+// GetInlineProcessor returns crossTenantSendingNodeFields.InlineProcessor, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFields) GetInlineProcessor() *string { return v.InlineProcessor }
+
+// GetLoggingLevel returns crossTenantSendingNodeFields.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFields) GetLoggingLevel() *LogLevel { return v.LoggingLevel }
+
+// GetManagedProcessor returns crossTenantSendingNodeFields.ManagedProcessor, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFields) GetManagedProcessor() *crossTenantSendingNodeFieldsManagedProcessorProcessorFunction {
+	return v.ManagedProcessor
+}
+
+// GetReceiveMessageType returns crossTenantSendingNodeFields.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFields) GetReceiveMessageType() *crossTenantSendingNodeFieldsReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// GetRequirements returns crossTenantSendingNodeFields.Requirements, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFields) GetRequirements() []string { return v.Requirements }
+
+// GetSendMessageType returns crossTenantSendingNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFields) GetSendMessageType() *crossTenantSendingNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// GetSequentialProcessing returns crossTenantSendingNodeFields.SequentialProcessing, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFields) GetSequentialProcessing() *bool { return v.SequentialProcessing }
+
+// crossTenantSendingNodeFieldsAppCrossTenantSendingApp includes the requested fields of the GraphQL type CrossTenantSendingApp.
+type crossTenantSendingNodeFieldsAppCrossTenantSendingApp struct {
+	Name string `json:"name"`
+}
+
+// GetName returns crossTenantSendingNodeFieldsAppCrossTenantSendingApp.Name, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFieldsAppCrossTenantSendingApp) GetName() string { return v.Name }
+
+// crossTenantSendingNodeFieldsManagedProcessorProcessorFunction includes the requested fields of the GraphQL type ProcessorFunction.
+type crossTenantSendingNodeFieldsManagedProcessorProcessorFunction struct {
+	Name string `json:"name"`
+}
+
+// GetName returns crossTenantSendingNodeFieldsManagedProcessorProcessorFunction.Name, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFieldsManagedProcessorProcessorFunction) GetName() string {
+	return v.Name
+}
+
+// crossTenantSendingNodeFieldsReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type crossTenantSendingNodeFieldsReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns crossTenantSendingNodeFieldsReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFieldsReceiveMessageType) GetName() string { return v.Name }
+
+// crossTenantSendingNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type crossTenantSendingNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns crossTenantSendingNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFieldsSendMessageType) GetName() string { return v.Name }
 
 // deadLetterEmitterNodeFields includes the GraphQL fields of DeadLetterEmitterNode requested by the fragment deadLetterEmitterNodeFields.
 type deadLetterEmitterNodeFields struct {
@@ -8301,6 +9241,237 @@ func (v *externalAppFieldsCredentialsCognitoCredentials) __premarshalJSON() (*__
 	retval.Username = v.cognitoCredentialsFields.Username
 	return &retval, nil
 }
+
+// externalNodeFields includes the GraphQL fields of ExternalNode requested by the fragment externalNodeFields.
+type externalNodeFields struct {
+	App                externalNodeFieldsAppRemoteApp        `json:"-"`
+	Config             *string                               `json:"config"`
+	ReceiveMessageType *externalNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+	SendMessageType    *externalNodeFieldsSendMessageType    `json:"sendMessageType"`
+}
+
+// GetApp returns externalNodeFields.App, and is useful for accessing the field via an interface.
+func (v *externalNodeFields) GetApp() externalNodeFieldsAppRemoteApp { return v.App }
+
+// GetConfig returns externalNodeFields.Config, and is useful for accessing the field via an interface.
+func (v *externalNodeFields) GetConfig() *string { return v.Config }
+
+// GetReceiveMessageType returns externalNodeFields.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *externalNodeFields) GetReceiveMessageType() *externalNodeFieldsReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// GetSendMessageType returns externalNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *externalNodeFields) GetSendMessageType() *externalNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+func (v *externalNodeFields) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*externalNodeFields
+		App json.RawMessage `json:"app"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.externalNodeFields = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.App
+		src := firstPass.App
+		if len(src) != 0 && string(src) != "null" {
+			err = __unmarshalexternalNodeFieldsAppRemoteApp(
+				src, dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal externalNodeFields.App: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalexternalNodeFields struct {
+	App json.RawMessage `json:"app"`
+
+	Config *string `json:"config"`
+
+	ReceiveMessageType *externalNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	SendMessageType *externalNodeFieldsSendMessageType `json:"sendMessageType"`
+}
+
+func (v *externalNodeFields) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *externalNodeFields) __premarshalJSON() (*__premarshalexternalNodeFields, error) {
+	var retval __premarshalexternalNodeFields
+
+	{
+
+		dst := &retval.App
+		src := v.App
+		var err error
+		*dst, err = __marshalexternalNodeFieldsAppRemoteApp(
+			&src)
+		if err != nil {
+			return nil, fmt.Errorf(
+				"Unable to marshal externalNodeFields.App: %w", err)
+		}
+	}
+	retval.Config = v.Config
+	retval.ReceiveMessageType = v.ReceiveMessageType
+	retval.SendMessageType = v.SendMessageType
+	return &retval, nil
+}
+
+// externalNodeFieldsAppCrossAccountApp includes the requested fields of the GraphQL type CrossAccountApp.
+type externalNodeFieldsAppCrossAccountApp struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns externalNodeFieldsAppCrossAccountApp.Typename, and is useful for accessing the field via an interface.
+func (v *externalNodeFieldsAppCrossAccountApp) GetTypename() *string { return v.Typename }
+
+// GetName returns externalNodeFieldsAppCrossAccountApp.Name, and is useful for accessing the field via an interface.
+func (v *externalNodeFieldsAppCrossAccountApp) GetName() string { return v.Name }
+
+// externalNodeFieldsAppExternalApp includes the requested fields of the GraphQL type ExternalApp.
+type externalNodeFieldsAppExternalApp struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns externalNodeFieldsAppExternalApp.Typename, and is useful for accessing the field via an interface.
+func (v *externalNodeFieldsAppExternalApp) GetTypename() *string { return v.Typename }
+
+// GetName returns externalNodeFieldsAppExternalApp.Name, and is useful for accessing the field via an interface.
+func (v *externalNodeFieldsAppExternalApp) GetName() string { return v.Name }
+
+// externalNodeFieldsAppRemoteApp includes the requested fields of the GraphQL interface RemoteApp.
+//
+// externalNodeFieldsAppRemoteApp is implemented by the following types:
+// externalNodeFieldsAppCrossAccountApp
+// externalNodeFieldsAppExternalApp
+type externalNodeFieldsAppRemoteApp interface {
+	implementsGraphQLInterfaceexternalNodeFieldsAppRemoteApp()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+}
+
+func (v *externalNodeFieldsAppCrossAccountApp) implementsGraphQLInterfaceexternalNodeFieldsAppRemoteApp() {
+}
+func (v *externalNodeFieldsAppExternalApp) implementsGraphQLInterfaceexternalNodeFieldsAppRemoteApp() {
+}
+
+func __unmarshalexternalNodeFieldsAppRemoteApp(b []byte, v *externalNodeFieldsAppRemoteApp) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "CrossAccountApp":
+		*v = new(externalNodeFieldsAppCrossAccountApp)
+		return json.Unmarshal(b, *v)
+	case "ExternalApp":
+		*v = new(externalNodeFieldsAppExternalApp)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing RemoteApp.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for externalNodeFieldsAppRemoteApp: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalexternalNodeFieldsAppRemoteApp(v *externalNodeFieldsAppRemoteApp) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *externalNodeFieldsAppCrossAccountApp:
+		typename = "CrossAccountApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*externalNodeFieldsAppCrossAccountApp
+		}{typename, v}
+		return json.Marshal(result)
+	case *externalNodeFieldsAppExternalApp:
+		typename = "ExternalApp"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*externalNodeFieldsAppExternalApp
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for externalNodeFieldsAppRemoteApp: "%T"`, v)
+	}
+}
+
+// externalNodeFieldsReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type externalNodeFieldsReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns externalNodeFieldsReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *externalNodeFieldsReceiveMessageType) GetName() string { return v.Name }
+
+// externalNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type externalNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns externalNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *externalNodeFieldsSendMessageType) GetName() string { return v.Name }
+
+// filesDotComWebhookNodeFields includes the GraphQL fields of FilesDotComWebhookNode requested by the fragment filesDotComWebhookNodeFields.
+type filesDotComWebhookNodeFields struct {
+	Endpoint        string                                       `json:"endpoint"`
+	SendMessageType *filesDotComWebhookNodeFieldsSendMessageType `json:"sendMessageType"`
+}
+
+// GetEndpoint returns filesDotComWebhookNodeFields.Endpoint, and is useful for accessing the field via an interface.
+func (v *filesDotComWebhookNodeFields) GetEndpoint() string { return v.Endpoint }
+
+// GetSendMessageType returns filesDotComWebhookNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *filesDotComWebhookNodeFields) GetSendMessageType() *filesDotComWebhookNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// filesDotComWebhookNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type filesDotComWebhookNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns filesDotComWebhookNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *filesDotComWebhookNodeFieldsSendMessageType) GetName() string { return v.Name }
 
 // functionFields includes the GraphQL fields of Function requested by the fragment functionFields.
 //
@@ -8514,6 +9685,38 @@ func (v *kmsKeyFields) GetInUse() bool { return v.InUse }
 // GetName returns kmsKeyFields.Name, and is useful for accessing the field via an interface.
 func (v *kmsKeyFields) GetName() string { return v.Name }
 
+// loadBalancerNodeFields includes the GraphQL fields of LoadBalancerNode requested by the fragment loadBalancerNodeFields.
+type loadBalancerNodeFields struct {
+	ReceiveMessageType *loadBalancerNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+	SendMessageType    *loadBalancerNodeFieldsSendMessageType    `json:"sendMessageType"`
+}
+
+// GetReceiveMessageType returns loadBalancerNodeFields.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *loadBalancerNodeFields) GetReceiveMessageType() *loadBalancerNodeFieldsReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// GetSendMessageType returns loadBalancerNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *loadBalancerNodeFields) GetSendMessageType() *loadBalancerNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// loadBalancerNodeFieldsReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type loadBalancerNodeFieldsReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns loadBalancerNodeFieldsReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *loadBalancerNodeFieldsReceiveMessageType) GetName() string { return v.Name }
+
+// loadBalancerNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type loadBalancerNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns loadBalancerNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *loadBalancerNodeFieldsSendMessageType) GetName() string { return v.Name }
+
 // logEmitterNodeFields includes the GraphQL fields of LogEmitterNode requested by the fragment logEmitterNodeFields.
 type logEmitterNodeFields struct {
 	SendMessageType *logEmitterNodeFieldsSendMessageType `json:"sendMessageType"`
@@ -8631,6 +9834,116 @@ func (v *managedAppFieldsCredentialsCognitoCredentials) __premarshalJSON() (*__p
 	retval.Username = v.cognitoCredentialsFields.Username
 	return &retval, nil
 }
+
+// managedNodeFields includes the GraphQL fields of ManagedNode requested by the fragment managedNodeFields.
+type managedNodeFields struct {
+	App                managedNodeFieldsAppManagedApp       `json:"app"`
+	Config             *string                              `json:"config"`
+	LoggingLevel       *LogLevel                            `json:"loggingLevel"`
+	ManagedNodeType    managedNodeFieldsManagedNodeType     `json:"managedNodeType"`
+	Mounts             []managedNodeFieldsMountsMount       `json:"mounts"`
+	Ports              []managedNodeFieldsPortsPort         `json:"ports"`
+	ReceiveMessageType *managedNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+	SendMessageType    *managedNodeFieldsSendMessageType    `json:"sendMessageType"`
+}
+
+// GetApp returns managedNodeFields.App, and is useful for accessing the field via an interface.
+func (v *managedNodeFields) GetApp() managedNodeFieldsAppManagedApp { return v.App }
+
+// GetConfig returns managedNodeFields.Config, and is useful for accessing the field via an interface.
+func (v *managedNodeFields) GetConfig() *string { return v.Config }
+
+// GetLoggingLevel returns managedNodeFields.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *managedNodeFields) GetLoggingLevel() *LogLevel { return v.LoggingLevel }
+
+// GetManagedNodeType returns managedNodeFields.ManagedNodeType, and is useful for accessing the field via an interface.
+func (v *managedNodeFields) GetManagedNodeType() managedNodeFieldsManagedNodeType {
+	return v.ManagedNodeType
+}
+
+// GetMounts returns managedNodeFields.Mounts, and is useful for accessing the field via an interface.
+func (v *managedNodeFields) GetMounts() []managedNodeFieldsMountsMount { return v.Mounts }
+
+// GetPorts returns managedNodeFields.Ports, and is useful for accessing the field via an interface.
+func (v *managedNodeFields) GetPorts() []managedNodeFieldsPortsPort { return v.Ports }
+
+// GetReceiveMessageType returns managedNodeFields.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *managedNodeFields) GetReceiveMessageType() *managedNodeFieldsReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// GetSendMessageType returns managedNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *managedNodeFields) GetSendMessageType() *managedNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// managedNodeFieldsAppManagedApp includes the requested fields of the GraphQL type ManagedApp.
+type managedNodeFieldsAppManagedApp struct {
+	Name string `json:"name"`
+}
+
+// GetName returns managedNodeFieldsAppManagedApp.Name, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsAppManagedApp) GetName() string { return v.Name }
+
+// managedNodeFieldsManagedNodeType includes the requested fields of the GraphQL type ManagedNodeType.
+type managedNodeFieldsManagedNodeType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns managedNodeFieldsManagedNodeType.Name, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsManagedNodeType) GetName() string { return v.Name }
+
+// managedNodeFieldsMountsMount includes the requested fields of the GraphQL type Mount.
+type managedNodeFieldsMountsMount struct {
+	Description string  `json:"description"`
+	Source      *string `json:"source"`
+	Target      string  `json:"target"`
+}
+
+// GetDescription returns managedNodeFieldsMountsMount.Description, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsMountsMount) GetDescription() string { return v.Description }
+
+// GetSource returns managedNodeFieldsMountsMount.Source, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsMountsMount) GetSource() *string { return v.Source }
+
+// GetTarget returns managedNodeFieldsMountsMount.Target, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsMountsMount) GetTarget() string { return v.Target }
+
+// managedNodeFieldsPortsPort includes the requested fields of the GraphQL type Port.
+type managedNodeFieldsPortsPort struct {
+	ContainerPort int      `json:"containerPort"`
+	Description   string   `json:"description"`
+	HostAddress   *string  `json:"hostAddress"`
+	Protocol      Protocol `json:"protocol"`
+}
+
+// GetContainerPort returns managedNodeFieldsPortsPort.ContainerPort, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsPortsPort) GetContainerPort() int { return v.ContainerPort }
+
+// GetDescription returns managedNodeFieldsPortsPort.Description, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsPortsPort) GetDescription() string { return v.Description }
+
+// GetHostAddress returns managedNodeFieldsPortsPort.HostAddress, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsPortsPort) GetHostAddress() *string { return v.HostAddress }
+
+// GetProtocol returns managedNodeFieldsPortsPort.Protocol, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsPortsPort) GetProtocol() Protocol { return v.Protocol }
+
+// managedNodeFieldsReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type managedNodeFieldsReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns managedNodeFieldsReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsReceiveMessageType) GetName() string { return v.Name }
+
+// managedNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type managedNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns managedNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *managedNodeFieldsSendMessageType) GetName() string { return v.Name }
 
 // messageTypeFields includes the GraphQL fields of MessageType requested by the fragment messageTypeFields.
 type messageTypeFields struct {
@@ -9180,6 +10493,72 @@ type processorFunctionFieldsReturnMessageType struct {
 // GetName returns processorFunctionFieldsReturnMessageType.Name, and is useful for accessing the field via an interface.
 func (v *processorFunctionFieldsReturnMessageType) GetName() string { return v.Name }
 
+// processorNodeFields includes the GraphQL fields of ProcessorNode requested by the fragment processorNodeFields.
+type processorNodeFields struct {
+	Config               *string                                               `json:"config"`
+	InlineProcessor      *string                                               `json:"inlineProcessor"`
+	LoggingLevel         *LogLevel                                             `json:"loggingLevel"`
+	ManagedProcessor     *processorNodeFieldsManagedProcessorProcessorFunction `json:"managedProcessor"`
+	ReceiveMessageType   *processorNodeFieldsReceiveMessageType                `json:"receiveMessageType"`
+	Requirements         []string                                              `json:"requirements"`
+	SendMessageType      *processorNodeFieldsSendMessageType                   `json:"sendMessageType"`
+	SequentialProcessing *bool                                                 `json:"sequentialProcessing"`
+}
+
+// GetConfig returns processorNodeFields.Config, and is useful for accessing the field via an interface.
+func (v *processorNodeFields) GetConfig() *string { return v.Config }
+
+// GetInlineProcessor returns processorNodeFields.InlineProcessor, and is useful for accessing the field via an interface.
+func (v *processorNodeFields) GetInlineProcessor() *string { return v.InlineProcessor }
+
+// GetLoggingLevel returns processorNodeFields.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *processorNodeFields) GetLoggingLevel() *LogLevel { return v.LoggingLevel }
+
+// GetManagedProcessor returns processorNodeFields.ManagedProcessor, and is useful for accessing the field via an interface.
+func (v *processorNodeFields) GetManagedProcessor() *processorNodeFieldsManagedProcessorProcessorFunction {
+	return v.ManagedProcessor
+}
+
+// GetReceiveMessageType returns processorNodeFields.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *processorNodeFields) GetReceiveMessageType() *processorNodeFieldsReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// GetRequirements returns processorNodeFields.Requirements, and is useful for accessing the field via an interface.
+func (v *processorNodeFields) GetRequirements() []string { return v.Requirements }
+
+// GetSendMessageType returns processorNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *processorNodeFields) GetSendMessageType() *processorNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// GetSequentialProcessing returns processorNodeFields.SequentialProcessing, and is useful for accessing the field via an interface.
+func (v *processorNodeFields) GetSequentialProcessing() *bool { return v.SequentialProcessing }
+
+// processorNodeFieldsManagedProcessorProcessorFunction includes the requested fields of the GraphQL type ProcessorFunction.
+type processorNodeFieldsManagedProcessorProcessorFunction struct {
+	Name string `json:"name"`
+}
+
+// GetName returns processorNodeFieldsManagedProcessorProcessorFunction.Name, and is useful for accessing the field via an interface.
+func (v *processorNodeFieldsManagedProcessorProcessorFunction) GetName() string { return v.Name }
+
+// processorNodeFieldsReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type processorNodeFieldsReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns processorNodeFieldsReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *processorNodeFieldsReceiveMessageType) GetName() string { return v.Name }
+
+// processorNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type processorNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns processorNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *processorNodeFieldsSendMessageType) GetName() string { return v.Name }
+
 // tenantFields includes the GraphQL fields of Tenant requested by the fragment tenantFields.
 type tenantFields struct {
 	Active      bool    `json:"active"`
@@ -9207,6 +10586,82 @@ func (v *tenantFields) GetRegion() string { return v.Region }
 
 // GetTable returns tenantFields.Table, and is useful for accessing the field via an interface.
 func (v *tenantFields) GetTable() string { return v.Table }
+
+// timerNodeFields includes the GraphQL fields of TimerNode requested by the fragment timerNodeFields.
+type timerNodeFields struct {
+	ScheduleExpression string                          `json:"scheduleExpression"`
+	SendMessageType    *timerNodeFieldsSendMessageType `json:"sendMessageType"`
+}
+
+// GetScheduleExpression returns timerNodeFields.ScheduleExpression, and is useful for accessing the field via an interface.
+func (v *timerNodeFields) GetScheduleExpression() string { return v.ScheduleExpression }
+
+// GetSendMessageType returns timerNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *timerNodeFields) GetSendMessageType() *timerNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// timerNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type timerNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns timerNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *timerNodeFieldsSendMessageType) GetName() string { return v.Name }
+
+// webhookNodeFields includes the GraphQL fields of WebhookNode requested by the fragment webhookNodeFields.
+type webhookNodeFields struct {
+	Config                  *string                                                           `json:"config"`
+	Endpoint                string                                                            `json:"endpoint"`
+	InlineApiAuthenticator  *string                                                           `json:"inlineApiAuthenticator"`
+	LoggingLevel            *LogLevel                                                         `json:"loggingLevel"`
+	ManagedApiAuthenticator *webhookNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction `json:"managedApiAuthenticator"`
+	Requirements            []string                                                          `json:"requirements"`
+	SendMessageType         *webhookNodeFieldsSendMessageType                                 `json:"sendMessageType"`
+}
+
+// GetConfig returns webhookNodeFields.Config, and is useful for accessing the field via an interface.
+func (v *webhookNodeFields) GetConfig() *string { return v.Config }
+
+// GetEndpoint returns webhookNodeFields.Endpoint, and is useful for accessing the field via an interface.
+func (v *webhookNodeFields) GetEndpoint() string { return v.Endpoint }
+
+// GetInlineApiAuthenticator returns webhookNodeFields.InlineApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *webhookNodeFields) GetInlineApiAuthenticator() *string { return v.InlineApiAuthenticator }
+
+// GetLoggingLevel returns webhookNodeFields.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *webhookNodeFields) GetLoggingLevel() *LogLevel { return v.LoggingLevel }
+
+// GetManagedApiAuthenticator returns webhookNodeFields.ManagedApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *webhookNodeFields) GetManagedApiAuthenticator() *webhookNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction {
+	return v.ManagedApiAuthenticator
+}
+
+// GetRequirements returns webhookNodeFields.Requirements, and is useful for accessing the field via an interface.
+func (v *webhookNodeFields) GetRequirements() []string { return v.Requirements }
+
+// GetSendMessageType returns webhookNodeFields.SendMessageType, and is useful for accessing the field via an interface.
+func (v *webhookNodeFields) GetSendMessageType() *webhookNodeFieldsSendMessageType {
+	return v.SendMessageType
+}
+
+// webhookNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction includes the requested fields of the GraphQL type ApiAuthenticatorFunction.
+type webhookNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction struct {
+	Name string `json:"name"`
+}
+
+// GetName returns webhookNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction.Name, and is useful for accessing the field via an interface.
+func (v *webhookNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction) GetName() string {
+	return v.Name
+}
+
+// webhookNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
+type webhookNodeFieldsSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns webhookNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *webhookNodeFieldsSendMessageType) GetName() string { return v.Name }
 
 func CreateApiAuthenticatorFunction(
 	ctx context.Context,
@@ -10232,20 +11687,53 @@ query ReadNode ($name: String!, $tenant: String!) {
 		... on AlertEmitterNode {
 			... alertEmitterNodeFields
 		}
+		... on AppChangeReceiverNode {
+			... appChangeReceiverNodeFields
+		}
 		... on AppChangeRouterNode {
 			... appChangeRouterNodeFields
 		}
 		... on AuditEmitterNode {
 			... auditEmitterNodeFields
 		}
+		... on BitmapRouterNode {
+			... bitmapRouterNodeFields
+		}
 		... on ChangeEmitterNode {
 			... changeEmitterNodeFields
+		}
+		... on CrossTenantReceivingNode {
+			... crossTenantReceivingNodeFields
+		}
+		... on CrossTenantSendingNode {
+			... crossTenantSendingNodeFields
 		}
 		... on DeadLetterEmitterNode {
 			... deadLetterEmitterNodeFields
 		}
+		... on ExternalNode {
+			... externalNodeFields
+		}
+		... on FilesDotComWebhookNode {
+			... filesDotComWebhookNodeFields
+		}
+		... on LoadBalancerNode {
+			... loadBalancerNodeFields
+		}
 		... on LogEmitterNode {
 			... logEmitterNodeFields
+		}
+		... on ManagedNode {
+			... managedNodeFields
+		}
+		... on ProcessorNode {
+			... processorNodeFields
+		}
+		... on TimerNode {
+			... timerNodeFields
+		}
+		... on WebhookNode {
+			... webhookNodeFields
 		}
 	}
 }
@@ -10255,6 +11743,15 @@ fragment nodeFields on Node {
 }
 fragment alertEmitterNodeFields on AlertEmitterNode {
 	sendMessageType {
+		name
+	}
+}
+fragment appChangeReceiverNodeFields on AppChangeReceiverNode {
+	app {
+		__typename
+		name
+	}
+	receiveMessageType {
 		name
 	}
 }
@@ -10271,17 +11768,151 @@ fragment auditEmitterNodeFields on AuditEmitterNode {
 		name
 	}
 }
+fragment bitmapRouterNodeFields on BitmapRouterNode {
+	inlineBitmapper
+	loggingLevel
+	managedBitmapper {
+		name
+	}
+	receiveMessageType {
+		name
+	}
+	requirements
+	sendMessageType {
+		name
+	}
+}
 fragment changeEmitterNodeFields on ChangeEmitterNode {
 	sendMessageType {
 		name
 	}
+}
+fragment crossTenantReceivingNodeFields on CrossTenantReceivingNode {
+	app {
+		name
+	}
+	sendMessageType {
+		name
+	}
+}
+fragment crossTenantSendingNodeFields on CrossTenantSendingNode {
+	app {
+		name
+	}
+	inlineProcessor
+	loggingLevel
+	managedProcessor {
+		name
+	}
+	receiveMessageType {
+		name
+	}
+	requirements
+	sendMessageType {
+		name
+	}
+	sequentialProcessing
 }
 fragment deadLetterEmitterNodeFields on DeadLetterEmitterNode {
 	sendMessageType {
 		name
 	}
 }
+fragment externalNodeFields on ExternalNode {
+	app {
+		__typename
+		... on CrossAccountApp {
+			name
+		}
+		... on ExternalApp {
+			name
+		}
+	}
+	config
+	receiveMessageType {
+		name
+	}
+	sendMessageType {
+		name
+	}
+}
+fragment filesDotComWebhookNodeFields on FilesDotComWebhookNode {
+	endpoint
+	sendMessageType {
+		name
+	}
+}
+fragment loadBalancerNodeFields on LoadBalancerNode {
+	receiveMessageType {
+		name
+	}
+	sendMessageType {
+		name
+	}
+}
 fragment logEmitterNodeFields on LogEmitterNode {
+	sendMessageType {
+		name
+	}
+}
+fragment managedNodeFields on ManagedNode {
+	app {
+		name
+	}
+	config
+	loggingLevel
+	managedNodeType {
+		name
+	}
+	mounts {
+		description
+		source
+		target
+	}
+	ports {
+		containerPort
+		description
+		hostAddress
+		protocol
+	}
+	receiveMessageType {
+		name
+	}
+	sendMessageType {
+		name
+	}
+}
+fragment processorNodeFields on ProcessorNode {
+	config
+	inlineProcessor
+	loggingLevel
+	managedProcessor {
+		name
+	}
+	receiveMessageType {
+		name
+	}
+	requirements
+	sendMessageType {
+		name
+	}
+	sequentialProcessing
+}
+fragment timerNodeFields on TimerNode {
+	scheduleExpression
+	sendMessageType {
+		name
+	}
+}
+fragment webhookNodeFields on WebhookNode {
+	config
+	endpoint
+	inlineApiAuthenticator
+	loggingLevel
+	managedApiAuthenticator {
+		name
+	}
+	requirements
 	sendMessageType {
 		name
 	}

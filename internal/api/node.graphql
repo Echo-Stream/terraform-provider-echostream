@@ -9,6 +9,15 @@ fragment alertEmitterNodeFields on AlertEmitterNode {
     }
 }
 
+fragment appChangeReceiverNodeFields on AppChangeReceiverNode {
+    app {
+        name
+    }
+    receiveMessageType {
+        name
+    }
+}
+
 fragment appChangeRouterNodeFields on AppChangeRouterNode {
     receiveMessageType {
         name
@@ -24,13 +33,90 @@ fragment auditEmitterNodeFields on AuditEmitterNode {
     }
 }
 
+fragment bitmapRouterNodeFields on BitmapRouterNode {
+    inlineBitmapper
+    loggingLevel
+    managedBitmapper {
+        name
+    }
+    receiveMessageType {
+        name
+    }
+    requirements
+    sendMessageType {
+        name
+    }
+}
+
 fragment changeEmitterNodeFields on ChangeEmitterNode {
     sendMessageType {
         name
     }
 }
 
+fragment crossTenantReceivingNodeFields on CrossTenantReceivingNode {
+    app {
+        name
+    }
+    sendMessageType {
+        name
+    }
+}
+
+fragment crossTenantSendingNodeFields on CrossTenantSendingNode {
+    app {
+        name
+    }
+    inlineProcessor
+    loggingLevel
+    managedProcessor {
+        name
+    }
+    receiveMessageType {
+        name
+    }
+    requirements
+    sendMessageType {
+        name
+    }
+    sequentialProcessing
+}
+
 fragment deadLetterEmitterNodeFields on DeadLetterEmitterNode {
+    sendMessageType {
+        name
+    }
+}
+
+fragment externalNodeFields on ExternalNode {
+    app {
+        ... on CrossAccountApp {
+            name
+        }
+        ... on ExternalApp {
+            name
+        }
+    }
+    config
+    receiveMessageType {
+        name
+    }
+    sendMessageType {
+        name
+    }
+}
+
+fragment filesDotComWebhookNodeFields on FilesDotComWebhookNode {
+    endpoint
+    sendMessageType {
+        name
+    }
+}
+
+fragment loadBalancerNodeFields on LoadBalancerNode {
+    receiveMessageType {
+        name
+    }
     sendMessageType {
         name
     }
@@ -42,11 +128,80 @@ fragment logEmitterNodeFields on LogEmitterNode {
     }
 }
 
+fragment managedNodeFields on ManagedNode {
+    app {
+        name
+    }
+    config
+    loggingLevel
+    managedNodeType {
+        name
+    }
+    mounts {
+        description
+        source
+        target
+    }
+    ports {
+        containerPort
+        description
+        hostAddress
+        protocol
+    }
+    receiveMessageType {
+        name
+    }
+    sendMessageType {
+        name
+    }
+}
+
+fragment processorNodeFields on ProcessorNode {
+    config
+    inlineProcessor
+    loggingLevel
+    managedProcessor {
+        name
+    }
+    receiveMessageType {
+        name
+    }
+    requirements
+    sendMessageType {
+        name
+    }
+    sequentialProcessing
+}
+
+fragment timerNodeFields on TimerNode {
+    scheduleExpression
+    sendMessageType {
+        name
+    }
+}
+
+fragment webhookNodeFields on WebhookNode {
+    config
+    endpoint
+    inlineApiAuthenticator
+    loggingLevel
+    managedApiAuthenticator {
+        name
+    }
+    requirements
+    sendMessageType {
+        name
+    }
+}
+
 query ReadNode($name: String!, $tenant: String!) {
     GetNode(name: $name, tenant: $tenant) {
         ...nodeFields
         ... on AlertEmitterNode {
             ...alertEmitterNodeFields
+        }
+        ... on AppChangeReceiverNode {
+            ...appChangeReceiverNodeFields
         }
         ... on AppChangeRouterNode {
             ...appChangeRouterNodeFields
@@ -54,14 +209,44 @@ query ReadNode($name: String!, $tenant: String!) {
         ... on AuditEmitterNode {
             ...auditEmitterNodeFields
         }
+        ... on BitmapRouterNode {
+            ...bitmapRouterNodeFields
+        }
         ... on ChangeEmitterNode {
             ...changeEmitterNodeFields
+        }
+        ... on CrossTenantReceivingNode {
+            ...crossTenantReceivingNodeFields
+        }
+        ... on CrossTenantSendingNode {
+            ...crossTenantSendingNodeFields
         }
         ... on DeadLetterEmitterNode {
             ...deadLetterEmitterNodeFields
         }
+        ... on ExternalNode {
+            ...externalNodeFields
+        }
+        ... on FilesDotComWebhookNode {
+            ...filesDotComWebhookNodeFields
+        }
+        ... on LoadBalancerNode {
+            ...loadBalancerNodeFields
+        }
         ... on LogEmitterNode {
             ...logEmitterNodeFields
+        }
+        ... on ManagedNode {
+            ...managedNodeFields
+        }
+        ... on ProcessorNode {
+            ...processorNodeFields
+        }
+        ... on TimerNode {
+            ...timerNodeFields
+        }
+        ... on WebhookNode {
+            ...webhookNodeFields
         }
     }
 }
