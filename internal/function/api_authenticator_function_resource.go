@@ -187,7 +187,7 @@ func (r *ApiAuthenticatorFunctionResource) Read(ctx context.Context, req resourc
 		return
 	}
 
-	if system, err := readFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant, &state); err != nil {
+	if system, err := readApiAuthenicatorFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant, &state); err != nil {
 		resp.Diagnostics.AddError("Error reading ApiAuthenticatorFunction", err.Error())
 		return
 	} else if system {

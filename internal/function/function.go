@@ -76,8 +76,8 @@ func resourceFunctionSchema() map[string]tfsdk.Attribute {
 			attribute.Computed = false
 		}
 		if key == "name" {
-			attribute.Validators = append(common.NameValidators, common.NotSystemNameValidator)
 			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
+			attribute.Validators = append(common.NameValidators, common.NotSystemNameValidator)
 		}
 		if slices.Contains(required, key) {
 			attribute.Required = true
@@ -187,7 +187,7 @@ func resourceProcessorFunctionSchema() map[string]tfsdk.Attribute {
 	return schema
 }
 
-func readFunction(ctx context.Context, client graphql.Client, name string, tenant string, data *functionModel) (bool, error) {
+func readApiAuthenicatorFunction(ctx context.Context, client graphql.Client, name string, tenant string, data *functionModel) (bool, error) {
 	var (
 		echoResp *api.ReadFunctionResponse
 		err      error

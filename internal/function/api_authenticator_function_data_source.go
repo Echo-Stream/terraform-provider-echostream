@@ -58,7 +58,7 @@ func (d *ApiAuthenticatorFunctionDataSource) Read(ctx context.Context, req datas
 		return
 	}
 
-	if _, err := readFunction(ctx, d.data.Client, config.Name.Value, d.data.Tenant, &config); err != nil {
+	if _, err := readApiAuthenicatorFunction(ctx, d.data.Client, config.Name.Value, d.data.Tenant, &config); err != nil {
 		resp.Diagnostics.AddError("Error reading Function", err.Error())
 		return
 	}
