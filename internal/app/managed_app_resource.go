@@ -225,12 +225,11 @@ func (r *ManagedAppResource) Read(ctx context.Context, req resource.ReadRequest,
 				"Incorrect App type",
 				fmt.Sprintf("'%s' is incorrect App type", state.Name.String()),
 			)
+			return
 		}
 	} else {
-		resp.Diagnostics.AddError(
-			"ManagedApp not found",
-			fmt.Sprintf("'%s' ManagedApp does not exist", state.Name.String()),
-		)
+		resp.State.RemoveResource(ctx)
+		return
 	}
 
 	// Save updated data into Terraform state

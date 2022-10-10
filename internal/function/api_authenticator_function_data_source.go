@@ -58,9 +58,14 @@ func (d *ApiAuthenticatorFunctionDataSource) Read(ctx context.Context, req datas
 		return
 	}
 
-	if _, err := readApiAuthenicatorFunction(ctx, d.data.Client, config.Name.Value, d.data.Tenant, &config); err != nil {
+	if data, _, err := readApiAuthenicatorFunction(ctx, d.data.Client, config.Name.Value, d.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading Function", err.Error())
 		return
+	} else if data == nil {
+		resp.Diagnostics.AddError("ApiAuthenticatorFunction not found", fmt.Sprintf("Unable to find ApiAuthenticatorFunction '%s'", config.Name.Value))
+		return
+	} else {
+		config = *data
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)

@@ -179,12 +179,11 @@ func (r *CrossTenantReceivingAppResource) Read(ctx context.Context, req resource
 				"Incorrect App type",
 				fmt.Sprintf("'%s' is incorrect App type", state.Name.String()),
 			)
+			return
 		}
 	} else {
-		resp.Diagnostics.AddError(
-			"CrossTenantReceivingApp not found",
-			fmt.Sprintf("'%s' CrossTenantReceivingApp does not exist", state.Name.String()),
-		)
+		resp.State.RemoveResource(ctx)
+		return
 	}
 
 	// Save updated data into Terraform state

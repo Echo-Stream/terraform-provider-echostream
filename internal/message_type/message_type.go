@@ -2,7 +2,6 @@ package message_type
 
 import (
 	"context"
-	"fmt"
 	"regexp"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
@@ -121,8 +120,9 @@ func resourceMessageTypeSchema() map[string]tfsdk.Attribute {
 	return schema
 }
 
-func readMessageType(ctx context.Context, client graphql.Client, name string, tenant string, data *messageTypeModel) (bool, error) {
+func readMessageType(ctx context.Context, client graphql.Client, name string, tenant string) (*messageTypeModel, bool, error) {
 	var (
+		data     *messageTypeModel
 		echoResp *api.ReadMessageTypeResponse
 		err      error
 		system   bool = false
@@ -130,6 +130,7 @@ func readMessageType(ctx context.Context, client graphql.Client, name string, te
 
 	if echoResp, err = api.ReadMessageType(ctx, client, name, tenant); err == nil {
 		if echoResp.GetMessageType != nil {
+			data = &messageTypeModel{}
 			data.Auditor = types.String{Value: echoResp.GetMessageType.Auditor}
 			data.BitmapperTemplate = types.String{Value: echoResp.GetMessageType.BitmapperTemplate}
 			data.Description = types.String{Value: echoResp.GetMessageType.Description}
@@ -153,10 +154,8 @@ func readMessageType(ctx context.Context, client graphql.Client, name string, te
 			if echoResp.GetMessageType.System != nil {
 				system = *echoResp.GetMessageType.System
 			}
-		} else {
-			err = fmt.Errorf("'%s' MessageType does not exist", data.Name.String())
 		}
 	}
 
-	return system, err
+	return data, system, err
 }

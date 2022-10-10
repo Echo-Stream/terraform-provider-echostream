@@ -82,12 +82,10 @@ func (d *AppChangeReceiverNodeDataSource) Read(ctx context.Context, req datasour
 
 	name := config.App.Value + ":Change Receiver"
 
-	echoResp, err := api.ReadNode(ctx, d.data.Client, name, d.data.Tenant)
-	if err != nil {
+	if echoResp, err := api.ReadNode(ctx, d.data.Client, name, d.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading AppChangeReceiverNode", err.Error())
 		return
-	}
-	if echoResp.GetNode != nil {
+	} else if echoResp.GetNode != nil {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeAppChangeReceiverNode:
 			config.App = types.String{Value: node.App.GetName()}

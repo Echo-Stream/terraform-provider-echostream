@@ -189,11 +189,17 @@ func (r *BitmapperFunctionResource) Read(ctx context.Context, req resource.ReadR
 		return
 	}
 
-	if system, err := readBitmapperFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant, &state); err != nil {
+	if data, system, err := readBitmapperFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading BitmapperFunction", err.Error())
 		return
 	} else if system {
 		resp.Diagnostics.AddError("Invalid BitmapperFunction", "Cannot create resource for system BitmapperFunction")
+		return
+	} else if data == nil {
+		resp.State.RemoveResource(ctx)
+		return
+	} else {
+		state = *data
 	}
 
 	// Save updated data into Terraform state

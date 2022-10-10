@@ -2,6 +2,7 @@ package tenant
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
@@ -105,7 +106,11 @@ func readTenantData(ctx context.Context, client graphql.Client, tenant string, d
 		err      error
 	)
 
-	if echoResp, err = api.ReadTenant(ctx, client, tenant); err == nil {
+	if echoResp, err = api.ReadTenant(ctx, client, tenant); err != nil {
+		diags.AddError("Error reading Tenant data", err.Error())
+	} else if echoResp.GetTenant == nil {
+		diags.AddError("Tenant not found", fmt.Sprintf("Unable to find Tenant '%s'", tenant))
+	} else {
 		data.Active = types.Bool{Value: echoResp.GetTenant.Active}
 		if echoResp.GetTenant.Config != nil {
 			data.Config = common.Config{Value: *echoResp.GetTenant.Config}
@@ -121,8 +126,6 @@ func readTenantData(ctx context.Context, client graphql.Client, tenant string, d
 		data.Region = types.String{Value: echoResp.GetTenant.Region}
 		data.Table = types.String{Value: echoResp.GetTenant.Table}
 		diags.Append(readTenantAwsCredentials(ctx, client, tenant, data)...)
-	} else {
-		diags.AddError("Error reading Tenant data", err.Error())
 	}
 
 	return diags

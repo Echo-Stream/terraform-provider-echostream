@@ -187,8 +187,9 @@ func resourceProcessorFunctionSchema() map[string]tfsdk.Attribute {
 	return schema
 }
 
-func readApiAuthenicatorFunction(ctx context.Context, client graphql.Client, name string, tenant string, data *functionModel) (bool, error) {
+func readApiAuthenicatorFunction(ctx context.Context, client graphql.Client, name string, tenant string) (*functionModel, bool, error) {
 	var (
+		data     *functionModel
 		echoResp *api.ReadFunctionResponse
 		err      error
 		system   bool = false
@@ -198,6 +199,7 @@ func readApiAuthenicatorFunction(ctx context.Context, client graphql.Client, nam
 		if echoResp.GetFunction != nil {
 			switch function := (*echoResp.GetFunction).(type) {
 			case *api.ReadFunctionGetFunctionApiAuthenticatorFunction:
+				data = &functionModel{}
 				data.Code = types.String{Value: function.Code}
 				data.Description = types.String{Value: function.Description}
 				data.InUse = types.Bool{Value: function.InUse}
@@ -221,16 +223,15 @@ func readApiAuthenicatorFunction(ctx context.Context, client graphql.Client, nam
 			default:
 				err = fmt.Errorf("'%s' is incorrect Function type", data.Name.String())
 			}
-		} else {
-			err = fmt.Errorf("'%s' Function does not exist", data.Name.String())
 		}
 	}
 
-	return system, err
+	return data, system, err
 }
 
-func readBitmapperFunction(ctx context.Context, client graphql.Client, name string, tenant string, data *bitmapperFunctionModel) (bool, error) {
+func readBitmapperFunction(ctx context.Context, client graphql.Client, name string, tenant string) (*bitmapperFunctionModel, bool, error) {
 	var (
+		data     *bitmapperFunctionModel
 		echoResp *api.ReadFunctionResponse
 		err      error
 		system   bool = false
@@ -240,6 +241,7 @@ func readBitmapperFunction(ctx context.Context, client graphql.Client, name stri
 		if echoResp.GetFunction != nil {
 			switch function := (*echoResp.GetFunction).(type) {
 			case *api.ReadFunctionGetFunctionBitmapperFunction:
+				data = &bitmapperFunctionModel{}
 				data.ArgumentMessageType = types.String{Value: function.ArgumentMessageType.Name}
 				data.Code = types.String{Value: function.Code}
 				data.Description = types.String{Value: function.Description}
@@ -264,16 +266,15 @@ func readBitmapperFunction(ctx context.Context, client graphql.Client, name stri
 			default:
 				err = fmt.Errorf("'%s' is incorrect Function type", data.Name.String())
 			}
-		} else {
-			err = fmt.Errorf("'%s' Function does not exist", data.Name.String())
 		}
 	}
 
-	return system, err
+	return data, system, err
 }
 
-func readProcessorFunction(ctx context.Context, client graphql.Client, name string, tenant string, data *processorFunctionModel) (bool, error) {
+func readProcessorFunction(ctx context.Context, client graphql.Client, name string, tenant string) (*processorFunctionModel, bool, error) {
 	var (
+		data     *processorFunctionModel
 		echoResp *api.ReadFunctionResponse
 		err      error
 		system   bool = false
@@ -283,6 +284,7 @@ func readProcessorFunction(ctx context.Context, client graphql.Client, name stri
 		if echoResp.GetFunction != nil {
 			switch function := (*echoResp.GetFunction).(type) {
 			case *api.ReadFunctionGetFunctionProcessorFunction:
+				data = &processorFunctionModel{}
 				data.ArgumentMessageType = types.String{Value: function.ArgumentMessageType.Name}
 				data.Code = types.String{Value: function.Code}
 				data.Description = types.String{Value: function.Description}
@@ -308,10 +310,8 @@ func readProcessorFunction(ctx context.Context, client graphql.Client, name stri
 			default:
 				err = fmt.Errorf("'%s' is incorrect Function type", data.Name.String())
 			}
-		} else {
-			err = fmt.Errorf("'%s' Function does not exist", data.Name.String())
 		}
 	}
 
-	return system, err
+	return data, system, err
 }

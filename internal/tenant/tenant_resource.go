@@ -145,7 +145,17 @@ func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) 
 		config = &data.Config.Value
 	}
 
-	if echoResp, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, config, description); err == nil {
+	if echoResp, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, config, description); err != nil {
+		diags.AddError(
+			"Unexpected error creating or updating Tenant",
+			fmt.Sprintf("This is always an error in the provider. Please report the following to the provider developer:\n\n"+err.Error()),
+		)
+	} else if echoResp == nil {
+		diags.AddError(
+			"Unexpected error creating or updating Tenant",
+			fmt.Sprintf("Unable to find Tenant '%s'", r.data.Tenant),
+		)
+	} else {
 		data.Active = types.Bool{Value: echoResp.GetTenant.Update.Active}
 		if echoResp.GetTenant.Update.Config != nil {
 			data.Config = common.Config{Value: *echoResp.GetTenant.Update.Config}
@@ -161,11 +171,6 @@ func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) 
 		data.Region = types.String{Value: echoResp.GetTenant.Update.Region}
 		data.Table = types.String{Value: echoResp.GetTenant.Update.Table}
 		diags.Append(readTenantAwsCredentials(ctx, r.data.Client, r.data.Tenant, data)...)
-	} else {
-		diags.AddError(
-			"Unexpected error creating or updating Tenant",
-			fmt.Sprintf("This is always an error in the provider. Please report the following to the provider developer:\n\n"+err.Error()),
-		)
 	}
 
 	return diags

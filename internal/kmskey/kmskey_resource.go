@@ -203,20 +203,22 @@ func (r *KmsKeyResource) Read(ctx context.Context, req resource.ReadRequest, res
 		return
 	}
 
-	echoResp, err := api.ReadKmsKey(ctx, r.data.Client, state.Name.Value, r.data.Tenant)
-	if err != nil {
+	if echoResp, err := api.ReadKmsKey(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading KmsKey", err.Error())
 		return
-	}
-
-	state.Arn = types.String{Value: echoResp.GetKmsKey.Name}
-	if echoResp.GetKmsKey.Description != nil {
-		state.Description = types.String{Value: *echoResp.GetKmsKey.Description}
+	} else if echoResp.GetKmsKey == nil {
+		resp.State.RemoveResource(ctx)
+		return
 	} else {
-		state.Description = types.String{Null: true}
+		state.Arn = types.String{Value: echoResp.GetKmsKey.Name}
+		if echoResp.GetKmsKey.Description != nil {
+			state.Description = types.String{Value: *echoResp.GetKmsKey.Description}
+		} else {
+			state.Description = types.String{Null: true}
+		}
+		state.InUse = types.Bool{Value: echoResp.GetKmsKey.InUse}
+		state.Name = types.String{Value: echoResp.GetKmsKey.Name}
 	}
-	state.InUse = types.Bool{Value: echoResp.GetKmsKey.InUse}
-	state.Name = types.String{Value: echoResp.GetKmsKey.Name}
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)

@@ -187,11 +187,17 @@ func (r *ApiAuthenticatorFunctionResource) Read(ctx context.Context, req resourc
 		return
 	}
 
-	if system, err := readApiAuthenicatorFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant, &state); err != nil {
+	if data, system, err := readApiAuthenicatorFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading ApiAuthenticatorFunction", err.Error())
 		return
 	} else if system {
 		resp.Diagnostics.AddError("Invalid ApiAuthenticatorFunction", "Cannot create resource for system ApiAuthenticatorFunction")
+		return
+	} else if data == nil {
+		resp.State.RemoveResource(ctx)
+		return
+	} else {
+		state = *data
 	}
 
 	// Save updated data into Terraform state

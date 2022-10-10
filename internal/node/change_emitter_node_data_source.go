@@ -66,12 +66,10 @@ func (d *ChangeEmitterNodeDataSource) Read(ctx context.Context, req datasource.R
 		return
 	}
 
-	echoResp, err := api.ReadNode(ctx, d.data.Client, "Change Emitter", d.data.Tenant)
-	if err != nil {
+	if echoResp, err := api.ReadNode(ctx, d.data.Client, "Change Emitter", d.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading ChangeEmitterNode", err.Error())
 		return
-	}
-	if echoResp.GetNode != nil {
+	} else if echoResp.GetNode != nil {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeChangeEmitterNode:
 			config.Name = types.String{Value: node.Name}

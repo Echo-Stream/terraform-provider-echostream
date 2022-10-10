@@ -194,11 +194,17 @@ func (r *MessageTypeResource) Read(ctx context.Context, req resource.ReadRequest
 		return
 	}
 
-	if system, err := readMessageType(ctx, r.data.Client, state.Name.Value, r.data.Tenant, &state); err != nil {
+	if data, system, err := readMessageType(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading MessageType", err.Error())
 		return
 	} else if system {
 		resp.Diagnostics.AddError("Invalid MessageType", "Cannot create resource for system MessageType")
+		return
+	} else if data == nil {
+		resp.State.RemoveResource(ctx)
+		return
+	} else {
+		state = *data
 	}
 
 	// Save updated data into Terraform state

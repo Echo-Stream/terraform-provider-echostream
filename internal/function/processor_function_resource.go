@@ -199,11 +199,17 @@ func (r *ProcessorFunctionResource) Read(ctx context.Context, req resource.ReadR
 		return
 	}
 
-	if system, err := readProcessorFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant, &state); err != nil {
+	if data, system, err := readProcessorFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading ProcessorFunction", err.Error())
 		return
 	} else if system {
 		resp.Diagnostics.AddError("Invalid ProcessorFunction", "Cannot create resource for system ProcessorFunction")
+		return
+	} else if data == nil {
+		resp.State.RemoveResource(ctx)
+		return
+	} else {
+		state = *data
 	}
 
 	// Save updated data into Terraform state
