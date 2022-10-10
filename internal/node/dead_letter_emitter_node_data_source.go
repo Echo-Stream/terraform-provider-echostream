@@ -87,7 +87,7 @@ func (d *DeadLetterEmitterNodeDataSource) Read(ctx context.Context, req datasour
 		}
 	} else {
 		resp.Diagnostics.AddWarning("Unable to find node", "'Dead Letter Emitter' node does not exist")
-		config = deadLetterEmitterNodeDataSourceModel{}
+		return
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)

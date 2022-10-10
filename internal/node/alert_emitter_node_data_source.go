@@ -87,7 +87,7 @@ func (d *AlertEmitterNodeDataSource) Read(ctx context.Context, req datasource.Re
 		}
 	} else {
 		resp.Diagnostics.AddWarning("Unable to find node", "'Alert Emitter' node does not exist")
-		config = alertEmitterNodeDataSourceModel{}
+		return
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)

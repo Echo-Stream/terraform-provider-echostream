@@ -87,7 +87,7 @@ func (d *ChangeEmitterNodeDataSource) Read(ctx context.Context, req datasource.R
 		}
 	} else {
 		resp.Diagnostics.AddWarning("Unable to find node", "'Change Emitter' node does not exist")
-		config = changeEmitterNodeDataSourceModel{}
+		return
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)

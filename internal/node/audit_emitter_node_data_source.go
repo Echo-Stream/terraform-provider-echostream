@@ -87,7 +87,7 @@ func (d *AuditEmitterNodeDataSource) Read(ctx context.Context, req datasource.Re
 		}
 	} else {
 		resp.Diagnostics.AddWarning("Unable to find node", "'Audit Emitter' node does not exist")
-		config = auditEmitterNodeDataSourceModel{}
+		return
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)

@@ -87,7 +87,7 @@ func (d *LogEmitterNodeDataSource) Read(ctx context.Context, req datasource.Read
 		}
 	} else {
 		resp.Diagnostics.AddWarning("Unable to find node", "'Log Emitter' node does not exist")
-		config = logEmitterNodeDataSourceModel{}
+		return
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)

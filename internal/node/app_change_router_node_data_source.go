@@ -69,7 +69,7 @@ func (d *AppChangeRouterNodeDataSource) Read(ctx context.Context, req datasource
 
 	echoResp, err := api.ReadNode(ctx, d.data.Client, "App Change Router", d.data.Tenant)
 	if err != nil {
-		resp.Diagnostics.AddError("Rrror reading AppChangeRouterNode", err.Error())
+		resp.Diagnostics.AddError("Error reading AppChangeRouterNode", err.Error())
 		return
 	}
 	if echoResp.GetNode != nil {
@@ -89,7 +89,7 @@ func (d *AppChangeRouterNodeDataSource) Read(ctx context.Context, req datasource
 		}
 	} else {
 		resp.Diagnostics.AddWarning("Unable to find node", "'App Change Router' node does not exist")
-		config = appChangeRouterNodeDataSourceModel{}
+		return
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)
