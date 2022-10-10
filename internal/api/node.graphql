@@ -194,6 +194,263 @@ fragment webhookNodeFields on WebhookNode {
     }
 }
 
+mutation CreateBitmapRouterNode(
+    $name: String!,
+    $receiveMessageType: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $inlineBitmapper: String,
+    $loggingLevel: LogLevel,
+    $managedBitmapper: String,
+    $requirements: [String!],
+    $routeTable: AWSJSON
+) {
+    CreateBitmapRouterNode(
+        name: $name,
+        receiveMessageType: $receiveMessageType,
+        tenant: $tenant,
+        config: $config,
+        description: $description,
+        inlineBitmapper: $inlineBitmapper,
+        loggingLevel: $loggingLevel,
+        managedBitmapper: $managedBitmapper,
+        requirements: $requirements,
+        routeTable: $routeTable
+    ) {
+        ...nodeFields
+        ...bitmapRouterNodeFields
+    }
+}
+
+mutation CreateCrossTenantSendingNode(
+    $app: String!,
+    $name: String!,
+    $receiveMessageType: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $inlineProcessor: String,
+    $loggingLevel: LogLevel,
+    $managedProcessor: String,
+    $requirements: [String!],
+    $sendMessageType: String,
+    $sequentialProcessing: Boolean
+) {
+    CreateCrossTenantSendingNode(
+        app: $app,
+        name: $name,
+        receiveMessageType: $receiveMessageType,
+        tenant: $tenant,
+        config: $config,
+        description: $description,
+        inlineProcessor: $inlineProcessor,
+        loggingLevel: $loggingLevel,
+        managedProcessor: $managedProcessor,
+        requirements: $requirements,
+        sendMessageType: $sendMessageType,
+        sequentialProcessing: $sequentialProcessing
+    ) {
+        ...nodeFields
+        ...crossTenantSendingNodeFields
+    }
+}
+
+mutation CreateExternalNode(
+    $app: String!,
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $receiveMessageType: String,
+    $sendMessageType: String,
+) {
+    CreateExternalNode(
+        app: $app,
+        name: $name,
+        tenant: $tenant,
+        config: $config,
+        description: $description,
+        receiveMessageType: $receiveMessageType,
+        sendMessageType: $sendMessageType,
+    ) {
+        ...nodeFields
+        ...externalNodeFields
+    }
+}
+
+mutation CreateFilesDotComWebhookNode(
+    $apiKey: String!,
+    $name: String!,
+    $tenant: String!,
+    $description: String
+) {
+    CreateFilesDotComWebhookNode(
+        apiKey: $apiKey,
+        name: $name,
+        tenant: $tenant,
+        description: $description
+    ) {
+        ...nodeFields
+        ...filesDotComWebhookNodeFields
+    }
+}
+
+mutation CreateLoadBalancerNode(
+    $name: String!,
+    $receiveMessageType: String!,
+    $tenant: String!,
+    $description: String
+) {
+    CreateLoadBalancerNode(
+        name: $name,
+        receiveMessageType: $receiveMessageType,
+        tenant: $tenant,
+        description: $description
+    ) {
+        ...nodeFields
+        ...loadBalancerNodeFields
+    }
+}
+
+mutation CreateManagedNode(
+    $app: String!,
+    $managedNodeType: String!,
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $loggingLevel: LogLevel,
+    $mounts: [MountInput!],
+    $ports: [PortInput!]
+) {
+    CreateManagedNode(
+        app: $app,
+        managedNodeType: $managedNodeType,
+        name: $name,
+        tenant: $tenant,
+        config: $config,
+        description: $description,
+        loggingLevel: $loggingLevel,
+        mounts: $mounts,
+        ports: $ports
+    ) {
+        ...nodeFields
+        ...managedNodeFields
+    }
+}
+
+mutation CreateProcessorNode(
+    $name: String!,
+    $receiveMessageType: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $inlineProcessor: String,
+    $loggingLevel: LogLevel,
+    $managedProcessor: String,
+    $requirements: [String!],
+    $sendMessageType: String,
+    $sequentialProcessing: Boolean
+) {
+    CreateProcessorNode(
+        name: $name,
+        receiveMessageType: $receiveMessageType,
+        tenant: $tenant,
+        config: $config,
+        description: $description,
+        inlineProcessor: $inlineProcessor,
+        loggingLevel: $loggingLevel,
+        managedProcessor: $managedProcessor,
+        requirements: $requirements,
+        sendMessageType: $sendMessageType,
+        sequentialProcessing: $sequentialProcessing
+    ) {
+        ...nodeFields
+        ...processorNodeFields
+    }
+}
+
+mutation CreateTimerNode(
+    $name: String!,
+    $scheduleExpression: String!,
+    $tenant: String!,
+    $description: String
+) {
+    CreateTimerNode(
+        name: $name,
+        scheduleExpression: $scheduleExpression,
+        tenant: $tenant,
+        description: $description
+    ) {
+        ...nodeFields
+        ...timerNodeFields
+    }
+}
+
+mutation CreateWebhookNode(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $inlineApiAuthenticator: String,
+    $loggingLevel: LogLevel,
+    $managedApiAuthenticator: String,
+    $requirements: [String!],
+    $sendMessageType: String,
+) {
+    CreateWebhookNode(
+        name: $name,
+        tenant: $tenant,
+        config: $config,
+        description: $description,
+        inlineApiAuthenticator: $inlineApiAuthenticator,
+        loggingLevel: $loggingLevel,
+        managedApiAuthenticator: $managedApiAuthenticator,
+        requirements: $requirements,
+        sendMessageType: $sendMessageType,
+    ) {
+        ...nodeFields
+        ...webhookNodeFields
+    }
+}
+
+query DeleteNode($name: String!, $tenant: String!) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on BitmapRouterNode {
+            Delete(drainEdges: true)
+        }
+        ... on CrossTenantReceivingNode {
+            Delete(drainEdges: true)
+        }
+        ... on CrossTenantSendingNode {
+            Delete(drainEdges: true)
+        }
+        ... on ExternalNode {
+            Delete(drainEdges: true)
+        }
+        ... on FilesDotComWebhookNode {
+            Delete(drainEdges: true)
+        }
+        ... on LoadBalancerNode {
+            Delete(drainEdges: true)
+        }
+        ... on ManagedNode {
+            Delete(drainEdges: true)
+        }
+        ... on ProcessorNode {
+            Delete(drainEdges: true)
+        }
+        ... on TimerNode {
+            Delete(drainEdges: true)
+        }
+        ... on WebhookNode {
+            Delete(drainEdges: true)
+        }
+    }
+}
+
+
 query ReadNode($name: String!, $tenant: String!) {
     GetNode(name: $name, tenant: $tenant) {
         ...nodeFields
@@ -247,6 +504,223 @@ query ReadNode($name: String!, $tenant: String!) {
         }
         ... on WebhookNode {
             ...webhookNodeFields
+        }
+    }
+}
+
+query UpdateBitmpaRouterNode(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $inlineBitmapper: String,
+    $loggingLevel: LogLevel,
+    $managedBitmapper: String,
+    $requirements: [String!],
+    $routeTable: AWSJSON
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ...on BitmapRouterNode {
+            Update(
+                config: $config,
+                description: $description,
+                inlineBitmapper: $inlineBitmapper,
+                loggingLevel: $loggingLevel,
+                managedBitmapper: $managedBitmapper,
+                requirements: $requirements,
+                routeTable: $routeTable
+            ) {
+                ...nodeFields
+                ...bitmapRouterNodeFields
+            }
+        }
+    }
+}
+
+
+query UpdateCrossTenantReceivingNode(
+    $name: String!,
+    $tenant: String!,
+    $description: String
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on CrossTenantReceivingNode {
+            Update(description: $description) {
+                ...nodeFields
+                ...crossTenantReceivingNodeFields
+            }
+        }
+    }
+}
+
+query UpdateCrossTenantSendingNode(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $inlineProcessor: String,
+    $loggingLevel: LogLevel,
+    $managedProcessor: String,
+    $requirements: [String!],
+    $sequentialProcessing: Boolean
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on CrossTenantSendingNode {
+            Update(
+                config: $config,
+                description: $description,
+                inlineProcessor: $inlineProcessor,
+                loggingLevel: $loggingLevel,
+                managedProcessor: $managedProcessor,
+                requirements: $requirements,
+                sequentialProcessing: $sequentialProcessing
+            ) {
+                ...nodeFields
+                ...crossTenantSendingNodeFields
+            }
+        }
+    }
+}
+
+query UpdateExternalNode(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on ExternalNode {
+            Update(config: $config, description: $description) {
+                ...nodeFields
+                ...externalNodeFields
+            }
+        }
+    }
+}
+
+query UpdateFilesDotComWebhookNode(
+    $name: String!,
+    $tenant: String!,
+    $apiKey: String,
+    $description: String
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on FilesDotComWebhookNode {
+            Update(apiKey: $apiKey, description: $description) {
+                ...nodeFields
+                ...filesDotComWebhookNodeFields
+            }
+        }
+    }
+}
+
+query UpdateLoadBalancerNode(
+    $name: String!,
+    $tenant: String!,
+    $description: String
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on LoadBalancerNode {
+            Update(description: $description) {
+                ...nodeFields
+                ...loadBalancerNodeFields
+            }
+        }
+    }
+}
+
+query UpdateManagedNode(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $loggingLevel: LogLevel,
+    $mounts: [MountInput!],
+    $ports: [PortInput!]
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on ManagedNode{
+            Update(
+                config: $config,
+                description: $description,
+                loggingLevel: $loggingLevel,
+                mounts: $mounts,
+                ports: $ports
+            ) {
+                ...nodeFields
+                ...managedNodeFields
+            }
+        }
+    }
+}
+
+query UpdateProcessorNode(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $inlineProcessor: String,
+    $loggingLevel: LogLevel,
+    $managedProcessor: String,
+    $requirements: [String!],
+    $sequentialProcessing: Boolean
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on ProcessorNode {
+            Update(
+                config: $config,
+                description: $description,
+                inlineProcessor: $inlineProcessor,
+                loggingLevel: $loggingLevel,
+                managedProcessor: $managedProcessor,
+                requirements: $requirements,
+                sequentialProcessing: $sequentialProcessing
+            ) {
+                ...nodeFields
+                ...processorNodeFields
+            }
+        }
+    }
+}
+
+query UpdateTimerNode(
+    $name: String!,
+    $tenant: String!,
+    $description: String
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on TimerNode {
+            Update(description: $description) {
+                ...nodeFields
+                ...timerNodeFields
+            }
+        }
+    }
+}
+
+query UpdateWebhookNode(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $description: String,
+    $inlineApiAuthenticator: String,
+    $loggingLevel: LogLevel,
+    $managedApiAuthenticator: String,
+    $requirements: [String!]
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on WebhookNode {
+            Update(
+                config: $config,
+                description: $description,
+                inlineApiAuthenticator: $inlineApiAuthenticator,
+                loggingLevel: $loggingLevel,
+                managedApiAuthenticator: $managedApiAuthenticator,
+                requirements: $requirements,
+            ) {
+                ...nodeFields
+                ...webhookNodeFields
+            }
         }
     }
 }
