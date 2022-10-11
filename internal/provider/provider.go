@@ -352,6 +352,7 @@ func (p *echoStreamProvider) Resources(ctx context.Context) []func() resource.Re
 		func() resource.Resource { return &app.CrossTenantSendingAppResource{} },
 		func() resource.Resource { return &app.ExternalAppResource{} },
 		func() resource.Resource { return &kmskey.KmsKeyResource{} },
+		func() resource.Resource { return &node.LoadBalancerNodeResource{} },
 		func() resource.Resource { return &app.ManagedAppResource{} },
 		func() resource.Resource { return &app.ManagedAppInstanceIsoResource{} },
 		func() resource.Resource { return &app.ManagedAppInstanceUserdataResource{} },
