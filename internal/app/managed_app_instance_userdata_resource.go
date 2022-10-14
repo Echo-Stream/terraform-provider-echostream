@@ -42,7 +42,7 @@ func (r *ManagedAppInstanceUserdataResource) Configure(ctx context.Context, req 
 }
 
 func (r *ManagedAppInstanceUserdataResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var plan *managedAppInstanceUserdataModel
+	var plan managedAppInstanceUserdataModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
@@ -112,7 +112,7 @@ func (r *ManagedAppInstanceUserdataResource) Read(ctx context.Context, req resou
 }
 
 func (r *ManagedAppInstanceUserdataResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var state *managedAppInstanceUserdataModel
+	var state managedAppInstanceUserdataModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)

@@ -3,6 +3,7 @@ package function
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
@@ -121,6 +122,8 @@ func (r *BitmapperFunctionResource) Delete(ctx context.Context, req resource.Del
 		resp.Diagnostics.AddError("Error deleting BitmapperFunction", err.Error())
 		return
 	}
+
+	time.Sleep(2 * time.Second)
 }
 
 func (r *BitmapperFunctionResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
@@ -207,7 +210,7 @@ func (r *BitmapperFunctionResource) Read(ctx context.Context, req resource.ReadR
 }
 
 func (r *BitmapperFunctionResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan *bitmapperFunctionModel
+	var plan bitmapperFunctionModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)

@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
@@ -92,6 +93,8 @@ func (r *CrossTenantSendingAppResource) Delete(ctx context.Context, req resource
 		resp.Diagnostics.AddError("Error deleting CrossTenantSendingApp", err.Error())
 		return
 	}
+
+	time.Sleep(2 * time.Second)
 }
 
 func (r *CrossTenantSendingAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
@@ -153,7 +156,7 @@ func (r *CrossTenantSendingAppResource) ModifyPlan(ctx context.Context, req reso
 }
 
 func (r *CrossTenantSendingAppResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var state *crossTenantSendingAppModel
+	var state crossTenantSendingAppModel
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
@@ -189,7 +192,7 @@ func (r *CrossTenantSendingAppResource) Read(ctx context.Context, req resource.R
 }
 
 func (r *CrossTenantSendingAppResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan *crossTenantSendingAppModel
+	var plan crossTenantSendingAppModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)

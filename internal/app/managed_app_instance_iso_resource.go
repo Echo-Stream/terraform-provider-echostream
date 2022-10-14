@@ -42,7 +42,7 @@ func (r *ManagedAppInstanceIsoResource) Configure(ctx context.Context, req resou
 }
 
 func (r *ManagedAppInstanceIsoResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var plan *managedAppInstanceIsoModel
+	var plan managedAppInstanceIsoModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
@@ -112,7 +112,7 @@ func (r *ManagedAppInstanceIsoResource) Read(ctx context.Context, req resource.R
 }
 
 func (r *ManagedAppInstanceIsoResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var state *managedAppInstanceIsoModel
+	var state managedAppInstanceIsoModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)

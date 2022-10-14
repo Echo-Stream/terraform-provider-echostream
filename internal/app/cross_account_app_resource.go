@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
@@ -44,7 +45,7 @@ func (r *CrossAccountAppResource) Configure(ctx context.Context, req resource.Co
 }
 
 func (r *CrossAccountAppResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var plan *crossAccountAppModel
+	var plan crossAccountAppModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
@@ -127,6 +128,8 @@ func (r *CrossAccountAppResource) Delete(ctx context.Context, req resource.Delet
 		resp.Diagnostics.AddError("Error deleting CrossAccountApp", err.Error())
 		return
 	}
+
+	time.Sleep(2 * time.Second)
 }
 
 func (r *CrossAccountAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
@@ -244,7 +247,7 @@ func (r *CrossAccountAppResource) Read(ctx context.Context, req resource.ReadReq
 }
 
 func (r *CrossAccountAppResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan *crossAccountAppModel
+	var plan crossAccountAppModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)

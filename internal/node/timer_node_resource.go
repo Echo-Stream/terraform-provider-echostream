@@ -67,27 +67,26 @@ func (r *TimerNodeResource) Create(ctx context.Context, req resource.CreateReque
 		description = &plan.Description.Value
 	}
 
-	echoResp, err := api.CreateTimerNode(
+	if echoResp, err := api.CreateTimerNode(
 		ctx,
 		r.data.Client,
 		plan.Name.Value,
 		plan.ScheduleExpression.Value,
 		r.data.Tenant,
 		description,
-	)
-	if err != nil {
+	); err != nil {
 		resp.Diagnostics.AddError("Error creating TimerNode", err.Error())
 		return
-	}
-
-	if echoResp.CreateTimerNode.Description != nil {
-		plan.Description = types.String{Value: *echoResp.CreateTimerNode.Description}
 	} else {
-		plan.Description = types.String{Null: true}
+		if echoResp.CreateTimerNode.Description != nil {
+			plan.Description = types.String{Value: *echoResp.CreateTimerNode.Description}
+		} else {
+			plan.Description = types.String{Null: true}
+		}
+		plan.Name = types.String{Value: echoResp.CreateTimerNode.Name}
+		plan.ScheduleExpression = types.String{Value: echoResp.CreateTimerNode.ScheduleExpression}
+		plan.SendMessageType = types.String{Value: echoResp.CreateTimerNode.SendMessageType.Name}
 	}
-	plan.Name = types.String{Value: echoResp.CreateTimerNode.Name}
-	plan.ScheduleExpression = types.String{Value: echoResp.CreateTimerNode.ScheduleExpression}
-	plan.SendMessageType = types.String{Value: echoResp.CreateTimerNode.SendMessageType.Name}
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
@@ -195,7 +194,7 @@ func (r *TimerNodeResource) Read(ctx context.Context, req resource.ReadRequest, 
 }
 
 func (r *TimerNodeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan *timerNodeModel
+	var plan timerNodeModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)

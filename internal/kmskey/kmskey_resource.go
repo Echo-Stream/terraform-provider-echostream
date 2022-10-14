@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"regexp"
+	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
@@ -102,6 +103,8 @@ func (r *KmsKeyResource) Delete(ctx context.Context, req resource.DeleteRequest,
 		resp.Diagnostics.AddError("Error deleting KmsKey", err.Error())
 		return
 	}
+
+	time.Sleep(2 * time.Second)
 }
 
 func (r *KmsKeyResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
@@ -225,7 +228,7 @@ func (r *KmsKeyResource) Read(ctx context.Context, req resource.ReadRequest, res
 }
 
 func (r *KmsKeyResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan *kmsKeyModel
+	var plan kmsKeyModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)

@@ -3,6 +3,7 @@ package function
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
@@ -131,6 +132,8 @@ func (r *ProcessorFunctionResource) Delete(ctx context.Context, req resource.Del
 		resp.Diagnostics.AddError("Error deleting ProcessorFunction", err.Error())
 		return
 	}
+
+	time.Sleep(2 * time.Second)
 }
 
 func (r *ProcessorFunctionResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
@@ -217,7 +220,7 @@ func (r *ProcessorFunctionResource) Read(ctx context.Context, req resource.ReadR
 }
 
 func (r *ProcessorFunctionResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan *processorFunctionModel
+	var plan processorFunctionModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)

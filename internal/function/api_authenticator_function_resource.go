@@ -3,6 +3,7 @@ package function
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
@@ -119,6 +120,8 @@ func (r *ApiAuthenticatorFunctionResource) Delete(ctx context.Context, req resou
 		resp.Diagnostics.AddError("Error deleting ApiAuthenticatorFunction", err.Error())
 		return
 	}
+
+	time.Sleep(2 * time.Second)
 }
 
 func (r *ApiAuthenticatorFunctionResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
@@ -205,7 +208,7 @@ func (r *ApiAuthenticatorFunctionResource) Read(ctx context.Context, req resourc
 }
 
 func (r *ApiAuthenticatorFunctionResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan *functionModel
+	var plan functionModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)

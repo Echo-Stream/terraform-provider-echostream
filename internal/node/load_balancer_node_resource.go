@@ -65,27 +65,26 @@ func (r *LoadBalancerNodeResource) Create(ctx context.Context, req resource.Crea
 		description = &plan.Description.Value
 	}
 
-	echoResp, err := api.CreateLoadBalancerNode(
+	if echoResp, err := api.CreateLoadBalancerNode(
 		ctx,
 		r.data.Client,
 		plan.Name.Value,
 		plan.ReceiveMessageType.Value,
 		r.data.Tenant,
 		description,
-	)
-	if err != nil {
+	); err != nil {
 		resp.Diagnostics.AddError("Error creating LoadBalancerNode", err.Error())
 		return
-	}
-
-	if echoResp.CreateLoadBalancerNode.Description != nil {
-		plan.Description = types.String{Value: *echoResp.CreateLoadBalancerNode.Description}
 	} else {
-		plan.Description = types.String{Null: true}
+		if echoResp.CreateLoadBalancerNode.Description != nil {
+			plan.Description = types.String{Value: *echoResp.CreateLoadBalancerNode.Description}
+		} else {
+			plan.Description = types.String{Null: true}
+		}
+		plan.Name = types.String{Value: echoResp.CreateLoadBalancerNode.Name}
+		plan.ReceiveMessageType = types.String{Value: echoResp.CreateLoadBalancerNode.ReceiveMessageType.Name}
+		plan.SendMessageType = types.String{Value: echoResp.CreateLoadBalancerNode.SendMessageType.Name}
 	}
-	plan.Name = types.String{Value: echoResp.CreateLoadBalancerNode.Name}
-	plan.ReceiveMessageType = types.String{Value: echoResp.CreateLoadBalancerNode.ReceiveMessageType.Name}
-	plan.SendMessageType = types.String{Value: echoResp.CreateLoadBalancerNode.SendMessageType.Name}
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
@@ -184,7 +183,7 @@ func (r *LoadBalancerNodeResource) Read(ctx context.Context, req resource.ReadRe
 }
 
 func (r *LoadBalancerNodeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan *loadBalancerNodeModel
+	var plan loadBalancerNodeModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)

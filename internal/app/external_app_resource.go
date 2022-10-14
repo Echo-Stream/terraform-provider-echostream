@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
@@ -44,7 +45,7 @@ func (r *ExternalAppResource) Configure(ctx context.Context, req resource.Config
 }
 
 func (r *ExternalAppResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var plan *externalAppModel
+	var plan externalAppModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
@@ -124,6 +125,8 @@ func (r *ExternalAppResource) Delete(ctx context.Context, req resource.DeleteReq
 		resp.Diagnostics.AddError("Error deleting ExternalApp", err.Error())
 		return
 	}
+
+	time.Sleep(2 * time.Second)
 }
 
 func (r *ExternalAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
@@ -239,7 +242,7 @@ func (r *ExternalAppResource) Read(ctx context.Context, req resource.ReadRequest
 }
 
 func (r *ExternalAppResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan *externalAppModel
+	var plan externalAppModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)

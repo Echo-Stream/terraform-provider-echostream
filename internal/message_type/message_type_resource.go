@@ -3,6 +3,7 @@ package message_type
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
@@ -126,6 +127,8 @@ func (r *MessageTypeResource) Delete(ctx context.Context, req resource.DeleteReq
 		resp.Diagnostics.AddError("Error deleting Message Type", err.Error())
 		return
 	}
+
+	time.Sleep(2 * time.Second)
 }
 
 func (r *MessageTypeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
@@ -212,7 +215,7 @@ func (r *MessageTypeResource) Read(ctx context.Context, req resource.ReadRequest
 }
 
 func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan *messageTypeModel
+	var plan messageTypeModel
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
