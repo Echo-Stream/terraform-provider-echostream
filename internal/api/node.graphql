@@ -508,6 +508,114 @@ query ReadNode($name: String!, $tenant: String!) {
     }
 }
 
+query ReadNodeMessageTypes($name: String!, $tenant: String!) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on AlertEmitterNode {
+            sendMessageType {
+                name
+            }
+        }
+        ... on AppChangeReceiverNode {
+            receiveMessageType {
+                name
+            }
+        }
+        ... on AppChangeRouterNode {
+            sendMessageType {
+                name
+            }
+            receiveMessageType {
+                name
+            }
+        }
+        ... on AuditEmitterNode {
+            sendMessageType {
+                name
+            }
+        }
+        ... on BitmapRouterNode {
+            sendMessageType {
+                name
+            }
+            receiveMessageType {
+                name
+            }
+        }
+        ... on ChangeEmitterNode {
+            sendMessageType {
+                name
+            }
+        }
+        ... on CrossTenantReceivingNode {
+            sendMessageType {
+                name
+            }
+        }
+        ... on CrossTenantSendingNode {
+            receiveMessageType {
+                name
+            }
+        }
+        ... on DeadLetterEmitterNode {
+            sendMessageType {
+                name
+            }
+        }
+        ... on ExternalNode {
+            sendMessageType {
+                name
+            }
+            receiveMessageType {
+                name
+            }
+        }
+        ... on FilesDotComWebhookNode {
+            sendMessageType {
+                name
+            }
+        }
+        ... on LoadBalancerNode {
+            sendMessageType {
+                name
+            }
+            receiveMessageType {
+                name
+            }
+        }
+        ... on LogEmitterNode {
+            sendMessageType {
+                name
+            }
+        }
+        ... on ManagedNode {
+            sendMessageType {
+                name
+            }
+            receiveMessageType {
+                name
+            }
+        }
+        ... on ProcessorNode {
+            sendMessageType {
+                name
+            }
+            receiveMessageType {
+                name
+            }
+        }
+        ... on TimerNode {
+            sendMessageType {
+                name
+            }
+        }
+        ... on WebhookNode {
+            sendMessageType {
+                name
+            }
+        }
+    }
+}
+
 query UpdateBitmpaRouterNode(
     $name: String!,
     $tenant: String!,

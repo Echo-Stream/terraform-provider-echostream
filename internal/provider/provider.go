@@ -11,6 +11,7 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/app"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
+	"github.com/Echo-Stream/terraform-provider-echostream/internal/edge"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/function"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/kmskey"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/message_type"
@@ -153,17 +154,17 @@ type echoStreamProvider struct {
 
 func (p *echoStreamProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
-		func() datasource.DataSource { return &node.AlertEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &function.ApiAuthenticatorFunctionDataSource{} },
+		func() datasource.DataSource { return &function.BitmapperFunctionDataSource{} },
+		func() datasource.DataSource { return &function.ProcessorFunctionDataSource{} },
+		func() datasource.DataSource { return &message_type.MessageTypeDataSource{} },
+		func() datasource.DataSource { return &node.AlertEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &node.AppChangeReceiverNodeDataSource{} },
 		func() datasource.DataSource { return &node.AppChangeRouterNodeDataSource{} },
 		func() datasource.DataSource { return &node.AuditEmitterNodeDataSource{} },
-		func() datasource.DataSource { return &function.BitmapperFunctionDataSource{} },
 		func() datasource.DataSource { return &node.ChangeEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &node.DeadLetterEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &node.LogEmitterNodeDataSource{} },
-		func() datasource.DataSource { return &message_type.MessageTypeDataSource{} },
-		func() datasource.DataSource { return &function.ProcessorFunctionDataSource{} },
 		func() datasource.DataSource { return &tenant.TenantDataSource{} },
 	}
 }
@@ -346,20 +347,21 @@ func (p *echoStreamProvider) Metadata(ctx context.Context, req provider.Metadata
 
 func (p *echoStreamProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		func() resource.Resource { return &function.ApiAuthenticatorFunctionResource{} },
 		func() resource.Resource { return &app.CrossAccountAppResource{} },
 		func() resource.Resource { return &app.CrossTenantReceivingAppResource{} },
 		func() resource.Resource { return &app.CrossTenantSendingAppResource{} },
 		func() resource.Resource { return &app.ExternalAppResource{} },
-		func() resource.Resource { return &kmskey.KmsKeyResource{} },
-		func() resource.Resource { return &node.LoadBalancerNodeResource{} },
 		func() resource.Resource { return &app.ManagedAppResource{} },
 		func() resource.Resource { return &app.ManagedAppInstanceIsoResource{} },
 		func() resource.Resource { return &app.ManagedAppInstanceUserdataResource{} },
-		func() resource.Resource { return &message_type.MessageTypeResource{} },
+		func() resource.Resource { return &edge.EdgeResource{} },
+		func() resource.Resource { return &function.ApiAuthenticatorFunctionResource{} },
 		func() resource.Resource { return &function.BitmapperFunctionResource{} },
 		func() resource.Resource { return &function.ProcessorFunctionResource{} },
-		func() resource.Resource { return &tenant.TenantResource{} },
+		func() resource.Resource { return &kmskey.KmsKeyResource{} },
+		func() resource.Resource { return &message_type.MessageTypeResource{} },
+		func() resource.Resource { return &node.LoadBalancerNodeResource{} },
 		func() resource.Resource { return &node.TimerNodeResource{} },
+		func() resource.Resource { return &tenant.TenantResource{} },
 	}
 }

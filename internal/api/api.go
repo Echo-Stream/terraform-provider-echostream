@@ -7952,6 +7952,841 @@ func (v *ReadNodeGetNodeWebhookNode) __premarshalJSON() (*__premarshalReadNodeGe
 	return &retval, nil
 }
 
+// ReadNodeMessageTypesGetNode includes the requested fields of the GraphQL interface Node.
+//
+// ReadNodeMessageTypesGetNode is implemented by the following types:
+// ReadNodeMessageTypesGetNodeAlertEmitterNode
+// ReadNodeMessageTypesGetNodeAppChangeReceiverNode
+// ReadNodeMessageTypesGetNodeAppChangeRouterNode
+// ReadNodeMessageTypesGetNodeAuditEmitterNode
+// ReadNodeMessageTypesGetNodeBitmapRouterNode
+// ReadNodeMessageTypesGetNodeChangeEmitterNode
+// ReadNodeMessageTypesGetNodeCrossTenantReceivingNode
+// ReadNodeMessageTypesGetNodeCrossTenantSendingNode
+// ReadNodeMessageTypesGetNodeDeadLetterEmitterNode
+// ReadNodeMessageTypesGetNodeExternalNode
+// ReadNodeMessageTypesGetNodeFilesDotComWebhookNode
+// ReadNodeMessageTypesGetNodeLoadBalancerNode
+// ReadNodeMessageTypesGetNodeLogEmitterNode
+// ReadNodeMessageTypesGetNodeManagedNode
+// ReadNodeMessageTypesGetNodeProcessorNode
+// ReadNodeMessageTypesGetNodeTimerNode
+// ReadNodeMessageTypesGetNodeWebhookNode
+type ReadNodeMessageTypesGetNode interface {
+	implementsGraphQLInterfaceReadNodeMessageTypesGetNode()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+}
+
+func (v *ReadNodeMessageTypesGetNodeAlertEmitterNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeAppChangeReceiverNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeAppChangeRouterNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeAuditEmitterNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeBitmapRouterNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeChangeEmitterNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeCrossTenantReceivingNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeCrossTenantSendingNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeDeadLetterEmitterNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeExternalNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeFilesDotComWebhookNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeLoadBalancerNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeLogEmitterNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeManagedNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeProcessorNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeTimerNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeWebhookNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+
+func __unmarshalReadNodeMessageTypesGetNode(b []byte, v *ReadNodeMessageTypesGetNode) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "AlertEmitterNode":
+		*v = new(ReadNodeMessageTypesGetNodeAlertEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "AppChangeReceiverNode":
+		*v = new(ReadNodeMessageTypesGetNodeAppChangeReceiverNode)
+		return json.Unmarshal(b, *v)
+	case "AppChangeRouterNode":
+		*v = new(ReadNodeMessageTypesGetNodeAppChangeRouterNode)
+		return json.Unmarshal(b, *v)
+	case "AuditEmitterNode":
+		*v = new(ReadNodeMessageTypesGetNodeAuditEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "BitmapRouterNode":
+		*v = new(ReadNodeMessageTypesGetNodeBitmapRouterNode)
+		return json.Unmarshal(b, *v)
+	case "ChangeEmitterNode":
+		*v = new(ReadNodeMessageTypesGetNodeChangeEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingNode":
+		*v = new(ReadNodeMessageTypesGetNodeCrossTenantReceivingNode)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingNode":
+		*v = new(ReadNodeMessageTypesGetNodeCrossTenantSendingNode)
+		return json.Unmarshal(b, *v)
+	case "DeadLetterEmitterNode":
+		*v = new(ReadNodeMessageTypesGetNodeDeadLetterEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "ExternalNode":
+		*v = new(ReadNodeMessageTypesGetNodeExternalNode)
+		return json.Unmarshal(b, *v)
+	case "FilesDotComWebhookNode":
+		*v = new(ReadNodeMessageTypesGetNodeFilesDotComWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "LoadBalancerNode":
+		*v = new(ReadNodeMessageTypesGetNodeLoadBalancerNode)
+		return json.Unmarshal(b, *v)
+	case "LogEmitterNode":
+		*v = new(ReadNodeMessageTypesGetNodeLogEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "ManagedNode":
+		*v = new(ReadNodeMessageTypesGetNodeManagedNode)
+		return json.Unmarshal(b, *v)
+	case "ProcessorNode":
+		*v = new(ReadNodeMessageTypesGetNodeProcessorNode)
+		return json.Unmarshal(b, *v)
+	case "TimerNode":
+		*v = new(ReadNodeMessageTypesGetNodeTimerNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(ReadNodeMessageTypesGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing Node.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for ReadNodeMessageTypesGetNode: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalReadNodeMessageTypesGetNode(v *ReadNodeMessageTypesGetNode) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *ReadNodeMessageTypesGetNodeAlertEmitterNode:
+		typename = "AlertEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeAlertEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeAppChangeReceiverNode:
+		typename = "AppChangeReceiverNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeAppChangeReceiverNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeAppChangeRouterNode:
+		typename = "AppChangeRouterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeAppChangeRouterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeAuditEmitterNode:
+		typename = "AuditEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeAuditEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeBitmapRouterNode:
+		typename = "BitmapRouterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeBitmapRouterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeChangeEmitterNode:
+		typename = "ChangeEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeChangeEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeCrossTenantReceivingNode:
+		typename = "CrossTenantReceivingNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeCrossTenantReceivingNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeCrossTenantSendingNode:
+		typename = "CrossTenantSendingNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeCrossTenantSendingNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeDeadLetterEmitterNode:
+		typename = "DeadLetterEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeDeadLetterEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeExternalNode:
+		typename = "ExternalNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeExternalNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeFilesDotComWebhookNode:
+		typename = "FilesDotComWebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeFilesDotComWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeLoadBalancerNode:
+		typename = "LoadBalancerNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeLoadBalancerNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeLogEmitterNode:
+		typename = "LogEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeLogEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeManagedNode:
+		typename = "ManagedNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeManagedNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeProcessorNode:
+		typename = "ProcessorNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeProcessorNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeTimerNode:
+		typename = "TimerNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeTimerNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for ReadNodeMessageTypesGetNode: "%T"`, v)
+	}
+}
+
+// ReadNodeMessageTypesGetNodeAlertEmitterNode includes the requested fields of the GraphQL type AlertEmitterNode.
+type ReadNodeMessageTypesGetNodeAlertEmitterNode struct {
+	Typename        *string                                                     `json:"__typename"`
+	SendMessageType *ReadNodeMessageTypesGetNodeAlertEmitterNodeSendMessageType `json:"sendMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeAlertEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAlertEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeAlertEmitterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAlertEmitterNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeAlertEmitterNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// ReadNodeMessageTypesGetNodeAlertEmitterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeAlertEmitterNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeAlertEmitterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAlertEmitterNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeAppChangeReceiverNode includes the requested fields of the GraphQL type AppChangeReceiverNode.
+type ReadNodeMessageTypesGetNodeAppChangeReceiverNode struct {
+	Typename           *string                                                             `json:"__typename"`
+	ReceiveMessageType *ReadNodeMessageTypesGetNodeAppChangeReceiverNodeReceiveMessageType `json:"receiveMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeAppChangeReceiverNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAppChangeReceiverNode) GetTypename() *string { return v.Typename }
+
+// GetReceiveMessageType returns ReadNodeMessageTypesGetNodeAppChangeReceiverNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAppChangeReceiverNode) GetReceiveMessageType() *ReadNodeMessageTypesGetNodeAppChangeReceiverNodeReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// ReadNodeMessageTypesGetNodeAppChangeReceiverNodeReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeAppChangeReceiverNodeReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeAppChangeReceiverNodeReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAppChangeReceiverNodeReceiveMessageType) GetName() string {
+	return v.Name
+}
+
+// ReadNodeMessageTypesGetNodeAppChangeRouterNode includes the requested fields of the GraphQL type AppChangeRouterNode.
+type ReadNodeMessageTypesGetNodeAppChangeRouterNode struct {
+	Typename           *string                                                           `json:"__typename"`
+	SendMessageType    *ReadNodeMessageTypesGetNodeAppChangeRouterNodeSendMessageType    `json:"sendMessageType"`
+	ReceiveMessageType *ReadNodeMessageTypesGetNodeAppChangeRouterNodeReceiveMessageType `json:"receiveMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeAppChangeRouterNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAppChangeRouterNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeAppChangeRouterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAppChangeRouterNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeAppChangeRouterNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// GetReceiveMessageType returns ReadNodeMessageTypesGetNodeAppChangeRouterNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAppChangeRouterNode) GetReceiveMessageType() *ReadNodeMessageTypesGetNodeAppChangeRouterNodeReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// ReadNodeMessageTypesGetNodeAppChangeRouterNodeReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeAppChangeRouterNodeReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeAppChangeRouterNodeReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAppChangeRouterNodeReceiveMessageType) GetName() string {
+	return v.Name
+}
+
+// ReadNodeMessageTypesGetNodeAppChangeRouterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeAppChangeRouterNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeAppChangeRouterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAppChangeRouterNodeSendMessageType) GetName() string {
+	return v.Name
+}
+
+// ReadNodeMessageTypesGetNodeAuditEmitterNode includes the requested fields of the GraphQL type AuditEmitterNode.
+type ReadNodeMessageTypesGetNodeAuditEmitterNode struct {
+	Typename        *string                                                     `json:"__typename"`
+	SendMessageType *ReadNodeMessageTypesGetNodeAuditEmitterNodeSendMessageType `json:"sendMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeAuditEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAuditEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeAuditEmitterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAuditEmitterNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeAuditEmitterNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// ReadNodeMessageTypesGetNodeAuditEmitterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeAuditEmitterNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeAuditEmitterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeAuditEmitterNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeBitmapRouterNode includes the requested fields of the GraphQL type BitmapRouterNode.
+type ReadNodeMessageTypesGetNodeBitmapRouterNode struct {
+	Typename           *string                                                        `json:"__typename"`
+	SendMessageType    *ReadNodeMessageTypesGetNodeBitmapRouterNodeSendMessageType    `json:"sendMessageType"`
+	ReceiveMessageType *ReadNodeMessageTypesGetNodeBitmapRouterNodeReceiveMessageType `json:"receiveMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeBitmapRouterNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeBitmapRouterNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeBitmapRouterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeBitmapRouterNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeBitmapRouterNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// GetReceiveMessageType returns ReadNodeMessageTypesGetNodeBitmapRouterNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeBitmapRouterNode) GetReceiveMessageType() *ReadNodeMessageTypesGetNodeBitmapRouterNodeReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// ReadNodeMessageTypesGetNodeBitmapRouterNodeReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeBitmapRouterNodeReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeBitmapRouterNodeReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeBitmapRouterNodeReceiveMessageType) GetName() string {
+	return v.Name
+}
+
+// ReadNodeMessageTypesGetNodeBitmapRouterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeBitmapRouterNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeBitmapRouterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeBitmapRouterNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeChangeEmitterNode includes the requested fields of the GraphQL type ChangeEmitterNode.
+type ReadNodeMessageTypesGetNodeChangeEmitterNode struct {
+	Typename        *string                                                      `json:"__typename"`
+	SendMessageType *ReadNodeMessageTypesGetNodeChangeEmitterNodeSendMessageType `json:"sendMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeChangeEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeChangeEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeChangeEmitterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeChangeEmitterNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeChangeEmitterNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// ReadNodeMessageTypesGetNodeChangeEmitterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeChangeEmitterNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeChangeEmitterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeChangeEmitterNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeCrossTenantReceivingNode includes the requested fields of the GraphQL type CrossTenantReceivingNode.
+type ReadNodeMessageTypesGetNodeCrossTenantReceivingNode struct {
+	Typename        *string                                                             `json:"__typename"`
+	SendMessageType *ReadNodeMessageTypesGetNodeCrossTenantReceivingNodeSendMessageType `json:"sendMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeCrossTenantReceivingNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeCrossTenantReceivingNode) GetTypename() *string {
+	return v.Typename
+}
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeCrossTenantReceivingNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeCrossTenantReceivingNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeCrossTenantReceivingNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// ReadNodeMessageTypesGetNodeCrossTenantReceivingNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeCrossTenantReceivingNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeCrossTenantReceivingNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeCrossTenantReceivingNodeSendMessageType) GetName() string {
+	return v.Name
+}
+
+// ReadNodeMessageTypesGetNodeCrossTenantSendingNode includes the requested fields of the GraphQL type CrossTenantSendingNode.
+type ReadNodeMessageTypesGetNodeCrossTenantSendingNode struct {
+	Typename           *string                                                              `json:"__typename"`
+	ReceiveMessageType *ReadNodeMessageTypesGetNodeCrossTenantSendingNodeReceiveMessageType `json:"receiveMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeCrossTenantSendingNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeCrossTenantSendingNode) GetTypename() *string { return v.Typename }
+
+// GetReceiveMessageType returns ReadNodeMessageTypesGetNodeCrossTenantSendingNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeCrossTenantSendingNode) GetReceiveMessageType() *ReadNodeMessageTypesGetNodeCrossTenantSendingNodeReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// ReadNodeMessageTypesGetNodeCrossTenantSendingNodeReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeCrossTenantSendingNodeReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeCrossTenantSendingNodeReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeCrossTenantSendingNodeReceiveMessageType) GetName() string {
+	return v.Name
+}
+
+// ReadNodeMessageTypesGetNodeDeadLetterEmitterNode includes the requested fields of the GraphQL type DeadLetterEmitterNode.
+type ReadNodeMessageTypesGetNodeDeadLetterEmitterNode struct {
+	Typename        *string                                                          `json:"__typename"`
+	SendMessageType *ReadNodeMessageTypesGetNodeDeadLetterEmitterNodeSendMessageType `json:"sendMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeDeadLetterEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeDeadLetterEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeDeadLetterEmitterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeDeadLetterEmitterNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeDeadLetterEmitterNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// ReadNodeMessageTypesGetNodeDeadLetterEmitterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeDeadLetterEmitterNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeDeadLetterEmitterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeDeadLetterEmitterNodeSendMessageType) GetName() string {
+	return v.Name
+}
+
+// ReadNodeMessageTypesGetNodeExternalNode includes the requested fields of the GraphQL type ExternalNode.
+type ReadNodeMessageTypesGetNodeExternalNode struct {
+	Typename           *string                                                    `json:"__typename"`
+	SendMessageType    *ReadNodeMessageTypesGetNodeExternalNodeSendMessageType    `json:"sendMessageType"`
+	ReceiveMessageType *ReadNodeMessageTypesGetNodeExternalNodeReceiveMessageType `json:"receiveMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeExternalNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeExternalNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeExternalNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeExternalNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeExternalNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// GetReceiveMessageType returns ReadNodeMessageTypesGetNodeExternalNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeExternalNode) GetReceiveMessageType() *ReadNodeMessageTypesGetNodeExternalNodeReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// ReadNodeMessageTypesGetNodeExternalNodeReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeExternalNodeReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeExternalNodeReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeExternalNodeReceiveMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeExternalNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeExternalNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeExternalNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeExternalNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeFilesDotComWebhookNode includes the requested fields of the GraphQL type FilesDotComWebhookNode.
+type ReadNodeMessageTypesGetNodeFilesDotComWebhookNode struct {
+	Typename        *string                                                           `json:"__typename"`
+	SendMessageType *ReadNodeMessageTypesGetNodeFilesDotComWebhookNodeSendMessageType `json:"sendMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeFilesDotComWebhookNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeFilesDotComWebhookNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeFilesDotComWebhookNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeFilesDotComWebhookNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeFilesDotComWebhookNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// ReadNodeMessageTypesGetNodeFilesDotComWebhookNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeFilesDotComWebhookNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeFilesDotComWebhookNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeFilesDotComWebhookNodeSendMessageType) GetName() string {
+	return v.Name
+}
+
+// ReadNodeMessageTypesGetNodeLoadBalancerNode includes the requested fields of the GraphQL type LoadBalancerNode.
+type ReadNodeMessageTypesGetNodeLoadBalancerNode struct {
+	Typename           *string                                                        `json:"__typename"`
+	SendMessageType    *ReadNodeMessageTypesGetNodeLoadBalancerNodeSendMessageType    `json:"sendMessageType"`
+	ReceiveMessageType *ReadNodeMessageTypesGetNodeLoadBalancerNodeReceiveMessageType `json:"receiveMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeLoadBalancerNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeLoadBalancerNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeLoadBalancerNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeLoadBalancerNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeLoadBalancerNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// GetReceiveMessageType returns ReadNodeMessageTypesGetNodeLoadBalancerNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeLoadBalancerNode) GetReceiveMessageType() *ReadNodeMessageTypesGetNodeLoadBalancerNodeReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// ReadNodeMessageTypesGetNodeLoadBalancerNodeReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeLoadBalancerNodeReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeLoadBalancerNodeReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeLoadBalancerNodeReceiveMessageType) GetName() string {
+	return v.Name
+}
+
+// ReadNodeMessageTypesGetNodeLoadBalancerNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeLoadBalancerNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeLoadBalancerNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeLoadBalancerNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeLogEmitterNode includes the requested fields of the GraphQL type LogEmitterNode.
+type ReadNodeMessageTypesGetNodeLogEmitterNode struct {
+	Typename        *string                                                   `json:"__typename"`
+	SendMessageType *ReadNodeMessageTypesGetNodeLogEmitterNodeSendMessageType `json:"sendMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeLogEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeLogEmitterNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeLogEmitterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeLogEmitterNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeLogEmitterNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// ReadNodeMessageTypesGetNodeLogEmitterNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeLogEmitterNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeLogEmitterNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeLogEmitterNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeManagedNode includes the requested fields of the GraphQL type ManagedNode.
+type ReadNodeMessageTypesGetNodeManagedNode struct {
+	Typename           *string                                                   `json:"__typename"`
+	SendMessageType    *ReadNodeMessageTypesGetNodeManagedNodeSendMessageType    `json:"sendMessageType"`
+	ReceiveMessageType *ReadNodeMessageTypesGetNodeManagedNodeReceiveMessageType `json:"receiveMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeManagedNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeManagedNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeManagedNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeManagedNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeManagedNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// GetReceiveMessageType returns ReadNodeMessageTypesGetNodeManagedNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeManagedNode) GetReceiveMessageType() *ReadNodeMessageTypesGetNodeManagedNodeReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// ReadNodeMessageTypesGetNodeManagedNodeReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeManagedNodeReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeManagedNodeReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeManagedNodeReceiveMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeManagedNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeManagedNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeManagedNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeManagedNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeProcessorNode includes the requested fields of the GraphQL type ProcessorNode.
+type ReadNodeMessageTypesGetNodeProcessorNode struct {
+	Typename           *string                                                     `json:"__typename"`
+	SendMessageType    *ReadNodeMessageTypesGetNodeProcessorNodeSendMessageType    `json:"sendMessageType"`
+	ReceiveMessageType *ReadNodeMessageTypesGetNodeProcessorNodeReceiveMessageType `json:"receiveMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeProcessorNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeProcessorNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeProcessorNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeProcessorNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeProcessorNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// GetReceiveMessageType returns ReadNodeMessageTypesGetNodeProcessorNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeProcessorNode) GetReceiveMessageType() *ReadNodeMessageTypesGetNodeProcessorNodeReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// ReadNodeMessageTypesGetNodeProcessorNodeReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeProcessorNodeReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeProcessorNodeReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeProcessorNodeReceiveMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeProcessorNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeProcessorNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeProcessorNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeProcessorNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeTimerNode includes the requested fields of the GraphQL type TimerNode.
+type ReadNodeMessageTypesGetNodeTimerNode struct {
+	Typename        *string                                              `json:"__typename"`
+	SendMessageType *ReadNodeMessageTypesGetNodeTimerNodeSendMessageType `json:"sendMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeTimerNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeTimerNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeTimerNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeTimerNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// ReadNodeMessageTypesGetNodeTimerNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeTimerNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeTimerNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeTimerNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
+type ReadNodeMessageTypesGetNodeWebhookNode struct {
+	Typename        *string                                                `json:"__typename"`
+	SendMessageType *ReadNodeMessageTypesGetNodeWebhookNodeSendMessageType `json:"sendMessageType"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeWebhookNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeWebhookNode) GetTypename() *string { return v.Typename }
+
+// GetSendMessageType returns ReadNodeMessageTypesGetNodeWebhookNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeWebhookNode) GetSendMessageType() *ReadNodeMessageTypesGetNodeWebhookNodeSendMessageType {
+	return v.SendMessageType
+}
+
+// ReadNodeMessageTypesGetNodeWebhookNodeSendMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeWebhookNodeSendMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeWebhookNodeSendMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeWebhookNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesResponse is returned by ReadNodeMessageTypes on success.
+type ReadNodeMessageTypesResponse struct {
+	GetNode *ReadNodeMessageTypesGetNode `json:"-"`
+}
+
+// GetGetNode returns ReadNodeMessageTypesResponse.GetNode, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesResponse) GetGetNode() *ReadNodeMessageTypesGetNode { return v.GetNode }
+
+func (v *ReadNodeMessageTypesResponse) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeMessageTypesResponse
+		GetNode json.RawMessage `json:"GetNode"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeMessageTypesResponse = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.GetNode
+		src := firstPass.GetNode
+		if len(src) != 0 && string(src) != "null" {
+			*dst = new(ReadNodeMessageTypesGetNode)
+			err = __unmarshalReadNodeMessageTypesGetNode(
+				src, *dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal ReadNodeMessageTypesResponse.GetNode: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalReadNodeMessageTypesResponse struct {
+	GetNode json.RawMessage `json:"GetNode"`
+}
+
+func (v *ReadNodeMessageTypesResponse) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeMessageTypesResponse) __premarshalJSON() (*__premarshalReadNodeMessageTypesResponse, error) {
+	var retval __premarshalReadNodeMessageTypesResponse
+
+	{
+
+		dst := &retval.GetNode
+		src := v.GetNode
+		if src != nil {
+			var err error
+			*dst, err = __marshalReadNodeMessageTypesGetNode(
+				src)
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Unable to marshal ReadNodeMessageTypesResponse.GetNode: %w", err)
+			}
+		}
+	}
+	return &retval, nil
+}
+
 // ReadNodeResponse is returned by ReadNode on success.
 type ReadNodeResponse struct {
 	GetNode *ReadNodeGetNode `json:"-"`
@@ -17348,6 +18183,18 @@ func (v *__ReadNodeInput) GetName() string { return v.Name }
 // GetTenant returns __ReadNodeInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__ReadNodeInput) GetTenant() string { return v.Tenant }
 
+// __ReadNodeMessageTypesInput is used internally by genqlient
+type __ReadNodeMessageTypesInput struct {
+	Name   string `json:"name"`
+	Tenant string `json:"tenant"`
+}
+
+// GetName returns __ReadNodeMessageTypesInput.Name, and is useful for accessing the field via an interface.
+func (v *__ReadNodeMessageTypesInput) GetName() string { return v.Name }
+
+// GetTenant returns __ReadNodeMessageTypesInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__ReadNodeMessageTypesInput) GetTenant() string { return v.Tenant }
+
 // __ReadTenantAwsCredentialsInput is used internally by genqlient
 type __ReadTenantAwsCredentialsInput struct {
 	Tenant   string `json:"tenant"`
@@ -23747,6 +24594,143 @@ fragment webhookNodeFields on WebhookNode {
 	var err error
 
 	var data ReadNodeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ReadNodeMessageTypes(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadNodeMessageTypesResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadNodeMessageTypes",
+		Query: `
+query ReadNodeMessageTypes ($name: String!, $tenant: String!) {
+	GetNode(name: $name, tenant: $tenant) {
+		__typename
+		... on AlertEmitterNode {
+			sendMessageType {
+				name
+			}
+		}
+		... on AppChangeReceiverNode {
+			receiveMessageType {
+				name
+			}
+		}
+		... on AppChangeRouterNode {
+			sendMessageType {
+				name
+			}
+			receiveMessageType {
+				name
+			}
+		}
+		... on AuditEmitterNode {
+			sendMessageType {
+				name
+			}
+		}
+		... on BitmapRouterNode {
+			sendMessageType {
+				name
+			}
+			receiveMessageType {
+				name
+			}
+		}
+		... on ChangeEmitterNode {
+			sendMessageType {
+				name
+			}
+		}
+		... on CrossTenantReceivingNode {
+			sendMessageType {
+				name
+			}
+		}
+		... on CrossTenantSendingNode {
+			receiveMessageType {
+				name
+			}
+		}
+		... on DeadLetterEmitterNode {
+			sendMessageType {
+				name
+			}
+		}
+		... on ExternalNode {
+			sendMessageType {
+				name
+			}
+			receiveMessageType {
+				name
+			}
+		}
+		... on FilesDotComWebhookNode {
+			sendMessageType {
+				name
+			}
+		}
+		... on LoadBalancerNode {
+			sendMessageType {
+				name
+			}
+			receiveMessageType {
+				name
+			}
+		}
+		... on LogEmitterNode {
+			sendMessageType {
+				name
+			}
+		}
+		... on ManagedNode {
+			sendMessageType {
+				name
+			}
+			receiveMessageType {
+				name
+			}
+		}
+		... on ProcessorNode {
+			sendMessageType {
+				name
+			}
+			receiveMessageType {
+				name
+			}
+		}
+		... on TimerNode {
+			sendMessageType {
+				name
+			}
+		}
+		... on WebhookNode {
+			sendMessageType {
+				name
+			}
+		}
+	}
+}
+`,
+		Variables: &__ReadNodeMessageTypesInput{
+			Name:   name,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data ReadNodeMessageTypesResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
