@@ -618,7 +618,7 @@ query ReadNodeMessageTypes($name: String!, $tenant: String!) {
     }
 }
 
-query UpdateBitmpaRouterNode(
+query UpdateBitmapRouterNode(
     $name: String!,
     $tenant: String!,
     $config: AWSJSON,

@@ -9029,68 +9029,68 @@ type ReadTenantResponse struct {
 // GetGetTenant returns ReadTenantResponse.GetTenant, and is useful for accessing the field via an interface.
 func (v *ReadTenantResponse) GetGetTenant() *ReadTenantGetTenant { return v.GetTenant }
 
-// UpdateBitmpaRouterNodeGetNode includes the requested fields of the GraphQL interface Node.
+// UpdateBitmapRouterNodeGetNode includes the requested fields of the GraphQL interface Node.
 //
-// UpdateBitmpaRouterNodeGetNode is implemented by the following types:
-// UpdateBitmpaRouterNodeGetNodeAlertEmitterNode
-// UpdateBitmpaRouterNodeGetNodeAppChangeReceiverNode
-// UpdateBitmpaRouterNodeGetNodeAppChangeRouterNode
-// UpdateBitmpaRouterNodeGetNodeAuditEmitterNode
-// UpdateBitmpaRouterNodeGetNodeBitmapRouterNode
-// UpdateBitmpaRouterNodeGetNodeChangeEmitterNode
-// UpdateBitmpaRouterNodeGetNodeCrossTenantReceivingNode
-// UpdateBitmpaRouterNodeGetNodeCrossTenantSendingNode
-// UpdateBitmpaRouterNodeGetNodeDeadLetterEmitterNode
-// UpdateBitmpaRouterNodeGetNodeExternalNode
-// UpdateBitmpaRouterNodeGetNodeFilesDotComWebhookNode
-// UpdateBitmpaRouterNodeGetNodeLoadBalancerNode
-// UpdateBitmpaRouterNodeGetNodeLogEmitterNode
-// UpdateBitmpaRouterNodeGetNodeManagedNode
-// UpdateBitmpaRouterNodeGetNodeProcessorNode
-// UpdateBitmpaRouterNodeGetNodeTimerNode
-// UpdateBitmpaRouterNodeGetNodeWebhookNode
-type UpdateBitmpaRouterNodeGetNode interface {
-	implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode()
+// UpdateBitmapRouterNodeGetNode is implemented by the following types:
+// UpdateBitmapRouterNodeGetNodeAlertEmitterNode
+// UpdateBitmapRouterNodeGetNodeAppChangeReceiverNode
+// UpdateBitmapRouterNodeGetNodeAppChangeRouterNode
+// UpdateBitmapRouterNodeGetNodeAuditEmitterNode
+// UpdateBitmapRouterNodeGetNodeBitmapRouterNode
+// UpdateBitmapRouterNodeGetNodeChangeEmitterNode
+// UpdateBitmapRouterNodeGetNodeCrossTenantReceivingNode
+// UpdateBitmapRouterNodeGetNodeCrossTenantSendingNode
+// UpdateBitmapRouterNodeGetNodeDeadLetterEmitterNode
+// UpdateBitmapRouterNodeGetNodeExternalNode
+// UpdateBitmapRouterNodeGetNodeFilesDotComWebhookNode
+// UpdateBitmapRouterNodeGetNodeLoadBalancerNode
+// UpdateBitmapRouterNodeGetNodeLogEmitterNode
+// UpdateBitmapRouterNodeGetNodeManagedNode
+// UpdateBitmapRouterNodeGetNodeProcessorNode
+// UpdateBitmapRouterNodeGetNodeTimerNode
+// UpdateBitmapRouterNodeGetNodeWebhookNode
+type UpdateBitmapRouterNodeGetNode interface {
+	implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
 	GetTypename() *string
 }
 
-func (v *UpdateBitmpaRouterNodeGetNodeAlertEmitterNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeAlertEmitterNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeAppChangeReceiverNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeAppChangeReceiverNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeAppChangeRouterNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeAppChangeRouterNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeAuditEmitterNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeAuditEmitterNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeChangeEmitterNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeChangeEmitterNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeCrossTenantReceivingNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeCrossTenantReceivingNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeCrossTenantSendingNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeCrossTenantSendingNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeDeadLetterEmitterNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeDeadLetterEmitterNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeExternalNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeExternalNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeFilesDotComWebhookNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeFilesDotComWebhookNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeLoadBalancerNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeLoadBalancerNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeLogEmitterNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeLogEmitterNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeManagedNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeManagedNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmpaRouterNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateBitmpaRouterNodeGetNode() {
+func (v *UpdateBitmapRouterNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
 
-func __unmarshalUpdateBitmpaRouterNodeGetNode(b []byte, v *UpdateBitmpaRouterNodeGetNode) error {
+func __unmarshalUpdateBitmapRouterNodeGetNode(b []byte, v *UpdateBitmapRouterNodeGetNode) error {
 	if string(b) == "null" {
 		return nil
 	}
@@ -9105,326 +9105,326 @@ func __unmarshalUpdateBitmpaRouterNodeGetNode(b []byte, v *UpdateBitmpaRouterNod
 
 	switch tn.TypeName {
 	case "AlertEmitterNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeAlertEmitterNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeAlertEmitterNode)
 		return json.Unmarshal(b, *v)
 	case "AppChangeReceiverNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeAppChangeReceiverNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeAppChangeReceiverNode)
 		return json.Unmarshal(b, *v)
 	case "AppChangeRouterNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeAppChangeRouterNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeAppChangeRouterNode)
 		return json.Unmarshal(b, *v)
 	case "AuditEmitterNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeAuditEmitterNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeAuditEmitterNode)
 		return json.Unmarshal(b, *v)
 	case "BitmapRouterNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeBitmapRouterNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeBitmapRouterNode)
 		return json.Unmarshal(b, *v)
 	case "ChangeEmitterNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeChangeEmitterNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeChangeEmitterNode)
 		return json.Unmarshal(b, *v)
 	case "CrossTenantReceivingNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeCrossTenantReceivingNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeCrossTenantReceivingNode)
 		return json.Unmarshal(b, *v)
 	case "CrossTenantSendingNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeCrossTenantSendingNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeCrossTenantSendingNode)
 		return json.Unmarshal(b, *v)
 	case "DeadLetterEmitterNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeDeadLetterEmitterNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeDeadLetterEmitterNode)
 		return json.Unmarshal(b, *v)
 	case "ExternalNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeExternalNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeExternalNode)
 		return json.Unmarshal(b, *v)
 	case "FilesDotComWebhookNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeFilesDotComWebhookNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeFilesDotComWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "LoadBalancerNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeLoadBalancerNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeLoadBalancerNode)
 		return json.Unmarshal(b, *v)
 	case "LogEmitterNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeLogEmitterNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeLogEmitterNode)
 		return json.Unmarshal(b, *v)
 	case "ManagedNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeManagedNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeManagedNode)
 		return json.Unmarshal(b, *v)
 	case "ProcessorNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeProcessorNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeProcessorNode)
 		return json.Unmarshal(b, *v)
 	case "TimerNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeTimerNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
-		*v = new(UpdateBitmpaRouterNodeGetNodeWebhookNode)
+		*v = new(UpdateBitmapRouterNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
 			"response was missing Node.__typename")
 	default:
 		return fmt.Errorf(
-			`unexpected concrete type for UpdateBitmpaRouterNodeGetNode: "%v"`, tn.TypeName)
+			`unexpected concrete type for UpdateBitmapRouterNodeGetNode: "%v"`, tn.TypeName)
 	}
 }
 
-func __marshalUpdateBitmpaRouterNodeGetNode(v *UpdateBitmpaRouterNodeGetNode) ([]byte, error) {
+func __marshalUpdateBitmapRouterNodeGetNode(v *UpdateBitmapRouterNodeGetNode) ([]byte, error) {
 
 	var typename string
 	switch v := (*v).(type) {
-	case *UpdateBitmpaRouterNodeGetNodeAlertEmitterNode:
+	case *UpdateBitmapRouterNodeGetNodeAlertEmitterNode:
 		typename = "AlertEmitterNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeAlertEmitterNode
+			*UpdateBitmapRouterNodeGetNodeAlertEmitterNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeAppChangeReceiverNode:
+	case *UpdateBitmapRouterNodeGetNodeAppChangeReceiverNode:
 		typename = "AppChangeReceiverNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeAppChangeReceiverNode
+			*UpdateBitmapRouterNodeGetNodeAppChangeReceiverNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeAppChangeRouterNode:
+	case *UpdateBitmapRouterNodeGetNodeAppChangeRouterNode:
 		typename = "AppChangeRouterNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeAppChangeRouterNode
+			*UpdateBitmapRouterNodeGetNodeAppChangeRouterNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeAuditEmitterNode:
+	case *UpdateBitmapRouterNodeGetNodeAuditEmitterNode:
 		typename = "AuditEmitterNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeAuditEmitterNode
+			*UpdateBitmapRouterNodeGetNodeAuditEmitterNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeBitmapRouterNode:
+	case *UpdateBitmapRouterNodeGetNodeBitmapRouterNode:
 		typename = "BitmapRouterNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeBitmapRouterNode
+			*UpdateBitmapRouterNodeGetNodeBitmapRouterNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeChangeEmitterNode:
+	case *UpdateBitmapRouterNodeGetNodeChangeEmitterNode:
 		typename = "ChangeEmitterNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeChangeEmitterNode
+			*UpdateBitmapRouterNodeGetNodeChangeEmitterNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeCrossTenantReceivingNode:
+	case *UpdateBitmapRouterNodeGetNodeCrossTenantReceivingNode:
 		typename = "CrossTenantReceivingNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeCrossTenantReceivingNode
+			*UpdateBitmapRouterNodeGetNodeCrossTenantReceivingNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeCrossTenantSendingNode:
+	case *UpdateBitmapRouterNodeGetNodeCrossTenantSendingNode:
 		typename = "CrossTenantSendingNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeCrossTenantSendingNode
+			*UpdateBitmapRouterNodeGetNodeCrossTenantSendingNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeDeadLetterEmitterNode:
+	case *UpdateBitmapRouterNodeGetNodeDeadLetterEmitterNode:
 		typename = "DeadLetterEmitterNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeDeadLetterEmitterNode
+			*UpdateBitmapRouterNodeGetNodeDeadLetterEmitterNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeExternalNode:
+	case *UpdateBitmapRouterNodeGetNodeExternalNode:
 		typename = "ExternalNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeExternalNode
+			*UpdateBitmapRouterNodeGetNodeExternalNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeFilesDotComWebhookNode:
+	case *UpdateBitmapRouterNodeGetNodeFilesDotComWebhookNode:
 		typename = "FilesDotComWebhookNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeFilesDotComWebhookNode
+			*UpdateBitmapRouterNodeGetNodeFilesDotComWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeLoadBalancerNode:
+	case *UpdateBitmapRouterNodeGetNodeLoadBalancerNode:
 		typename = "LoadBalancerNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeLoadBalancerNode
+			*UpdateBitmapRouterNodeGetNodeLoadBalancerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeLogEmitterNode:
+	case *UpdateBitmapRouterNodeGetNodeLogEmitterNode:
 		typename = "LogEmitterNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeLogEmitterNode
+			*UpdateBitmapRouterNodeGetNodeLogEmitterNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeManagedNode:
+	case *UpdateBitmapRouterNodeGetNodeManagedNode:
 		typename = "ManagedNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeManagedNode
+			*UpdateBitmapRouterNodeGetNodeManagedNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeProcessorNode:
+	case *UpdateBitmapRouterNodeGetNodeProcessorNode:
 		typename = "ProcessorNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeProcessorNode
+			*UpdateBitmapRouterNodeGetNodeProcessorNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeTimerNode:
+	case *UpdateBitmapRouterNodeGetNodeTimerNode:
 		typename = "TimerNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeTimerNode
+			*UpdateBitmapRouterNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmpaRouterNodeGetNodeWebhookNode:
+	case *UpdateBitmapRouterNodeGetNodeWebhookNode:
 		typename = "WebhookNode"
 
 		result := struct {
 			TypeName string `json:"__typename"`
-			*UpdateBitmpaRouterNodeGetNodeWebhookNode
+			*UpdateBitmapRouterNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
 		return []byte("null"), nil
 	default:
 		return nil, fmt.Errorf(
-			`unexpected concrete type for UpdateBitmpaRouterNodeGetNode: "%T"`, v)
+			`unexpected concrete type for UpdateBitmapRouterNodeGetNode: "%T"`, v)
 	}
 }
 
-// UpdateBitmpaRouterNodeGetNodeAlertEmitterNode includes the requested fields of the GraphQL type AlertEmitterNode.
-type UpdateBitmpaRouterNodeGetNodeAlertEmitterNode struct {
+// UpdateBitmapRouterNodeGetNodeAlertEmitterNode includes the requested fields of the GraphQL type AlertEmitterNode.
+type UpdateBitmapRouterNodeGetNodeAlertEmitterNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeAlertEmitterNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeAlertEmitterNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeAlertEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeAlertEmitterNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeAppChangeReceiverNode includes the requested fields of the GraphQL type AppChangeReceiverNode.
-type UpdateBitmpaRouterNodeGetNodeAppChangeReceiverNode struct {
+// UpdateBitmapRouterNodeGetNodeAppChangeReceiverNode includes the requested fields of the GraphQL type AppChangeReceiverNode.
+type UpdateBitmapRouterNodeGetNodeAppChangeReceiverNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeAppChangeReceiverNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeAppChangeReceiverNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeAppChangeReceiverNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeAppChangeReceiverNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeAppChangeRouterNode includes the requested fields of the GraphQL type AppChangeRouterNode.
-type UpdateBitmpaRouterNodeGetNodeAppChangeRouterNode struct {
+// UpdateBitmapRouterNodeGetNodeAppChangeRouterNode includes the requested fields of the GraphQL type AppChangeRouterNode.
+type UpdateBitmapRouterNodeGetNodeAppChangeRouterNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeAppChangeRouterNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeAppChangeRouterNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeAppChangeRouterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeAppChangeRouterNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeAuditEmitterNode includes the requested fields of the GraphQL type AuditEmitterNode.
-type UpdateBitmpaRouterNodeGetNodeAuditEmitterNode struct {
+// UpdateBitmapRouterNodeGetNodeAuditEmitterNode includes the requested fields of the GraphQL type AuditEmitterNode.
+type UpdateBitmapRouterNodeGetNodeAuditEmitterNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeAuditEmitterNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeAuditEmitterNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeAuditEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeAuditEmitterNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeBitmapRouterNode includes the requested fields of the GraphQL type BitmapRouterNode.
-type UpdateBitmpaRouterNodeGetNodeBitmapRouterNode struct {
+// UpdateBitmapRouterNodeGetNodeBitmapRouterNode includes the requested fields of the GraphQL type BitmapRouterNode.
+type UpdateBitmapRouterNodeGetNodeBitmapRouterNode struct {
 	Typename *string                                                             `json:"__typename"`
-	Update   UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode `json:"Update"`
+	Update   UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode `json:"Update"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeBitmapRouterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNode) GetTypename() *string { return v.Typename }
 
-// GetUpdate returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNode.Update, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNode) GetUpdate() UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode {
+// GetUpdate returns UpdateBitmapRouterNodeGetNodeBitmapRouterNode.Update, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNode) GetUpdate() UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode {
 	return v.Update
 }
 
-// UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode includes the requested fields of the GraphQL type BitmapRouterNode.
-type UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode struct {
+// UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode includes the requested fields of the GraphQL type BitmapRouterNode.
+type UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode struct {
 	nodeFieldsBitmapRouterNode `json:"-"`
 	bitmapRouterNodeFields     `json:"-"`
 }
 
-// GetDescription returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.Description, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetDescription() *string {
+// GetDescription returns UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.Description, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetDescription() *string {
 	return v.nodeFieldsBitmapRouterNode.Description
 }
 
-// GetName returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.Name, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetName() string {
+// GetName returns UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.Name, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetName() string {
 	return v.nodeFieldsBitmapRouterNode.Name
 }
 
-// GetConfig returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.Config, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetConfig() *string {
+// GetConfig returns UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.Config, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetConfig() *string {
 	return v.bitmapRouterNodeFields.Config
 }
 
-// GetInlineBitmapper returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.InlineBitmapper, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetInlineBitmapper() *string {
+// GetInlineBitmapper returns UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.InlineBitmapper, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetInlineBitmapper() *string {
 	return v.bitmapRouterNodeFields.InlineBitmapper
 }
 
-// GetLoggingLevel returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.LoggingLevel, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetLoggingLevel() *LogLevel {
+// GetLoggingLevel returns UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetLoggingLevel() *LogLevel {
 	return v.bitmapRouterNodeFields.LoggingLevel
 }
 
-// GetManagedBitmapper returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.ManagedBitmapper, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetManagedBitmapper() *bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction {
+// GetManagedBitmapper returns UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.ManagedBitmapper, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetManagedBitmapper() *bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction {
 	return v.bitmapRouterNodeFields.ManagedBitmapper
 }
 
-// GetReceiveMessageType returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.ReceiveMessageType, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetReceiveMessageType() *bitmapRouterNodeFieldsReceiveMessageType {
+// GetReceiveMessageType returns UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetReceiveMessageType() *bitmapRouterNodeFieldsReceiveMessageType {
 	return v.bitmapRouterNodeFields.ReceiveMessageType
 }
 
-// GetRequirements returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.Requirements, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetRequirements() []string {
+// GetRequirements returns UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.Requirements, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetRequirements() []string {
 	return v.bitmapRouterNodeFields.Requirements
 }
 
-// GetRouteTable returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.RouteTable, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetRouteTable() string {
+// GetRouteTable returns UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.RouteTable, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetRouteTable() string {
 	return v.bitmapRouterNodeFields.RouteTable
 }
 
-// GetSendMessageType returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.SendMessageType, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetSendMessageType() *bitmapRouterNodeFieldsSendMessageType {
+// GetSendMessageType returns UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.SendMessageType, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetSendMessageType() *bitmapRouterNodeFieldsSendMessageType {
 	return v.bitmapRouterNodeFields.SendMessageType
 }
 
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) UnmarshalJSON(b []byte) error {
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
 		return nil
 	}
 
 	var firstPass struct {
-		*UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode
+		*UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode
 		graphql.NoUnmarshalJSON
 	}
-	firstPass.UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode = v
+	firstPass.UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode = v
 
 	err := json.Unmarshal(b, &firstPass)
 	if err != nil {
@@ -9444,7 +9444,7 @@ func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) Un
 	return nil
 }
 
-type __premarshalUpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode struct {
+type __premarshalUpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
@@ -9466,7 +9466,7 @@ type __premarshalUpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouter
 	SendMessageType *bitmapRouterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
 
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) MarshalJSON() ([]byte, error) {
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) MarshalJSON() ([]byte, error) {
 	premarshaled, err := v.__premarshalJSON()
 	if err != nil {
 		return nil, err
@@ -9474,8 +9474,8 @@ func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) Ma
 	return json.Marshal(premarshaled)
 }
 
-func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) __premarshalJSON() (*__premarshalUpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode, error) {
-	var retval __premarshalUpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode
+func (v *UpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) __premarshalJSON() (*__premarshalUpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode, error) {
+	var retval __premarshalUpdateBitmapRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode
 
 	retval.Description = v.nodeFieldsBitmapRouterNode.Description
 	retval.Name = v.nodeFieldsBitmapRouterNode.Name
@@ -9490,130 +9490,130 @@ func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) __
 	return &retval, nil
 }
 
-// UpdateBitmpaRouterNodeGetNodeChangeEmitterNode includes the requested fields of the GraphQL type ChangeEmitterNode.
-type UpdateBitmpaRouterNodeGetNodeChangeEmitterNode struct {
+// UpdateBitmapRouterNodeGetNodeChangeEmitterNode includes the requested fields of the GraphQL type ChangeEmitterNode.
+type UpdateBitmapRouterNodeGetNodeChangeEmitterNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeChangeEmitterNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeChangeEmitterNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeChangeEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeChangeEmitterNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeCrossTenantReceivingNode includes the requested fields of the GraphQL type CrossTenantReceivingNode.
-type UpdateBitmpaRouterNodeGetNodeCrossTenantReceivingNode struct {
+// UpdateBitmapRouterNodeGetNodeCrossTenantReceivingNode includes the requested fields of the GraphQL type CrossTenantReceivingNode.
+type UpdateBitmapRouterNodeGetNodeCrossTenantReceivingNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeCrossTenantReceivingNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeCrossTenantReceivingNode) GetTypename() *string {
+// GetTypename returns UpdateBitmapRouterNodeGetNodeCrossTenantReceivingNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeCrossTenantReceivingNode) GetTypename() *string {
 	return v.Typename
 }
 
-// UpdateBitmpaRouterNodeGetNodeCrossTenantSendingNode includes the requested fields of the GraphQL type CrossTenantSendingNode.
-type UpdateBitmpaRouterNodeGetNodeCrossTenantSendingNode struct {
+// UpdateBitmapRouterNodeGetNodeCrossTenantSendingNode includes the requested fields of the GraphQL type CrossTenantSendingNode.
+type UpdateBitmapRouterNodeGetNodeCrossTenantSendingNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeCrossTenantSendingNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeCrossTenantSendingNode) GetTypename() *string {
+// GetTypename returns UpdateBitmapRouterNodeGetNodeCrossTenantSendingNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeCrossTenantSendingNode) GetTypename() *string {
 	return v.Typename
 }
 
-// UpdateBitmpaRouterNodeGetNodeDeadLetterEmitterNode includes the requested fields of the GraphQL type DeadLetterEmitterNode.
-type UpdateBitmpaRouterNodeGetNodeDeadLetterEmitterNode struct {
+// UpdateBitmapRouterNodeGetNodeDeadLetterEmitterNode includes the requested fields of the GraphQL type DeadLetterEmitterNode.
+type UpdateBitmapRouterNodeGetNodeDeadLetterEmitterNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeDeadLetterEmitterNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeDeadLetterEmitterNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeDeadLetterEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeDeadLetterEmitterNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeExternalNode includes the requested fields of the GraphQL type ExternalNode.
-type UpdateBitmpaRouterNodeGetNodeExternalNode struct {
+// UpdateBitmapRouterNodeGetNodeExternalNode includes the requested fields of the GraphQL type ExternalNode.
+type UpdateBitmapRouterNodeGetNodeExternalNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeExternalNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeExternalNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeExternalNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeExternalNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeFilesDotComWebhookNode includes the requested fields of the GraphQL type FilesDotComWebhookNode.
-type UpdateBitmpaRouterNodeGetNodeFilesDotComWebhookNode struct {
+// UpdateBitmapRouterNodeGetNodeFilesDotComWebhookNode includes the requested fields of the GraphQL type FilesDotComWebhookNode.
+type UpdateBitmapRouterNodeGetNodeFilesDotComWebhookNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeFilesDotComWebhookNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeFilesDotComWebhookNode) GetTypename() *string {
+// GetTypename returns UpdateBitmapRouterNodeGetNodeFilesDotComWebhookNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeFilesDotComWebhookNode) GetTypename() *string {
 	return v.Typename
 }
 
-// UpdateBitmpaRouterNodeGetNodeLoadBalancerNode includes the requested fields of the GraphQL type LoadBalancerNode.
-type UpdateBitmpaRouterNodeGetNodeLoadBalancerNode struct {
+// UpdateBitmapRouterNodeGetNodeLoadBalancerNode includes the requested fields of the GraphQL type LoadBalancerNode.
+type UpdateBitmapRouterNodeGetNodeLoadBalancerNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeLoadBalancerNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeLoadBalancerNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeLoadBalancerNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeLoadBalancerNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeLogEmitterNode includes the requested fields of the GraphQL type LogEmitterNode.
-type UpdateBitmpaRouterNodeGetNodeLogEmitterNode struct {
+// UpdateBitmapRouterNodeGetNodeLogEmitterNode includes the requested fields of the GraphQL type LogEmitterNode.
+type UpdateBitmapRouterNodeGetNodeLogEmitterNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeLogEmitterNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeLogEmitterNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeLogEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeLogEmitterNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeManagedNode includes the requested fields of the GraphQL type ManagedNode.
-type UpdateBitmpaRouterNodeGetNodeManagedNode struct {
+// UpdateBitmapRouterNodeGetNodeManagedNode includes the requested fields of the GraphQL type ManagedNode.
+type UpdateBitmapRouterNodeGetNodeManagedNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeManagedNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeManagedNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeManagedNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeManagedNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeProcessorNode includes the requested fields of the GraphQL type ProcessorNode.
-type UpdateBitmpaRouterNodeGetNodeProcessorNode struct {
+// UpdateBitmapRouterNodeGetNodeProcessorNode includes the requested fields of the GraphQL type ProcessorNode.
+type UpdateBitmapRouterNodeGetNodeProcessorNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeProcessorNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeProcessorNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeProcessorNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeProcessorNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeTimerNode includes the requested fields of the GraphQL type TimerNode.
-type UpdateBitmpaRouterNodeGetNodeTimerNode struct {
+// UpdateBitmapRouterNodeGetNodeTimerNode includes the requested fields of the GraphQL type TimerNode.
+type UpdateBitmapRouterNodeGetNodeTimerNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
-type UpdateBitmpaRouterNodeGetNodeWebhookNode struct {
+// UpdateBitmapRouterNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
+type UpdateBitmapRouterNodeGetNodeWebhookNode struct {
 	Typename *string `json:"__typename"`
 }
 
-// GetTypename returns UpdateBitmpaRouterNodeGetNodeWebhookNode.Typename, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeGetNodeWebhookNode) GetTypename() *string { return v.Typename }
+// GetTypename returns UpdateBitmapRouterNodeGetNodeWebhookNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeWebhookNode) GetTypename() *string { return v.Typename }
 
-// UpdateBitmpaRouterNodeResponse is returned by UpdateBitmpaRouterNode on success.
-type UpdateBitmpaRouterNodeResponse struct {
-	GetNode *UpdateBitmpaRouterNodeGetNode `json:"-"`
+// UpdateBitmapRouterNodeResponse is returned by UpdateBitmapRouterNode on success.
+type UpdateBitmapRouterNodeResponse struct {
+	GetNode *UpdateBitmapRouterNodeGetNode `json:"-"`
 }
 
-// GetGetNode returns UpdateBitmpaRouterNodeResponse.GetNode, and is useful for accessing the field via an interface.
-func (v *UpdateBitmpaRouterNodeResponse) GetGetNode() *UpdateBitmpaRouterNodeGetNode {
+// GetGetNode returns UpdateBitmapRouterNodeResponse.GetNode, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeResponse) GetGetNode() *UpdateBitmapRouterNodeGetNode {
 	return v.GetNode
 }
 
-func (v *UpdateBitmpaRouterNodeResponse) UnmarshalJSON(b []byte) error {
+func (v *UpdateBitmapRouterNodeResponse) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
 		return nil
 	}
 
 	var firstPass struct {
-		*UpdateBitmpaRouterNodeResponse
+		*UpdateBitmapRouterNodeResponse
 		GetNode json.RawMessage `json:"GetNode"`
 		graphql.NoUnmarshalJSON
 	}
-	firstPass.UpdateBitmpaRouterNodeResponse = v
+	firstPass.UpdateBitmapRouterNodeResponse = v
 
 	err := json.Unmarshal(b, &firstPass)
 	if err != nil {
@@ -9624,23 +9624,23 @@ func (v *UpdateBitmpaRouterNodeResponse) UnmarshalJSON(b []byte) error {
 		dst := &v.GetNode
 		src := firstPass.GetNode
 		if len(src) != 0 && string(src) != "null" {
-			*dst = new(UpdateBitmpaRouterNodeGetNode)
-			err = __unmarshalUpdateBitmpaRouterNodeGetNode(
+			*dst = new(UpdateBitmapRouterNodeGetNode)
+			err = __unmarshalUpdateBitmapRouterNodeGetNode(
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateBitmpaRouterNodeResponse.GetNode: %w", err)
+					"Unable to unmarshal UpdateBitmapRouterNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
 	return nil
 }
 
-type __premarshalUpdateBitmpaRouterNodeResponse struct {
+type __premarshalUpdateBitmapRouterNodeResponse struct {
 	GetNode json.RawMessage `json:"GetNode"`
 }
 
-func (v *UpdateBitmpaRouterNodeResponse) MarshalJSON() ([]byte, error) {
+func (v *UpdateBitmapRouterNodeResponse) MarshalJSON() ([]byte, error) {
 	premarshaled, err := v.__premarshalJSON()
 	if err != nil {
 		return nil, err
@@ -9648,8 +9648,8 @@ func (v *UpdateBitmpaRouterNodeResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(premarshaled)
 }
 
-func (v *UpdateBitmpaRouterNodeResponse) __premarshalJSON() (*__premarshalUpdateBitmpaRouterNodeResponse, error) {
-	var retval __premarshalUpdateBitmpaRouterNodeResponse
+func (v *UpdateBitmapRouterNodeResponse) __premarshalJSON() (*__premarshalUpdateBitmapRouterNodeResponse, error) {
+	var retval __premarshalUpdateBitmapRouterNodeResponse
 
 	{
 
@@ -9657,11 +9657,11 @@ func (v *UpdateBitmpaRouterNodeResponse) __premarshalJSON() (*__premarshalUpdate
 		src := v.GetNode
 		if src != nil {
 			var err error
-			*dst, err = __marshalUpdateBitmpaRouterNodeGetNode(
+			*dst, err = __marshalUpdateBitmapRouterNodeGetNode(
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateBitmpaRouterNodeResponse.GetNode: %w", err)
+					"Unable to marshal UpdateBitmapRouterNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -18261,8 +18261,8 @@ type __ReadTenantInput struct {
 // GetTenant returns __ReadTenantInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__ReadTenantInput) GetTenant() string { return v.Tenant }
 
-// __UpdateBitmpaRouterNodeInput is used internally by genqlient
-type __UpdateBitmpaRouterNodeInput struct {
+// __UpdateBitmapRouterNodeInput is used internally by genqlient
+type __UpdateBitmapRouterNodeInput struct {
 	Name             string    `json:"name"`
 	Tenant           string    `json:"tenant"`
 	Config           *string   `json:"config"`
@@ -18274,32 +18274,32 @@ type __UpdateBitmpaRouterNodeInput struct {
 	RouteTable       *string   `json:"routeTable"`
 }
 
-// GetName returns __UpdateBitmpaRouterNodeInput.Name, and is useful for accessing the field via an interface.
-func (v *__UpdateBitmpaRouterNodeInput) GetName() string { return v.Name }
+// GetName returns __UpdateBitmapRouterNodeInput.Name, and is useful for accessing the field via an interface.
+func (v *__UpdateBitmapRouterNodeInput) GetName() string { return v.Name }
 
-// GetTenant returns __UpdateBitmpaRouterNodeInput.Tenant, and is useful for accessing the field via an interface.
-func (v *__UpdateBitmpaRouterNodeInput) GetTenant() string { return v.Tenant }
+// GetTenant returns __UpdateBitmapRouterNodeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__UpdateBitmapRouterNodeInput) GetTenant() string { return v.Tenant }
 
-// GetConfig returns __UpdateBitmpaRouterNodeInput.Config, and is useful for accessing the field via an interface.
-func (v *__UpdateBitmpaRouterNodeInput) GetConfig() *string { return v.Config }
+// GetConfig returns __UpdateBitmapRouterNodeInput.Config, and is useful for accessing the field via an interface.
+func (v *__UpdateBitmapRouterNodeInput) GetConfig() *string { return v.Config }
 
-// GetDescription returns __UpdateBitmpaRouterNodeInput.Description, and is useful for accessing the field via an interface.
-func (v *__UpdateBitmpaRouterNodeInput) GetDescription() *string { return v.Description }
+// GetDescription returns __UpdateBitmapRouterNodeInput.Description, and is useful for accessing the field via an interface.
+func (v *__UpdateBitmapRouterNodeInput) GetDescription() *string { return v.Description }
 
-// GetInlineBitmapper returns __UpdateBitmpaRouterNodeInput.InlineBitmapper, and is useful for accessing the field via an interface.
-func (v *__UpdateBitmpaRouterNodeInput) GetInlineBitmapper() *string { return v.InlineBitmapper }
+// GetInlineBitmapper returns __UpdateBitmapRouterNodeInput.InlineBitmapper, and is useful for accessing the field via an interface.
+func (v *__UpdateBitmapRouterNodeInput) GetInlineBitmapper() *string { return v.InlineBitmapper }
 
-// GetLoggingLevel returns __UpdateBitmpaRouterNodeInput.LoggingLevel, and is useful for accessing the field via an interface.
-func (v *__UpdateBitmpaRouterNodeInput) GetLoggingLevel() *LogLevel { return v.LoggingLevel }
+// GetLoggingLevel returns __UpdateBitmapRouterNodeInput.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *__UpdateBitmapRouterNodeInput) GetLoggingLevel() *LogLevel { return v.LoggingLevel }
 
-// GetManagedBitmapper returns __UpdateBitmpaRouterNodeInput.ManagedBitmapper, and is useful for accessing the field via an interface.
-func (v *__UpdateBitmpaRouterNodeInput) GetManagedBitmapper() *string { return v.ManagedBitmapper }
+// GetManagedBitmapper returns __UpdateBitmapRouterNodeInput.ManagedBitmapper, and is useful for accessing the field via an interface.
+func (v *__UpdateBitmapRouterNodeInput) GetManagedBitmapper() *string { return v.ManagedBitmapper }
 
-// GetRequirements returns __UpdateBitmpaRouterNodeInput.Requirements, and is useful for accessing the field via an interface.
-func (v *__UpdateBitmpaRouterNodeInput) GetRequirements() []string { return v.Requirements }
+// GetRequirements returns __UpdateBitmapRouterNodeInput.Requirements, and is useful for accessing the field via an interface.
+func (v *__UpdateBitmapRouterNodeInput) GetRequirements() []string { return v.Requirements }
 
-// GetRouteTable returns __UpdateBitmpaRouterNodeInput.RouteTable, and is useful for accessing the field via an interface.
-func (v *__UpdateBitmpaRouterNodeInput) GetRouteTable() *string { return v.RouteTable }
+// GetRouteTable returns __UpdateBitmapRouterNodeInput.RouteTable, and is useful for accessing the field via an interface.
+func (v *__UpdateBitmapRouterNodeInput) GetRouteTable() *string { return v.RouteTable }
 
 // __UpdateCrossTenantAppInput is used internally by genqlient
 type __UpdateCrossTenantAppInput struct {
@@ -24879,7 +24879,7 @@ query ReadTenantAwsCredentials ($tenant: String!, $duration: Int) {
 	return &data, err
 }
 
-func UpdateBitmpaRouterNode(
+func UpdateBitmapRouterNode(
 	ctx context.Context,
 	client graphql.Client,
 	name string,
@@ -24891,11 +24891,11 @@ func UpdateBitmpaRouterNode(
 	managedBitmapper *string,
 	requirements []string,
 	routeTable *string,
-) (*UpdateBitmpaRouterNodeResponse, error) {
+) (*UpdateBitmapRouterNodeResponse, error) {
 	req := &graphql.Request{
-		OpName: "UpdateBitmpaRouterNode",
+		OpName: "UpdateBitmapRouterNode",
 		Query: `
-query UpdateBitmpaRouterNode ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $inlineBitmapper: String, $loggingLevel: LogLevel, $managedBitmapper: String, $requirements: [String!], $routeTable: AWSJSON) {
+query UpdateBitmapRouterNode ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $inlineBitmapper: String, $loggingLevel: LogLevel, $managedBitmapper: String, $requirements: [String!], $routeTable: AWSJSON) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
 		... on BitmapRouterNode {
@@ -24927,7 +24927,7 @@ fragment bitmapRouterNodeFields on BitmapRouterNode {
 	}
 }
 `,
-		Variables: &__UpdateBitmpaRouterNodeInput{
+		Variables: &__UpdateBitmapRouterNodeInput{
 			Name:             name,
 			Tenant:           tenant,
 			Config:           config,
@@ -24941,7 +24941,7 @@ fragment bitmapRouterNodeFields on BitmapRouterNode {
 	}
 	var err error
 
-	var data UpdateBitmpaRouterNodeResponse
+	var data UpdateBitmapRouterNodeResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
