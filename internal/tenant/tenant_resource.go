@@ -138,10 +138,10 @@ func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) 
 		diags       diag.Diagnostics
 	)
 
-	if !data.Description.IsNull() {
+	if !(data.Description.IsNull() || data.Description.IsUnknown()) {
 		description = &data.Description.Value
 	}
-	if !data.Config.IsNull() {
+	if !(data.Config.IsNull() || data.Config.IsUnknown()) {
 		config = &data.Config.Value
 	}
 

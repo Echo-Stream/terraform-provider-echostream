@@ -63,7 +63,7 @@ func (r *TimerNodeResource) Create(ctx context.Context, req resource.CreateReque
 	}
 
 	var description *string
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
 
@@ -204,7 +204,7 @@ func (r *TimerNodeResource) Update(ctx context.Context, req resource.UpdateReque
 	}
 
 	var description *string
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
 

@@ -59,10 +59,10 @@ func (r *MessageTypeResource) Create(ctx context.Context, req resource.CreateReq
 		requirements []string
 	)
 
-	if !plan.Readme.IsNull() {
+	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
 		readme = &plan.Readme.Value
 	}
-	if !plan.Requirements.IsNull() {
+	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
 		requirements = make([]string, len(plan.Requirements.Elems))
 		resp.Diagnostics.Append(plan.Requirements.ElementsAs(ctx, &requirements, false)...)
 		if resp.Diagnostics.HasError() {
@@ -233,22 +233,22 @@ func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateReq
 		requirements      []string
 		sampleMessage     *string
 	)
-	if !plan.Auditor.IsNull() {
+	if !(plan.Auditor.IsNull() || plan.Auditor.IsUnknown()) {
 		auditor = &plan.Auditor.Value
 	}
-	if !plan.BitmapperTemplate.IsNull() {
+	if !(plan.BitmapperTemplate.IsNull() || plan.BitmapperTemplate.IsUnknown()) {
 		bitmapperTemplate = &plan.BitmapperTemplate.Value
 	}
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
-	if !plan.ProcessorTemplate.IsNull() {
+	if !(plan.ProcessorTemplate.IsNull() || plan.ProcessorTemplate.IsUnknown()) {
 		processorTemplate = &plan.ProcessorTemplate.Value
 	}
-	if !plan.Readme.IsNull() {
+	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
 		readme = &plan.Readme.Value
 	}
-	if !plan.Requirements.IsNull() {
+	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
 		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
@@ -256,7 +256,7 @@ func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateReq
 			return
 		}
 	}
-	if !plan.SampleMessage.IsNull() {
+	if !(plan.SampleMessage.IsNull() || plan.SampleMessage.IsUnknown()) {
 		sampleMessage = &plan.SampleMessage.Value
 	}
 

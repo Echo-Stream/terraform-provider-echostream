@@ -59,10 +59,10 @@ func (r *ProcessorFunctionResource) Create(ctx context.Context, req resource.Cre
 		requirements        []string
 		return_message_type *string
 	)
-	if !plan.Readme.IsNull() {
+	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
 		readme = &plan.Readme.Value
 	}
-	if !plan.Requirements.IsNull() {
+	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
 		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
@@ -70,7 +70,7 @@ func (r *ProcessorFunctionResource) Create(ctx context.Context, req resource.Cre
 			return
 		}
 	}
-	if !plan.ReturnMessageType.IsNull() {
+	if !(plan.ReturnMessageType.IsNull() || plan.ReturnMessageType.IsUnknown()) {
 		return_message_type = &plan.ReturnMessageType.Value
 	}
 
@@ -235,16 +235,16 @@ func (r *ProcessorFunctionResource) Update(ctx context.Context, req resource.Upd
 		readme       *string
 		requirements []string
 	)
-	if !plan.Code.IsNull() {
+	if !(plan.Code.IsNull() || plan.Code.IsUnknown()) {
 		code = &plan.Code.Value
 	}
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
-	if !plan.Readme.IsNull() {
+	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
 		readme = &plan.Readme.Value
 	}
-	if !plan.Requirements.IsNull() {
+	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
 		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {

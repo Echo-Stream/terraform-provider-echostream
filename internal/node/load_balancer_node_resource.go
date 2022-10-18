@@ -61,7 +61,7 @@ func (r *LoadBalancerNodeResource) Create(ctx context.Context, req resource.Crea
 	}
 
 	var description *string
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
 
@@ -193,7 +193,7 @@ func (r *LoadBalancerNodeResource) Update(ctx context.Context, req resource.Upda
 	}
 
 	var description *string
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
 

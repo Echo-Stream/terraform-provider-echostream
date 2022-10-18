@@ -233,7 +233,7 @@ func (r *CrossTenantSendingAppResource) Update(ctx context.Context, req resource
 
 	var description *string
 
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
 

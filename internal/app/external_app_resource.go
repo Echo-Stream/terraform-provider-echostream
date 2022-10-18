@@ -71,13 +71,13 @@ func (r *ExternalAppResource) Create(ctx context.Context, req resource.CreateReq
 		tableAccess *bool
 	)
 
-	if !plan.Config.IsNull() {
+	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
 		config = &plan.Config.Value
 	}
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
-	if !plan.TableAccess.IsNull() {
+	if !(plan.TableAccess.IsNull() || plan.TableAccess.IsUnknown()) {
 		tableAccess = &plan.TableAccess.Value
 	}
 
@@ -280,13 +280,13 @@ func (r *ExternalAppResource) Update(ctx context.Context, req resource.UpdateReq
 		tableAccess *bool
 	)
 
-	if !plan.Config.IsNull() {
+	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
 		config = &plan.Config.Value
 	}
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
-	if !plan.TableAccess.IsNull() {
+	if !(plan.TableAccess.IsNull() || plan.TableAccess.IsUnknown()) {
 		tableAccess = &plan.TableAccess.Value
 	}
 

@@ -60,7 +60,7 @@ func (r *KmsKeyResource) Create(ctx context.Context, req resource.CreateRequest,
 
 	var description *string
 
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
 
@@ -238,7 +238,7 @@ func (r *KmsKeyResource) Update(ctx context.Context, req resource.UpdateRequest,
 	}
 
 	var description *string
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
 

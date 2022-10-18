@@ -58,10 +58,10 @@ func (r *ApiAuthenticatorFunctionResource) Create(ctx context.Context, req resou
 		readme       *string
 		requirements []string
 	)
-	if !plan.Readme.IsNull() {
+	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
 		readme = &plan.Readme.Value
 	}
-	if !plan.Requirements.IsNull() {
+	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
 		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
@@ -223,16 +223,16 @@ func (r *ApiAuthenticatorFunctionResource) Update(ctx context.Context, req resou
 		readme       *string
 		requirements []string
 	)
-	if !plan.Code.IsNull() {
+	if !(plan.Code.IsNull() || plan.Code.IsUnknown()) {
 		code = &plan.Code.Value
 	}
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
-	if !plan.Readme.IsNull() {
+	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
 		readme = &plan.Readme.Value
 	}
-	if !plan.Requirements.IsNull() {
+	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
 		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {

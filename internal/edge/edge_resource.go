@@ -71,13 +71,13 @@ func (r *EdgeResource) Create(ctx context.Context, req resource.CreateRequest, r
 		kmsKey          *string
 		maxReceiveCount *int
 	)
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
-	if !plan.KmsKey.IsNull() {
+	if !(plan.KmsKey.IsNull() || plan.KmsKey.IsUnknown()) {
 		kmsKey = &plan.KmsKey.Value
 	}
-	if !plan.MaxReceiveCount.IsNull() {
+	if !(plan.MaxReceiveCount.IsNull() || plan.MaxReceiveCount.IsUnknown()) {
 		mrc := int(plan.MaxReceiveCount.Value)
 		maxReceiveCount = &mrc
 	}
@@ -335,7 +335,7 @@ func (r *EdgeResource) Update(ctx context.Context, req resource.UpdateRequest, r
 		return
 	}
 
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
 

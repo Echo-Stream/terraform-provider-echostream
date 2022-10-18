@@ -58,10 +58,10 @@ func (r *BitmapperFunctionResource) Create(ctx context.Context, req resource.Cre
 		readme       *string
 		requirements []string
 	)
-	if !plan.Readme.IsNull() {
+	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
 		readme = &plan.Readme.Value
 	}
-	if !plan.Requirements.IsNull() {
+	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
 		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
@@ -225,16 +225,16 @@ func (r *BitmapperFunctionResource) Update(ctx context.Context, req resource.Upd
 		readme       *string
 		requirements []string
 	)
-	if !plan.Code.IsNull() {
+	if !(plan.Code.IsNull() || plan.Code.IsUnknown()) {
 		code = &plan.Code.Value
 	}
-	if !plan.Description.IsNull() {
+	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		description = &plan.Description.Value
 	}
-	if !plan.Readme.IsNull() {
+	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
 		readme = &plan.Readme.Value
 	}
-	if !plan.Requirements.IsNull() {
+	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
 		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {

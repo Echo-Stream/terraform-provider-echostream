@@ -138,7 +138,7 @@ func readTenantAwsCredentials(ctx context.Context, client graphql.Client, tenant
 		err      error
 	)
 
-	if !data.AwsCredentialsDuration.IsNull() {
+	if !(data.AwsCredentialsDuration.IsNull() || data.AwsCredentialsDuration.IsUnknown()) {
 		duration := int(data.AwsCredentialsDuration.Value)
 		if echoResp, err = api.ReadTenantAwsCredentials(ctx, client, tenant, &duration); err == nil {
 			data.AwsCredentials = types.Object{
