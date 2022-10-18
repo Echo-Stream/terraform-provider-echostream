@@ -19,7 +19,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"golang.org/x/exp/maps"
 )
 
@@ -149,7 +148,6 @@ func (r *BitmapRouterNodeResource) Create(ctx context.Context, req resource.Crea
 		resp.Diagnostics.AddError("Error creating BitmapRouterNode", err.Error())
 		return
 	} else {
-		tflog.Info(ctx, fmt.Sprintf("RESULT: %s", *echoResp.CreateBitmapRouterNode.InlineBitmapper))
 		if echoResp.CreateBitmapRouterNode.Config != nil {
 			plan.Config = common.Config{Value: *echoResp.CreateBitmapRouterNode.Config}
 		} else {
@@ -235,13 +233,13 @@ func (r *BitmapRouterNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema,
 			attribute.Optional = true
 		case "name":
 			attribute.Computed = false
-			attribute.Required = true
 			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
+			attribute.Required = true
 			attribute.Validators = common.NameValidators
 		case "receive_message_type":
 			attribute.Computed = false
-			attribute.Required = true
 			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
+			attribute.Required = true
 		}
 		schema[key] = attribute
 	}
