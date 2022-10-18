@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
@@ -23,6 +24,16 @@ var (
 // ExternalAppResource defines the resource implementation.
 type ExternalAppResource struct {
 	data *common.ProviderData
+}
+
+type externalAppModel struct {
+	AppsyncEndpoint      types.String  `tfsdk:"appsync_endpoint"`
+	AuditRecordsEndpoint types.String  `tfsdk:"audit_records_endpoint"`
+	Config               common.Config `tfsdk:"config"`
+	Credentials          types.Object  `tfsdk:"credentials"`
+	Description          types.String  `tfsdk:"description"`
+	Name                 types.String  `tfsdk:"name"`
+	TableAccess          types.Bool    `tfsdk:"table_access"`
 }
 
 func (r *ExternalAppResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
@@ -130,8 +141,20 @@ func (r *ExternalAppResource) Delete(ctx context.Context, req resource.DeleteReq
 }
 
 func (r *ExternalAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
+	schema := remoteAppSchema()
+	maps.Copy(
+		schema,
+		map[string]tfsdk.Attribute{
+			"appsync_endpoint": {
+				Computed:            true,
+				Description:         "",
+				MarkdownDescription: "",
+				Type:                types.StringType,
+			},
+		},
+	)
 	return tfsdk.Schema{
-		Attributes:          externalAppSchema(),
+		Attributes:          schema,
 		Description:         "ExternalApps provide a way to process messages in their Nodes using any compute resource",
 		MarkdownDescription: "ExternalApps provide a way to process messages in their Nodes using any compute resource",
 	}, nil

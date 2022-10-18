@@ -3,10 +3,12 @@ package app
 import (
 	"context"
 	"fmt"
+	"regexp"
 	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -23,6 +25,15 @@ var (
 // ManagedAppResource defines the resource implementation.
 type ManagedAppResource struct {
 	data *common.ProviderData
+}
+
+type managedAppModel struct {
+	AuditRecordsEndpoint types.String  `tfsdk:"audit_records_endpoint"`
+	Config               common.Config `tfsdk:"config"`
+	Credentials          types.Object  `tfsdk:"credentials"`
+	Description          types.String  `tfsdk:"description"`
+	Name                 types.String  `tfsdk:"name"`
+	TableAccess          types.Bool    `tfsdk:"table_access"`
 }
 
 func (r *ManagedAppResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
@@ -129,8 +140,17 @@ func (r *ManagedAppResource) Delete(ctx context.Context, req resource.DeleteRequ
 }
 
 func (r *ManagedAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
+	schema := remoteAppSchema()
+	name := schema["name"]
+	name.Validators = []tfsdk.AttributeValidator{
+		stringvalidator.LengthBetween(3, 80),
+		stringvalidator.RegexMatches(
+			regexp.MustCompile(`^[A-Za-z0-9\-\_]*$`),
+			"value must contain only lowercase/uppercase alphanumeric characters, \"-\", \"_\"",
+		),
+	}
 	return tfsdk.Schema{
-		Attributes:          managedAppSchema(),
+		Attributes:          schema,
 		Description:         "ManagedApps provide fully managed (by EchoStream) processing resources in a remote virtual compute environment",
 		MarkdownDescription: "ManagedApps provide fully managed (by EchoStream) processing resources in a remote virtual compute environment",
 	}, nil

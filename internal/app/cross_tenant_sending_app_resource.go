@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
@@ -23,6 +24,13 @@ var (
 // CrossTenantSendingAppResource defines the resource implementation.
 type CrossTenantSendingAppResource struct {
 	data *common.ProviderData
+}
+
+type crossTenantSendingAppModel struct {
+	Description     types.String `tfsdk:"description"`
+	Name            types.String `tfsdk:"name"`
+	ReceivingApp    types.String `tfsdk:"receiving_app"`
+	ReceivingTenant types.String `tfsdk:"receiving_tenant"`
 }
 
 func (r *CrossTenantSendingAppResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
@@ -80,7 +88,7 @@ func (r *CrossTenantSendingAppResource) Create(ctx context.Context, req resource
 }
 
 func (r *CrossTenantSendingAppResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-	var state crossTenantReceivingAppModel
+	var state crossTenantSendingAppModel
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
@@ -98,8 +106,30 @@ func (r *CrossTenantSendingAppResource) Delete(ctx context.Context, req resource
 }
 
 func (r *CrossTenantSendingAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
+	schema := appSchema()
+	maps.Copy(
+		schema,
+		map[string]tfsdk.Attribute{
+			"receiving_app": {
+				Description:         "",
+				MarkdownDescription: "",
+				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+				Required:            true,
+				Type:                types.StringType,
+			},
+			"receiving_tenant": {
+				Description:         "",
+				MarkdownDescription: "",
+				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+				Required:            true,
+				Type:                types.StringType,
+			},
+		},
+	)
+	description := schema["description"]
+	description.Computed = true
 	return tfsdk.Schema{
-		Attributes:          crossTenantSendingSchema(),
+		Attributes:          schema,
 		Description:         "CrossTenantSendingApps provide a way to send messages to other EchoStream Tenants",
 		MarkdownDescription: "CrossTenantSendingApps provide a way to send messages to other EchoStream Tenants",
 	}, nil

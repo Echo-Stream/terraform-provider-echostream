@@ -58,14 +58,14 @@ func (r *MessageTypeResource) Create(ctx context.Context, req resource.CreateReq
 		readme       *string
 		requirements []string
 	)
+
 	if !plan.Readme.IsNull() {
 		readme = &plan.Readme.Value
 	}
 	if !plan.Requirements.IsNull() {
 		requirements = make([]string, len(plan.Requirements.Elems))
-		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
-		if diags.HasError() {
-			resp.Diagnostics.Append(diags...)
+		resp.Diagnostics.Append(plan.Requirements.ElementsAs(ctx, &requirements, false)...)
+		if resp.Diagnostics.HasError() {
 			return
 		}
 	}

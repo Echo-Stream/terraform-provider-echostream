@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
@@ -20,6 +21,12 @@ var (
 // ManagedAppResource defines the resource implementation.
 type ManagedAppInstanceUserdataResource struct {
 	data *common.ProviderData
+}
+
+type managedAppInstanceUserdataModel struct {
+	App      types.String `tfsdk:"app"`
+	Name     types.String `tfsdk:"name"`
+	Userdata types.String `tfsdk:"userdata"`
 }
 
 func (r *ManagedAppInstanceUserdataResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
@@ -86,8 +93,20 @@ func (r *ManagedAppInstanceUserdataResource) Delete(ctx context.Context, req res
 }
 
 func (r *ManagedAppInstanceUserdataResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
+	schema := managedAppInstanceSchema()
+	maps.Copy(
+		schema,
+		map[string]tfsdk.Attribute{
+			"userdata": {
+				Computed:            true,
+				Description:         "",
+				MarkdownDescription: "",
+				Type:                types.StringType,
+			},
+		},
+	)
 	return tfsdk.Schema{
-		Attributes:          managedAppInstanceUserdataSchema(),
+		Attributes:          schema,
 		Description:         "ManagedAppInstanceUserdatas may be used to create ManagedApp commpute resources in AWS EC2",
 		MarkdownDescription: "ManagedAppInstanceUserdatas may be used to create ManagedApp commpute resources in AWS EC2",
 	}, nil

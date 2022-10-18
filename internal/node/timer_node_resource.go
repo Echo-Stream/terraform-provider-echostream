@@ -26,6 +26,13 @@ type TimerNodeResource struct {
 	data *common.ProviderData
 }
 
+type timerNodeModel struct {
+	Description        types.String `tfsdk:"description"`
+	Name               types.String `tfsdk:"name"`
+	ScheduleExpression types.String `tfsdk:"schedule_expression"`
+	SendMessageType    types.String `tfsdk:"send_message_type"`
+}
+
 func (r *TimerNodeResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {
@@ -43,13 +50,6 @@ func (r *TimerNodeResource) Configure(ctx context.Context, req resource.Configur
 	}
 
 	r.data = data
-}
-
-type timerNodeModel struct {
-	Description        types.String `tfsdk:"description"`
-	Name               types.String `tfsdk:"name"`
-	ScheduleExpression types.String `tfsdk:"schedule_expression"`
-	SendMessageType    types.String `tfsdk:"send_message_type"`
 }
 
 func (r *TimerNodeResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {

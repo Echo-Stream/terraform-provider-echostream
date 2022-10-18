@@ -34,6 +34,7 @@ fragment auditEmitterNodeFields on AuditEmitterNode {
 }
 
 fragment bitmapRouterNodeFields on BitmapRouterNode {
+    config
     inlineBitmapper
     loggingLevel
     managedBitmapper {
@@ -43,6 +44,7 @@ fragment bitmapRouterNodeFields on BitmapRouterNode {
         name
     }
     requirements
+    routeTable
     sendMessageType {
         name
     }

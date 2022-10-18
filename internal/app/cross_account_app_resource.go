@@ -3,15 +3,18 @@ package app
 import (
 	"context"
 	"fmt"
+	"regexp"
 	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
@@ -23,6 +26,18 @@ var (
 // CrossAccountAppResource defines the resource implementation.
 type CrossAccountAppResource struct {
 	data *common.ProviderData
+}
+
+type crossAccountAppModel struct {
+	Account              types.String  `tfsdk:"account"`
+	AppsyncEndpoint      types.String  `tfsdk:"appsync_endpoint"`
+	AuditRecordsEndpoint types.String  `tfsdk:"audit_records_endpoint"`
+	Config               common.Config `tfsdk:"config"`
+	Credentials          types.Object  `tfsdk:"credentials"`
+	Description          types.String  `tfsdk:"description"`
+	IamPolicy            types.String  `tfsdk:"iam_policy"`
+	Name                 types.String  `tfsdk:"name"`
+	TableAccess          types.Bool    `tfsdk:"table_access"`
 }
 
 func (r *CrossAccountAppResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
@@ -133,8 +148,40 @@ func (r *CrossAccountAppResource) Delete(ctx context.Context, req resource.Delet
 }
 
 func (r *CrossAccountAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
+	schema := remoteAppSchema()
+	maps.Copy(
+		schema,
+		map[string]tfsdk.Attribute{
+			"account": {
+				Description:         "",
+				MarkdownDescription: "",
+				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+				Required:            true,
+				Type:                types.StringType,
+				Validators: []tfsdk.AttributeValidator{
+					stringvalidator.LengthBetween(12, 12),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile("^[0-9]+$"),
+						"value must contain only numbers",
+					),
+				},
+			},
+			"appsync_endpoint": {
+				Computed:            true,
+				Description:         "",
+				MarkdownDescription: "",
+				Type:                types.StringType,
+			},
+			"iam_policy": {
+				Computed:            true,
+				Description:         "",
+				MarkdownDescription: "",
+				Type:                types.StringType,
+			},
+		},
+	)
 	return tfsdk.Schema{
-		Attributes:          crossAccountAppSchema(),
+		Attributes:          schema,
 		Description:         "CrossAccountApps provide a way to receive/send messages in their Nodes using cross-account IAM access",
 		MarkdownDescription: "CrossAccountApps provide a way to receive/send messages in their Nodes using cross-account IAM access",
 	}, nil

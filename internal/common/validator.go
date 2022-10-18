@@ -3,6 +3,7 @@ package common
 import (
 	"regexp"
 
+	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common/validators"
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
@@ -10,6 +11,12 @@ import (
 )
 
 var (
+	LogLevelValidator tfsdk.AttributeValidator = stringvalidator.OneOf(
+		string(api.LogLevelDebug),
+		string(api.LogLevelError),
+		string(api.LogLevelInfo),
+		string(api.LogLevelWarning),
+	)
 	NameValidators []tfsdk.AttributeValidator = []tfsdk.AttributeValidator{
 		stringvalidator.LengthBetween(3, 80),
 		stringvalidator.RegexMatches(

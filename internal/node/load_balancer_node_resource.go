@@ -24,6 +24,13 @@ type LoadBalancerNodeResource struct {
 	data *common.ProviderData
 }
 
+type loadBalancerNodeModel struct {
+	Description        types.String `tfsdk:"description"`
+	Name               types.String `tfsdk:"name"`
+	ReceiveMessageType types.String `tfsdk:"receive_message_type"`
+	SendMessageType    types.String `tfsdk:"send_message_type"`
+}
+
 func (r *LoadBalancerNodeResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {
@@ -41,13 +48,6 @@ func (r *LoadBalancerNodeResource) Configure(ctx context.Context, req resource.C
 	}
 
 	r.data = data
-}
-
-type loadBalancerNodeModel struct {
-	Description        types.String `tfsdk:"description"`
-	Name               types.String `tfsdk:"name"`
-	ReceiveMessageType types.String `tfsdk:"receive_message_type"`
-	SendMessageType    types.String `tfsdk:"send_message_type"`
 }
 
 func (r *LoadBalancerNodeResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {

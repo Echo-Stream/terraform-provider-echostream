@@ -11,11 +11,6 @@ import (
 	"golang.org/x/exp/maps"
 )
 
-type appModel struct {
-	Description types.String `tfsdk:"description"`
-	Name        types.String `tfsdk:"name"`
-}
-
 func appSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"description": {
@@ -33,103 +28,6 @@ func appSchema() map[string]tfsdk.Attribute {
 			Validators:          common.NameValidators,
 		},
 	}
-}
-
-type crossAccountAppModel struct {
-	Account              types.String  `tfsdk:"account"`
-	AppsyncEndpoint      types.String  `tfsdk:"appsync_endpoint"`
-	AuditRecordsEndpoint types.String  `tfsdk:"audit_records_endpoint"`
-	Config               common.Config `tfsdk:"config"`
-	Credentials          types.Object  `tfsdk:"credentials"`
-	Description          types.String  `tfsdk:"description"`
-	IamPolicy            types.String  `tfsdk:"iam_policy"`
-	Name                 types.String  `tfsdk:"name"`
-	TableAccess          types.Bool    `tfsdk:"table_access"`
-}
-
-type crossTenantReceivingAppModel struct {
-	Description   types.String `tfsdk:"description"`
-	Name          types.String `tfsdk:"name"`
-	SendingApp    types.String `tfsdk:"sending_app"`
-	SendingTenant types.String `tfsdk:"sending_tenant"`
-}
-
-type crossTenantSendingAppModel struct {
-	Description     types.String `tfsdk:"description"`
-	Name            types.String `tfsdk:"name"`
-	ReceivingApp    types.String `tfsdk:"receiving_app"`
-	ReceivingTenant types.String `tfsdk:"receiving_tenant"`
-}
-
-type externalAppModel struct {
-	AppsyncEndpoint      types.String  `tfsdk:"appsync_endpoint"`
-	AuditRecordsEndpoint types.String  `tfsdk:"audit_records_endpoint"`
-	Config               common.Config `tfsdk:"config"`
-	Credentials          types.Object  `tfsdk:"credentials"`
-	Description          types.String  `tfsdk:"description"`
-	Name                 types.String  `tfsdk:"name"`
-	TableAccess          types.Bool    `tfsdk:"table_access"`
-}
-
-type managedAppModel struct {
-	AuditRecordsEndpoint types.String  `tfsdk:"audit_records_endpoint"`
-	Config               common.Config `tfsdk:"config"`
-	Credentials          types.Object  `tfsdk:"credentials"`
-	Description          types.String  `tfsdk:"description"`
-	Name                 types.String  `tfsdk:"name"`
-	TableAccess          types.Bool    `tfsdk:"table_access"`
-}
-
-func crossTenantReceivingSchema() map[string]tfsdk.Attribute {
-	schema := appSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"sending_app": {
-				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
-				Optional:            true,
-				Type:                types.StringType,
-			},
-			"sending_tenant": {
-				Description:         "",
-				MarkdownDescription: "",
-				Required:            true,
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Type:                types.StringType,
-			},
-		},
-	)
-	description := schema["description"]
-	description.Computed = true
-	return schema
-}
-
-func crossTenantSendingSchema() map[string]tfsdk.Attribute {
-	schema := appSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"receiving_app": {
-				Description:         "",
-				MarkdownDescription: "",
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Required:            true,
-				Type:                types.StringType,
-			},
-			"receiving_tenant": {
-				Description:         "",
-				MarkdownDescription: "",
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Required:            true,
-				Type:                types.StringType,
-			},
-		},
-	)
-	description := schema["description"]
-	description.Computed = true
-	return schema
 }
 
 func remoteAppSchema() map[string]tfsdk.Attribute {
@@ -168,71 +66,6 @@ func remoteAppSchema() map[string]tfsdk.Attribute {
 	return schema
 }
 
-func crossAccountAppSchema() map[string]tfsdk.Attribute {
-	schema := remoteAppSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"account": {
-				Description:         "",
-				MarkdownDescription: "",
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Required:            true,
-				Type:                types.StringType,
-				Validators: []tfsdk.AttributeValidator{
-					stringvalidator.LengthBetween(12, 12),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile("^[0-9]+$"),
-						"value must contain only numbers",
-					),
-				},
-			},
-			"appsync_endpoint": {
-				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
-				Type:                types.StringType,
-			},
-			"iam_policy": {
-				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
-				Type:                types.StringType,
-			},
-		},
-	)
-	return schema
-}
-
-func externalAppSchema() map[string]tfsdk.Attribute {
-	schema := remoteAppSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"appsync_endpoint": {
-				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
-				Type:                types.StringType,
-			},
-		},
-	)
-	return schema
-}
-
-func managedAppSchema() map[string]tfsdk.Attribute {
-	schema := remoteAppSchema()
-	name := schema["name"]
-	name.Validators = []tfsdk.AttributeValidator{
-		stringvalidator.LengthBetween(3, 80),
-		stringvalidator.RegexMatches(
-			regexp.MustCompile(`^[A-Za-z0-9\-\_]*$`),
-			"value must contain only lowercase/uppercase alphanumeric characters, \"-\", \"_\"",
-		),
-	}
-	return schema
-}
-
 func managedAppInstanceSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"app": {
@@ -257,48 +90,4 @@ func managedAppInstanceSchema() map[string]tfsdk.Attribute {
 			Type:                types.StringType,
 		},
 	}
-}
-
-type managedAppInstanceIsoModel struct {
-	App  types.String `tfsdk:"app"`
-	Name types.String `tfsdk:"name"`
-	Iso  types.String `tfsdk:"iso"`
-}
-
-func managedAppInstanceIsoSchema() map[string]tfsdk.Attribute {
-	schema := managedAppInstanceSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"iso": {
-				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
-				Type:                types.StringType,
-			},
-		},
-	)
-	return schema
-}
-
-type managedAppInstanceUserdataModel struct {
-	App      types.String `tfsdk:"app"`
-	Name     types.String `tfsdk:"name"`
-	Userdata types.String `tfsdk:"userdata"`
-}
-
-func managedAppInstanceUserdataSchema() map[string]tfsdk.Attribute {
-	schema := managedAppInstanceSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"userdata": {
-				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
-				Type:                types.StringType,
-			},
-		},
-	)
-	return schema
 }

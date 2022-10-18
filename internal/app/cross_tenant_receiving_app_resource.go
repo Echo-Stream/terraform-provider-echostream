@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
@@ -23,6 +24,13 @@ var (
 // CrossTenantReceivingAppResource defines the resource implementation.
 type CrossTenantReceivingAppResource struct {
 	data *common.ProviderData
+}
+
+type crossTenantReceivingAppModel struct {
+	Description   types.String `tfsdk:"description"`
+	Name          types.String `tfsdk:"name"`
+	SendingApp    types.String `tfsdk:"sending_app"`
+	SendingTenant types.String `tfsdk:"sending_tenant"`
 }
 
 func (r *CrossTenantReceivingAppResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
@@ -93,8 +101,30 @@ func (r *CrossTenantReceivingAppResource) Delete(ctx context.Context, req resour
 }
 
 func (r *CrossTenantReceivingAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
+	schema := appSchema()
+	maps.Copy(
+		schema,
+		map[string]tfsdk.Attribute{
+			"sending_app": {
+				Computed:            true,
+				Description:         "",
+				MarkdownDescription: "",
+				Optional:            true,
+				Type:                types.StringType,
+			},
+			"sending_tenant": {
+				Description:         "",
+				MarkdownDescription: "",
+				Required:            true,
+				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+				Type:                types.StringType,
+			},
+		},
+	)
+	description := schema["description"]
+	description.Computed = true
 	return tfsdk.Schema{
-		Attributes:          crossTenantReceivingSchema(),
+		Attributes:          schema,
 		Description:         "CrossTenantReceivingApps provide a way to receive messages from other EchoStream Tenants",
 		MarkdownDescription: "CrossTenantReceivingApps provide a way to receive messages from other EchoStream Tenants",
 	}, nil

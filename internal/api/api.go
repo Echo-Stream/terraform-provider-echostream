@@ -138,6 +138,11 @@ func (v *CreateBitmapRouterNodeCreateBitmapRouterNode) GetName() string {
 	return v.nodeFieldsBitmapRouterNode.Name
 }
 
+// GetConfig returns CreateBitmapRouterNodeCreateBitmapRouterNode.Config, and is useful for accessing the field via an interface.
+func (v *CreateBitmapRouterNodeCreateBitmapRouterNode) GetConfig() *string {
+	return v.bitmapRouterNodeFields.Config
+}
+
 // GetInlineBitmapper returns CreateBitmapRouterNodeCreateBitmapRouterNode.InlineBitmapper, and is useful for accessing the field via an interface.
 func (v *CreateBitmapRouterNodeCreateBitmapRouterNode) GetInlineBitmapper() *string {
 	return v.bitmapRouterNodeFields.InlineBitmapper
@@ -161,6 +166,11 @@ func (v *CreateBitmapRouterNodeCreateBitmapRouterNode) GetReceiveMessageType() *
 // GetRequirements returns CreateBitmapRouterNodeCreateBitmapRouterNode.Requirements, and is useful for accessing the field via an interface.
 func (v *CreateBitmapRouterNodeCreateBitmapRouterNode) GetRequirements() []string {
 	return v.bitmapRouterNodeFields.Requirements
+}
+
+// GetRouteTable returns CreateBitmapRouterNodeCreateBitmapRouterNode.RouteTable, and is useful for accessing the field via an interface.
+func (v *CreateBitmapRouterNodeCreateBitmapRouterNode) GetRouteTable() string {
+	return v.bitmapRouterNodeFields.RouteTable
 }
 
 // GetSendMessageType returns CreateBitmapRouterNodeCreateBitmapRouterNode.SendMessageType, and is useful for accessing the field via an interface.
@@ -203,6 +213,8 @@ type __premarshalCreateBitmapRouterNodeCreateBitmapRouterNode struct {
 
 	Name string `json:"name"`
 
+	Config *string `json:"config"`
+
 	InlineBitmapper *string `json:"inlineBitmapper"`
 
 	LoggingLevel *LogLevel `json:"loggingLevel"`
@@ -212,6 +224,8 @@ type __premarshalCreateBitmapRouterNodeCreateBitmapRouterNode struct {
 	ReceiveMessageType *bitmapRouterNodeFieldsReceiveMessageType `json:"receiveMessageType"`
 
 	Requirements []string `json:"requirements"`
+
+	RouteTable string `json:"routeTable"`
 
 	SendMessageType *bitmapRouterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
@@ -229,11 +243,13 @@ func (v *CreateBitmapRouterNodeCreateBitmapRouterNode) __premarshalJSON() (*__pr
 
 	retval.Description = v.nodeFieldsBitmapRouterNode.Description
 	retval.Name = v.nodeFieldsBitmapRouterNode.Name
+	retval.Config = v.bitmapRouterNodeFields.Config
 	retval.InlineBitmapper = v.bitmapRouterNodeFields.InlineBitmapper
 	retval.LoggingLevel = v.bitmapRouterNodeFields.LoggingLevel
 	retval.ManagedBitmapper = v.bitmapRouterNodeFields.ManagedBitmapper
 	retval.ReceiveMessageType = v.bitmapRouterNodeFields.ReceiveMessageType
 	retval.Requirements = v.bitmapRouterNodeFields.Requirements
+	retval.RouteTable = v.bitmapRouterNodeFields.RouteTable
 	retval.SendMessageType = v.bitmapRouterNodeFields.SendMessageType
 	return &retval, nil
 }
@@ -6596,6 +6612,9 @@ func (v *ReadNodeGetNodeBitmapRouterNode) GetDescription() *string {
 // GetName returns ReadNodeGetNodeBitmapRouterNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeBitmapRouterNode) GetName() string { return v.nodeFieldsBitmapRouterNode.Name }
 
+// GetConfig returns ReadNodeGetNodeBitmapRouterNode.Config, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeBitmapRouterNode) GetConfig() *string { return v.bitmapRouterNodeFields.Config }
+
 // GetInlineBitmapper returns ReadNodeGetNodeBitmapRouterNode.InlineBitmapper, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeBitmapRouterNode) GetInlineBitmapper() *string {
 	return v.bitmapRouterNodeFields.InlineBitmapper
@@ -6619,6 +6638,11 @@ func (v *ReadNodeGetNodeBitmapRouterNode) GetReceiveMessageType() *bitmapRouterN
 // GetRequirements returns ReadNodeGetNodeBitmapRouterNode.Requirements, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeBitmapRouterNode) GetRequirements() []string {
 	return v.bitmapRouterNodeFields.Requirements
+}
+
+// GetRouteTable returns ReadNodeGetNodeBitmapRouterNode.RouteTable, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeBitmapRouterNode) GetRouteTable() string {
+	return v.bitmapRouterNodeFields.RouteTable
 }
 
 // GetSendMessageType returns ReadNodeGetNodeBitmapRouterNode.SendMessageType, and is useful for accessing the field via an interface.
@@ -6663,6 +6687,8 @@ type __premarshalReadNodeGetNodeBitmapRouterNode struct {
 
 	Name string `json:"name"`
 
+	Config *string `json:"config"`
+
 	InlineBitmapper *string `json:"inlineBitmapper"`
 
 	LoggingLevel *LogLevel `json:"loggingLevel"`
@@ -6672,6 +6698,8 @@ type __premarshalReadNodeGetNodeBitmapRouterNode struct {
 	ReceiveMessageType *bitmapRouterNodeFieldsReceiveMessageType `json:"receiveMessageType"`
 
 	Requirements []string `json:"requirements"`
+
+	RouteTable string `json:"routeTable"`
 
 	SendMessageType *bitmapRouterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
@@ -6690,11 +6718,13 @@ func (v *ReadNodeGetNodeBitmapRouterNode) __premarshalJSON() (*__premarshalReadN
 	retval.Typename = v.Typename
 	retval.Description = v.nodeFieldsBitmapRouterNode.Description
 	retval.Name = v.nodeFieldsBitmapRouterNode.Name
+	retval.Config = v.bitmapRouterNodeFields.Config
 	retval.InlineBitmapper = v.bitmapRouterNodeFields.InlineBitmapper
 	retval.LoggingLevel = v.bitmapRouterNodeFields.LoggingLevel
 	retval.ManagedBitmapper = v.bitmapRouterNodeFields.ManagedBitmapper
 	retval.ReceiveMessageType = v.bitmapRouterNodeFields.ReceiveMessageType
 	retval.Requirements = v.bitmapRouterNodeFields.Requirements
+	retval.RouteTable = v.bitmapRouterNodeFields.RouteTable
 	retval.SendMessageType = v.bitmapRouterNodeFields.SendMessageType
 	return &retval, nil
 }
@@ -9344,6 +9374,11 @@ func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) Ge
 	return v.nodeFieldsBitmapRouterNode.Name
 }
 
+// GetConfig returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.Config, and is useful for accessing the field via an interface.
+func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetConfig() *string {
+	return v.bitmapRouterNodeFields.Config
+}
+
 // GetInlineBitmapper returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.InlineBitmapper, and is useful for accessing the field via an interface.
 func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetInlineBitmapper() *string {
 	return v.bitmapRouterNodeFields.InlineBitmapper
@@ -9367,6 +9402,11 @@ func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) Ge
 // GetRequirements returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.Requirements, and is useful for accessing the field via an interface.
 func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetRequirements() []string {
 	return v.bitmapRouterNodeFields.Requirements
+}
+
+// GetRouteTable returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.RouteTable, and is useful for accessing the field via an interface.
+func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) GetRouteTable() string {
+	return v.bitmapRouterNodeFields.RouteTable
 }
 
 // GetSendMessageType returns UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode.SendMessageType, and is useful for accessing the field via an interface.
@@ -9409,6 +9449,8 @@ type __premarshalUpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouter
 
 	Name string `json:"name"`
 
+	Config *string `json:"config"`
+
 	InlineBitmapper *string `json:"inlineBitmapper"`
 
 	LoggingLevel *LogLevel `json:"loggingLevel"`
@@ -9418,6 +9460,8 @@ type __premarshalUpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouter
 	ReceiveMessageType *bitmapRouterNodeFieldsReceiveMessageType `json:"receiveMessageType"`
 
 	Requirements []string `json:"requirements"`
+
+	RouteTable string `json:"routeTable"`
 
 	SendMessageType *bitmapRouterNodeFieldsSendMessageType `json:"sendMessageType"`
 }
@@ -9435,11 +9479,13 @@ func (v *UpdateBitmpaRouterNodeGetNodeBitmapRouterNodeUpdateBitmapRouterNode) __
 
 	retval.Description = v.nodeFieldsBitmapRouterNode.Description
 	retval.Name = v.nodeFieldsBitmapRouterNode.Name
+	retval.Config = v.bitmapRouterNodeFields.Config
 	retval.InlineBitmapper = v.bitmapRouterNodeFields.InlineBitmapper
 	retval.LoggingLevel = v.bitmapRouterNodeFields.LoggingLevel
 	retval.ManagedBitmapper = v.bitmapRouterNodeFields.ManagedBitmapper
 	retval.ReceiveMessageType = v.bitmapRouterNodeFields.ReceiveMessageType
 	retval.Requirements = v.bitmapRouterNodeFields.Requirements
+	retval.RouteTable = v.bitmapRouterNodeFields.RouteTable
 	retval.SendMessageType = v.bitmapRouterNodeFields.SendMessageType
 	return &retval, nil
 }
@@ -19194,13 +19240,18 @@ func (v *auditEmitterNodeFieldsSendMessageType) GetName() string { return v.Name
 
 // bitmapRouterNodeFields includes the GraphQL fields of BitmapRouterNode requested by the fragment bitmapRouterNodeFields.
 type bitmapRouterNodeFields struct {
+	Config             *string                                                  `json:"config"`
 	InlineBitmapper    *string                                                  `json:"inlineBitmapper"`
 	LoggingLevel       *LogLevel                                                `json:"loggingLevel"`
 	ManagedBitmapper   *bitmapRouterNodeFieldsManagedBitmapperBitmapperFunction `json:"managedBitmapper"`
 	ReceiveMessageType *bitmapRouterNodeFieldsReceiveMessageType                `json:"receiveMessageType"`
 	Requirements       []string                                                 `json:"requirements"`
+	RouteTable         string                                                   `json:"routeTable"`
 	SendMessageType    *bitmapRouterNodeFieldsSendMessageType                   `json:"sendMessageType"`
 }
+
+// GetConfig returns bitmapRouterNodeFields.Config, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFields) GetConfig() *string { return v.Config }
 
 // GetInlineBitmapper returns bitmapRouterNodeFields.InlineBitmapper, and is useful for accessing the field via an interface.
 func (v *bitmapRouterNodeFields) GetInlineBitmapper() *string { return v.InlineBitmapper }
@@ -19220,6 +19271,9 @@ func (v *bitmapRouterNodeFields) GetReceiveMessageType() *bitmapRouterNodeFields
 
 // GetRequirements returns bitmapRouterNodeFields.Requirements, and is useful for accessing the field via an interface.
 func (v *bitmapRouterNodeFields) GetRequirements() []string { return v.Requirements }
+
+// GetRouteTable returns bitmapRouterNodeFields.RouteTable, and is useful for accessing the field via an interface.
+func (v *bitmapRouterNodeFields) GetRouteTable() string { return v.RouteTable }
 
 // GetSendMessageType returns bitmapRouterNodeFields.SendMessageType, and is useful for accessing the field via an interface.
 func (v *bitmapRouterNodeFields) GetSendMessageType() *bitmapRouterNodeFieldsSendMessageType {
@@ -22384,6 +22438,7 @@ fragment nodeFields on Node {
 	name
 }
 fragment bitmapRouterNodeFields on BitmapRouterNode {
+	config
 	inlineBitmapper
 	loggingLevel
 	managedBitmapper {
@@ -22393,6 +22448,7 @@ fragment bitmapRouterNodeFields on BitmapRouterNode {
 		name
 	}
 	requirements
+	routeTable
 	sendMessageType {
 		name
 	}
@@ -24437,6 +24493,7 @@ fragment auditEmitterNodeFields on AuditEmitterNode {
 	}
 }
 fragment bitmapRouterNodeFields on BitmapRouterNode {
+	config
 	inlineBitmapper
 	loggingLevel
 	managedBitmapper {
@@ -24446,6 +24503,7 @@ fragment bitmapRouterNodeFields on BitmapRouterNode {
 		name
 	}
 	requirements
+	routeTable
 	sendMessageType {
 		name
 	}
@@ -24853,6 +24911,7 @@ fragment nodeFields on Node {
 	name
 }
 fragment bitmapRouterNodeFields on BitmapRouterNode {
+	config
 	inlineBitmapper
 	loggingLevel
 	managedBitmapper {
@@ -24862,6 +24921,7 @@ fragment bitmapRouterNodeFields on BitmapRouterNode {
 		name
 	}
 	requirements
+	routeTable
 	sendMessageType {
 		name
 	}

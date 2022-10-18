@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
@@ -20,6 +21,12 @@ var (
 // ManagedAppResource defines the resource implementation.
 type ManagedAppInstanceIsoResource struct {
 	data *common.ProviderData
+}
+
+type managedAppInstanceIsoModel struct {
+	App  types.String `tfsdk:"app"`
+	Name types.String `tfsdk:"name"`
+	Iso  types.String `tfsdk:"iso"`
 }
 
 func (r *ManagedAppInstanceIsoResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
@@ -86,8 +93,20 @@ func (r *ManagedAppInstanceIsoResource) Delete(ctx context.Context, req resource
 }
 
 func (r *ManagedAppInstanceIsoResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
+	schema := managedAppInstanceSchema()
+	maps.Copy(
+		schema,
+		map[string]tfsdk.Attribute{
+			"iso": {
+				Computed:            true,
+				Description:         "",
+				MarkdownDescription: "",
+				Type:                types.StringType,
+			},
+		},
+	)
 	return tfsdk.Schema{
-		Attributes:          managedAppInstanceIsoSchema(),
+		Attributes:          schema,
 		Description:         "ManagedAppInstanceIsos may be used to create ManagedApp commpute resources in the VM architecture of your choice",
 		MarkdownDescription: "ManagedAppInstanceIsos may be used to create ManagedApp commpute resources in the VM architecture of your choice",
 	}, nil
