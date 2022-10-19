@@ -67,7 +67,7 @@ func (r *BitmapRouterNodeResource) Configure(ctx context.Context, req resource.C
 
 func (r *BitmapRouterNodeResource) ConfigValidators(ctx context.Context) []resource.ConfigValidator {
 	return []resource.ConfigValidator{
-		resourcevalidator.ExactlyOneOf(
+		resourcevalidator.Conflicting(
 			path.MatchRoot("inline_bitmapper"),
 			path.MatchRoot("managed_bitmapper"),
 		),
