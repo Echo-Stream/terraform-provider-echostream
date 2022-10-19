@@ -114,6 +114,7 @@ fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
     sendMessageType {
         name
     }
+    token
 }
 
 fragment LoadBalancerNodeFields on LoadBalancerNode {

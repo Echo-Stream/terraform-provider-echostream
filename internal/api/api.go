@@ -1872,6 +1872,11 @@ func (v *CreateFilesDotComWebhookNodeCreateFilesDotComWebhookNode) GetSendMessag
 	return v.FilesDotComWebhookNodeFields.SendMessageType
 }
 
+// GetToken returns CreateFilesDotComWebhookNodeCreateFilesDotComWebhookNode.Token, and is useful for accessing the field via an interface.
+func (v *CreateFilesDotComWebhookNodeCreateFilesDotComWebhookNode) GetToken() string {
+	return v.FilesDotComWebhookNodeFields.Token
+}
+
 func (v *CreateFilesDotComWebhookNodeCreateFilesDotComWebhookNode) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -1910,6 +1915,8 @@ type __premarshalCreateFilesDotComWebhookNodeCreateFilesDotComWebhookNode struct
 	Endpoint string `json:"endpoint"`
 
 	SendMessageType *FilesDotComWebhookNodeFieldsSendMessageType `json:"sendMessageType"`
+
+	Token string `json:"token"`
 }
 
 func (v *CreateFilesDotComWebhookNodeCreateFilesDotComWebhookNode) MarshalJSON() ([]byte, error) {
@@ -1927,6 +1934,7 @@ func (v *CreateFilesDotComWebhookNodeCreateFilesDotComWebhookNode) __premarshalJ
 	retval.Name = v.NodeFieldsFilesDotComWebhookNode.Name
 	retval.Endpoint = v.FilesDotComWebhookNodeFields.Endpoint
 	retval.SendMessageType = v.FilesDotComWebhookNodeFields.SendMessageType
+	retval.Token = v.FilesDotComWebhookNodeFields.Token
 	return &retval, nil
 }
 
@@ -5836,6 +5844,7 @@ func (v *ExternalNodeFieldsSendMessageType) GetName() string { return v.Name }
 type FilesDotComWebhookNodeFields struct {
 	Endpoint        string                                       `json:"endpoint"`
 	SendMessageType *FilesDotComWebhookNodeFieldsSendMessageType `json:"sendMessageType"`
+	Token           string                                       `json:"token"`
 }
 
 // GetEndpoint returns FilesDotComWebhookNodeFields.Endpoint, and is useful for accessing the field via an interface.
@@ -5845,6 +5854,9 @@ func (v *FilesDotComWebhookNodeFields) GetEndpoint() string { return v.Endpoint 
 func (v *FilesDotComWebhookNodeFields) GetSendMessageType() *FilesDotComWebhookNodeFieldsSendMessageType {
 	return v.SendMessageType
 }
+
+// GetToken returns FilesDotComWebhookNodeFields.Token, and is useful for accessing the field via an interface.
+func (v *FilesDotComWebhookNodeFields) GetToken() string { return v.Token }
 
 // FilesDotComWebhookNodeFieldsSendMessageType includes the requested fields of the GraphQL type MessageType.
 type FilesDotComWebhookNodeFieldsSendMessageType struct {
@@ -10815,6 +10827,11 @@ func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetSendMessageType() *FilesDotCo
 	return v.FilesDotComWebhookNodeFields.SendMessageType
 }
 
+// GetToken returns ReadNodeGetNodeFilesDotComWebhookNode.Token, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeFilesDotComWebhookNode) GetToken() string {
+	return v.FilesDotComWebhookNodeFields.Token
+}
+
 func (v *ReadNodeGetNodeFilesDotComWebhookNode) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -10855,6 +10872,8 @@ type __premarshalReadNodeGetNodeFilesDotComWebhookNode struct {
 	Endpoint string `json:"endpoint"`
 
 	SendMessageType *FilesDotComWebhookNodeFieldsSendMessageType `json:"sendMessageType"`
+
+	Token string `json:"token"`
 }
 
 func (v *ReadNodeGetNodeFilesDotComWebhookNode) MarshalJSON() ([]byte, error) {
@@ -10873,6 +10892,7 @@ func (v *ReadNodeGetNodeFilesDotComWebhookNode) __premarshalJSON() (*__premarsha
 	retval.Name = v.NodeFieldsFilesDotComWebhookNode.Name
 	retval.Endpoint = v.FilesDotComWebhookNodeFields.Endpoint
 	retval.SendMessageType = v.FilesDotComWebhookNodeFields.SendMessageType
+	retval.Token = v.FilesDotComWebhookNodeFields.Token
 	return &retval, nil
 }
 
@@ -16105,6 +16125,11 @@ func (v *UpdateFilesDotComWebhookNodeGetNodeFilesDotComWebhookNodeUpdateFilesDot
 	return v.FilesDotComWebhookNodeFields.SendMessageType
 }
 
+// GetToken returns UpdateFilesDotComWebhookNodeGetNodeFilesDotComWebhookNodeUpdateFilesDotComWebhookNode.Token, and is useful for accessing the field via an interface.
+func (v *UpdateFilesDotComWebhookNodeGetNodeFilesDotComWebhookNodeUpdateFilesDotComWebhookNode) GetToken() string {
+	return v.FilesDotComWebhookNodeFields.Token
+}
+
 func (v *UpdateFilesDotComWebhookNodeGetNodeFilesDotComWebhookNodeUpdateFilesDotComWebhookNode) UnmarshalJSON(b []byte) error {
 
 	if string(b) == "null" {
@@ -16143,6 +16168,8 @@ type __premarshalUpdateFilesDotComWebhookNodeGetNodeFilesDotComWebhookNodeUpdate
 	Endpoint string `json:"endpoint"`
 
 	SendMessageType *FilesDotComWebhookNodeFieldsSendMessageType `json:"sendMessageType"`
+
+	Token string `json:"token"`
 }
 
 func (v *UpdateFilesDotComWebhookNodeGetNodeFilesDotComWebhookNodeUpdateFilesDotComWebhookNode) MarshalJSON() ([]byte, error) {
@@ -16160,6 +16187,7 @@ func (v *UpdateFilesDotComWebhookNodeGetNodeFilesDotComWebhookNodeUpdateFilesDot
 	retval.Name = v.NodeFieldsFilesDotComWebhookNode.Name
 	retval.Endpoint = v.FilesDotComWebhookNodeFields.Endpoint
 	retval.SendMessageType = v.FilesDotComWebhookNodeFields.SendMessageType
+	retval.Token = v.FilesDotComWebhookNodeFields.Token
 	return &retval, nil
 }
 
@@ -23016,6 +23044,7 @@ fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
 	sendMessageType {
 		name
 	}
+	token
 }
 `,
 		Variables: &__CreateFilesDotComWebhookNodeInput{
@@ -24597,6 +24626,7 @@ fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
 	sendMessageType {
 		name
 	}
+	token
 }
 fragment LoadBalancerNodeFields on LoadBalancerNode {
 	receiveMessageType {
@@ -25330,6 +25360,7 @@ fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
 	sendMessageType {
 		name
 	}
+	token
 }
 `,
 		Variables: &__UpdateFilesDotComWebhookNodeInput{
