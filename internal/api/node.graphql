@@ -69,6 +69,7 @@ fragment crossTenantSendingNodeFields on CrossTenantSendingNode {
     app {
         name
     }
+    config
     inlineProcessor
     loggingLevel
     managedProcessor {

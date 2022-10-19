@@ -733,6 +733,11 @@ func (v *CreateCrossTenantSendingNodeCreateCrossTenantSendingNode) GetApp() cros
 	return v.crossTenantSendingNodeFields.App
 }
 
+// GetConfig returns CreateCrossTenantSendingNodeCreateCrossTenantSendingNode.Config, and is useful for accessing the field via an interface.
+func (v *CreateCrossTenantSendingNodeCreateCrossTenantSendingNode) GetConfig() *string {
+	return v.crossTenantSendingNodeFields.Config
+}
+
 // GetInlineProcessor returns CreateCrossTenantSendingNodeCreateCrossTenantSendingNode.InlineProcessor, and is useful for accessing the field via an interface.
 func (v *CreateCrossTenantSendingNodeCreateCrossTenantSendingNode) GetInlineProcessor() *string {
 	return v.crossTenantSendingNodeFields.InlineProcessor
@@ -805,6 +810,8 @@ type __premarshalCreateCrossTenantSendingNodeCreateCrossTenantSendingNode struct
 
 	App crossTenantSendingNodeFieldsAppCrossTenantSendingApp `json:"app"`
 
+	Config *string `json:"config"`
+
 	InlineProcessor *string `json:"inlineProcessor"`
 
 	LoggingLevel *LogLevel `json:"loggingLevel"`
@@ -834,6 +841,7 @@ func (v *CreateCrossTenantSendingNodeCreateCrossTenantSendingNode) __premarshalJ
 	retval.Description = v.nodeFieldsCrossTenantSendingNode.Description
 	retval.Name = v.nodeFieldsCrossTenantSendingNode.Name
 	retval.App = v.crossTenantSendingNodeFields.App
+	retval.Config = v.crossTenantSendingNodeFields.Config
 	retval.InlineProcessor = v.crossTenantSendingNodeFields.InlineProcessor
 	retval.LoggingLevel = v.crossTenantSendingNodeFields.LoggingLevel
 	retval.ManagedProcessor = v.crossTenantSendingNodeFields.ManagedProcessor
@@ -6928,6 +6936,11 @@ func (v *ReadNodeGetNodeCrossTenantSendingNode) GetApp() crossTenantSendingNodeF
 	return v.crossTenantSendingNodeFields.App
 }
 
+// GetConfig returns ReadNodeGetNodeCrossTenantSendingNode.Config, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeCrossTenantSendingNode) GetConfig() *string {
+	return v.crossTenantSendingNodeFields.Config
+}
+
 // GetInlineProcessor returns ReadNodeGetNodeCrossTenantSendingNode.InlineProcessor, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeCrossTenantSendingNode) GetInlineProcessor() *string {
 	return v.crossTenantSendingNodeFields.InlineProcessor
@@ -7002,6 +7015,8 @@ type __premarshalReadNodeGetNodeCrossTenantSendingNode struct {
 
 	App crossTenantSendingNodeFieldsAppCrossTenantSendingApp `json:"app"`
 
+	Config *string `json:"config"`
+
 	InlineProcessor *string `json:"inlineProcessor"`
 
 	LoggingLevel *LogLevel `json:"loggingLevel"`
@@ -7032,6 +7047,7 @@ func (v *ReadNodeGetNodeCrossTenantSendingNode) __premarshalJSON() (*__premarsha
 	retval.Description = v.nodeFieldsCrossTenantSendingNode.Description
 	retval.Name = v.nodeFieldsCrossTenantSendingNode.Name
 	retval.App = v.crossTenantSendingNodeFields.App
+	retval.Config = v.crossTenantSendingNodeFields.Config
 	retval.InlineProcessor = v.crossTenantSendingNodeFields.InlineProcessor
 	retval.LoggingLevel = v.crossTenantSendingNodeFields.LoggingLevel
 	retval.ManagedProcessor = v.crossTenantSendingNodeFields.ManagedProcessor
@@ -11076,6 +11092,11 @@ func (v *UpdateCrossTenantSendingNodeGetNodeCrossTenantSendingNodeUpdateCrossTen
 	return v.crossTenantSendingNodeFields.App
 }
 
+// GetConfig returns UpdateCrossTenantSendingNodeGetNodeCrossTenantSendingNodeUpdateCrossTenantSendingNode.Config, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantSendingNodeGetNodeCrossTenantSendingNodeUpdateCrossTenantSendingNode) GetConfig() *string {
+	return v.crossTenantSendingNodeFields.Config
+}
+
 // GetInlineProcessor returns UpdateCrossTenantSendingNodeGetNodeCrossTenantSendingNodeUpdateCrossTenantSendingNode.InlineProcessor, and is useful for accessing the field via an interface.
 func (v *UpdateCrossTenantSendingNodeGetNodeCrossTenantSendingNodeUpdateCrossTenantSendingNode) GetInlineProcessor() *string {
 	return v.crossTenantSendingNodeFields.InlineProcessor
@@ -11148,6 +11169,8 @@ type __premarshalUpdateCrossTenantSendingNodeGetNodeCrossTenantSendingNodeUpdate
 
 	App crossTenantSendingNodeFieldsAppCrossTenantSendingApp `json:"app"`
 
+	Config *string `json:"config"`
+
 	InlineProcessor *string `json:"inlineProcessor"`
 
 	LoggingLevel *LogLevel `json:"loggingLevel"`
@@ -11177,6 +11200,7 @@ func (v *UpdateCrossTenantSendingNodeGetNodeCrossTenantSendingNodeUpdateCrossTen
 	retval.Description = v.nodeFieldsCrossTenantSendingNode.Description
 	retval.Name = v.nodeFieldsCrossTenantSendingNode.Name
 	retval.App = v.crossTenantSendingNodeFields.App
+	retval.Config = v.crossTenantSendingNodeFields.Config
 	retval.InlineProcessor = v.crossTenantSendingNodeFields.InlineProcessor
 	retval.LoggingLevel = v.crossTenantSendingNodeFields.LoggingLevel
 	retval.ManagedProcessor = v.crossTenantSendingNodeFields.ManagedProcessor
@@ -19531,6 +19555,7 @@ func (v *crossTenantSendingAppFields) GetReceivingTenant() string { return v.Rec
 // crossTenantSendingNodeFields includes the GraphQL fields of CrossTenantSendingNode requested by the fragment crossTenantSendingNodeFields.
 type crossTenantSendingNodeFields struct {
 	App                  crossTenantSendingNodeFieldsAppCrossTenantSendingApp           `json:"app"`
+	Config               *string                                                        `json:"config"`
 	InlineProcessor      *string                                                        `json:"inlineProcessor"`
 	LoggingLevel         *LogLevel                                                      `json:"loggingLevel"`
 	ManagedProcessor     *crossTenantSendingNodeFieldsManagedProcessorProcessorFunction `json:"managedProcessor"`
@@ -19544,6 +19569,9 @@ type crossTenantSendingNodeFields struct {
 func (v *crossTenantSendingNodeFields) GetApp() crossTenantSendingNodeFieldsAppCrossTenantSendingApp {
 	return v.App
 }
+
+// GetConfig returns crossTenantSendingNodeFields.Config, and is useful for accessing the field via an interface.
+func (v *crossTenantSendingNodeFields) GetConfig() *string { return v.Config }
 
 // GetInlineProcessor returns crossTenantSendingNodeFields.InlineProcessor, and is useful for accessing the field via an interface.
 func (v *crossTenantSendingNodeFields) GetInlineProcessor() *string { return v.InlineProcessor }
@@ -22729,6 +22757,7 @@ fragment crossTenantSendingNodeFields on CrossTenantSendingNode {
 	app {
 		name
 	}
+	config
 	inlineProcessor
 	loggingLevel
 	managedProcessor {
@@ -24525,6 +24554,7 @@ fragment crossTenantSendingNodeFields on CrossTenantSendingNode {
 	app {
 		name
 	}
+	config
 	inlineProcessor
 	loggingLevel
 	managedProcessor {
@@ -25102,6 +25132,7 @@ fragment crossTenantSendingNodeFields on CrossTenantSendingNode {
 	app {
 		name
 	}
+	config
 	inlineProcessor
 	loggingLevel
 	managedProcessor {
