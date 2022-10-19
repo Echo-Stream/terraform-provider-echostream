@@ -155,7 +155,7 @@ func (r *CrossTenantReceivingNodeResource) ModifyPlan(ctx context.Context, req r
 	if req.Plan.Raw.IsNull() {
 		resp.Diagnostics.AddWarning(
 			"Deleting CrossTenantReceivingNode",
-			"This will also delete the sneding Tenant's CrossTenantSendingNode!",
+			"This will also delete the sending Tenant's CrossTenantSendingNode!",
 		)
 	}
 
