@@ -1,4 +1,4 @@
-fragment edgeFields on Edge {
+fragment EdgeFields on Edge {
     description
     kmsKey {
         name
@@ -32,7 +32,7 @@ mutation CreateEdge(
         kmsKey: $kmsKey,
         maxReceiveCount: $maxReceiveCount
     ) {
-        ...edgeFields
+        ...EdgeFields
     }
 }
 
@@ -51,14 +51,14 @@ query MoveEdge(
 ) {
     GetEdge(source: $source, target: $target, tenant: $tenant) {
         Move(source: $newSource, target: $newTarget) {
-            ...edgeFields
+            ...EdgeFields
         }
     }
 }
 
 query ReadEdge($source: String!, $target: String!, $tenant: String!) {
     GetEdge(source: $source, target: $target, tenant: $tenant) {
-        ...edgeFields
+        ...EdgeFields
     }
 }
 
@@ -70,7 +70,7 @@ query UpdateEdge(
 ) {
     GetEdge(source: $source, target: $target, tenant: $tenant) {
         Update(description: $description) {
-            ...edgeFields
+            ...EdgeFields
         }
     }
 }

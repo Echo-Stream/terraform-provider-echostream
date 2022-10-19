@@ -1,4 +1,4 @@
-fragment tenantFields on Tenant {
+fragment TenantFields on Tenant {
     active
     config
     description
@@ -9,7 +9,7 @@ fragment tenantFields on Tenant {
 
 query ReadTenant($tenant: String!) {
     GetTenant(tenant: $tenant) {
-        ...tenantFields
+        ...TenantFields
     }
 }
 
@@ -27,7 +27,7 @@ query ReadTenantAwsCredentials($tenant: String!, $duration: Int) {
 query UpdateTenant($tenant: String!, $config: AWSJSON, $description: String) {
     GetTenant(tenant: $tenant) {
         Update(config: $config, description: $description) {
-            ...tenantFields
+            ...TenantFields
         }
     }
 }

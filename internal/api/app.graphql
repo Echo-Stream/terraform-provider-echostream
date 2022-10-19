@@ -1,52 +1,52 @@
-fragment appFields on App {
+fragment AppFields on App {
     description
     name
 }
 
-fragment cognitoCredentialsFields on CognitoCredentials {
+fragment CognitoCredentialsFields on CognitoCredentials {
     clientId
     password
     userPoolId
     username
 }
 
-fragment crossAccountAppFields on CrossAccountApp {
+fragment CrossAccountAppFields on CrossAccountApp {
     account
     appsyncEndpoint
     auditRecordsEndpoint
     config
     credentials {
-        ...cognitoCredentialsFields
+        ...CognitoCredentialsFields
     }
     iamPolicy
     tableAccess
 }
 
-fragment crossTenantReceivingAppFields on CrossTenantReceivingApp {
+fragment CrossTenantReceivingAppFields on CrossTenantReceivingApp {
     sendingApp
     sendingTenant
 }
 
-fragment crossTenantSendingAppFields on CrossTenantSendingApp {
+fragment CrossTenantSendingAppFields on CrossTenantSendingApp {
     receivingApp
     receivingTenant
 }
 
-fragment externalAppFields on ExternalApp {
+fragment ExternalAppFields on ExternalApp {
     appsyncEndpoint
     auditRecordsEndpoint
     config
     credentials {
-        ...cognitoCredentialsFields
+        ...CognitoCredentialsFields
     }
     tableAccess
 }
 
-fragment managedAppFields on ManagedApp {
+fragment ManagedAppFields on ManagedApp {
     auditRecordsEndpoint
     config
     credentials {
-        ...cognitoCredentialsFields
+        ...CognitoCredentialsFields
     }
     tableAccess
 }
@@ -67,8 +67,8 @@ mutation CreateCrossAccountApp(
         description: $description,
         tableAccess: $tableAccess
     ) {
-        ...appFields
-        ...crossAccountAppFields
+        ...AppFields
+        ...CrossAccountAppFields
     }
 }
 
@@ -78,8 +78,8 @@ mutation CreateCrossTenantReceivingApp(
     $tenant: String!
 ) {
     CreateCrossTenantReceivingApp(name: $name, sendingTenant: $sendingTenant, tenant: $tenant) {
-        ...appFields
-        ...crossTenantReceivingAppFields
+        ...AppFields
+        ...CrossTenantReceivingAppFields
     }
 }
 
@@ -95,8 +95,8 @@ mutation CreateCrossTenantSendingApp(
         receivingTenant: $receivingTenant,
         tenant: $tenant
     ) {
-        ...appFields
-        ...crossTenantSendingAppFields
+        ...AppFields
+        ...CrossTenantSendingAppFields
     }
 }
 
@@ -114,8 +114,8 @@ mutation CreateExternalApp(
         description: $description,
         tableAccess: $tableAccess
     ) {
-        ...appFields
-        ...externalAppFields
+        ...AppFields
+        ...ExternalAppFields
     }
 }
 
@@ -133,8 +133,8 @@ mutation CreateManagedApp(
         description: $description,
         tableAccess: $tableAccess
     ) {
-        ...appFields
-        ...managedAppFields
+        ...AppFields
+        ...ManagedAppFields
     }
 }
 
@@ -146,21 +146,21 @@ query DeleteApp($name: String!, $tenant: String!) {
 
 query ReadApp($name: String!, $tenant: String!) {
     GetApp(name: $name, tenant: $tenant) {
-        ...appFields
+        ...AppFields
         ... on CrossAccountApp {
-            ...crossAccountAppFields
+            ...CrossAccountAppFields
         }
         ... on CrossTenantReceivingApp {
-            ...crossTenantReceivingAppFields
+            ...CrossTenantReceivingAppFields
         }
         ... on CrossTenantSendingApp {
-            ...crossTenantSendingAppFields
+            ...CrossTenantSendingAppFields
         }
         ... on ExternalApp {
-            ...externalAppFields
+            ...ExternalAppFields
         }
         ... on ManagedApp {
-            ...managedAppFields
+            ...ManagedAppFields
         }
     }
 }
@@ -191,16 +191,16 @@ query UpdateCrossTenantApp(
             Update(
                 description: $description
             ) {
-                ...appFields
-                ...crossTenantReceivingAppFields
+                ...AppFields
+                ...CrossTenantReceivingAppFields
             }
         }
         ... on CrossTenantSendingApp {
             Update(
                 description: $description
             ) {
-                ...appFields
-                ...crossTenantSendingAppFields
+                ...AppFields
+                ...CrossTenantSendingAppFields
             }
         }
     }
@@ -220,8 +220,8 @@ query UpdateRemotetApp(
                 description: $description,
                 tableAccess: $tableAccess
             ) {
-                ...appFields
-                ...crossAccountAppFields
+                ...AppFields
+                ...CrossAccountAppFields
             }
         }
         ... on ExternalApp {
@@ -230,8 +230,8 @@ query UpdateRemotetApp(
                 description: $description,
                 tableAccess: $tableAccess
             ) {
-                ...appFields
-                ...externalAppFields
+                ...AppFields
+                ...ExternalAppFields
             }
         }
         ... on ManagedApp {
@@ -240,8 +240,8 @@ query UpdateRemotetApp(
                 description: $description,
                 tableAccess: $tableAccess
             ) {
-                ...appFields
-                ...managedAppFields
+                ...AppFields
+                ...ManagedAppFields
             }
         }
     }

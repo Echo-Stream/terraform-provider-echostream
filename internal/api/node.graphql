@@ -1,15 +1,15 @@
-fragment nodeFields on Node {
+fragment NodeFields on Node {
     description
     name
 }
 
-fragment alertEmitterNodeFields on AlertEmitterNode {
+fragment AlertEmitterNodeFields on AlertEmitterNode {
     sendMessageType {
         name
     }
 }
 
-fragment appChangeReceiverNodeFields on AppChangeReceiverNode {
+fragment AppChangeReceiverNodeFields on AppChangeReceiverNode {
     app {
         name
     }
@@ -18,7 +18,7 @@ fragment appChangeReceiverNodeFields on AppChangeReceiverNode {
     }
 }
 
-fragment appChangeRouterNodeFields on AppChangeRouterNode {
+fragment AppChangeRouterNodeFields on AppChangeRouterNode {
     receiveMessageType {
         name
     }
@@ -27,13 +27,13 @@ fragment appChangeRouterNodeFields on AppChangeRouterNode {
     }
 }
 
-fragment auditEmitterNodeFields on AuditEmitterNode {
+fragment AuditEmitterNodeFields on AuditEmitterNode {
     sendMessageType {
         name
     }
 }
 
-fragment bitmapRouterNodeFields on BitmapRouterNode {
+fragment BitmapRouterNodeFields on BitmapRouterNode {
     config
     inlineBitmapper
     loggingLevel
@@ -50,13 +50,13 @@ fragment bitmapRouterNodeFields on BitmapRouterNode {
     }
 }
 
-fragment changeEmitterNodeFields on ChangeEmitterNode {
+fragment ChangeEmitterNodeFields on ChangeEmitterNode {
     sendMessageType {
         name
     }
 }
 
-fragment crossTenantReceivingNodeFields on CrossTenantReceivingNode {
+fragment CrossTenantReceivingNodeFields on CrossTenantReceivingNode {
     app {
         name
     }
@@ -65,7 +65,7 @@ fragment crossTenantReceivingNodeFields on CrossTenantReceivingNode {
     }
 }
 
-fragment crossTenantSendingNodeFields on CrossTenantSendingNode {
+fragment CrossTenantSendingNodeFields on CrossTenantSendingNode {
     app {
         name
     }
@@ -85,13 +85,13 @@ fragment crossTenantSendingNodeFields on CrossTenantSendingNode {
     sequentialProcessing
 }
 
-fragment deadLetterEmitterNodeFields on DeadLetterEmitterNode {
+fragment DeadLetterEmitterNodeFields on DeadLetterEmitterNode {
     sendMessageType {
         name
     }
 }
 
-fragment externalNodeFields on ExternalNode {
+fragment ExternalNodeFields on ExternalNode {
     app {
         ... on CrossAccountApp {
             name
@@ -109,14 +109,14 @@ fragment externalNodeFields on ExternalNode {
     }
 }
 
-fragment filesDotComWebhookNodeFields on FilesDotComWebhookNode {
+fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
     endpoint
     sendMessageType {
         name
     }
 }
 
-fragment loadBalancerNodeFields on LoadBalancerNode {
+fragment LoadBalancerNodeFields on LoadBalancerNode {
     receiveMessageType {
         name
     }
@@ -125,13 +125,13 @@ fragment loadBalancerNodeFields on LoadBalancerNode {
     }
 }
 
-fragment logEmitterNodeFields on LogEmitterNode {
+fragment LogEmitterNodeFields on LogEmitterNode {
     sendMessageType {
         name
     }
 }
 
-fragment managedNodeFields on ManagedNode {
+fragment ManagedNodeFields on ManagedNode {
     app {
         name
     }
@@ -159,7 +159,7 @@ fragment managedNodeFields on ManagedNode {
     }
 }
 
-fragment processorNodeFields on ProcessorNode {
+fragment ProcessorNodeFields on ProcessorNode {
     config
     inlineProcessor
     loggingLevel
@@ -176,14 +176,14 @@ fragment processorNodeFields on ProcessorNode {
     sequentialProcessing
 }
 
-fragment timerNodeFields on TimerNode {
+fragment TimerNodeFields on TimerNode {
     scheduleExpression
     sendMessageType {
         name
     }
 }
 
-fragment webhookNodeFields on WebhookNode {
+fragment WebhookNodeFields on WebhookNode {
     config
     endpoint
     inlineApiAuthenticator
@@ -221,8 +221,8 @@ mutation CreateBitmapRouterNode(
         requirements: $requirements,
         routeTable: $routeTable
     ) {
-        ...nodeFields
-        ...bitmapRouterNodeFields
+        ...NodeFields
+        ...BitmapRouterNodeFields
     }
 }
 
@@ -254,8 +254,8 @@ mutation CreateCrossTenantSendingNode(
         sendMessageType: $sendMessageType,
         sequentialProcessing: $sequentialProcessing
     ) {
-        ...nodeFields
-        ...crossTenantSendingNodeFields
+        ...NodeFields
+        ...CrossTenantSendingNodeFields
     }
 }
 
@@ -277,8 +277,8 @@ mutation CreateExternalNode(
         receiveMessageType: $receiveMessageType,
         sendMessageType: $sendMessageType,
     ) {
-        ...nodeFields
-        ...externalNodeFields
+        ...NodeFields
+        ...ExternalNodeFields
     }
 }
 
@@ -294,8 +294,8 @@ mutation CreateFilesDotComWebhookNode(
         tenant: $tenant,
         description: $description
     ) {
-        ...nodeFields
-        ...filesDotComWebhookNodeFields
+        ...NodeFields
+        ...FilesDotComWebhookNodeFields
     }
 }
 
@@ -311,8 +311,8 @@ mutation CreateLoadBalancerNode(
         tenant: $tenant,
         description: $description
     ) {
-        ...nodeFields
-        ...loadBalancerNodeFields
+        ...NodeFields
+        ...LoadBalancerNodeFields
     }
 }
 
@@ -338,8 +338,8 @@ mutation CreateManagedNode(
         mounts: $mounts,
         ports: $ports
     ) {
-        ...nodeFields
-        ...managedNodeFields
+        ...NodeFields
+        ...ManagedNodeFields
     }
 }
 
@@ -369,8 +369,8 @@ mutation CreateProcessorNode(
         sendMessageType: $sendMessageType,
         sequentialProcessing: $sequentialProcessing
     ) {
-        ...nodeFields
-        ...processorNodeFields
+        ...NodeFields
+        ...ProcessorNodeFields
     }
 }
 
@@ -386,8 +386,8 @@ mutation CreateTimerNode(
         tenant: $tenant,
         description: $description
     ) {
-        ...nodeFields
-        ...timerNodeFields
+        ...NodeFields
+        ...TimerNodeFields
     }
 }
 
@@ -413,8 +413,8 @@ mutation CreateWebhookNode(
         requirements: $requirements,
         sendMessageType: $sendMessageType,
     ) {
-        ...nodeFields
-        ...webhookNodeFields
+        ...NodeFields
+        ...WebhookNodeFields
     }
 }
 
@@ -456,57 +456,57 @@ query DeleteNode($name: String!, $tenant: String!) {
 
 query ReadNode($name: String!, $tenant: String!) {
     GetNode(name: $name, tenant: $tenant) {
-        ...nodeFields
+        ...NodeFields
         ... on AlertEmitterNode {
-            ...alertEmitterNodeFields
+            ...AlertEmitterNodeFields
         }
         ... on AppChangeReceiverNode {
-            ...appChangeReceiverNodeFields
+            ...AppChangeReceiverNodeFields
         }
         ... on AppChangeRouterNode {
-            ...appChangeRouterNodeFields
+            ...AppChangeRouterNodeFields
         }
         ... on AuditEmitterNode {
-            ...auditEmitterNodeFields
+            ...AuditEmitterNodeFields
         }
         ... on BitmapRouterNode {
-            ...bitmapRouterNodeFields
+            ...BitmapRouterNodeFields
         }
         ... on ChangeEmitterNode {
-            ...changeEmitterNodeFields
+            ...ChangeEmitterNodeFields
         }
         ... on CrossTenantReceivingNode {
-            ...crossTenantReceivingNodeFields
+            ...CrossTenantReceivingNodeFields
         }
         ... on CrossTenantSendingNode {
-            ...crossTenantSendingNodeFields
+            ...CrossTenantSendingNodeFields
         }
         ... on DeadLetterEmitterNode {
-            ...deadLetterEmitterNodeFields
+            ...DeadLetterEmitterNodeFields
         }
         ... on ExternalNode {
-            ...externalNodeFields
+            ...ExternalNodeFields
         }
         ... on FilesDotComWebhookNode {
-            ...filesDotComWebhookNodeFields
+            ...FilesDotComWebhookNodeFields
         }
         ... on LoadBalancerNode {
-            ...loadBalancerNodeFields
+            ...LoadBalancerNodeFields
         }
         ... on LogEmitterNode {
-            ...logEmitterNodeFields
+            ...LogEmitterNodeFields
         }
         ... on ManagedNode {
-            ...managedNodeFields
+            ...ManagedNodeFields
         }
         ... on ProcessorNode {
-            ...processorNodeFields
+            ...ProcessorNodeFields
         }
         ... on TimerNode {
-            ...timerNodeFields
+            ...TimerNodeFields
         }
         ... on WebhookNode {
-            ...webhookNodeFields
+            ...WebhookNodeFields
         }
     }
 }
@@ -641,8 +641,8 @@ query UpdateBitmapRouterNode(
                 requirements: $requirements,
                 routeTable: $routeTable
             ) {
-                ...nodeFields
-                ...bitmapRouterNodeFields
+                ...NodeFields
+                ...BitmapRouterNodeFields
             }
         }
     }
@@ -657,8 +657,8 @@ query UpdateCrossTenantReceivingNode(
     GetNode(name: $name, tenant: $tenant) {
         ... on CrossTenantReceivingNode {
             Update(description: $description) {
-                ...nodeFields
-                ...crossTenantReceivingNodeFields
+                ...NodeFields
+                ...CrossTenantReceivingNodeFields
             }
         }
     }
@@ -686,8 +686,8 @@ query UpdateCrossTenantSendingNode(
                 requirements: $requirements,
                 sequentialProcessing: $sequentialProcessing
             ) {
-                ...nodeFields
-                ...crossTenantSendingNodeFields
+                ...NodeFields
+                ...CrossTenantSendingNodeFields
             }
         }
     }
@@ -702,8 +702,8 @@ query UpdateExternalNode(
     GetNode(name: $name, tenant: $tenant) {
         ... on ExternalNode {
             Update(config: $config, description: $description) {
-                ...nodeFields
-                ...externalNodeFields
+                ...NodeFields
+                ...ExternalNodeFields
             }
         }
     }
@@ -718,8 +718,8 @@ query UpdateFilesDotComWebhookNode(
     GetNode(name: $name, tenant: $tenant) {
         ... on FilesDotComWebhookNode {
             Update(apiKey: $apiKey, description: $description) {
-                ...nodeFields
-                ...filesDotComWebhookNodeFields
+                ...NodeFields
+                ...FilesDotComWebhookNodeFields
             }
         }
     }
@@ -733,8 +733,8 @@ query UpdateLoadBalancerNode(
     GetNode(name: $name, tenant: $tenant) {
         ... on LoadBalancerNode {
             Update(description: $description) {
-                ...nodeFields
-                ...loadBalancerNodeFields
+                ...NodeFields
+                ...LoadBalancerNodeFields
             }
         }
     }
@@ -758,8 +758,8 @@ query UpdateManagedNode(
                 mounts: $mounts,
                 ports: $ports
             ) {
-                ...nodeFields
-                ...managedNodeFields
+                ...NodeFields
+                ...ManagedNodeFields
             }
         }
     }
@@ -787,8 +787,8 @@ query UpdateProcessorNode(
                 requirements: $requirements,
                 sequentialProcessing: $sequentialProcessing
             ) {
-                ...nodeFields
-                ...processorNodeFields
+                ...NodeFields
+                ...ProcessorNodeFields
             }
         }
     }
@@ -802,8 +802,8 @@ query UpdateTimerNode(
     GetNode(name: $name, tenant: $tenant) {
         ... on TimerNode {
             Update(description: $description) {
-                ...nodeFields
-                ...timerNodeFields
+                ...NodeFields
+                ...TimerNodeFields
             }
         }
     }
@@ -829,8 +829,8 @@ query UpdateWebhookNode(
                 managedApiAuthenticator: $managedApiAuthenticator,
                 requirements: $requirements,
             ) {
-                ...nodeFields
-                ...webhookNodeFields
+                ...NodeFields
+                ...WebhookNodeFields
             }
         }
     }

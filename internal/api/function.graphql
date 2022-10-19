@@ -1,4 +1,4 @@
-fragment functionFields on Function {
+fragment FunctionFields on Function {
     code
     description
     inUse
@@ -8,13 +8,13 @@ fragment functionFields on Function {
     system
 }
 
-fragment bitmapperFunctionFields on BitmapperFunction {
+fragment BitmapperFunctionFields on BitmapperFunction {
     argumentMessageType {
         name
     }
 }
 
-fragment processorFunctionFields on ProcessorFunction {
+fragment ProcessorFunctionFields on ProcessorFunction {
     argumentMessageType {
         name
     }
@@ -39,7 +39,7 @@ mutation CreateApiAuthenticatorFunction(
         readme: $readme,
         requirements: $requirements
     ) {
-        ...functionFields
+        ...FunctionFields
     }
 }
 
@@ -61,8 +61,8 @@ mutation CreateBitmapperFunction(
         readme: $readme,
         requirements: $requirements
     ) {
-        ...functionFields
-        ...bitmapperFunctionFields
+        ...FunctionFields
+        ...BitmapperFunctionFields
     }
 }
 
@@ -86,8 +86,8 @@ mutation CreateProcessorFunction(
         requirements: $requirements
         returnMessageType: $returnMessageType
     ) {
-        ...functionFields
-        ...processorFunctionFields
+        ...FunctionFields
+        ...ProcessorFunctionFields
     }
 }
 
@@ -99,12 +99,12 @@ query DeleteFunction($name: String!, $tenant: String!) {
 
 query ReadFunction($name: String!, $tenant: String!) {
     GetFunction(name: $name, tenant: $tenant) {
-        ...functionFields
+        ...FunctionFields
         ... on BitmapperFunction {
-            ...bitmapperFunctionFields
+            ...BitmapperFunctionFields
         }
         ... on ProcessorFunction {
-            ...processorFunctionFields
+            ...ProcessorFunctionFields
         }
     }
 }
@@ -125,7 +125,7 @@ query UpdateFunction(
                 readme: $readme,
                 requirements: $requirements
             ) {
-                ...functionFields
+                ...FunctionFields
             }
         }
         ... on BitmapperFunction {
@@ -135,8 +135,8 @@ query UpdateFunction(
                 readme: $readme,
                 requirements: $requirements
             ) {
-                ...functionFields
-                ...bitmapperFunctionFields
+                ...FunctionFields
+                ...BitmapperFunctionFields
             }
         }        
         ... on ProcessorFunction {
@@ -146,8 +146,8 @@ query UpdateFunction(
                 readme: $readme,
                 requirements: $requirements
             ) {
-                ...functionFields
-                ...processorFunctionFields
+                ...FunctionFields
+                ...ProcessorFunctionFields
             }
         }        
     }

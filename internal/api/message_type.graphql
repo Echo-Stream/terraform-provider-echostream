@@ -1,4 +1,4 @@
-fragment messageTypeFields on MessageType {
+fragment MessageTypeFields on MessageType {
     auditor
     bitmapperTemplate
     description
@@ -33,7 +33,7 @@ mutation CreateMessageType(
         readme: $readme,
         requirements: $requirements
     ) {
-        ...messageTypeFields
+        ...MessageTypeFields
     }
 }
 
@@ -45,7 +45,7 @@ query DeleteMessageType($name: String!, $tenant: String!) {
 
 query ReadMessageType($name: String!, $tenant: String!) {
     GetMessageType(name: $name, tenant: $tenant) {
-        ...messageTypeFields
+        ...MessageTypeFields
     }
 }
 
@@ -70,7 +70,7 @@ query UpdateMessageType(
             readme: $readme,
             requirements: $requirements        
         ) {
-            ...messageTypeFields
+            ...MessageTypeFields
         }
     }
 }

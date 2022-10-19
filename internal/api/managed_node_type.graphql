@@ -1,4 +1,4 @@
-fragment managedNodeTypeFields on ManagedNodeType {
+fragment ManagedNodeTypeFields on ManagedNodeType {
     configTemplate
     description
     imageUri
@@ -48,7 +48,7 @@ mutation CreateManagedNodeType(
         receiveMessageType: $receiveMessageType,
         sendMessageType: $sendMessageType
     ) {
-        ...managedNodeTypeFields
+        ...ManagedNodeTypeFields
     }
 }
 
@@ -60,7 +60,7 @@ query DeleteManagedNodeType($name: String!, $tenant: String!) {
 
 query ReadManagedNodeType($name: String!, $tenant: String!) {
     GetManagedNodeType(name: $name, tenant: $tenant) {
-        ...managedNodeTypeFields
+        ...ManagedNodeTypeFields
     }
 }
 
@@ -77,7 +77,7 @@ query UpdateManagedNodeType(
             imageUri: $imageUri,
             readme: $readme
         ) {
-            ...managedNodeTypeFields
+            ...ManagedNodeTypeFields
         }
     }
 }
