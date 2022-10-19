@@ -523,10 +523,10 @@ query ReadNodeMessageTypes($name: String!, $tenant: String!) {
             }
         }
         ... on AppChangeRouterNode {
-            sendMessageType {
+            receiveMessageType {
                 name
             }
-            receiveMessageType {
+            sendMessageType {
                 name
             }
         }
@@ -536,10 +536,10 @@ query ReadNodeMessageTypes($name: String!, $tenant: String!) {
             }
         }
         ... on BitmapRouterNode {
-            sendMessageType {
+            receiveMessageType {
                 name
             }
-            receiveMessageType {
+            sendMessageType {
                 name
             }
         }
@@ -564,10 +564,10 @@ query ReadNodeMessageTypes($name: String!, $tenant: String!) {
             }
         }
         ... on ExternalNode {
-            sendMessageType {
+            receiveMessageType {
                 name
             }
-            receiveMessageType {
+            sendMessageType {
                 name
             }
         }
@@ -577,10 +577,10 @@ query ReadNodeMessageTypes($name: String!, $tenant: String!) {
             }
         }
         ... on LoadBalancerNode {
-            sendMessageType {
+            receiveMessageType {
                 name
             }
-            receiveMessageType {
+            sendMessageType {
                 name
             }
         }
@@ -590,18 +590,18 @@ query ReadNodeMessageTypes($name: String!, $tenant: String!) {
             }
         }
         ... on ManagedNode {
-            sendMessageType {
+            receiveMessageType {
                 name
             }
-            receiveMessageType {
+            sendMessageType {
                 name
             }
         }
         ... on ProcessorNode {
-            sendMessageType {
+            receiveMessageType {
                 name
             }
-            receiveMessageType {
+            sendMessageType {
                 name
             }
         }
