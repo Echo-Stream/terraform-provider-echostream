@@ -140,8 +140,8 @@ func (r *TimerNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.D
 	}
 	return tfsdk.Schema{
 		Attributes:          schema,
-		Description:         "TimeNodes send periodic Timer messages",
-		MarkdownDescription: "TimeNodes send periodic Timer messages",
+		Description:         "TimerNodes send periodic Timer messages",
+		MarkdownDescription: "TimerNodes send periodic Timer messages",
 	}, nil
 }
 
