@@ -368,6 +368,7 @@ func (p *echoStreamProvider) Resources(ctx context.Context) []func() resource.Re
 		func() resource.Resource { return &node.LoadBalancerNodeResource{} },
 		func() resource.Resource { return &node.ProcessorNodeResource{} },
 		func() resource.Resource { return &node.TimerNodeResource{} },
+		func() resource.Resource { return &node.WebhookNodeResource{} },
 		func() resource.Resource { return &tenant.TenantResource{} },
 	}
 }
