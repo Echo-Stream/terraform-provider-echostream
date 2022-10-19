@@ -235,7 +235,7 @@ func (r *BitmapRouterNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema,
 			attribute.Computed = false
 			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
 			attribute.Required = true
-			attribute.Validators = common.NameValidators
+			attribute.Validators = common.FunctionNodeNameValidators
 		case "receive_message_type":
 			attribute.Computed = false
 			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}

@@ -11,6 +11,13 @@ import (
 )
 
 var (
+	FunctionNodeNameValidators []tfsdk.AttributeValidator = []tfsdk.AttributeValidator{
+		stringvalidator.LengthBetween(3, 80),
+		stringvalidator.RegexMatches(
+			regexp.MustCompile(`^[A-Za-z0-9\-\_ ]*$`),
+			"value must contain only lowercase/uppercase alphanumeric characters, \"-\", or \"_\"",
+		),
+	}
 	LogLevelValidator tfsdk.AttributeValidator = stringvalidator.OneOf(
 		string(api.LogLevelDebug),
 		string(api.LogLevelError),
