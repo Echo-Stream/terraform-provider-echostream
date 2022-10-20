@@ -95,13 +95,13 @@ func (r *BitmapperFunctionResource) Create(ctx context.Context, req resource.Cre
 	} else {
 		plan.Readme = types.String{Null: true}
 	}
+	plan.Requirements = types.Set{ElemType: types.StringType}
 	if len(echoResp.CreateBitmapperFunction.Requirements) > 0 {
-		plan.Requirements = types.Set{ElemType: types.StringType}
 		for _, req := range echoResp.CreateBitmapperFunction.Requirements {
 			plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 		}
 	} else {
-		plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+		plan.Requirements.Null = true
 	}
 
 	// Save data into Terraform state
@@ -270,13 +270,13 @@ func (r *BitmapperFunctionResource) Update(ctx context.Context, req resource.Upd
 		} else {
 			plan.Readme = types.String{Null: true}
 		}
+		plan.Requirements = types.Set{ElemType: types.StringType}
 		if len(function.Update.Requirements) > 0 {
-			plan.Requirements = types.Set{ElemType: types.StringType}
 			for _, req := range function.Update.Requirements {
 				plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 			}
 		} else {
-			plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+			plan.Requirements.Null = true
 		}
 	}
 

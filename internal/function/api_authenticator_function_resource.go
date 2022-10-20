@@ -93,13 +93,13 @@ func (r *ApiAuthenticatorFunctionResource) Create(ctx context.Context, req resou
 	} else {
 		plan.Readme = types.String{Null: true}
 	}
+	plan.Requirements = types.Set{ElemType: types.StringType}
 	if len(echoResp.CreateApiAuthenticatorFunction.Requirements) > 0 {
-		plan.Requirements = types.Set{ElemType: types.StringType}
 		for _, req := range echoResp.CreateApiAuthenticatorFunction.Requirements {
 			plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 		}
 	} else {
-		plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+		plan.Requirements.Null = true
 	}
 
 	// Save data into Terraform state
@@ -267,13 +267,13 @@ func (r *ApiAuthenticatorFunctionResource) Update(ctx context.Context, req resou
 		} else {
 			plan.Readme = types.String{Null: true}
 		}
+		plan.Requirements = types.Set{ElemType: types.StringType}
 		if len(function.Update.Requirements) > 0 {
-			plan.Requirements = types.Set{ElemType: types.StringType}
 			for _, req := range function.Update.Requirements {
 				plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 			}
 		} else {
-			plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+			plan.Requirements.Null = true
 		}
 	}
 

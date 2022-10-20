@@ -100,13 +100,13 @@ func (r *ProcessorFunctionResource) Create(ctx context.Context, req resource.Cre
 	} else {
 		plan.Readme = types.String{Null: true}
 	}
+	plan.Requirements = types.Set{ElemType: types.StringType}
 	if len(echoResp.CreateProcessorFunction.Requirements) > 0 {
-		plan.Requirements = types.Set{ElemType: types.StringType}
 		for _, req := range echoResp.CreateProcessorFunction.Requirements {
 			plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 		}
 	} else {
-		plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+		plan.Requirements.Null = true
 	}
 	if echoResp.CreateProcessorFunction.ReturnMessageType != nil {
 		plan.ReturnMessageType = types.String{Value: echoResp.CreateProcessorFunction.ReturnMessageType.Name}
@@ -280,13 +280,13 @@ func (r *ProcessorFunctionResource) Update(ctx context.Context, req resource.Upd
 		} else {
 			plan.Readme = types.String{Null: true}
 		}
+		plan.Requirements = types.Set{ElemType: types.StringType}
 		if len(function.Update.Requirements) > 0 {
-			plan.Requirements = types.Set{ElemType: types.StringType}
 			for _, req := range function.Update.Requirements {
 				plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 			}
 		} else {
-			plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+			plan.Requirements.Null = true
 		}
 		if function.Update.ReturnMessageType != nil {
 			plan.ReturnMessageType = types.String{Value: function.Update.ReturnMessageType.Name}

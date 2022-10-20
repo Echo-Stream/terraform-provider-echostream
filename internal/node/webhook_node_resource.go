@@ -157,13 +157,13 @@ func (r *WebhookNodeResource) Create(ctx context.Context, req resource.CreateReq
 			plan.ManagedApiAuthenticator = types.String{Null: true}
 		}
 		plan.Name = types.String{Value: echoResp.CreateWebhookNode.Name}
+		plan.Requirements = types.Set{ElemType: types.StringType}
 		if len(echoResp.CreateWebhookNode.Requirements) > 0 {
-			plan.Requirements = types.Set{ElemType: types.StringType}
 			for _, req := range echoResp.CreateWebhookNode.Requirements {
 				plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 			}
 		} else {
-			plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+			plan.Requirements.Null = true
 		}
 		plan.SendMessageType = types.String{Value: echoResp.CreateWebhookNode.SendMessageType.Name}
 	}
@@ -316,13 +316,13 @@ func (r *WebhookNodeResource) Read(ctx context.Context, req resource.ReadRequest
 				state.ManagedApiAuthenticator = types.String{Null: true}
 			}
 			state.Name = types.String{Value: node.Name}
+			state.Requirements = types.Set{ElemType: types.StringType}
 			if len(node.Requirements) > 0 {
-				state.Requirements = types.Set{ElemType: types.StringType}
 				for _, req := range node.Requirements {
 					state.Requirements.Elems = append(state.Requirements.Elems, types.String{Value: req})
 				}
 			} else {
-				state.Requirements = types.Set{ElemType: types.StringType, Null: true}
+				state.Requirements.Null = true
 			}
 			state.SendMessageType = types.String{Value: node.SendMessageType.Name}
 		default:
@@ -427,13 +427,13 @@ func (r *WebhookNodeResource) Update(ctx context.Context, req resource.UpdateReq
 				plan.ManagedApiAuthenticator = types.String{Null: true}
 			}
 			plan.Name = types.String{Value: node.Update.Name}
+			plan.Requirements = types.Set{ElemType: types.StringType}
 			if len(node.Update.Requirements) > 0 {
-				plan.Requirements = types.Set{ElemType: types.StringType}
 				for _, req := range node.Update.Requirements {
 					plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 				}
 			} else {
-				plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+				plan.Requirements.Null = true
 			}
 			plan.SendMessageType = types.String{Value: node.Update.SendMessageType.Name}
 		default:

@@ -164,13 +164,13 @@ func (r *ProcessorNodeResource) Create(ctx context.Context, req resource.CreateR
 		}
 		plan.Name = types.String{Value: echoResp.CreateProcessorNode.Name}
 		plan.ReceiveMessageType = types.String{Value: echoResp.CreateProcessorNode.ReceiveMessageType.Name}
+		plan.Requirements = types.Set{ElemType: types.StringType}
 		if len(echoResp.CreateProcessorNode.Requirements) > 0 {
-			plan.Requirements = types.Set{ElemType: types.StringType}
 			for _, req := range echoResp.CreateProcessorNode.Requirements {
 				plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 			}
 		} else {
-			plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+			plan.Requirements.Null = true
 		}
 		if echoResp.CreateProcessorNode.SendMessageType != nil {
 			plan.SendMessageType = types.String{Value: echoResp.CreateProcessorNode.SendMessageType.Name}
@@ -334,13 +334,13 @@ func (r *ProcessorNodeResource) Read(ctx context.Context, req resource.ReadReque
 			}
 			state.Name = types.String{Value: node.Name}
 			state.ReceiveMessageType = types.String{Value: node.ReceiveMessageType.Name}
+			state.Requirements = types.Set{ElemType: types.StringType}
 			if len(node.Requirements) > 0 {
-				state.Requirements = types.Set{ElemType: types.StringType}
 				for _, req := range node.Requirements {
 					state.Requirements.Elems = append(state.Requirements.Elems, types.String{Value: req})
 				}
 			} else {
-				state.Requirements = types.Set{ElemType: types.StringType, Null: true}
+				state.Requirements.Null = true
 			}
 			if node.SendMessageType != nil {
 				state.SendMessageType = types.String{Value: node.SendMessageType.Name}
@@ -459,13 +459,13 @@ func (r *ProcessorNodeResource) Update(ctx context.Context, req resource.UpdateR
 			}
 			plan.Name = types.String{Value: node.Update.Name}
 			plan.ReceiveMessageType = types.String{Value: node.Update.ReceiveMessageType.Name}
+			plan.Requirements = types.Set{ElemType: types.StringType}
 			if len(node.Update.Requirements) > 0 {
-				plan.Requirements = types.Set{ElemType: types.StringType}
 				for _, req := range node.Update.Requirements {
 					plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 				}
 			} else {
-				plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+				plan.Requirements.Null = true
 			}
 			if node.Update.SendMessageType != nil {
 				plan.SendMessageType = types.String{Value: node.Update.SendMessageType.Name}

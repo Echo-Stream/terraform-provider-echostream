@@ -175,13 +175,13 @@ func (r *BitmapRouterNodeResource) Create(ctx context.Context, req resource.Crea
 		}
 		plan.Name = types.String{Value: echoResp.CreateBitmapRouterNode.Name}
 		plan.ReceiveMessageType = types.String{Value: echoResp.CreateBitmapRouterNode.ReceiveMessageType.Name}
+		plan.Requirements = types.Set{ElemType: types.StringType}
 		if len(echoResp.CreateBitmapRouterNode.Requirements) > 0 {
-			plan.Requirements = types.Set{ElemType: types.StringType}
 			for _, req := range echoResp.CreateBitmapRouterNode.Requirements {
 				plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 			}
 		} else {
-			plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+			plan.Requirements.Null = true
 		}
 		rt := map[string][]string{}
 		if err := json.Unmarshal([]byte(echoResp.CreateBitmapRouterNode.RouteTable), &rt); err != nil {
@@ -361,13 +361,13 @@ func (r *BitmapRouterNodeResource) Read(ctx context.Context, req resource.ReadRe
 			}
 			state.Name = types.String{Value: node.Name}
 			state.ReceiveMessageType = types.String{Value: node.ReceiveMessageType.Name}
+			state.Requirements = types.Set{ElemType: types.StringType}
 			if len(node.Requirements) > 0 {
-				state.Requirements = types.Set{ElemType: types.StringType}
 				for _, req := range node.Requirements {
 					state.Requirements.Elems = append(state.Requirements.Elems, types.String{Value: req})
 				}
 			} else {
-				state.Requirements = types.Set{ElemType: types.StringType, Null: true}
+				state.Requirements.Null = true
 			}
 			rt := map[string][]string{}
 			if err := json.Unmarshal([]byte(node.RouteTable), &rt); err != nil {
@@ -503,13 +503,13 @@ func (r *BitmapRouterNodeResource) Update(ctx context.Context, req resource.Upda
 			}
 			plan.Name = types.String{Value: node.Update.Name}
 			plan.ReceiveMessageType = types.String{Value: node.Update.ReceiveMessageType.Name}
+			plan.Requirements = types.Set{ElemType: types.StringType}
 			if len(node.Update.Requirements) > 0 {
-				plan.Requirements = types.Set{ElemType: types.StringType}
 				for _, req := range node.Update.Requirements {
 					plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 				}
 			} else {
-				plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+				plan.Requirements.Null = true
 			}
 			rt := map[string][]string{}
 			if err := json.Unmarshal([]byte(node.Update.RouteTable), &rt); err != nil {

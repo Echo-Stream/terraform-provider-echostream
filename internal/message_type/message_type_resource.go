@@ -99,13 +99,13 @@ func (r *MessageTypeResource) Create(ctx context.Context, req resource.CreateReq
 	} else {
 		plan.Readme = types.String{Null: true}
 	}
+	plan.Requirements = types.Set{ElemType: types.StringType}
 	if len(echoResp.CreateMessageType.Requirements) > 0 {
-		plan.Requirements = types.Set{ElemType: types.StringType}
 		for _, req := range echoResp.CreateMessageType.Requirements {
 			plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 		}
 	} else {
-		plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+		plan.Requirements.Null = true
 	}
 	plan.SampleMessage = types.String{Value: echoResp.CreateMessageType.SampleMessage}
 
@@ -289,13 +289,13 @@ func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateReq
 	} else {
 		plan.Readme = types.String{Null: true}
 	}
+	plan.Requirements = types.Set{ElemType: types.StringType}
 	if len(echoResp.GetMessageType.Update.Requirements) > 0 {
-		plan.Requirements = types.Set{ElemType: types.StringType}
 		for _, req := range echoResp.GetMessageType.Update.Requirements {
 			plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
 		}
 	} else {
-		plan.Requirements = types.Set{ElemType: types.StringType, Null: true}
+		plan.Requirements.Null = true
 	}
 	plan.SampleMessage = types.String{Value: echoResp.GetMessageType.Update.SampleMessage}
 
