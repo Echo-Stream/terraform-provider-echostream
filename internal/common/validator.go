@@ -5,6 +5,7 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common/validators"
+	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -31,6 +32,12 @@ var (
 			"value must contain only lowercase/uppercase alphanumeric characters, \"-\", \"_\", \":\", or \".\"",
 		),
 	}
+	PortValidator     tfsdk.AttributeValidator = int64validator.Between(1024, 65535)
+	ProtocolValidator tfsdk.AttributeValidator = stringvalidator.OneOf(
+		string(api.ProtocolSctp),
+		string(api.ProtocolTcp),
+		string(api.ProtocolUdp),
+	)
 	RequirementsValidator tfsdk.AttributeValidator = setvalidator.ValuesAre(
 		stringvalidator.LengthAtLeast(1),
 	)

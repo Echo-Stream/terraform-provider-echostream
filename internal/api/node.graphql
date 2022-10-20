@@ -150,6 +150,7 @@ fragment ManagedNodeFields on ManagedNode {
         containerPort
         description
         hostAddress
+        hostPort
         protocol
     }
     receiveMessageType {

@@ -6316,6 +6316,7 @@ type ManagedNodeFieldsPortsPort struct {
 	ContainerPort int      `json:"containerPort"`
 	Description   string   `json:"description"`
 	HostAddress   *string  `json:"hostAddress"`
+	HostPort      int      `json:"hostPort"`
 	Protocol      Protocol `json:"protocol"`
 }
 
@@ -6327,6 +6328,9 @@ func (v *ManagedNodeFieldsPortsPort) GetDescription() string { return v.Descript
 
 // GetHostAddress returns ManagedNodeFieldsPortsPort.HostAddress, and is useful for accessing the field via an interface.
 func (v *ManagedNodeFieldsPortsPort) GetHostAddress() *string { return v.HostAddress }
+
+// GetHostPort returns ManagedNodeFieldsPortsPort.HostPort, and is useful for accessing the field via an interface.
+func (v *ManagedNodeFieldsPortsPort) GetHostPort() int { return v.HostPort }
 
 // GetProtocol returns ManagedNodeFieldsPortsPort.Protocol, and is useful for accessing the field via an interface.
 func (v *ManagedNodeFieldsPortsPort) GetProtocol() Protocol { return v.Protocol }
@@ -23264,6 +23268,7 @@ fragment ManagedNodeFields on ManagedNode {
 		containerPort
 		description
 		hostAddress
+		hostPort
 		protocol
 	}
 	receiveMessageType {
@@ -24659,6 +24664,7 @@ fragment ManagedNodeFields on ManagedNode {
 		containerPort
 		description
 		hostAddress
+		hostPort
 		protocol
 	}
 	receiveMessageType {
@@ -25610,6 +25616,7 @@ fragment ManagedNodeFields on ManagedNode {
 		containerPort
 		description
 		hostAddress
+		hostPort
 		protocol
 	}
 	receiveMessageType {
