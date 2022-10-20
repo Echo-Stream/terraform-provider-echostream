@@ -6,6 +6,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
+type CognitoCredentialsModel struct {
+	ClientId   types.String `tfsdk:"client_id"`
+	Password   types.String `tfsdk:"password"`
+	UserPoolId types.String `tfsdk:"user_pool_id"`
+	Username   types.String `tfsdk:"username"`
+}
+
 func CognitoCredentialsAttrTypes() map[string]attr.Type {
 	return map[string]attr.Type{
 		"client_id":    types.StringType,
