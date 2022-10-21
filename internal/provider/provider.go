@@ -361,6 +361,7 @@ func (p *echoStreamProvider) Resources(ctx context.Context) []func() resource.Re
 		func() resource.Resource { return &function.BitmapperFunctionResource{} },
 		func() resource.Resource { return &function.ProcessorFunctionResource{} },
 		func() resource.Resource { return &kmskey.KmsKeyResource{} },
+		func() resource.Resource { return &managed_node_type.ManagedNodeTypeResource{} },
 		func() resource.Resource { return &message_type.MessageTypeResource{} },
 		func() resource.Resource { return &node.BitmapRouterNodeResource{} },
 		func() resource.Resource { return &node.CrossTenantReceivingNodeResource{} },

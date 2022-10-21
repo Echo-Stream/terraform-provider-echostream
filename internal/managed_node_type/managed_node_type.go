@@ -2,11 +2,13 @@ package managed_node_type
 
 import (
 	"context"
+	"regexp"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
@@ -33,7 +35,7 @@ type mountRequirementsModel struct {
 	Target      types.String `tfsdk:"target"`
 }
 
-type portRequirementsMode struct {
+type portRequirementsModel struct {
 	ContainerPort types.Int64  `tfsdk:"container_port"`
 	Description   types.String `tfsdk:"description"`
 	Protocol      types.String `tfsdk:"protocol"`
@@ -207,17 +209,32 @@ func resourceManagedNodeTypeSchema() map[string]tfsdk.Attribute {
 			} else {
 				attribute.Optional = true
 			}
-		}
-		if slices.Contains([]string{"name", "receive_message_type", "send_message_type"}, key) {
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-		}
-		switch key {
-		case "mount_requirements":
-			attribute.Attributes = tfsdk.SetNestedAttributes(resourceMountRequirementsSchema())
-		case "name":
-			attribute.Validators = append(common.NameValidators, common.NotSystemNameValidator)
-		case "port_requirements":
-			attribute.Attributes = tfsdk.SetNestedAttributes(resourcePortRequirementsSchema())
+			if slices.Contains(
+				[]string{
+					"config_template",
+					"mount_requirements",
+					"name",
+					"port_requirements",
+					"receive_message_type",
+					"send_message_type",
+				}, key) {
+				attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
+			}
+			switch key {
+			case "image_uri":
+				attribute.Validators = []tfsdk.AttributeValidator{
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^(?:(?:[0-9]{12}\.dkr\.ecr\.[a-z]+\-[a-z]+\-[0-9]\.amazonaws\.com/.+\:.+)|(?:public\.ecr\.aws/.+/.+\:.+))$`),
+						`must be either a private ECR image URI (aws_account_id.dkr.ecr.region.amazonaws.com/respository:tag) or a public ECR image URI (public.ecr.aws/registry_alias/repository:tag)`,
+					),
+				}
+			case "mount_requirements":
+				attribute.Attributes = tfsdk.SetNestedAttributes(resourceMountRequirementsSchema())
+			case "name":
+				attribute.Validators = append(common.NameValidators, common.NotSystemNameValidator)
+			case "port_requirements":
+				attribute.Attributes = tfsdk.SetNestedAttributes(resourcePortRequirementsSchema())
+			}
 		}
 		schema[key] = attribute
 	}
