@@ -46,6 +46,14 @@ type mountInputModel struct {
 	Target      types.String `tfsdk:"target"`
 }
 
+type portInputModel struct {
+	ContainerPort types.Int64  `tfsdk:"container_port"`
+	Description   types.String `tfsdk:"description"`
+	HostAddress   types.String `tfsdk:"host_address"`
+	HostPort      types.Int64  `tfsdk:"host_port"`
+	Protocol      types.String `tfsdk:"protocol"`
+}
+
 func mountAttrTypes() map[string]attr.Type {
 	return map[string]attr.Type{
 		"description": types.StringType,
@@ -70,14 +78,6 @@ func mountAttrValues(
 		"source":      s,
 		"target":      types.String{Value: target},
 	}
-}
-
-type portInputModel struct {
-	ContainerPort types.Int64  `tfsdk:"container_port"`
-	Description   types.String `tfsdk:"description"`
-	HostAddress   types.String `tfsdk:"host_address"`
-	HostPort      types.Int64  `tfsdk:"host_port"`
-	Protocol      types.String `tfsdk:"protocol"`
 }
 
 func portAttrTypes() map[string]attr.Type {
