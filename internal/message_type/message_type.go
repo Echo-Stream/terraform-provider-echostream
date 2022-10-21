@@ -81,14 +81,12 @@ func dataMessageTypeSchema() map[string]tfsdk.Attribute {
 			Computed:            true,
 			Description:         "",
 			MarkdownDescription: "",
-			Optional:            true,
 			Type:                types.StringType,
 		},
 		"requirements": {
 			Computed:            true,
 			Description:         "",
 			MarkdownDescription: "",
-			Optional:            true,
 			Type:                types.SetType{ElemType: types.StringType},
 			Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
 		},
@@ -107,13 +105,15 @@ func resourceMessageTypeSchema() map[string]tfsdk.Attribute {
 	for key, attribute := range schema {
 		if key != "in_use" {
 			attribute.Computed = false
-		}
-		if key == "name" {
-			attribute.Validators = append(messageTypeNameValidators, common.NotSystemNameValidator)
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-		}
-		if slices.Contains(required, key) {
-			attribute.Required = true
+			if key == "name" {
+				attribute.Validators = append(messageTypeNameValidators, common.NotSystemNameValidator)
+				attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
+			}
+			if slices.Contains(required, key) {
+				attribute.Required = true
+			} else {
+				attribute.Optional = true
+			}
 		}
 		schema[key] = attribute
 	}
