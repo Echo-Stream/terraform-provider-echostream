@@ -201,7 +201,7 @@ func (r *MessageTypeResource) Read(ctx context.Context, req resource.ReadRequest
 		resp.Diagnostics.AddError("Error reading MessageType", err.Error())
 		return
 	} else if system {
-		resp.Diagnostics.AddError("Invalid MessageType", "Cannot create resource for system MessageType")
+		resp.Diagnostics.AddError("Invalid MessageType", "Cannot import resource for system MessageType")
 		return
 	} else if data == nil {
 		resp.State.RemoveResource(ctx)
