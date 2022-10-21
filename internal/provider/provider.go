@@ -14,6 +14,7 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/edge"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/function"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/kmskey"
+	"github.com/Echo-Stream/terraform-provider-echostream/internal/managed_node_type"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/message_type"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/node"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/tenant"
@@ -157,6 +158,7 @@ func (p *echoStreamProvider) DataSources(ctx context.Context) []func() datasourc
 		func() datasource.DataSource { return &function.ApiAuthenticatorFunctionDataSource{} },
 		func() datasource.DataSource { return &function.BitmapperFunctionDataSource{} },
 		func() datasource.DataSource { return &function.ProcessorFunctionDataSource{} },
+		func() datasource.DataSource { return &managed_node_type.ManagedNodeTypeDataSource{} },
 		func() datasource.DataSource { return &message_type.MessageTypeDataSource{} },
 		func() datasource.DataSource { return &node.AlertEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &node.AppChangeReceiverNodeDataSource{} },
