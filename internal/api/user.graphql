@@ -1,0 +1,71 @@
+fragment ApiUserFields on ApiUser {
+    appsyncEndpoint
+    credentials {
+        ...CognitoCredentialsFields
+    }
+    description
+    role
+    username
+}
+
+fragment TenantUserFields on TenantUser {
+    email
+    firstName
+    lastName
+    role
+    status
+}
+
+mutation CreateApiUser($role: ApiUserRole!, $tenant: String!, $description: String) {
+    CreateApiUser(role: $role, tenant: $tenant, description: $description) {
+        ...ApiUserFields
+    }
+}
+
+query CreateTenantUser($email: AWSEmail!, $role: UserRole!, $tenant: String!) {
+    GetTenant(tenant: $tenant) {
+        AddUser(email: $email, role: $role) {
+            ...TenantUserFields
+        }
+    }
+}
+
+query DeleteApiUser($tenant: String!, $username: String!) {
+    GetApiUser(tenant: $tenant, username: $username) {
+        Delete
+    }
+}
+
+query DeleteTenantUser($email: AWSEmail!, $tenant: String!) {
+    GetTenantUser(email: $email, tenant: $tenant) {
+        Delete
+    }
+}
+
+query ReadApiUser($tenant: String!, $username: String!) {
+    GetApiUser(tenant: $tenant, username: $username) {
+        ...ApiUserFields
+    }
+}
+
+query ReadTenantUser($email: AWSEmail!, $tenant: String!) {
+    GetTenantUser(email: $email, tenant: $tenant) {
+        ...TenantUserFields
+    }
+}
+
+query UpdateApiUser($tenant: String!, $username: String!, $description: String, $role: ApiUserRole) {
+    GetApiUser(tenant: $tenant, username: $username) {
+        Update(description: $description, role: $role) {
+            ...ApiUserFields
+        }
+    }
+}
+
+query UpdateTenantUser($email: AWSEmail!, $tenant: String!, $role: UserRole, $status: UserStatus) {
+    GetTenantUser(email: $email, tenant: $tenant) {
+        Update(role: $role, status: $status) {
+            ...TenantUserFields
+        }
+    }
+}

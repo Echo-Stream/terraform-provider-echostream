@@ -28,6 +28,118 @@ type AlertEmitterNodeFieldsSendMessageType struct {
 // GetName returns AlertEmitterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
 func (v *AlertEmitterNodeFieldsSendMessageType) GetName() string { return v.Name }
 
+// ApiUserFields includes the GraphQL fields of ApiUser requested by the fragment ApiUserFields.
+type ApiUserFields struct {
+	AppsyncEndpoint string                                     `json:"appsyncEndpoint"`
+	Credentials     ApiUserFieldsCredentialsCognitoCredentials `json:"credentials"`
+	Description     *string                                    `json:"description"`
+	Role            ApiUserRole                                `json:"role"`
+	Username        string                                     `json:"username"`
+}
+
+// GetAppsyncEndpoint returns ApiUserFields.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *ApiUserFields) GetAppsyncEndpoint() string { return v.AppsyncEndpoint }
+
+// GetCredentials returns ApiUserFields.Credentials, and is useful for accessing the field via an interface.
+func (v *ApiUserFields) GetCredentials() ApiUserFieldsCredentialsCognitoCredentials {
+	return v.Credentials
+}
+
+// GetDescription returns ApiUserFields.Description, and is useful for accessing the field via an interface.
+func (v *ApiUserFields) GetDescription() *string { return v.Description }
+
+// GetRole returns ApiUserFields.Role, and is useful for accessing the field via an interface.
+func (v *ApiUserFields) GetRole() ApiUserRole { return v.Role }
+
+// GetUsername returns ApiUserFields.Username, and is useful for accessing the field via an interface.
+func (v *ApiUserFields) GetUsername() string { return v.Username }
+
+// ApiUserFieldsCredentialsCognitoCredentials includes the requested fields of the GraphQL type CognitoCredentials.
+type ApiUserFieldsCredentialsCognitoCredentials struct {
+	CognitoCredentialsFields `json:"-"`
+}
+
+// GetClientId returns ApiUserFieldsCredentialsCognitoCredentials.ClientId, and is useful for accessing the field via an interface.
+func (v *ApiUserFieldsCredentialsCognitoCredentials) GetClientId() string {
+	return v.CognitoCredentialsFields.ClientId
+}
+
+// GetPassword returns ApiUserFieldsCredentialsCognitoCredentials.Password, and is useful for accessing the field via an interface.
+func (v *ApiUserFieldsCredentialsCognitoCredentials) GetPassword() string {
+	return v.CognitoCredentialsFields.Password
+}
+
+// GetUserPoolId returns ApiUserFieldsCredentialsCognitoCredentials.UserPoolId, and is useful for accessing the field via an interface.
+func (v *ApiUserFieldsCredentialsCognitoCredentials) GetUserPoolId() string {
+	return v.CognitoCredentialsFields.UserPoolId
+}
+
+// GetUsername returns ApiUserFieldsCredentialsCognitoCredentials.Username, and is useful for accessing the field via an interface.
+func (v *ApiUserFieldsCredentialsCognitoCredentials) GetUsername() string {
+	return v.CognitoCredentialsFields.Username
+}
+
+func (v *ApiUserFieldsCredentialsCognitoCredentials) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ApiUserFieldsCredentialsCognitoCredentials
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ApiUserFieldsCredentialsCognitoCredentials = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.CognitoCredentialsFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalApiUserFieldsCredentialsCognitoCredentials struct {
+	ClientId string `json:"clientId"`
+
+	Password string `json:"password"`
+
+	UserPoolId string `json:"userPoolId"`
+
+	Username string `json:"username"`
+}
+
+func (v *ApiUserFieldsCredentialsCognitoCredentials) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ApiUserFieldsCredentialsCognitoCredentials) __premarshalJSON() (*__premarshalApiUserFieldsCredentialsCognitoCredentials, error) {
+	var retval __premarshalApiUserFieldsCredentialsCognitoCredentials
+
+	retval.ClientId = v.CognitoCredentialsFields.ClientId
+	retval.Password = v.CognitoCredentialsFields.Password
+	retval.UserPoolId = v.CognitoCredentialsFields.UserPoolId
+	retval.Username = v.CognitoCredentialsFields.Username
+	return &retval, nil
+}
+
+type ApiUserRole string
+
+const (
+	ApiUserRoleAdmin    ApiUserRole = "admin"
+	ApiUserRoleReadOnly ApiUserRole = "read_only"
+	ApiUserRoleUser     ApiUserRole = "user"
+)
+
 // AppChangeReceiverNodeFields includes the GraphQL fields of AppChangeReceiverNode requested by the fragment AppChangeReceiverNodeFields.
 type AppChangeReceiverNodeFields struct {
 	App                AppChangeReceiverNodeFieldsApp                 `json:"-"`
@@ -752,6 +864,94 @@ type CreateApiAuthenticatorFunctionResponse struct {
 func (v *CreateApiAuthenticatorFunctionResponse) GetCreateApiAuthenticatorFunction() CreateApiAuthenticatorFunctionCreateApiAuthenticatorFunction {
 	return v.CreateApiAuthenticatorFunction
 }
+
+// CreateApiUserCreateApiUser includes the requested fields of the GraphQL type ApiUser.
+type CreateApiUserCreateApiUser struct {
+	ApiUserFields `json:"-"`
+}
+
+// GetAppsyncEndpoint returns CreateApiUserCreateApiUser.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *CreateApiUserCreateApiUser) GetAppsyncEndpoint() string {
+	return v.ApiUserFields.AppsyncEndpoint
+}
+
+// GetCredentials returns CreateApiUserCreateApiUser.Credentials, and is useful for accessing the field via an interface.
+func (v *CreateApiUserCreateApiUser) GetCredentials() ApiUserFieldsCredentialsCognitoCredentials {
+	return v.ApiUserFields.Credentials
+}
+
+// GetDescription returns CreateApiUserCreateApiUser.Description, and is useful for accessing the field via an interface.
+func (v *CreateApiUserCreateApiUser) GetDescription() *string { return v.ApiUserFields.Description }
+
+// GetRole returns CreateApiUserCreateApiUser.Role, and is useful for accessing the field via an interface.
+func (v *CreateApiUserCreateApiUser) GetRole() ApiUserRole { return v.ApiUserFields.Role }
+
+// GetUsername returns CreateApiUserCreateApiUser.Username, and is useful for accessing the field via an interface.
+func (v *CreateApiUserCreateApiUser) GetUsername() string { return v.ApiUserFields.Username }
+
+func (v *CreateApiUserCreateApiUser) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateApiUserCreateApiUser
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateApiUserCreateApiUser = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ApiUserFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateApiUserCreateApiUser struct {
+	AppsyncEndpoint string `json:"appsyncEndpoint"`
+
+	Credentials ApiUserFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	Description *string `json:"description"`
+
+	Role ApiUserRole `json:"role"`
+
+	Username string `json:"username"`
+}
+
+func (v *CreateApiUserCreateApiUser) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateApiUserCreateApiUser) __premarshalJSON() (*__premarshalCreateApiUserCreateApiUser, error) {
+	var retval __premarshalCreateApiUserCreateApiUser
+
+	retval.AppsyncEndpoint = v.ApiUserFields.AppsyncEndpoint
+	retval.Credentials = v.ApiUserFields.Credentials
+	retval.Description = v.ApiUserFields.Description
+	retval.Role = v.ApiUserFields.Role
+	retval.Username = v.ApiUserFields.Username
+	return &retval, nil
+}
+
+// CreateApiUserResponse is returned by CreateApiUser on success.
+type CreateApiUserResponse struct {
+	CreateApiUser CreateApiUserCreateApiUser `json:"CreateApiUser"`
+}
+
+// GetCreateApiUser returns CreateApiUserResponse.CreateApiUser, and is useful for accessing the field via an interface.
+func (v *CreateApiUserResponse) GetCreateApiUser() CreateApiUserCreateApiUser { return v.CreateApiUser }
 
 // CreateBitmapRouterNodeCreateBitmapRouterNode includes the requested fields of the GraphQL type BitmapRouterNode.
 type CreateBitmapRouterNodeCreateBitmapRouterNode struct {
@@ -2910,6 +3110,110 @@ func (v *CreateProcessorNodeResponse) GetCreateProcessorNode() CreateProcessorNo
 	return v.CreateProcessorNode
 }
 
+// CreateTenantUserGetTenant includes the requested fields of the GraphQL type Tenant.
+type CreateTenantUserGetTenant struct {
+	AddUser CreateTenantUserGetTenantAddUserTenantUser `json:"AddUser"`
+}
+
+// GetAddUser returns CreateTenantUserGetTenant.AddUser, and is useful for accessing the field via an interface.
+func (v *CreateTenantUserGetTenant) GetAddUser() CreateTenantUserGetTenantAddUserTenantUser {
+	return v.AddUser
+}
+
+// CreateTenantUserGetTenantAddUserTenantUser includes the requested fields of the GraphQL type TenantUser.
+type CreateTenantUserGetTenantAddUserTenantUser struct {
+	TenantUserFields `json:"-"`
+}
+
+// GetEmail returns CreateTenantUserGetTenantAddUserTenantUser.Email, and is useful for accessing the field via an interface.
+func (v *CreateTenantUserGetTenantAddUserTenantUser) GetEmail() string {
+	return v.TenantUserFields.Email
+}
+
+// GetFirstName returns CreateTenantUserGetTenantAddUserTenantUser.FirstName, and is useful for accessing the field via an interface.
+func (v *CreateTenantUserGetTenantAddUserTenantUser) GetFirstName() *string {
+	return v.TenantUserFields.FirstName
+}
+
+// GetLastName returns CreateTenantUserGetTenantAddUserTenantUser.LastName, and is useful for accessing the field via an interface.
+func (v *CreateTenantUserGetTenantAddUserTenantUser) GetLastName() *string {
+	return v.TenantUserFields.LastName
+}
+
+// GetRole returns CreateTenantUserGetTenantAddUserTenantUser.Role, and is useful for accessing the field via an interface.
+func (v *CreateTenantUserGetTenantAddUserTenantUser) GetRole() UserRole {
+	return v.TenantUserFields.Role
+}
+
+// GetStatus returns CreateTenantUserGetTenantAddUserTenantUser.Status, and is useful for accessing the field via an interface.
+func (v *CreateTenantUserGetTenantAddUserTenantUser) GetStatus() UserStatus {
+	return v.TenantUserFields.Status
+}
+
+func (v *CreateTenantUserGetTenantAddUserTenantUser) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateTenantUserGetTenantAddUserTenantUser
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateTenantUserGetTenantAddUserTenantUser = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.TenantUserFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateTenantUserGetTenantAddUserTenantUser struct {
+	Email string `json:"email"`
+
+	FirstName *string `json:"firstName"`
+
+	LastName *string `json:"lastName"`
+
+	Role UserRole `json:"role"`
+
+	Status UserStatus `json:"status"`
+}
+
+func (v *CreateTenantUserGetTenantAddUserTenantUser) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateTenantUserGetTenantAddUserTenantUser) __premarshalJSON() (*__premarshalCreateTenantUserGetTenantAddUserTenantUser, error) {
+	var retval __premarshalCreateTenantUserGetTenantAddUserTenantUser
+
+	retval.Email = v.TenantUserFields.Email
+	retval.FirstName = v.TenantUserFields.FirstName
+	retval.LastName = v.TenantUserFields.LastName
+	retval.Role = v.TenantUserFields.Role
+	retval.Status = v.TenantUserFields.Status
+	return &retval, nil
+}
+
+// CreateTenantUserResponse is returned by CreateTenantUser on success.
+type CreateTenantUserResponse struct {
+	GetTenant *CreateTenantUserGetTenant `json:"GetTenant"`
+}
+
+// GetGetTenant returns CreateTenantUserResponse.GetTenant, and is useful for accessing the field via an interface.
+func (v *CreateTenantUserResponse) GetGetTenant() *CreateTenantUserGetTenant { return v.GetTenant }
+
 // CreateTimerNodeCreateTimerNode includes the requested fields of the GraphQL type TimerNode.
 type CreateTimerNodeCreateTimerNode struct {
 	NodeFieldsTimerNode `json:"-"`
@@ -3399,6 +3703,22 @@ type DeadLetterEmitterNodeFieldsSendMessageType struct {
 
 // GetName returns DeadLetterEmitterNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
 func (v *DeadLetterEmitterNodeFieldsSendMessageType) GetName() string { return v.Name }
+
+// DeleteApiUserGetApiUser includes the requested fields of the GraphQL type ApiUser.
+type DeleteApiUserGetApiUser struct {
+	Delete bool `json:"Delete"`
+}
+
+// GetDelete returns DeleteApiUserGetApiUser.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteApiUserGetApiUser) GetDelete() bool { return v.Delete }
+
+// DeleteApiUserResponse is returned by DeleteApiUser on success.
+type DeleteApiUserResponse struct {
+	GetApiUser *DeleteApiUserGetApiUser `json:"GetApiUser"`
+}
+
+// GetGetApiUser returns DeleteApiUserResponse.GetApiUser, and is useful for accessing the field via an interface.
+func (v *DeleteApiUserResponse) GetGetApiUser() *DeleteApiUserGetApiUser { return v.GetApiUser }
 
 // DeleteAppGetApp includes the requested fields of the GraphQL interface App.
 //
@@ -4427,6 +4747,24 @@ func (v *DeleteNodeResponse) __premarshalJSON() (*__premarshalDeleteNodeResponse
 		}
 	}
 	return &retval, nil
+}
+
+// DeleteTenantUserGetTenantUser includes the requested fields of the GraphQL type TenantUser.
+type DeleteTenantUserGetTenantUser struct {
+	Delete bool `json:"Delete"`
+}
+
+// GetDelete returns DeleteTenantUserGetTenantUser.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteTenantUserGetTenantUser) GetDelete() bool { return v.Delete }
+
+// DeleteTenantUserResponse is returned by DeleteTenantUser on success.
+type DeleteTenantUserResponse struct {
+	GetTenantUser *DeleteTenantUserGetTenantUser `json:"GetTenantUser"`
+}
+
+// GetGetTenantUser returns DeleteTenantUserResponse.GetTenantUser, and is useful for accessing the field via an interface.
+func (v *DeleteTenantUserResponse) GetGetTenantUser() *DeleteTenantUserGetTenantUser {
+	return v.GetTenantUser
 }
 
 // EdgeFields includes the GraphQL fields of Edge requested by the fragment EdgeFields.
@@ -7272,6 +7610,92 @@ const (
 	ProtocolTcp  Protocol = "tcp"
 	ProtocolUdp  Protocol = "udp"
 )
+
+// ReadApiUserGetApiUser includes the requested fields of the GraphQL type ApiUser.
+type ReadApiUserGetApiUser struct {
+	ApiUserFields `json:"-"`
+}
+
+// GetAppsyncEndpoint returns ReadApiUserGetApiUser.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *ReadApiUserGetApiUser) GetAppsyncEndpoint() string { return v.ApiUserFields.AppsyncEndpoint }
+
+// GetCredentials returns ReadApiUserGetApiUser.Credentials, and is useful for accessing the field via an interface.
+func (v *ReadApiUserGetApiUser) GetCredentials() ApiUserFieldsCredentialsCognitoCredentials {
+	return v.ApiUserFields.Credentials
+}
+
+// GetDescription returns ReadApiUserGetApiUser.Description, and is useful for accessing the field via an interface.
+func (v *ReadApiUserGetApiUser) GetDescription() *string { return v.ApiUserFields.Description }
+
+// GetRole returns ReadApiUserGetApiUser.Role, and is useful for accessing the field via an interface.
+func (v *ReadApiUserGetApiUser) GetRole() ApiUserRole { return v.ApiUserFields.Role }
+
+// GetUsername returns ReadApiUserGetApiUser.Username, and is useful for accessing the field via an interface.
+func (v *ReadApiUserGetApiUser) GetUsername() string { return v.ApiUserFields.Username }
+
+func (v *ReadApiUserGetApiUser) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadApiUserGetApiUser
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadApiUserGetApiUser = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ApiUserFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadApiUserGetApiUser struct {
+	AppsyncEndpoint string `json:"appsyncEndpoint"`
+
+	Credentials ApiUserFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	Description *string `json:"description"`
+
+	Role ApiUserRole `json:"role"`
+
+	Username string `json:"username"`
+}
+
+func (v *ReadApiUserGetApiUser) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadApiUserGetApiUser) __premarshalJSON() (*__premarshalReadApiUserGetApiUser, error) {
+	var retval __premarshalReadApiUserGetApiUser
+
+	retval.AppsyncEndpoint = v.ApiUserFields.AppsyncEndpoint
+	retval.Credentials = v.ApiUserFields.Credentials
+	retval.Description = v.ApiUserFields.Description
+	retval.Role = v.ApiUserFields.Role
+	retval.Username = v.ApiUserFields.Username
+	return &retval, nil
+}
+
+// ReadApiUserResponse is returned by ReadApiUser on success.
+type ReadApiUserResponse struct {
+	GetApiUser *ReadApiUserGetApiUser `json:"GetApiUser"`
+}
+
+// GetGetApiUser returns ReadApiUserResponse.GetApiUser, and is useful for accessing the field via an interface.
+func (v *ReadApiUserResponse) GetGetApiUser() *ReadApiUserGetApiUser { return v.GetApiUser }
 
 // ReadAppGetApp includes the requested fields of the GraphQL interface App.
 //
@@ -12599,6 +13023,92 @@ type ReadTenantResponse struct {
 // GetGetTenant returns ReadTenantResponse.GetTenant, and is useful for accessing the field via an interface.
 func (v *ReadTenantResponse) GetGetTenant() *ReadTenantGetTenant { return v.GetTenant }
 
+// ReadTenantUserGetTenantUser includes the requested fields of the GraphQL type TenantUser.
+type ReadTenantUserGetTenantUser struct {
+	TenantUserFields `json:"-"`
+}
+
+// GetEmail returns ReadTenantUserGetTenantUser.Email, and is useful for accessing the field via an interface.
+func (v *ReadTenantUserGetTenantUser) GetEmail() string { return v.TenantUserFields.Email }
+
+// GetFirstName returns ReadTenantUserGetTenantUser.FirstName, and is useful for accessing the field via an interface.
+func (v *ReadTenantUserGetTenantUser) GetFirstName() *string { return v.TenantUserFields.FirstName }
+
+// GetLastName returns ReadTenantUserGetTenantUser.LastName, and is useful for accessing the field via an interface.
+func (v *ReadTenantUserGetTenantUser) GetLastName() *string { return v.TenantUserFields.LastName }
+
+// GetRole returns ReadTenantUserGetTenantUser.Role, and is useful for accessing the field via an interface.
+func (v *ReadTenantUserGetTenantUser) GetRole() UserRole { return v.TenantUserFields.Role }
+
+// GetStatus returns ReadTenantUserGetTenantUser.Status, and is useful for accessing the field via an interface.
+func (v *ReadTenantUserGetTenantUser) GetStatus() UserStatus { return v.TenantUserFields.Status }
+
+func (v *ReadTenantUserGetTenantUser) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadTenantUserGetTenantUser
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadTenantUserGetTenantUser = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.TenantUserFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadTenantUserGetTenantUser struct {
+	Email string `json:"email"`
+
+	FirstName *string `json:"firstName"`
+
+	LastName *string `json:"lastName"`
+
+	Role UserRole `json:"role"`
+
+	Status UserStatus `json:"status"`
+}
+
+func (v *ReadTenantUserGetTenantUser) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadTenantUserGetTenantUser) __premarshalJSON() (*__premarshalReadTenantUserGetTenantUser, error) {
+	var retval __premarshalReadTenantUserGetTenantUser
+
+	retval.Email = v.TenantUserFields.Email
+	retval.FirstName = v.TenantUserFields.FirstName
+	retval.LastName = v.TenantUserFields.LastName
+	retval.Role = v.TenantUserFields.Role
+	retval.Status = v.TenantUserFields.Status
+	return &retval, nil
+}
+
+// ReadTenantUserResponse is returned by ReadTenantUser on success.
+type ReadTenantUserResponse struct {
+	GetTenantUser *ReadTenantUserGetTenantUser `json:"GetTenantUser"`
+}
+
+// GetGetTenantUser returns ReadTenantUserResponse.GetTenantUser, and is useful for accessing the field via an interface.
+func (v *ReadTenantUserResponse) GetGetTenantUser() *ReadTenantUserGetTenantUser {
+	return v.GetTenantUser
+}
+
 // TenantFields includes the GraphQL fields of Tenant requested by the fragment TenantFields.
 type TenantFields struct {
 	Active      bool    `json:"active"`
@@ -12627,6 +13137,30 @@ func (v *TenantFields) GetRegion() string { return v.Region }
 // GetTable returns TenantFields.Table, and is useful for accessing the field via an interface.
 func (v *TenantFields) GetTable() string { return v.Table }
 
+// TenantUserFields includes the GraphQL fields of TenantUser requested by the fragment TenantUserFields.
+type TenantUserFields struct {
+	Email     string     `json:"email"`
+	FirstName *string    `json:"firstName"`
+	LastName  *string    `json:"lastName"`
+	Role      UserRole   `json:"role"`
+	Status    UserStatus `json:"status"`
+}
+
+// GetEmail returns TenantUserFields.Email, and is useful for accessing the field via an interface.
+func (v *TenantUserFields) GetEmail() string { return v.Email }
+
+// GetFirstName returns TenantUserFields.FirstName, and is useful for accessing the field via an interface.
+func (v *TenantUserFields) GetFirstName() *string { return v.FirstName }
+
+// GetLastName returns TenantUserFields.LastName, and is useful for accessing the field via an interface.
+func (v *TenantUserFields) GetLastName() *string { return v.LastName }
+
+// GetRole returns TenantUserFields.Role, and is useful for accessing the field via an interface.
+func (v *TenantUserFields) GetRole() UserRole { return v.Role }
+
+// GetStatus returns TenantUserFields.Status, and is useful for accessing the field via an interface.
+func (v *TenantUserFields) GetStatus() UserStatus { return v.Status }
+
 // TimerNodeFields includes the GraphQL fields of TimerNode requested by the fragment TimerNodeFields.
 type TimerNodeFields struct {
 	ScheduleExpression string                          `json:"scheduleExpression"`
@@ -12648,6 +13182,104 @@ type TimerNodeFieldsSendMessageType struct {
 
 // GetName returns TimerNodeFieldsSendMessageType.Name, and is useful for accessing the field via an interface.
 func (v *TimerNodeFieldsSendMessageType) GetName() string { return v.Name }
+
+// UpdateApiUserGetApiUser includes the requested fields of the GraphQL type ApiUser.
+type UpdateApiUserGetApiUser struct {
+	Update UpdateApiUserGetApiUserUpdateApiUser `json:"Update"`
+}
+
+// GetUpdate returns UpdateApiUserGetApiUser.Update, and is useful for accessing the field via an interface.
+func (v *UpdateApiUserGetApiUser) GetUpdate() UpdateApiUserGetApiUserUpdateApiUser { return v.Update }
+
+// UpdateApiUserGetApiUserUpdateApiUser includes the requested fields of the GraphQL type ApiUser.
+type UpdateApiUserGetApiUserUpdateApiUser struct {
+	ApiUserFields `json:"-"`
+}
+
+// GetAppsyncEndpoint returns UpdateApiUserGetApiUserUpdateApiUser.AppsyncEndpoint, and is useful for accessing the field via an interface.
+func (v *UpdateApiUserGetApiUserUpdateApiUser) GetAppsyncEndpoint() string {
+	return v.ApiUserFields.AppsyncEndpoint
+}
+
+// GetCredentials returns UpdateApiUserGetApiUserUpdateApiUser.Credentials, and is useful for accessing the field via an interface.
+func (v *UpdateApiUserGetApiUserUpdateApiUser) GetCredentials() ApiUserFieldsCredentialsCognitoCredentials {
+	return v.ApiUserFields.Credentials
+}
+
+// GetDescription returns UpdateApiUserGetApiUserUpdateApiUser.Description, and is useful for accessing the field via an interface.
+func (v *UpdateApiUserGetApiUserUpdateApiUser) GetDescription() *string {
+	return v.ApiUserFields.Description
+}
+
+// GetRole returns UpdateApiUserGetApiUserUpdateApiUser.Role, and is useful for accessing the field via an interface.
+func (v *UpdateApiUserGetApiUserUpdateApiUser) GetRole() ApiUserRole { return v.ApiUserFields.Role }
+
+// GetUsername returns UpdateApiUserGetApiUserUpdateApiUser.Username, and is useful for accessing the field via an interface.
+func (v *UpdateApiUserGetApiUserUpdateApiUser) GetUsername() string { return v.ApiUserFields.Username }
+
+func (v *UpdateApiUserGetApiUserUpdateApiUser) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateApiUserGetApiUserUpdateApiUser
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateApiUserGetApiUserUpdateApiUser = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.ApiUserFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateApiUserGetApiUserUpdateApiUser struct {
+	AppsyncEndpoint string `json:"appsyncEndpoint"`
+
+	Credentials ApiUserFieldsCredentialsCognitoCredentials `json:"credentials"`
+
+	Description *string `json:"description"`
+
+	Role ApiUserRole `json:"role"`
+
+	Username string `json:"username"`
+}
+
+func (v *UpdateApiUserGetApiUserUpdateApiUser) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateApiUserGetApiUserUpdateApiUser) __premarshalJSON() (*__premarshalUpdateApiUserGetApiUserUpdateApiUser, error) {
+	var retval __premarshalUpdateApiUserGetApiUserUpdateApiUser
+
+	retval.AppsyncEndpoint = v.ApiUserFields.AppsyncEndpoint
+	retval.Credentials = v.ApiUserFields.Credentials
+	retval.Description = v.ApiUserFields.Description
+	retval.Role = v.ApiUserFields.Role
+	retval.Username = v.ApiUserFields.Username
+	return &retval, nil
+}
+
+// UpdateApiUserResponse is returned by UpdateApiUser on success.
+type UpdateApiUserResponse struct {
+	GetApiUser *UpdateApiUserGetApiUser `json:"GetApiUser"`
+}
+
+// GetGetApiUser returns UpdateApiUserResponse.GetApiUser, and is useful for accessing the field via an interface.
+func (v *UpdateApiUserResponse) GetGetApiUser() *UpdateApiUserGetApiUser { return v.GetApiUser }
 
 // UpdateBitmapRouterNodeGetNode includes the requested fields of the GraphQL interface Node.
 //
@@ -19779,6 +20411,112 @@ type UpdateTenantResponse struct {
 // GetGetTenant returns UpdateTenantResponse.GetTenant, and is useful for accessing the field via an interface.
 func (v *UpdateTenantResponse) GetGetTenant() *UpdateTenantGetTenant { return v.GetTenant }
 
+// UpdateTenantUserGetTenantUser includes the requested fields of the GraphQL type TenantUser.
+type UpdateTenantUserGetTenantUser struct {
+	Update UpdateTenantUserGetTenantUserUpdateTenantUser `json:"Update"`
+}
+
+// GetUpdate returns UpdateTenantUserGetTenantUser.Update, and is useful for accessing the field via an interface.
+func (v *UpdateTenantUserGetTenantUser) GetUpdate() UpdateTenantUserGetTenantUserUpdateTenantUser {
+	return v.Update
+}
+
+// UpdateTenantUserGetTenantUserUpdateTenantUser includes the requested fields of the GraphQL type TenantUser.
+type UpdateTenantUserGetTenantUserUpdateTenantUser struct {
+	TenantUserFields `json:"-"`
+}
+
+// GetEmail returns UpdateTenantUserGetTenantUserUpdateTenantUser.Email, and is useful for accessing the field via an interface.
+func (v *UpdateTenantUserGetTenantUserUpdateTenantUser) GetEmail() string {
+	return v.TenantUserFields.Email
+}
+
+// GetFirstName returns UpdateTenantUserGetTenantUserUpdateTenantUser.FirstName, and is useful for accessing the field via an interface.
+func (v *UpdateTenantUserGetTenantUserUpdateTenantUser) GetFirstName() *string {
+	return v.TenantUserFields.FirstName
+}
+
+// GetLastName returns UpdateTenantUserGetTenantUserUpdateTenantUser.LastName, and is useful for accessing the field via an interface.
+func (v *UpdateTenantUserGetTenantUserUpdateTenantUser) GetLastName() *string {
+	return v.TenantUserFields.LastName
+}
+
+// GetRole returns UpdateTenantUserGetTenantUserUpdateTenantUser.Role, and is useful for accessing the field via an interface.
+func (v *UpdateTenantUserGetTenantUserUpdateTenantUser) GetRole() UserRole {
+	return v.TenantUserFields.Role
+}
+
+// GetStatus returns UpdateTenantUserGetTenantUserUpdateTenantUser.Status, and is useful for accessing the field via an interface.
+func (v *UpdateTenantUserGetTenantUserUpdateTenantUser) GetStatus() UserStatus {
+	return v.TenantUserFields.Status
+}
+
+func (v *UpdateTenantUserGetTenantUserUpdateTenantUser) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateTenantUserGetTenantUserUpdateTenantUser
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateTenantUserGetTenantUserUpdateTenantUser = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.TenantUserFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateTenantUserGetTenantUserUpdateTenantUser struct {
+	Email string `json:"email"`
+
+	FirstName *string `json:"firstName"`
+
+	LastName *string `json:"lastName"`
+
+	Role UserRole `json:"role"`
+
+	Status UserStatus `json:"status"`
+}
+
+func (v *UpdateTenantUserGetTenantUserUpdateTenantUser) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateTenantUserGetTenantUserUpdateTenantUser) __premarshalJSON() (*__premarshalUpdateTenantUserGetTenantUserUpdateTenantUser, error) {
+	var retval __premarshalUpdateTenantUserGetTenantUserUpdateTenantUser
+
+	retval.Email = v.TenantUserFields.Email
+	retval.FirstName = v.TenantUserFields.FirstName
+	retval.LastName = v.TenantUserFields.LastName
+	retval.Role = v.TenantUserFields.Role
+	retval.Status = v.TenantUserFields.Status
+	return &retval, nil
+}
+
+// UpdateTenantUserResponse is returned by UpdateTenantUser on success.
+type UpdateTenantUserResponse struct {
+	GetTenantUser *UpdateTenantUserGetTenantUser `json:"GetTenantUser"`
+}
+
+// GetGetTenantUser returns UpdateTenantUserResponse.GetTenantUser, and is useful for accessing the field via an interface.
+func (v *UpdateTenantUserResponse) GetGetTenantUser() *UpdateTenantUserGetTenantUser {
+	return v.GetTenantUser
+}
+
 // UpdateTimerNodeGetNode includes the requested fields of the GraphQL interface Node.
 //
 // UpdateTimerNodeGetNode is implemented by the following types:
@@ -20971,6 +21709,24 @@ func (v *UpdateWebhookNodeResponse) __premarshalJSON() (*__premarshalUpdateWebho
 	return &retval, nil
 }
 
+type UserRole string
+
+const (
+	UserRoleAdmin    UserRole = "admin"
+	UserRoleOwner    UserRole = "owner"
+	UserRoleReadOnly UserRole = "read_only"
+	UserRoleUser     UserRole = "user"
+)
+
+type UserStatus string
+
+const (
+	UserStatusActive   UserStatus = "active"
+	UserStatusInactive UserStatus = "inactive"
+	UserStatusInvited  UserStatus = "invited"
+	UserStatusPending  UserStatus = "pending"
+)
+
 // WebhookNodeFields includes the GraphQL fields of WebhookNode requested by the fragment WebhookNodeFields.
 type WebhookNodeFields struct {
 	Config                  *string                                                           `json:"config"`
@@ -21052,6 +21808,22 @@ func (v *__CreateApiAuthenticatorFunctionInput) GetReadme() *string { return v.R
 
 // GetRequirements returns __CreateApiAuthenticatorFunctionInput.Requirements, and is useful for accessing the field via an interface.
 func (v *__CreateApiAuthenticatorFunctionInput) GetRequirements() []string { return v.Requirements }
+
+// __CreateApiUserInput is used internally by genqlient
+type __CreateApiUserInput struct {
+	Role        ApiUserRole `json:"role"`
+	Tenant      string      `json:"tenant"`
+	Description *string     `json:"description"`
+}
+
+// GetRole returns __CreateApiUserInput.Role, and is useful for accessing the field via an interface.
+func (v *__CreateApiUserInput) GetRole() ApiUserRole { return v.Role }
+
+// GetTenant returns __CreateApiUserInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateApiUserInput) GetTenant() string { return v.Tenant }
+
+// GetDescription returns __CreateApiUserInput.Description, and is useful for accessing the field via an interface.
+func (v *__CreateApiUserInput) GetDescription() *string { return v.Description }
 
 // __CreateBitmapRouterNodeInput is used internally by genqlient
 type __CreateBitmapRouterNodeInput struct {
@@ -21631,6 +22403,22 @@ func (v *__CreateProcessorNodeInput) GetSendMessageType() *string { return v.Sen
 // GetSequentialProcessing returns __CreateProcessorNodeInput.SequentialProcessing, and is useful for accessing the field via an interface.
 func (v *__CreateProcessorNodeInput) GetSequentialProcessing() *bool { return v.SequentialProcessing }
 
+// __CreateTenantUserInput is used internally by genqlient
+type __CreateTenantUserInput struct {
+	Email  string   `json:"email"`
+	Role   UserRole `json:"role"`
+	Tenant string   `json:"tenant"`
+}
+
+// GetEmail returns __CreateTenantUserInput.Email, and is useful for accessing the field via an interface.
+func (v *__CreateTenantUserInput) GetEmail() string { return v.Email }
+
+// GetRole returns __CreateTenantUserInput.Role, and is useful for accessing the field via an interface.
+func (v *__CreateTenantUserInput) GetRole() UserRole { return v.Role }
+
+// GetTenant returns __CreateTenantUserInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateTenantUserInput) GetTenant() string { return v.Tenant }
+
 // __CreateTimerNodeInput is used internally by genqlient
 type __CreateTimerNodeInput struct {
 	Name               string  `json:"name"`
@@ -21694,6 +22482,18 @@ func (v *__CreateWebhookNodeInput) GetRequirements() []string { return v.Require
 
 // GetSendMessageType returns __CreateWebhookNodeInput.SendMessageType, and is useful for accessing the field via an interface.
 func (v *__CreateWebhookNodeInput) GetSendMessageType() *string { return v.SendMessageType }
+
+// __DeleteApiUserInput is used internally by genqlient
+type __DeleteApiUserInput struct {
+	Tenant   string `json:"tenant"`
+	Username string `json:"username"`
+}
+
+// GetTenant returns __DeleteApiUserInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__DeleteApiUserInput) GetTenant() string { return v.Tenant }
+
+// GetUsername returns __DeleteApiUserInput.Username, and is useful for accessing the field via an interface.
+func (v *__DeleteApiUserInput) GetUsername() string { return v.Username }
 
 // __DeleteAppInput is used internally by genqlient
 type __DeleteAppInput struct {
@@ -21783,6 +22583,18 @@ func (v *__DeleteNodeInput) GetName() string { return v.Name }
 // GetTenant returns __DeleteNodeInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__DeleteNodeInput) GetTenant() string { return v.Tenant }
 
+// __DeleteTenantUserInput is used internally by genqlient
+type __DeleteTenantUserInput struct {
+	Email  string `json:"email"`
+	Tenant string `json:"tenant"`
+}
+
+// GetEmail returns __DeleteTenantUserInput.Email, and is useful for accessing the field via an interface.
+func (v *__DeleteTenantUserInput) GetEmail() string { return v.Email }
+
+// GetTenant returns __DeleteTenantUserInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__DeleteTenantUserInput) GetTenant() string { return v.Tenant }
+
 // __MoveEdgeInput is used internally by genqlient
 type __MoveEdgeInput struct {
 	Source    string `json:"source"`
@@ -21806,6 +22618,18 @@ func (v *__MoveEdgeInput) GetNewSource() string { return v.NewSource }
 
 // GetNewTarget returns __MoveEdgeInput.NewTarget, and is useful for accessing the field via an interface.
 func (v *__MoveEdgeInput) GetNewTarget() string { return v.NewTarget }
+
+// __ReadApiUserInput is used internally by genqlient
+type __ReadApiUserInput struct {
+	Tenant   string `json:"tenant"`
+	Username string `json:"username"`
+}
+
+// GetTenant returns __ReadApiUserInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__ReadApiUserInput) GetTenant() string { return v.Tenant }
+
+// GetUsername returns __ReadApiUserInput.Username, and is useful for accessing the field via an interface.
+func (v *__ReadApiUserInput) GetUsername() string { return v.Username }
 
 // __ReadAppInput is used internally by genqlient
 type __ReadAppInput struct {
@@ -21950,6 +22774,38 @@ type __ReadTenantInput struct {
 
 // GetTenant returns __ReadTenantInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__ReadTenantInput) GetTenant() string { return v.Tenant }
+
+// __ReadTenantUserInput is used internally by genqlient
+type __ReadTenantUserInput struct {
+	Email  string `json:"email"`
+	Tenant string `json:"tenant"`
+}
+
+// GetEmail returns __ReadTenantUserInput.Email, and is useful for accessing the field via an interface.
+func (v *__ReadTenantUserInput) GetEmail() string { return v.Email }
+
+// GetTenant returns __ReadTenantUserInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__ReadTenantUserInput) GetTenant() string { return v.Tenant }
+
+// __UpdateApiUserInput is used internally by genqlient
+type __UpdateApiUserInput struct {
+	Tenant      string       `json:"tenant"`
+	Username    string       `json:"username"`
+	Description *string      `json:"description"`
+	Role        *ApiUserRole `json:"role"`
+}
+
+// GetTenant returns __UpdateApiUserInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__UpdateApiUserInput) GetTenant() string { return v.Tenant }
+
+// GetUsername returns __UpdateApiUserInput.Username, and is useful for accessing the field via an interface.
+func (v *__UpdateApiUserInput) GetUsername() string { return v.Username }
+
+// GetDescription returns __UpdateApiUserInput.Description, and is useful for accessing the field via an interface.
+func (v *__UpdateApiUserInput) GetDescription() *string { return v.Description }
+
+// GetRole returns __UpdateApiUserInput.Role, and is useful for accessing the field via an interface.
+func (v *__UpdateApiUserInput) GetRole() *ApiUserRole { return v.Role }
 
 // __UpdateBitmapRouterNodeInput is used internally by genqlient
 type __UpdateBitmapRouterNodeInput struct {
@@ -22363,6 +23219,26 @@ func (v *__UpdateTenantInput) GetConfig() *string { return v.Config }
 // GetDescription returns __UpdateTenantInput.Description, and is useful for accessing the field via an interface.
 func (v *__UpdateTenantInput) GetDescription() *string { return v.Description }
 
+// __UpdateTenantUserInput is used internally by genqlient
+type __UpdateTenantUserInput struct {
+	Email  string      `json:"email"`
+	Tenant string      `json:"tenant"`
+	Role   *UserRole   `json:"role"`
+	Status *UserStatus `json:"status"`
+}
+
+// GetEmail returns __UpdateTenantUserInput.Email, and is useful for accessing the field via an interface.
+func (v *__UpdateTenantUserInput) GetEmail() string { return v.Email }
+
+// GetTenant returns __UpdateTenantUserInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__UpdateTenantUserInput) GetTenant() string { return v.Tenant }
+
+// GetRole returns __UpdateTenantUserInput.Role, and is useful for accessing the field via an interface.
+func (v *__UpdateTenantUserInput) GetRole() *UserRole { return v.Role }
+
+// GetStatus returns __UpdateTenantUserInput.Status, and is useful for accessing the field via an interface.
+func (v *__UpdateTenantUserInput) GetStatus() *UserStatus { return v.Status }
+
 // __UpdateTimerNodeInput is used internally by genqlient
 type __UpdateTimerNodeInput struct {
 	Name        string  `json:"name"`
@@ -22459,6 +23335,57 @@ fragment FunctionFields on Function {
 	var err error
 
 	var data CreateApiAuthenticatorFunctionResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func CreateApiUser(
+	ctx context.Context,
+	client graphql.Client,
+	role ApiUserRole,
+	tenant string,
+	description *string,
+) (*CreateApiUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateApiUser",
+		Query: `
+mutation CreateApiUser ($role: ApiUserRole!, $tenant: String!, $description: String) {
+	CreateApiUser(role: $role, tenant: $tenant, description: $description) {
+		... ApiUserFields
+	}
+}
+fragment ApiUserFields on ApiUser {
+	appsyncEndpoint
+	credentials {
+		... CognitoCredentialsFields
+	}
+	description
+	role
+	username
+}
+fragment CognitoCredentialsFields on CognitoCredentials {
+	clientId
+	password
+	userPoolId
+	username
+}
+`,
+		Variables: &__CreateApiUserInput{
+			Role:        role,
+			Tenant:      tenant,
+			Description: description,
+		},
+	}
+	var err error
+
+	var data CreateApiUserResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -23577,6 +24504,51 @@ fragment ProcessorNodeFields on ProcessorNode {
 	return &data, err
 }
 
+func CreateTenantUser(
+	ctx context.Context,
+	client graphql.Client,
+	email string,
+	role UserRole,
+	tenant string,
+) (*CreateTenantUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateTenantUser",
+		Query: `
+query CreateTenantUser ($email: AWSEmail!, $role: UserRole!, $tenant: String!) {
+	GetTenant(tenant: $tenant) {
+		AddUser(email: $email, role: $role) {
+			... TenantUserFields
+		}
+	}
+}
+fragment TenantUserFields on TenantUser {
+	email
+	firstName
+	lastName
+	role
+	status
+}
+`,
+		Variables: &__CreateTenantUserInput{
+			Email:  email,
+			Role:   role,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data CreateTenantUserResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateTimerNode(
 	ctx context.Context,
 	client graphql.Client,
@@ -23681,6 +24653,40 @@ fragment WebhookNodeFields on WebhookNode {
 	var err error
 
 	var data CreateWebhookNodeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func DeleteApiUser(
+	ctx context.Context,
+	client graphql.Client,
+	tenant string,
+	username string,
+) (*DeleteApiUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteApiUser",
+		Query: `
+query DeleteApiUser ($tenant: String!, $username: String!) {
+	GetApiUser(tenant: $tenant, username: $username) {
+		Delete
+	}
+}
+`,
+		Variables: &__DeleteApiUserInput{
+			Tenant:   tenant,
+			Username: username,
+		},
+	}
+	var err error
+
+	var data DeleteApiUserResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -23964,6 +24970,40 @@ query DeleteNode ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+func DeleteTenantUser(
+	ctx context.Context,
+	client graphql.Client,
+	email string,
+	tenant string,
+) (*DeleteTenantUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteTenantUser",
+		Query: `
+query DeleteTenantUser ($email: AWSEmail!, $tenant: String!) {
+	GetTenantUser(email: $email, tenant: $tenant) {
+		Delete
+	}
+}
+`,
+		Variables: &__DeleteTenantUserInput{
+			Email:  email,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data DeleteTenantUserResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func MoveEdge(
 	ctx context.Context,
 	client graphql.Client,
@@ -24014,6 +25054,55 @@ fragment EdgeFields on Edge {
 	var err error
 
 	var data MoveEdgeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ReadApiUser(
+	ctx context.Context,
+	client graphql.Client,
+	tenant string,
+	username string,
+) (*ReadApiUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadApiUser",
+		Query: `
+query ReadApiUser ($tenant: String!, $username: String!) {
+	GetApiUser(tenant: $tenant, username: $username) {
+		... ApiUserFields
+	}
+}
+fragment ApiUserFields on ApiUser {
+	appsyncEndpoint
+	credentials {
+		... CognitoCredentialsFields
+	}
+	description
+	role
+	username
+}
+fragment CognitoCredentialsFields on CognitoCredentials {
+	clientId
+	password
+	userPoolId
+	username
+}
+`,
+		Variables: &__ReadApiUserInput{
+			Tenant:   tenant,
+			Username: username,
+		},
+	}
+	var err error
+
+	var data ReadApiUserResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -24934,6 +26023,102 @@ query ReadTenantAwsCredentials ($tenant: String!, $duration: Int) {
 	var err error
 
 	var data ReadTenantAwsCredentialsResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func ReadTenantUser(
+	ctx context.Context,
+	client graphql.Client,
+	email string,
+	tenant string,
+) (*ReadTenantUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadTenantUser",
+		Query: `
+query ReadTenantUser ($email: AWSEmail!, $tenant: String!) {
+	GetTenantUser(email: $email, tenant: $tenant) {
+		... TenantUserFields
+	}
+}
+fragment TenantUserFields on TenantUser {
+	email
+	firstName
+	lastName
+	role
+	status
+}
+`,
+		Variables: &__ReadTenantUserInput{
+			Email:  email,
+			Tenant: tenant,
+		},
+	}
+	var err error
+
+	var data ReadTenantUserResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateApiUser(
+	ctx context.Context,
+	client graphql.Client,
+	tenant string,
+	username string,
+	description *string,
+	role *ApiUserRole,
+) (*UpdateApiUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateApiUser",
+		Query: `
+query UpdateApiUser ($tenant: String!, $username: String!, $description: String, $role: ApiUserRole) {
+	GetApiUser(tenant: $tenant, username: $username) {
+		Update(description: $description, role: $role) {
+			... ApiUserFields
+		}
+	}
+}
+fragment ApiUserFields on ApiUser {
+	appsyncEndpoint
+	credentials {
+		... CognitoCredentialsFields
+	}
+	description
+	role
+	username
+}
+fragment CognitoCredentialsFields on CognitoCredentials {
+	clientId
+	password
+	userPoolId
+	username
+}
+`,
+		Variables: &__UpdateApiUserInput{
+			Tenant:      tenant,
+			Username:    username,
+			Description: description,
+			Role:        role,
+		},
+	}
+	var err error
+
+	var data UpdateApiUserResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
@@ -25985,6 +27170,53 @@ fragment TenantFields on Tenant {
 	var err error
 
 	var data UpdateTenantResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateTenantUser(
+	ctx context.Context,
+	client graphql.Client,
+	email string,
+	tenant string,
+	role *UserRole,
+	status *UserStatus,
+) (*UpdateTenantUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateTenantUser",
+		Query: `
+query UpdateTenantUser ($email: AWSEmail!, $tenant: String!, $role: UserRole, $status: UserStatus) {
+	GetTenantUser(email: $email, tenant: $tenant) {
+		Update(role: $role, status: $status) {
+			... TenantUserFields
+		}
+	}
+}
+fragment TenantUserFields on TenantUser {
+	email
+	firstName
+	lastName
+	role
+	status
+}
+`,
+		Variables: &__UpdateTenantUserInput{
+			Email:  email,
+			Tenant: tenant,
+			Role:   role,
+			Status: status,
+		},
+	}
+	var err error
+
+	var data UpdateTenantUserResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(

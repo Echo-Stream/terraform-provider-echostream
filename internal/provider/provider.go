@@ -18,6 +18,7 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/message_type"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/node"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/tenant"
+	"github.com/Echo-Stream/terraform-provider-echostream/internal/user"
 	"github.com/Khan/genqlient/graphql"
 	cognitosrp "github.com/alexrudd/cognito-srp/v4"
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -374,5 +375,6 @@ func (p *echoStreamProvider) Resources(ctx context.Context) []func() resource.Re
 		func() resource.Resource { return &node.TimerNodeResource{} },
 		func() resource.Resource { return &node.WebhookNodeResource{} },
 		func() resource.Resource { return &tenant.TenantResource{} },
+		func() resource.Resource { return &user.ApiUserResource{} },
 	}
 }
