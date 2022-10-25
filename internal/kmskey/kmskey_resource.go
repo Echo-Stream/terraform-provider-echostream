@@ -16,7 +16,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-var _ resource.ResourceWithImportState = &KmsKeyResource{}
+var (
+	_ resource.ResourceWithImportState = &KmsKeyResource{}
+	_ resource.ResourceWithModifyPlan  = &KmsKeyResource{}
+)
 
 type KmsKeyResource struct {
 	data *common.ProviderData
