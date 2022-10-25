@@ -3,13 +3,6 @@ fragment AppFields on App {
     name
 }
 
-fragment CognitoCredentialsFields on CognitoCredentials {
-    clientId
-    password
-    userPoolId
-    username
-}
-
 fragment CrossAccountAppFields on CrossAccountApp {
     account
     appsyncEndpoint
