@@ -1,1 +1,1 @@
-data "echostream_alert_emitter_node" "alert_emitter" {}
+data "echostream_alert_emitter_node" "test" {}

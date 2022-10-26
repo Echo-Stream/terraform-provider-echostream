@@ -138,9 +138,9 @@ func (r *ProcessorFunctionResource) Delete(ctx context.Context, req resource.Del
 
 func (r *ProcessorFunctionResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
-		Attributes:          resourceProcessorFunctionSchema(),
-		Description:         "ProcessorFunctions provide reusable message processing",
-		MarkdownDescription: "ProcessorFunctions provide reusable message processing",
+		Attributes: resourceProcessorFunctionSchema(),
+		MarkdownDescription: "[ProcessorFunctions](https://docs.echo.stream/docs/processor-node#processor-function) provide " +
+			"reusable message processing and are used in either a ProcessorNode or a CrossTenantSendingNode",
 	}, nil
 }
 

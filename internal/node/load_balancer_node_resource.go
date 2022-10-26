@@ -128,9 +128,10 @@ func (r *LoadBalancerNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema,
 		schema[key] = attribute
 	}
 	return tfsdk.Schema{
-		Attributes:          schema,
-		Description:         "LoadBalancerNodes allow for the distribution of messages to a group of like Nodes",
-		MarkdownDescription: "LoadBalancerNodes allow for the distribution of messages to a group of like Nodes",
+		Attributes: schema,
+		MarkdownDescription: "[LoadBalancerNodes](https://docs.echo.stream/docs/load-balancer) balance receive messages across all send Edges by " +
+			"distributing messages evenly and then randomly distributing any remaining messages. While not required, all Nodes that are targets to a " +
+			"LoadBalancerNode's send Edges should be clones of each other. By definition will eliminate guaranteed ordering",
 	}, nil
 }
 

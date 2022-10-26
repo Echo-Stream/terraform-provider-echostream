@@ -27,40 +27,34 @@ func dataFunctionSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"code": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The code of the Function in Python string format",
 			Type:                types.StringType,
 		},
 		"description": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: " A human-readable description",
 			Type:                types.StringType,
 		},
 		"in_use": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "True if this is used by other resources",
 			Type:                types.BoolType,
 		},
 		"name": {
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The Function name. Must be unique within the Tenant",
 			Required:            true,
 			Type:                types.StringType,
 			Validators:          common.NameValidators,
 		},
 		"readme": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "README in MarkDown format",
 			Optional:            true,
 			Type:                types.StringType,
 		},
 		"requirements": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format",
 			Optional:            true,
 			Type:                types.SetType{ElemType: types.StringType},
 			Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
@@ -104,8 +98,7 @@ func dataBitmapperFunctionSchema() map[string]tfsdk.Attribute {
 		map[string]tfsdk.Attribute{
 			"argument_message_type": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The MessageType passed in to the Function",
 				Type:                types.StringType,
 			},
 		},
@@ -119,8 +112,7 @@ func resourceBitmapperFunctionSchema() map[string]tfsdk.Attribute {
 		schema,
 		map[string]tfsdk.Attribute{
 			"argument_message_type": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The MessageType passed in to the Function",
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Required:            true,
 				Type:                types.StringType,
@@ -148,14 +140,12 @@ func dataProcessorFunctionSchema() map[string]tfsdk.Attribute {
 		map[string]tfsdk.Attribute{
 			"argument_message_type": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The MessageType passed in to the Function",
 				Type:                types.StringType,
 			},
 			"return_message_type": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The MessageType returned by the Function",
 				Type:                types.StringType,
 			},
 		},
@@ -169,15 +159,13 @@ func resourceProcessorFunctionSchema() map[string]tfsdk.Attribute {
 		schema,
 		map[string]tfsdk.Attribute{
 			"argument_message_type": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The MessageType passed in to the Function",
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Required:            true,
 				Type:                types.StringType,
 			},
 			"return_message_type": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The MessageType returned by the Function",
 				Optional:            true,
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Type:                types.StringType,

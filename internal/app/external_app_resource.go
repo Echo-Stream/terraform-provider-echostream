@@ -147,16 +147,14 @@ func (r *ExternalAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag
 		map[string]tfsdk.Attribute{
 			"appsync_endpoint": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The EchoStream AppSync Endpoint that this ExternalApp must use",
 				Type:                types.StringType,
 			},
 		},
 	)
 	return tfsdk.Schema{
 		Attributes:          schema,
-		Description:         "ExternalApps provide a way to process messages in their Nodes using any compute resource",
-		MarkdownDescription: "ExternalApps provide a way to process messages in their Nodes using any compute resource",
+		MarkdownDescription: "[ExternalApps](https://docs.echo.stream/docs/external-app) provide a way to process messages in their Nodes using any compute resource",
 	}, nil
 }
 

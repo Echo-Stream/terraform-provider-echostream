@@ -46,9 +46,9 @@ type alertEmitterNodeDataSourceModel struct {
 
 func (d *AlertEmitterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
-		Attributes:          dataSendNodeSchema(),
-		Description:         "",
-		MarkdownDescription: "",
+		Attributes: dataSendNodeSchema(),
+		MarkdownDescription: "[AlertEmitterNodes](https://docs.echo.stream/docs/alert-emitter-node) emit alert messages. " +
+			"One per Tenant, automatically created when the Tenant is created",
 	}, nil
 }
 

@@ -44,38 +44,34 @@ type portRequirementsModel struct {
 func dataManagedNodeTypeSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"config_template": {
-			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
-			Type:                common.ConfigType{},
+			Computed: true,
+			MarkdownDescription: "A [JSON Schema](https://json-schema.org/) document that specifies the" +
+				" requirements for the config attribute of ManagedNodes created using this ManagedNodeType",
+			Type: common.ConfigType{},
 		},
 		"description": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "A human-readable description",
 			Type:                types.StringType,
 		},
 		"image_uri": {
-			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
-			Type:                types.StringType,
+			Computed: true,
+			MarkdownDescription: "The URI of the Docker image. Must be a [public](https://docs.aws.amazon.com/AmazonECR/latest/public/public-repositories.html) " +
+				"or a [private](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html) AWS ECR repository.",
+			Type: types.StringType,
 		},
 		"in_use": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: " True if this is used by ManagedNodes",
 			Type:                types.BoolType,
 		},
 		"mount_requirements": {
 			Attributes:          tfsdk.SetNestedAttributes(dataMountRequirementsSchema()),
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The mount (i.e. - volume) requirements of the Docker image",
 		},
 		"name": {
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The name of the ManagedNodeType. Must be unique within the Tenant",
 			Required:            true,
 			Type:                types.StringType,
 			Validators:          common.NameValidators,
@@ -83,25 +79,21 @@ func dataManagedNodeTypeSchema() map[string]tfsdk.Attribute {
 		"port_requirements": {
 			Attributes:          tfsdk.SetNestedAttributes(dataPortRequirementsSchema()),
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The port requirements of the Docker image",
 		},
 		"readme": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "README in MarkDown format",
 			Type:                types.StringType,
 		},
 		"receive_message_type": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The MessageType that ManagedNodes created with this ManagedNodeType are capable of receiving",
 			Type:                types.StringType,
 		},
 		"send_message_type": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The MessageType that ManagedNodes created with this ManagedNodeType are capable of sending",
 			Type:                types.StringType,
 		},
 	}
@@ -111,20 +103,17 @@ func dataMountRequirementsSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"description": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "A human-readable description of the port",
 			Type:                types.StringType,
 		},
 		"source": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The path of the mount on the host",
 			Type:                types.StringType,
 		},
 		"target": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The path of the mount in the Docker container",
 			Type:                types.StringType,
 		},
 	}
@@ -134,20 +123,17 @@ func dataPortRequirementsSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"container_port": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The exposed container port",
 			Type:                types.Int64Type,
 		},
 		"description": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "A human-readable description for the port",
 			Type:                types.StringType,
 		},
 		"protocol": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The protocol to use for the port. One of `sctp`, `tcp` or `udp`",
 			Type:                types.StringType,
 		},
 	}
@@ -261,10 +247,7 @@ func resourcePortRequirementsSchema() map[string]tfsdk.Attribute {
 	for key, attribute := range schema {
 		attribute.Computed = false
 		attribute.Required = true
-		switch key {
-		case "container_port":
-			attribute.Validators = []tfsdk.AttributeValidator{common.PortValidator}
-		case "protocol":
+		if key == "protocol" {
 			attribute.Validators = []tfsdk.AttributeValidator{common.ProtocolValidator}
 		}
 		schema[key] = attribute

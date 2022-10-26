@@ -78,8 +78,7 @@ func (r *TenantResource) Delete(ctx context.Context, req resource.DeleteRequest,
 func (r *TenantResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
 		Attributes:          tenantResourceSchema(),
-		Description:         "Manages the current Tenant",
-		MarkdownDescription: "Manages the current Tenant",
+		MarkdownDescription: "Manages the current [Tenant](https://docs.echo.stream/docs/tenants) (configured in the provider)",
 	}, nil
 }
 

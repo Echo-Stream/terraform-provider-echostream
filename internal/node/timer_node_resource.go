@@ -126,11 +126,11 @@ func (r *TimerNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.D
 		schema[key] = attribute
 	}
 	schema["schedule_expression"] = tfsdk.Attribute{
-		Description:         "Must match the cron format for an AWS EventBridge schedule rule (https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions)",
-		MarkdownDescription: "Must match the cron format for an [AWS EventBridge schedule rule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions)",
-		Required:            true,
-		PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-		Type:                types.StringType,
+		MarkdownDescription: "An [Amazon Event Bridge cron expression]" +
+			"(https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions)",
+		Required:      true,
+		PlanModifiers: tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+		Type:          types.StringType,
 		Validators: []tfsdk.AttributeValidator{
 			stringvalidator.RegexMatches(
 				regexp.MustCompile(`^(?P<minute>\*|(?:\*|(?:[0-9]|(?:[1-5][0-9])))\/(?:[0-9]|(?:[1-5][0-9]))|(?:[0-9]|(?:[1-5][0-9]))(?:(?:\-[0-9]|\-(?:[1-5][0-9]))?|(?:\,(?:[0-9]|(?:[1-5][0-9])))*)) (?P<hour>\*|(?:\*|(?:\*|(?:[0-9]|1[0-9]|2[0-3])))\/(?:[0-9]|1[0-9]|2[0-3])|(?:[0-9]|1[0-9]|2[0-3])(?:(?:\-(?:[0-9]|1[0-9]|2[0-3]))?|(?:\,(?:[0-9]|1[0-9]|2[0-3]))*)) (?P<day_of_month>\*|\?|L(?:W|\-(?:[1-9]|(?:[12][0-9])|3[01]))?|(?:[1-9]|(?:[12][0-9])|3[01])(?:W|\/(?:[1-9]|(?:[12][0-9])|3[01]))?|(?:[1-9]|(?:[12][0-9])|3[01])(?:(?:\-(?:[1-9]|(?:[12][0-9])|3[01]))?|(?:\,(?:[1-9]|(?:[12][0-9])|3[01]))*)) (?P<month>\*|(?:[1-9]|1[012]|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:\-(?:[1-9]|1[012]|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?|(?:\,(?:[1-9]|1[012]|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))*)) (?P<day_of_week>\*|\?|[0-6](?:L|\#[1-5])?|(?:[0-6]|SUN|MON|TUE|WED|THU|FRI|SAT)(?:(?:\-(?:[0-6]|SUN|MON|TUE|WED|THU|FRI|SAT))?|(?:\,(?:[0-6]|SUN|MON|TUE|WED|THU|FRI|SAT))*)) (?P<year>\*|(?:[1-9][0-9]{3})(?:(?:\-[1-9][0-9]{3})?|(?:\,[1-9][0-9]{3})*))$`),
@@ -139,9 +139,10 @@ func (r *TimerNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.D
 		},
 	}
 	return tfsdk.Schema{
-		Attributes:          schema,
-		Description:         "TimerNodes send periodic Timer messages",
-		MarkdownDescription: "TimerNodes send periodic Timer messages",
+		Attributes: schema,
+		MarkdownDescription: "[TimerNodes](https://docs.echo.stream/docs/timer-node) emit echo.timer messages on a time " +
+			"period defined by the scheduleExpression. They can be used to cause other Nodes (normally ProcessorNodes) to " +
+			"perform complex actions on a schedule (e.g. - polling an API every 15 minutes)",
 	}, nil
 }
 

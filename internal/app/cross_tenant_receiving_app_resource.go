@@ -107,14 +107,12 @@ func (r *CrossTenantReceivingAppResource) GetSchema(ctx context.Context) (tfsdk.
 		map[string]tfsdk.Attribute{
 			"sending_app": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The CrossTenantSendingApp in the sending Tenant - this will be filled in once the other Tenant creates their CrossTenantSendingApp",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"sending_tenant": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The EchoStream Tenant that will be sending messages to this CrossTenantReceivingApp",
 				Required:            true,
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Type:                types.StringType,
@@ -125,8 +123,7 @@ func (r *CrossTenantReceivingAppResource) GetSchema(ctx context.Context) (tfsdk.
 	description.Computed = true
 	return tfsdk.Schema{
 		Attributes:          schema,
-		Description:         "CrossTenantReceivingApps provide a way to receive messages from other EchoStream Tenants",
-		MarkdownDescription: "CrossTenantReceivingApps provide a way to receive messages from other EchoStream Tenants",
+		MarkdownDescription: "[CrossTenantReceivingApps](https://docs.echo.stream/docs/cross-tenant-app) provide a way to receive messages from other EchoStream Tenants",
 	}, nil
 }
 

@@ -140,52 +140,45 @@ func (r *EdgeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagno
 	return tfsdk.Schema{
 		Attributes: map[string]tfsdk.Attribute{
 			"description": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "A human-readable description",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"kmskey": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The name of the KmsKey to use to encrypt the message at rest and in flight. Defaults to the Tenant's KmsKey",
 				Optional:            true,
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Type:                types.StringType,
 			},
 			"max_receive_count": {
-				Description:         "",
-				MarkdownDescription: "",
-				Optional:            true,
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Type:                types.Int64Type,
+				MarkdownDescription: "The maximum number of delivbery tries to the `target`. `0` is the default and will try forever. " +
+					"Any positive number will result in that many tries before sending the messagge to the `DeadLetterEmitterNode`.",
+				Optional:      true,
+				PlanModifiers: tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+				Type:          types.Int64Type,
 			},
 			"message_type": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The MessageType that will be transmitted",
 				Type:                types.StringType,
 			},
 			"queue": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The URL of the underlying AWS SQS queue",
 				Type:                types.StringType,
 			},
 			"source": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The source Node to transmit messages from",
 				Required:            true,
 				Type:                types.StringType,
 			},
 			"target": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The target Node to transmit messages to",
 				Required:            true,
 				Type:                types.StringType,
 			},
 		},
-		Description:         "",
-		MarkdownDescription: "",
+		MarkdownDescription: "[Edges](https://docs.echo.stream/docs/edges) transmit messages of a single MessageType between Nodes",
 	}, nil
 }
 

@@ -114,6 +114,7 @@ func (r *CrossTenantReceivingNodeResource) GetSchema(ctx context.Context) (tfsdk
 	schema := dataSendNodeSchema()
 	name := schema["name"]
 	name.Computed = false
+	name.MarkdownDescription = "The name of the Node. Automatically generated in the format `<sending_tenant>:<sending_node>`"
 	name.Required = true
 	name.Validators = common.NameValidators
 	schema["name"] = name
@@ -122,16 +123,16 @@ func (r *CrossTenantReceivingNodeResource) GetSchema(ctx context.Context) (tfsdk
 		map[string]tfsdk.Attribute{
 			"app": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The CrossTenantReceivingApp that this Node is associated with",
 				Type:                types.StringType,
 			},
 		},
 	)
 	return tfsdk.Schema{
-		Attributes:          schema,
-		Description:         "CrossTenantReceivingNodes receive messages from other Tenants",
-		MarkdownDescription: "CrossTenantReceivingNodes areceive messages from other Tenants",
+		Attributes: schema,
+		MarkdownDescription: "[CrossTenantReceivingNodes](https://docs.echo.stream/docs/cross-tenant-receiving-node) " +
+			"receive messages from other Tenants. Created automatically when the other Tenant's CrossTenantSendingApp has " +
+			"a CrossTenantSendingNode created in it. One per CrossTenantSendingNode.",
 	}, nil
 }
 

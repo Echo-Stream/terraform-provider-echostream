@@ -38,9 +38,9 @@ func (d *MessageTypeDataSource) Configure(ctx context.Context, req datasource.Co
 
 func (d *MessageTypeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
-		Attributes:          dataMessageTypeSchema(),
-		Description:         "",
-		MarkdownDescription: "",
+		Attributes: dataMessageTypeSchema(),
+		MarkdownDescription: "A specific [MessageType](https://docs.echo.stream/docs/message-types) in the Tenant. " +
+			"All messages sent or received must be loosely associated (via Node and Edge typing) with a MessageType.",
 	}, nil
 }
 

@@ -121,25 +121,21 @@ func (r *ApiUserResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Dia
 		Attributes: map[string]tfsdk.Attribute{
 			"appsync_endpoint": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The EchoStream AppSync Endpoint that this ApiUser must use",
 				Type:                types.StringType,
 			},
 			"credentials": {
 				Attributes:          tfsdk.SingleNestedAttributes(common.CognitoCredentialsSchema()),
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The AWS Cognito Credentials assigned to this ApiUser that must be used when accessing the appsync_endpoint",
 			},
 			"description": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "Human-readble description for this ApiUser",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"role": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: fmt.Sprintf("The ApiUser's role. May be on of `%s`, `%s`, or `%s`", api.ApiUserRoleAdmin, api.ApiUserRoleReadOnly, api.ApiUserRoleUser),
 				Required:            true,
 				Type:                types.StringType,
 				Validators: []tfsdk.AttributeValidator{
@@ -152,12 +148,10 @@ func (r *ApiUserResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Dia
 			},
 			"username": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The ApiUser's generated username",
 				Type:                types.StringType,
 			},
 		},
-		Description:         "ApiUsers are used to programatically interact with your Tenant",
 		MarkdownDescription: "ApiUsers are used to programatically interact with your Tenant",
 	}, nil
 }

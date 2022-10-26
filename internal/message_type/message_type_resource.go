@@ -133,9 +133,9 @@ func (r *MessageTypeResource) Delete(ctx context.Context, req resource.DeleteReq
 
 func (r *MessageTypeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
-		Attributes:          resourceMessageTypeSchema(),
-		Description:         "Message Types provide a loose typing system in EchoStream",
-		MarkdownDescription: "Message Types provide a loose typing system in EchoStream",
+		Attributes: resourceMessageTypeSchema(),
+		MarkdownDescription: "A specific [MessageType](https://docs.echo.stream/docs/message-types) in the Tenant. " +
+			"All messages sent or received must be loosely associated (via Node and Edge typing) with a MessageType.",
 	}, nil
 }
 

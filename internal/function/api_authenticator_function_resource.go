@@ -127,8 +127,7 @@ func (r *ApiAuthenticatorFunctionResource) Delete(ctx context.Context, req resou
 func (r *ApiAuthenticatorFunctionResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
 		Attributes:          resourceFunctionSchema(),
-		Description:         "ApiAuthenticatorFunctions provide reusable api authentication for various nodes",
-		MarkdownDescription: "ApiAuthenticatorFunctions provide reusable api authentication for various nodes",
+		MarkdownDescription: "[ApiAuthenticatorFunctions](https://docs.echo.stream/docs/webhook#api-authenticator-function) are managed Functions used in API-based Nodes (e.g. - WebhookNode)",
 	}, nil
 }
 

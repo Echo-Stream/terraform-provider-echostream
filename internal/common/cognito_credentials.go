@@ -39,21 +39,25 @@ func CognitoCredentialsAttrValues(
 func CognitoCredentialsSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"client_id": {
-			Computed: true,
-			Type:     types.StringType,
+			Computed:            true,
+			MarkdownDescription: "The AWS Cognito Client ID used to connect to EchoStream",
+			Type:                types.StringType,
 		},
 		"password": {
-			Computed:  true,
-			Sensitive: true,
-			Type:      types.StringType,
+			Computed:            true,
+			MarkdownDescription: "The password to use when connecting to EchoStream",
+			Sensitive:           true,
+			Type:                types.StringType,
 		},
 		"user_pool_id": {
-			Computed: true,
-			Type:     types.StringType,
+			Computed:            true,
+			MarkdownDescription: "The AWS Cognito User Pool ID used to connect to EchoStream",
+			Type:                types.StringType,
 		},
 		"username": {
-			Computed: true,
-			Type:     types.StringType,
+			Computed:            true,
+			MarkdownDescription: "The username to use when connecting to EchoStream",
+			Type:                types.StringType,
 		},
 	}
 }

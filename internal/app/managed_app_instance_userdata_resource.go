@@ -99,16 +99,14 @@ func (r *ManagedAppInstanceUserdataResource) GetSchema(ctx context.Context) (tfs
 		map[string]tfsdk.Attribute{
 			"userdata": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "Cloud-init userdata specifically targeted for Amazon Linux 2",
 				Type:                types.StringType,
 			},
 		},
 	)
 	return tfsdk.Schema{
 		Attributes:          schema,
-		Description:         "ManagedAppInstanceUserdatas may be used to create ManagedApp commpute resources in AWS EC2",
-		MarkdownDescription: "ManagedAppInstanceUserdatas may be used to create ManagedApp commpute resources in AWS EC2",
+		MarkdownDescription: "ManagedAppInstanceUserdata may be used to create ManagedApp compute resources based on Amazon Linux 2",
 	}, nil
 }
 

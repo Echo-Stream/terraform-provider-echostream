@@ -10,7 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"golang.org/x/exp/maps"
+	"golang.org/x/exp/slices"
 )
 
 type tenantModel struct {
@@ -28,49 +28,43 @@ func tenantDataSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"active": {
 			Computed:            true,
-			Description:         "The current Tenant's active state",
 			MarkdownDescription: "The current Tenant's active state",
 			Type:                types.BoolType,
 		},
 		"aws_credentials": {
 			Attributes:          tfsdk.SingleNestedAttributes(common.AwsCredentialsSchema()),
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The AWS Session Credentials that allow the current ApiUser (configured in the provider) to access the Tenant's resources",
 		},
 		"aws_credentials_duration": {
-			Optional: true,
-			Type:     types.Int64Type,
+			MarkdownDescription: "The duration to request for `aws_credentials`. Must be set to obtain `aws_credentials`",
+			Optional:            true,
+			Type:                types.Int64Type,
 		},
 		"config": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The config for the Tenant. All nodes in the Tenant will be allowed to access this. Must be a JSON object.",
 			Sensitive:           true,
 			Type:                common.ConfigType{},
 		},
 		"description": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "A human-readable description",
 			Type:                types.StringType,
 		},
 		"name": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The name",
 			Type:                types.StringType,
 		},
 		"region": {
 			Computed:            true,
-			Description:         "The current Tenant's AWS region name",
 			MarkdownDescription: "The current Tenant's AWS region name (e.g.  - `us-east-1`)",
 			Type:                types.StringType,
 		},
 		"table": {
 			Computed:            true,
-			Description:         "The current Tenant's DynamoDB tabel name",
-			MarkdownDescription: "The current Tenant's DynamoDB tabel name",
+			MarkdownDescription: "The current Tenant's DynamoDB [table](https://docs.echo.stream/docs/table) name",
 			Type:                types.StringType,
 		},
 	}
@@ -78,24 +72,13 @@ func tenantDataSchema() map[string]tfsdk.Attribute {
 
 func tenantResourceSchema() map[string]tfsdk.Attribute {
 	schema := tenantDataSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"config": {
-				Description:         "",
-				MarkdownDescription: "",
-				Optional:            true,
-				Sensitive:           true,
-				Type:                common.ConfigType{},
-			},
-			"description": {
-				Description:         "",
-				MarkdownDescription: "",
-				Optional:            true,
-				Type:                types.StringType,
-			},
-		},
-	)
+	for key, attribute := range schema {
+		if slices.Contains([]string{"config", "description"}, key) {
+			attribute.Computed = false
+			attribute.Optional = true
+			schema[key] = attribute
+		}
+	}
 	return schema
 }
 

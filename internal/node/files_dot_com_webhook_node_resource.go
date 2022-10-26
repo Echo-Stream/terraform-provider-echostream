@@ -132,8 +132,7 @@ func (r *FilesDotComWebhookNodeResource) GetSchema(ctx context.Context) (tfsdk.S
 		schema,
 		map[string]tfsdk.Attribute{
 			"api_key": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The Files.com api key. Used by this node to obtain a whitelist of IP addresses from Files.com",
 				Required:            true,
 				Sensitive:           true,
 				Type:                types.StringType,
@@ -141,23 +140,23 @@ func (r *FilesDotComWebhookNodeResource) GetSchema(ctx context.Context) (tfsdk.S
 			},
 			"endpoint": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The Webhooks endpoint to forward Files.com webhooks events to. Accepts all version of Files.com webhook events at the root path",
 				Type:                types.StringType,
 			},
 			"token": {
-				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
-				Sensitive:           true,
-				Type:                types.StringType,
+				Computed: true,
+				MarkdownDescription: "The token for the event endpoint. Files.com doesn't support real Webhooks" +
+					" security, so we add a token that is to be sent in the webhook in the headers." +
+					" Place this token as the value for the `Authorization` header, prepending it with `Bearer`." +
+					" For example, if token was `12345` then the header would be `Authorization: Bearer 12345`",
+				Sensitive: true,
+				Type:      types.StringType,
 			},
 		},
 	)
 	return tfsdk.Schema{
 		Attributes:          schema,
-		Description:         "FilesDotComWebhookNodes receive webhooks from Files.com (https://www.files.com)",
-		MarkdownDescription: "FilesDotComWebhookNodes receive webhooks from [Files.com](https://www.files.com)",
+		MarkdownDescription: "[FilesDotComWebhookNodes](https://docs.echo.stream/docs/filescom-webhook-node) receive webhooks from [Files.com](https://www.files.com)",
 	}, nil
 }
 

@@ -208,9 +208,9 @@ func (r *ManagedNodeTypeResource) Delete(ctx context.Context, req resource.Delet
 
 func (r *ManagedNodeTypeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
-		Attributes:          resourceManagedNodeTypeSchema(),
-		Description:         "ManagedNodeTypes are used to define ManagedNodes",
-		MarkdownDescription: "ManagedNodeTypes are used to define ManagedNodes",
+		Attributes: resourceManagedNodeTypeSchema(),
+		MarkdownDescription: "ManagedNodeTypes are wrappers around Docker image definitions and define the requirements " +
+			"necessary to instantiate those images as Docker containers inside a ManagedNode",
 	}, nil
 }
 

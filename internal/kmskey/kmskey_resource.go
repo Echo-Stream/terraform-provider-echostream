@@ -115,25 +115,21 @@ func (r *KmsKeyResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diag
 		Attributes: map[string]tfsdk.Attribute{
 			"arn": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The AWS ARN for the underlying KMS Key",
 				Type:                types.StringType,
 			},
 			"description": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "A human-readable description",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"in_use": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "True if this KmsKey is in use by Edges",
 				Type:                types.BoolType,
 			},
 			"name": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The name of the KmsKey. Must be unique within the Tenant",
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Required:            true,
 				Type:                types.StringType,
@@ -146,8 +142,8 @@ func (r *KmsKeyResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diag
 				},
 			},
 		},
-		Description:         "KmsKeys are used to encrypt message on Edges",
-		MarkdownDescription: "KmsKeys are used to encrypt message on Edges",
+		MarkdownDescription: "KmsKeys are used to encrypt message on Edges. This enables limiting certain Apps and Nodes, " +
+			"especially External and Managed Nodes that are outside of your control (e.g. - shared with a partner), to specific encryption permissions.",
 	}, nil
 }
 

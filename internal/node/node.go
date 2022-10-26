@@ -10,14 +10,12 @@ func dataNodeSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"description": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "A human-readable description",
 			Type:                types.StringType,
 		},
 		"name": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The name of the Node. Must be unique within the Tenant",
 			Type:                types.StringType,
 		},
 	}
@@ -30,8 +28,7 @@ func dataReceiveNodeSchema() map[string]tfsdk.Attribute {
 		map[string]tfsdk.Attribute{
 			"receive_message_type": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The MessageType that this Node is capable of receiving",
 				Type:                types.StringType,
 			},
 		},
@@ -46,8 +43,7 @@ func dataSendNodeSchema() map[string]tfsdk.Attribute {
 		map[string]tfsdk.Attribute{
 			"send_message_type": {
 				Computed:            true,
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The MessageType that this Node is capable of sending",
 				Type:                types.StringType,
 			},
 		},

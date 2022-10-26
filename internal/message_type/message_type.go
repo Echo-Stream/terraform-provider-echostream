@@ -41,59 +41,58 @@ type messageTypeModel struct {
 func dataMessageTypeSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"auditor": {
-			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
-			Type:                types.StringType,
+			Computed: true,
+			MarkdownDescription: "A Python code string that contains a single top-level function definition." +
+				" This function must have the signature `(*, message, **kwargs)` where" +
+				" message is a string and must return a flat dictionary.",
+			Type: types.StringType,
 		},
 		"bitmapper_template": {
-			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
-			Type:                types.StringType,
+			Computed: true,
+			MarkdownDescription: " A Python code string that contains a single top-level function definition." +
+				" This function is used as a template when creating custom routing rules in" +
+				" RouterNodes that use this MessageType. This function must have the signature" +
+				" `(*, context, message, source, **kwargs)` and return an integer.",
+			Type: types.StringType,
 		},
 		"description": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "A human-readable description",
 			Type:                types.StringType,
 		},
 		"in_use": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "True if this is used by other resources",
 			Type:                types.BoolType,
 		},
 		"name": {
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The name of the MessageType",
 			Required:            true,
 			Type:                types.StringType,
 			Validators:          messageTypeNameValidators,
 		},
 		"processor_template": {
-			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
-			Type:                types.StringType,
+			Computed: true,
+			MarkdownDescription: " A Python code string that contains a single top-leve function definition." +
+				" This function is used as a template when creating custom processing in" +
+				" ProcessorNodes that use this MessageType. This function must have the signature" +
+				" `(*, context, message, source, **kwargs)` and return `None`, a string or a list of strings.",
+			Type: types.StringType,
 		},
 		"readme": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "README in MarkDown format",
 			Type:                types.StringType,
 		},
 		"requirements": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format",
 			Type:                types.SetType{ElemType: types.StringType},
 			Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
 		},
 		"sample_message": {
 			Computed:            true,
-			Description:         "",
-			MarkdownDescription: "",
+			MarkdownDescription: "A sample message",
 			Type:                types.StringType,
 		},
 	}

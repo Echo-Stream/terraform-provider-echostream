@@ -38,9 +38,9 @@ func (d *ProcessorFunctionDataSource) Configure(ctx context.Context, req datasou
 
 func (d *ProcessorFunctionDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
-		Attributes:          dataProcessorFunctionSchema(),
-		Description:         "",
-		MarkdownDescription: "",
+		Attributes: dataProcessorFunctionSchema(),
+		MarkdownDescription: "[ProcessorFunctions](https://docs.echo.stream/docs/processor-node#processor-function) provide " +
+			"reusable message processing and are used in either a ProcessorNode or a CrossTenantSendingNode",
 	}, nil
 }
 

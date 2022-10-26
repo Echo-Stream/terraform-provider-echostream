@@ -293,45 +293,37 @@ func (p *echoStreamProvider) GetSchema(ctx context.Context) (tfsdk.Schema, diag.
 	return tfsdk.Schema{
 		Attributes: map[string]tfsdk.Attribute{
 			"appsync_endpoint": {
-				Description:         "The EchoStream AppSync Endpoint to connect to",
-				MarkdownDescription: "The EchoStream AppSync Endpoint to connect to.",
+				MarkdownDescription: "The ApiUser's AppSync Endpoint",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"client_id": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The ApiUser's AWS Cognito Client Id",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"password": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The ApiUser's password",
 				Optional:            true,
 				Sensitive:           true,
 				Type:                types.StringType,
 			},
 			"tenant": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The EchoStream Tenant to manage",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"username": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The ApiUser's username",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"user_pool_id": {
-				Description:         "",
-				MarkdownDescription: "",
+				MarkdownDescription: "The ApiUser's AWS Cognito User Pool Id",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 		},
-		Description:         "",
-		MarkdownDescription: "All attributes other than `tenant` must be copied from from the `ApiUser` that you configured in your `Tenant`. The `ApiUser` must have `admin` access to be used in Terraform.",
 	}, nil
 }
 

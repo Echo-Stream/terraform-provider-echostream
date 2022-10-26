@@ -46,9 +46,9 @@ type auditEmitterNodeDataSourceModel struct {
 
 func (d *AuditEmitterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
-		Attributes:          dataSendNodeSchema(),
-		Description:         "",
-		MarkdownDescription: "",
+		Attributes: dataSendNodeSchema(),
+		MarkdownDescription: "[AuditEmitterNodes](https://docs.echo.stream/docs/audit-emitter-node) emit audit messages. " +
+			"One per Tenant, automatically created when the Tenant is created",
 	}, nil
 }
 
