@@ -3,12 +3,12 @@
 page_title: "echostream_cross_tenant_receiving_app Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  CrossTenantReceivingApps https://docs.echo.stream/docs/cross-tenant-app provide a way to receive messages from other EchoStream Tenants
+  CrossTenantReceivingApps https://docs.echo.stream/docs/cross-tenant-app provide a way to receive messages from other EchoStream Tenants.
 ---
 
 # echostream_cross_tenant_receiving_app (Resource)
 
-[CrossTenantReceivingApps](https://docs.echo.stream/docs/cross-tenant-app) provide a way to receive messages from other EchoStream Tenants
+[CrossTenantReceivingApps](https://docs.echo.stream/docs/cross-tenant-app) provide a way to receive messages from other EchoStream Tenants.
 
 ## Example Usage
 
@@ -24,12 +24,18 @@ resource "echostream_cross_tenant_receiving_app" "test" {
 
 ### Required
 
-- `name` (String) The name of the app; must be unique in the Tenant
-- `sending_tenant` (String) The EchoStream Tenant that will be sending messages to this CrossTenantReceivingApp
+- `name` (String) The name of the app; must be unique in the Tenant.
+- `sending_tenant` (String) The EchoStream Tenant that will be sending messages to this CrossTenantReceivingApp.
 
 ### Optional
 
-- `description` (String) A human-readable description of the app
-- `sending_app` (String) The CrossTenantSendingApp in the sending Tenant - this will be filled in once the other Tenant creates their CrossTenantSendingApp
+- `description` (String) A human-readable description of the app.
+- `sending_app` (String) The CrossTenantSendingApp in the sending Tenant - this will be filled in once the other Tenant creates their CrossTenantSendingApp.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_cross_tenant_receving_app.receiving "app_name"
+```

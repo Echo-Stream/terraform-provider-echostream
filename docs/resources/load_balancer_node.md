@@ -3,12 +3,12 @@
 page_title: "echostream_load_balancer_node Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  LoadBalancerNodes https://docs.echo.stream/docs/load-balancer balance receive messages across all send Edges by distributing messages evenly and then randomly distributing any remaining messages. While not required, all Nodes that are targets to a LoadBalancerNode's send Edges should be clones of each other. By definition will eliminate guaranteed ordering
+  LoadBalancerNodes https://docs.echo.stream/docs/load-balancer balance receive messages across all send Edges by distributing messages evenly and then randomly distributing any remaining messages. While not required, all Nodes that are targets to a LoadBalancerNode's send Edges should be clones of each other. By definition will eliminate guaranteed ordering.
 ---
 
 # echostream_load_balancer_node (Resource)
 
-[LoadBalancerNodes](https://docs.echo.stream/docs/load-balancer) balance receive messages across all send Edges by distributing messages evenly and then randomly distributing any remaining messages. While not required, all Nodes that are targets to a LoadBalancerNode's send Edges should be clones of each other. By definition will eliminate guaranteed ordering
+[LoadBalancerNodes](https://docs.echo.stream/docs/load-balancer) balance receive messages across all send Edges by distributing messages evenly and then randomly distributing any remaining messages. While not required, all Nodes that are targets to a LoadBalancerNode's send Edges should be clones of each other. By definition will eliminate guaranteed ordering.
 
 ## Example Usage
 
@@ -24,15 +24,21 @@ resource "echostream_load_balancer_node" "test" {
 
 ### Required
 
-- `name` (String) The name of the Node. Must be unique within the Tenant
-- `receive_message_type` (String) The MessageType that this Node is capable of receiving
+- `name` (String) The name of the Node. Must be unique within the Tenant.
+- `receive_message_type` (String) The MessageType that this Node is capable of receiving.
 
 ### Optional
 
-- `description` (String) A human-readable description
+- `description` (String) A human-readable description.
 
 ### Read-Only
 
-- `send_message_type` (String) The MessageType that this Node is capable of sending
+- `send_message_type` (String) The MessageType that this Node is capable of sending.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_load_balancer_node.lb1 "node_name"
+```

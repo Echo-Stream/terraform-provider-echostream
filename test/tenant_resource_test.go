@@ -24,11 +24,6 @@ func TestAccTenantResource(t *testing.T) {
 				ResourceName:      "echostream_tenant.test",
 				ImportState:       true,
 				ImportStateVerify: true,
-				// This is not normally necessary, but is here because this
-				// example code does not have an actual upstream service.
-				// Once the Read method is able to refresh information from
-				// the upstream service, this can be removed.
-				ImportStateVerifyIgnore: []string{"config", "description"},
 			},
 			// Update and Read testing
 			{

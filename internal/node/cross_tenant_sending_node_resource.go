@@ -237,13 +237,13 @@ func (r *CrossTenantSendingNodeResource) GetSchema(ctx context.Context) (tfsdk.S
 		schema,
 		map[string]tfsdk.Attribute{
 			"app": {
-				MarkdownDescription: "The CrossTenantSendingApp this Node is associated with",
+				MarkdownDescription: "The CrossTenantSendingApp this Node is associated with.",
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Required:            true,
 				Type:                types.StringType,
 			},
 			"config": {
-				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map)",
+				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
 				Optional:            true,
 				Sensitive:           true,
 				Type:                common.ConfigType{},
@@ -253,29 +253,29 @@ func (r *CrossTenantSendingNodeResource) GetSchema(ctx context.Context) (tfsdk.S
 					"This function is used as a template when creating custom processing in ProcessorNodes" +
 					"that use this MessageType. This function must have the signature" +
 					"`(*, context, message, source, **kwargs)` and return None, a string or a list of strings." +
-					" Mutually exclusive with `managedProcessor`",
+					" Mutually exclusive with `managedProcessor`.",
 				Optional: true,
 				Type:     types.StringType,
 			},
 			"logging_level": {
-				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`",
+				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
 				Optional:            true,
 				Type:                types.StringType,
 				Validators:          []tfsdk.AttributeValidator{common.LogLevelValidator},
 			},
 			"managed_processor": {
-				MarkdownDescription: "The managedProcessor. Mutually exclusive with the `inlineProcessor`",
+				MarkdownDescription: "The managedProcessor. Mutually exclusive with the `inlineProcessor`.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"requirements": {
-				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format",
+				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
 				Optional:            true,
 				Type:                types.SetType{ElemType: types.StringType},
 				Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
 			},
 			"sequential_processing": {
-				MarkdownDescription: "`true` if messages should not be processed concurrently. If `false`, messages are processed concurrently. Defaults to `false`",
+				MarkdownDescription: "`true` if messages should not be processed concurrently. If `false`, messages are processed concurrently. Defaults to `false`.",
 				Optional:            true,
 				Type:                types.BoolType,
 			},
@@ -283,7 +283,7 @@ func (r *CrossTenantSendingNodeResource) GetSchema(ctx context.Context) (tfsdk.S
 	)
 	return tfsdk.Schema{
 		Attributes:          schema,
-		MarkdownDescription: "[CrossTenantSendingNodes](https://docs.echo.stream/docs/cross-tenant-sending-node) send messages to a receiving Tenant",
+		MarkdownDescription: "[CrossTenantSendingNodes](https://docs.echo.stream/docs/cross-tenant-sending-node) send messages to a receiving Tenant.",
 	}, nil
 }
 

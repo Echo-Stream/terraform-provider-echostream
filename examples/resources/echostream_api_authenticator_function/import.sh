@@ -1,0 +1,1 @@
+terraform import echostream_api_authenticator_function.func1 "func_name"

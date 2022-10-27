@@ -1,0 +1,1 @@
+terraform import echostream_cross_tenant_sending_node.sending "node_name"

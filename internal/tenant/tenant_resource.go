@@ -7,6 +7,7 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -83,7 +84,7 @@ func (r *TenantResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diag
 }
 
 func (r *TenantResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resp.Diagnostics.Append(resp.State.Set(ctx, &tenantModel{})...)
+	resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root("name"), r.data.Tenant)...)
 }
 
 func (r *TenantResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -166,6 +167,7 @@ func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) 
 		} else {
 			data.Description = types.String{Null: true}
 		}
+		data.Id = types.String{Value: echoResp.GetTenant.Update.Name}
 		data.Name = types.String{Value: echoResp.GetTenant.Update.Name}
 		data.Region = types.String{Value: echoResp.GetTenant.Update.Region}
 		data.Table = types.String{Value: echoResp.GetTenant.Update.Table}

@@ -17,7 +17,7 @@ type notValidator struct {
 
 // Description describes the validation in plain text formatting.
 func (v notValidator) Description(ctx context.Context) string {
-	return fmt.Sprintf("Value must not satisfy the validation: %s", v.valueValidator.Description(ctx))
+	return fmt.Sprintf("Value must not satisfy the validation: %s.", v.valueValidator.Description(ctx))
 }
 
 // MarkdownDescription describes the validation in Markdown formatting.

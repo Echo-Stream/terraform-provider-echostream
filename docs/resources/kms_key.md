@@ -24,15 +24,21 @@ resource "echostream_kms_key" "test" {
 
 ### Required
 
-- `name` (String) The name of the KmsKey. Must be unique within the Tenant
+- `name` (String) The name of the KmsKey. Must be unique within the Tenant.
 
 ### Optional
 
-- `description` (String) A human-readable description
+- `description` (String) A human-readable description.
 
 ### Read-Only
 
-- `arn` (String) The AWS ARN for the underlying KMS Key
-- `in_use` (Boolean) True if this KmsKey is in use by Edges
+- `arn` (String) The AWS ARN for the underlying KMS Key.
+- `in_use` (Boolean) True if this KmsKey is in use by Edges.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_kms_key.encryptor "key_name"
+```

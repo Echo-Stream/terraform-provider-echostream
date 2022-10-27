@@ -48,7 +48,7 @@ func (d *AlertEmitterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Schem
 	return tfsdk.Schema{
 		Attributes: dataSendNodeSchema(),
 		MarkdownDescription: "[AlertEmitterNodes](https://docs.echo.stream/docs/alert-emitter-node) emit alert messages. " +
-			"One per Tenant, automatically created when the Tenant is created",
+			"One per Tenant, automatically created when the Tenant is created.",
 	}, nil
 }
 

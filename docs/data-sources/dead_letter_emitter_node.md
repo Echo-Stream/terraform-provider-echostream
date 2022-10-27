@@ -3,12 +3,12 @@
 page_title: "echostream_dead_letter_emitter_node Data Source - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  DeadLetterEmitterNodes https://docs.echo.stream/docs/dead-letter-emitter-node emit dead letters (i.e. - undeliverable messages). One per Tenant, automatically created when the Tenant is created
+  DeadLetterEmitterNodes https://docs.echo.stream/docs/dead-letter-emitter-node emit dead letters (i.e. - undeliverable messages). One per Tenant, automatically created when the Tenant is created.
 ---
 
 # echostream_dead_letter_emitter_node (Data Source)
 
-[DeadLetterEmitterNodes](https://docs.echo.stream/docs/dead-letter-emitter-node) emit dead letters (i.e. - undeliverable messages). One per Tenant, automatically created when the Tenant is created
+[DeadLetterEmitterNodes](https://docs.echo.stream/docs/dead-letter-emitter-node) emit dead letters (i.e. - undeliverable messages). One per Tenant, automatically created when the Tenant is created.
 
 ## Example Usage
 
@@ -21,8 +21,8 @@ data "echostream_dead_letter_emitter_node" "test" {}
 
 ### Read-Only
 
-- `description` (String) A human-readable description
-- `name` (String) The name of the Node. Must be unique within the Tenant
-- `send_message_type` (String) The MessageType that this Node is capable of sending
+- `description` (String) A human-readable description.
+- `name` (String) The name of the Node. Must be unique within the Tenant.
+- `send_message_type` (String) The MessageType that this Node is capable of sending.
 
 

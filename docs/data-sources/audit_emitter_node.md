@@ -3,12 +3,12 @@
 page_title: "echostream_audit_emitter_node Data Source - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  AuditEmitterNodes https://docs.echo.stream/docs/audit-emitter-node emit audit messages. One per Tenant, automatically created when the Tenant is created
+  AuditEmitterNodes https://docs.echo.stream/docs/audit-emitter-node emit audit messages. One per Tenant, automatically created when the Tenant is created.
 ---
 
 # echostream_audit_emitter_node (Data Source)
 
-[AuditEmitterNodes](https://docs.echo.stream/docs/audit-emitter-node) emit audit messages. One per Tenant, automatically created when the Tenant is created
+[AuditEmitterNodes](https://docs.echo.stream/docs/audit-emitter-node) emit audit messages. One per Tenant, automatically created when the Tenant is created.
 
 ## Example Usage
 
@@ -21,8 +21,8 @@ data "echostream_audit_emitter_node" "test" {}
 
 ### Read-Only
 
-- `description` (String) A human-readable description
-- `name` (String) The name of the Node. Must be unique within the Tenant
-- `send_message_type` (String) The MessageType that this Node is capable of sending
+- `description` (String) A human-readable description.
+- `name` (String) The name of the Node. Must be unique within the Tenant.
+- `send_message_type` (String) The MessageType that this Node is capable of sending.
 
 

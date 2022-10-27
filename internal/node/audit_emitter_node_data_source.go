@@ -48,7 +48,7 @@ func (d *AuditEmitterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Schem
 	return tfsdk.Schema{
 		Attributes: dataSendNodeSchema(),
 		MarkdownDescription: "[AuditEmitterNodes](https://docs.echo.stream/docs/audit-emitter-node) emit audit messages. " +
-			"One per Tenant, automatically created when the Tenant is created",
+			"One per Tenant, automatically created when the Tenant is created.",
 	}, nil
 }
 

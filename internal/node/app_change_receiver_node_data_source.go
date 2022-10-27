@@ -60,7 +60,7 @@ func (d *AppChangeReceiverNodeDataSource) GetSchema(ctx context.Context) (tfsdk.
 	)
 	return tfsdk.Schema{
 		Attributes:          schema,
-		MarkdownDescription: "AppChangeReceiverNodes receive change messages from the AppChangeRouterNode. One per App, created when the App is created",
+		MarkdownDescription: "AppChangeReceiverNodes receive change messages from the AppChangeRouterNode. One per App, created when the App is created.",
 	}, nil
 }
 

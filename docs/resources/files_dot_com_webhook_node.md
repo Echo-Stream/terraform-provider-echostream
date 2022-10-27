@@ -3,12 +3,12 @@
 page_title: "echostream_files_dot_com_webhook_node Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  FilesDotComWebhookNodes https://docs.echo.stream/docs/filescom-webhook-node receive webhooks from Files.com https://www.files.com
+  FilesDotComWebhookNodes https://docs.echo.stream/docs/filescom-webhook-node receive webhooks from Files.com https://www.files.com.
 ---
 
 # echostream_files_dot_com_webhook_node (Resource)
 
-[FilesDotComWebhookNodes](https://docs.echo.stream/docs/filescom-webhook-node) receive webhooks from [Files.com](https://www.files.com)
+[FilesDotComWebhookNodes](https://docs.echo.stream/docs/filescom-webhook-node) receive webhooks from [Files.com](https://www.files.com).
 
 ## Example Usage
 
@@ -24,17 +24,23 @@ resource "echostream_files_dot_com_webhook_node" "test" {
 
 ### Required
 
-- `api_key` (String, Sensitive) The Files.com api key. Used by this node to obtain a whitelist of IP addresses from Files.com
-- `name` (String) The name of the Node. Must be unique within the Tenant
+- `api_key` (String, Sensitive) The Files.com api key. Used by this node to obtain a whitelist of IP addresses from Files.com.
+- `name` (String) The name of the Node. Must be unique within the Tenant.
 
 ### Optional
 
-- `description` (String) A human-readable description
+- `description` (String) A human-readable description.
 
 ### Read-Only
 
-- `endpoint` (String) The Webhooks endpoint to forward Files.com webhooks events to. Accepts all version of Files.com webhook events at the root path
-- `send_message_type` (String) The MessageType that this Node is capable of sending
-- `token` (String, Sensitive) The token for the event endpoint. Files.com doesn't support real Webhooks security, so we add a token that is to be sent in the webhook in the headers. Place this token as the value for the `Authorization` header, prepending it with `Bearer`. For example, if token was `12345` then the header would be `Authorization: Bearer 12345`
+- `endpoint` (String) The Webhooks endpoint to forward Files.com webhooks events to. Accepts all version of Files.com webhook events at the root path.
+- `send_message_type` (String) The MessageType that this Node is capable of sending.
+- `token` (String, Sensitive) The token for the event endpoint. Files.com doesn't support real Webhooks security, so we add a token that is to be sent in the webhook in the headers. Place this token as the value for the `Authorization` header, prepending it with `Bearer`. For example, if token was `12345` then the header would be `Authorization: Bearer 12345`.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_files_dot_com_webhook_node.files "node_name"
+```

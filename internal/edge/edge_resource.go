@@ -140,12 +140,12 @@ func (r *EdgeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagno
 	return tfsdk.Schema{
 		Attributes: map[string]tfsdk.Attribute{
 			"description": {
-				MarkdownDescription: "A human-readable description",
+				MarkdownDescription: "A human-readable description.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"kmskey": {
-				MarkdownDescription: "The name of the KmsKey to use to encrypt the message at rest and in flight. Defaults to the Tenant's KmsKey",
+				MarkdownDescription: "The name of the KmsKey to use to encrypt the message at rest and in flight. Defaults to the Tenant's KmsKey.",
 				Optional:            true,
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Type:                types.StringType,
@@ -159,26 +159,26 @@ func (r *EdgeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagno
 			},
 			"message_type": {
 				Computed:            true,
-				MarkdownDescription: "The MessageType that will be transmitted",
+				MarkdownDescription: "The MessageType that will be transmitted.",
 				Type:                types.StringType,
 			},
 			"queue": {
 				Computed:            true,
-				MarkdownDescription: "The URL of the underlying AWS SQS queue",
+				MarkdownDescription: "The URL of the underlying AWS SQS queue.",
 				Type:                types.StringType,
 			},
 			"source": {
-				MarkdownDescription: "The source Node to transmit messages from",
+				MarkdownDescription: "The source Node to transmit messages from.",
 				Required:            true,
 				Type:                types.StringType,
 			},
 			"target": {
-				MarkdownDescription: "The target Node to transmit messages to",
+				MarkdownDescription: "The target Node to transmit messages to.",
 				Required:            true,
 				Type:                types.StringType,
 			},
 		},
-		MarkdownDescription: "[Edges](https://docs.echo.stream/docs/edges) transmit messages of a single MessageType between Nodes",
+		MarkdownDescription: "[Edges](https://docs.echo.stream/docs/edges) transmit messages of a single MessageType between Nodes.",
 	}, nil
 }
 

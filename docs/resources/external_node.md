@@ -3,12 +3,12 @@
 page_title: "echostream_external_node Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  ExternalNodes https://docs.echo.stream/docs/external-node exist outside the EchoStream Cloud. Can be part of an ExternalApp or CrossAccountApp. You may use any computing resource or language that you want to implement them
+  ExternalNodes https://docs.echo.stream/docs/external-node exist outside the EchoStream Cloud. Can be part of an ExternalApp or CrossAccountApp. You may use any computing resource or language that you want to implement them.
 ---
 
 # echostream_external_node (Resource)
 
-[ExternalNodes](https://docs.echo.stream/docs/external-node) exist outside the EchoStream Cloud. Can be part of an ExternalApp or CrossAccountApp. You may use any computing resource or language that you want to implement them
+[ExternalNodes](https://docs.echo.stream/docs/external-node) exist outside the EchoStream Cloud. Can be part of an ExternalApp or CrossAccountApp. You may use any computing resource or language that you want to implement them.
 
 ## Example Usage
 
@@ -34,14 +34,20 @@ resource "echostream_external_node" "test" {
 
 ### Required
 
-- `name` (String) The name of the Node. Must be unique within the Tenant
+- `name` (String) The name of the Node. Must be unique within the Tenant.
 
 ### Optional
 
-- `app` (String) The ExternalApp or CrossAccountApp this Node is associated with
-- `config` (String, Sensitive) The config, in JSON object format (i.e. - dict, map)
-- `description` (String) A human-readable description
-- `receive_message_type` (String) The MessageType that this Node is capable of receiving
-- `send_message_type` (String) The MessageType that this Node is capable of sending
+- `app` (String) The ExternalApp or CrossAccountApp this Node is associated with.
+- `config` (String, Sensitive) The config, in JSON object format (i.e. - dict, map).
+- `description` (String) A human-readable description.
+- `receive_message_type` (String) The MessageType that this Node is capable of receiving.
+- `send_message_type` (String) The MessageType that this Node is capable of sending.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_external_node.external "node_name"
+```

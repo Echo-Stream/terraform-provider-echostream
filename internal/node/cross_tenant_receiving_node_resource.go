@@ -114,7 +114,7 @@ func (r *CrossTenantReceivingNodeResource) GetSchema(ctx context.Context) (tfsdk
 	schema := dataSendNodeSchema()
 	name := schema["name"]
 	name.Computed = false
-	name.MarkdownDescription = "The name of the Node. Automatically generated in the format `<sending_tenant>:<sending_node>`"
+	name.MarkdownDescription = "The name of the Node. Automatically generated in the format `<sending_tenant>:<sending_node>`."
 	name.Required = true
 	name.Validators = common.NameValidators
 	schema["name"] = name
@@ -123,7 +123,7 @@ func (r *CrossTenantReceivingNodeResource) GetSchema(ctx context.Context) (tfsdk
 		map[string]tfsdk.Attribute{
 			"app": {
 				Computed:            true,
-				MarkdownDescription: "The CrossTenantReceivingApp that this Node is associated with",
+				MarkdownDescription: "The CrossTenantReceivingApp that this Node is associated with.",
 				Type:                types.StringType,
 			},
 		},

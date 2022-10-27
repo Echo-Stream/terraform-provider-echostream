@@ -23,17 +23,17 @@ data "echostream_message_type" "json" {
 
 ### Required
 
-- `name` (String) The name of the MessageType
+- `name` (String) The name of the MessageType.
 
 ### Read-Only
 
 - `auditor` (String) A Python code string that contains a single top-level function definition. This function must have the signature `(*, message, **kwargs)` where message is a string and must return a flat dictionary.
 - `bitmapper_template` (String) A Python code string that contains a single top-level function definition. This function is used as a template when creating custom routing rules in RouterNodes that use this MessageType. This function must have the signature `(*, context, message, source, **kwargs)` and return an integer.
-- `description` (String) A human-readable description
-- `in_use` (Boolean) True if this is used by other resources
+- `description` (String) A human-readable description.
+- `in_use` (Boolean) True if this is used by other resources.
 - `processor_template` (String) A Python code string that contains a single top-leve function definition. This function is used as a template when creating custom processing in ProcessorNodes that use this MessageType. This function must have the signature `(*, context, message, source, **kwargs)` and return `None`, a string or a list of strings.
-- `readme` (String) README in MarkDown format
-- `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format
-- `sample_message` (String) A sample message
+- `readme` (String) README in MarkDown format.
+- `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.
+- `sample_message` (String) A sample message.
 
 

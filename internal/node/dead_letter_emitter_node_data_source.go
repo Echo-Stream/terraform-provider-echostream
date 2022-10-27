@@ -48,7 +48,7 @@ func (d *DeadLetterEmitterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.
 	return tfsdk.Schema{
 		Attributes: dataSendNodeSchema(),
 		MarkdownDescription: "[DeadLetterEmitterNodes](https://docs.echo.stream/docs/dead-letter-emitter-node) emit dead letters (i.e. - " +
-			"undeliverable messages). One per Tenant, automatically created when the Tenant is created",
+			"undeliverable messages). One per Tenant, automatically created when the Tenant is created.",
 	}, nil
 }
 

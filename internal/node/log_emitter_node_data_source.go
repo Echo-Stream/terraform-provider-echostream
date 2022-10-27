@@ -48,7 +48,7 @@ func (d *LogEmitterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema,
 	return tfsdk.Schema{
 		Attributes: dataSendNodeSchema(),
 		MarkdownDescription: "[LogEmitterNodes](https://docs.echo.stream/docs/log-emitter-node) emit log messages created by various Node types. " +
-			"One per Tenant, automatically created when the Tenant is created",
+			"One per Tenant, automatically created when the Tenant is created.",
 	}, nil
 }
 

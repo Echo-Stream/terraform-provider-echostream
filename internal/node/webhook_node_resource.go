@@ -204,7 +204,7 @@ func (r *WebhookNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag
 			attribute.Validators = common.FunctionNodeNameValidators
 		case "send_message_type":
 			attribute.Computed = true
-			attribute.MarkdownDescription = "Must be JSON based, defaults to `echo.json`"
+			attribute.MarkdownDescription = "Must be JSON based, defaults to `echo.json`."
 			attribute.Optional = true
 			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
 		}
@@ -214,7 +214,7 @@ func (r *WebhookNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag
 		schema,
 		map[string]tfsdk.Attribute{
 			"config": {
-				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map)",
+				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
 				Optional:            true,
 				Sensitive:           true,
 				Type:                common.ConfigType{},
@@ -223,30 +223,30 @@ func (r *WebhookNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag
 				Computed: true,
 				MarkdownDescription: "The Webhooks endpoint to forward webhooks events to." +
 					" Accepts POST webhook events at the root path." +
-					" POST events may be any JSON-based payload",
+					" POST events may be any JSON-based payload.",
 				Type: types.StringType,
 			},
 			"inline_api_authenticator": {
 				MarkdownDescription: "A Python code string that contains a single top-level function definition." +
 					" This function must have the signature `(*, context, request, **kwargs)` and return" +
 					" `None` or a tuple containing an `AuthCredentials` and `BaseUser` (or subclasses)." +
-					" Mutually exclusive with `managedApiAuthenticator`",
+					" Mutually exclusive with `managedApiAuthenticator`.",
 				Optional: true,
 				Type:     types.StringType,
 			},
 			"logging_level": {
-				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`",
+				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
 				Optional:            true,
 				Type:                types.StringType,
 				Validators:          []tfsdk.AttributeValidator{common.LogLevelValidator},
 			},
 			"managed_api_authenticator": {
-				MarkdownDescription: "The managedApiAuthenticator. Mutually exclusive with the `inlineApiAuthenticator`",
+				MarkdownDescription: "The managedApiAuthenticator. Mutually exclusive with the `inlineApiAuthenticator`.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"requirements": {
-				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format",
+				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
 				Optional:            true,
 				Type:                types.SetType{ElemType: types.StringType},
 				Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
@@ -256,7 +256,7 @@ func (r *WebhookNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag
 	return tfsdk.Schema{
 		Attributes: schema,
 		MarkdownDescription: "[WebhookNodes](https://docs.echo.stream/docs/webhook) allow for almost any processing " +
-			"of messages, including transformation, augmentation, generation, combination and splitting",
+			"of messages, including transformation, augmentation, generation, combination and splitting.",
 	}, nil
 }
 

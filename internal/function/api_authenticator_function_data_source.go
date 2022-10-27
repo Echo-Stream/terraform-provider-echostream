@@ -39,7 +39,7 @@ func (d *ApiAuthenticatorFunctionDataSource) Configure(ctx context.Context, req 
 func (d *ApiAuthenticatorFunctionDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
 		Attributes:          dataFunctionSchema(),
-		MarkdownDescription: "[ApiAuthenticatorFunctions](https://docs.echo.stream/docs/webhook#api-authenticator-function) are managed Functions used in API-based Nodes (e.g. - WebhookNode)",
+		MarkdownDescription: "[ApiAuthenticatorFunctions](https://docs.echo.stream/docs/webhook#api-authenticator-function) are managed Functions used in API-based Nodes (e.g. - WebhookNode).",
 	}, nil
 }
 

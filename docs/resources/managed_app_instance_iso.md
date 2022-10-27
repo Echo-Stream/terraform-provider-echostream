@@ -3,12 +3,12 @@
 page_title: "echostream_managed_app_instance_iso Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  ManagedAppInstanceIso may be used to create ManagedApp compute resources in the VM architecture of your choice
+  ManagedAppInstanceIso may be used to create ManagedApp compute resources in the VM architecture of your choice.
 ---
 
 # echostream_managed_app_instance_iso (Resource)
 
-ManagedAppInstanceIso may be used to create ManagedApp compute resources in the VM architecture of your choice
+ManagedAppInstanceIso may be used to create ManagedApp compute resources in the VM architecture of your choice.
 
 ## Example Usage
 
@@ -28,11 +28,11 @@ resource "echostream_managed_app_instance_iso" "test" {
 
 ### Required
 
-- `app` (String) The name of the app
+- `app` (String) The name of the app.
 - `name` (String) The name of the instance data generated. Changing this is the mechanism for regenerating instance data.
 
 ### Read-Only
 
-- `iso` (String) The iso image, gzip'd and base64 encoded
+- `iso` (String) The iso image, gzip'd and base64 encoded.
 
 

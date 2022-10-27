@@ -17,7 +17,7 @@ type ipaddrValidator struct {
 
 // Description describes the validation in plain text formatting.
 func (v ipaddrValidator) Description(ctx context.Context) string {
-	return "string must be a valid IPv4 or IPv6 address"
+	return "Value must be a valid IPv4 or IPv6 address."
 }
 
 // MarkdownDescription describes the validation in Markdown formatting.

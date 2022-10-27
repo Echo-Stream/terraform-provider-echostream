@@ -3,12 +3,12 @@
 page_title: "echostream_managed_app_instance_userdata Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  ManagedAppInstanceUserdata may be used to create ManagedApp compute resources based on Amazon Linux 2
+  ManagedAppInstanceUserdata may be used to create ManagedApp compute resources based on Amazon Linux 2.
 ---
 
 # echostream_managed_app_instance_userdata (Resource)
 
-ManagedAppInstanceUserdata may be used to create ManagedApp compute resources based on Amazon Linux 2
+ManagedAppInstanceUserdata may be used to create ManagedApp compute resources based on Amazon Linux 2.
 
 ## Example Usage
 
@@ -28,11 +28,11 @@ resource "echostream_managed_app_instance_userdata" "test" {
 
 ### Required
 
-- `app` (String) The name of the app
+- `app` (String) The name of the app.
 - `name` (String) The name of the instance data generated. Changing this is the mechanism for regenerating instance data.
 
 ### Read-Only
 
-- `userdata` (String) Cloud-init userdata specifically targeted for Amazon Linux 2
+- `userdata` (String) Cloud-init userdata specifically targeted for Amazon Linux 2.
 
 

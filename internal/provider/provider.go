@@ -293,33 +293,33 @@ func (p *echoStreamProvider) GetSchema(ctx context.Context) (tfsdk.Schema, diag.
 	return tfsdk.Schema{
 		Attributes: map[string]tfsdk.Attribute{
 			"appsync_endpoint": {
-				MarkdownDescription: "The ApiUser's AppSync Endpoint",
+				MarkdownDescription: "The ApiUser's AppSync Endpoint.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"client_id": {
-				MarkdownDescription: "The ApiUser's AWS Cognito Client Id",
+				MarkdownDescription: "The ApiUser's AWS Cognito Client Id.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"password": {
-				MarkdownDescription: "The ApiUser's password",
+				MarkdownDescription: "The ApiUser's password.",
 				Optional:            true,
 				Sensitive:           true,
 				Type:                types.StringType,
 			},
 			"tenant": {
-				MarkdownDescription: "The EchoStream Tenant to manage",
+				MarkdownDescription: "The EchoStream Tenant to manage.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"username": {
-				MarkdownDescription: "The ApiUser's username",
+				MarkdownDescription: "The ApiUser's username.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"user_pool_id": {
-				MarkdownDescription: "The ApiUser's AWS Cognito User Pool Id",
+				MarkdownDescription: "The ApiUser's AWS Cognito User Pool Id.",
 				Optional:            true,
 				Type:                types.StringType,
 			},

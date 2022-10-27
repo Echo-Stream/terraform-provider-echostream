@@ -127,7 +127,7 @@ func (r *TimerNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.D
 	}
 	schema["schedule_expression"] = tfsdk.Attribute{
 		MarkdownDescription: "An [Amazon Event Bridge cron expression]" +
-			"(https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions)",
+			"(https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions).",
 		Required:      true,
 		PlanModifiers: tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 		Type:          types.StringType,
@@ -142,7 +142,7 @@ func (r *TimerNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.D
 		Attributes: schema,
 		MarkdownDescription: "[TimerNodes](https://docs.echo.stream/docs/timer-node) emit echo.timer messages on a time " +
 			"period defined by the scheduleExpression. They can be used to cause other Nodes (normally ProcessorNodes) to " +
-			"perform complex actions on a schedule (e.g. - polling an API every 15 minutes)",
+			"perform complex actions on a schedule (e.g. - polling an API every 15 minutes).",
 	}, nil
 }
 

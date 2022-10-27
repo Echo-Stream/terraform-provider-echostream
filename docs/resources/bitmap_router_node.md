@@ -3,12 +3,12 @@
 page_title: "echostream_bitmap_router_node Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  BitmapRouterNodes https://docs.echo.stream/docs/bitmap-router-node use a bitmapper function (either inline or managed) to construct a bitmap of truthy values for each message processed. The message bitmap is then and'ed with route bitmaps. If the result of the and is equal to the route bitmap then the message is sent along that route
+  BitmapRouterNodes https://docs.echo.stream/docs/bitmap-router-node use a bitmapper function (either inline or managed) to construct a bitmap of truthy values for each message processed. The message bitmap is then and'ed with route bitmaps. If the result of the and is equal to the route bitmap then the message is sent along that route.
 ---
 
 # echostream_bitmap_router_node (Resource)
 
-[BitmapRouterNodes](https://docs.echo.stream/docs/bitmap-router-node) use a bitmapper function (either inline or managed) to construct a bitmap of truthy values for each message processed. The message bitmap is then _and_'ed with route bitmaps. If the result of the _and_ is equal to the route bitmap then the message is sent along that route
+[BitmapRouterNodes](https://docs.echo.stream/docs/bitmap-router-node) use a bitmapper function (either inline or managed) to construct a bitmap of truthy values for each message processed. The message bitmap is then _and_'ed with route bitmaps. If the result of the _and_ is equal to the route bitmap then the message is sent along that route.
 
 ## Example Usage
 
@@ -36,21 +36,27 @@ resource "echostream_bitmap_router_node" "test" {
 
 ### Required
 
-- `name` (String) The name of the Node. Must be unique within the Tenant
-- `receive_message_type` (String) The MessageType that this Node is capable of receiving
+- `name` (String) The name of the Node. Must be unique within the Tenant.
+- `receive_message_type` (String) The MessageType that this Node is capable of receiving.
 
 ### Optional
 
-- `config` (String, Sensitive) The config, in JSON object format (i.e. - dict, map)
-- `description` (String) A human-readable description
-- `inline_bitmapper` (String) A Python code string that contains a single top-level function definition.This function must have the signature `(*, context, message, source, **kwargs)`and return an integer. Mutually exclusive with `managedBitmapper`
-- `logging_level` (String) The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`
-- `managed_bitmapper` (String) A managed BitmapperFunction. Mutually exclusive with `inlineBitmapper`
-- `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format
-- `route_table` (Map of Set of String) The route table. A route table is a JSON object with hexidecimal (base-16) keys (the route bitmaps - e.g. 0xF1) and a list of target Node names as the values
+- `config` (String, Sensitive) The config, in JSON object format (i.e. - dict, map).
+- `description` (String) A human-readable description.
+- `inline_bitmapper` (String) A Python code string that contains a single top-level function definition.This function must have the signature `(*, context, message, source, **kwargs)`and return an integer. Mutually exclusive with `managedBitmapper`.
+- `logging_level` (String) The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.
+- `managed_bitmapper` (String) A managed BitmapperFunction. Mutually exclusive with `inlineBitmapper`.
+- `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.
+- `route_table` (Map of Set of String) The route table. A route table is a JSON object with hexidecimal (base-16) keys (the route bitmaps - e.g. 0xF1) and a list of target Node names as the values.
 
 ### Read-Only
 
-- `send_message_type` (String) The MessageType that this Node is capable of sending
+- `send_message_type` (String) The MessageType that this Node is capable of sending.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_bitmap_router_node.router "node_name"
+```

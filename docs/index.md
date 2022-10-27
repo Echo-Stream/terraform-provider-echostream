@@ -51,9 +51,9 @@ provider "echostream" {
 
 ### Optional
 
-- `appsync_endpoint` (String) The ApiUser's AppSync Endpoint
-- `client_id` (String) The ApiUser's AWS Cognito Client Id
-- `password` (String, Sensitive) The ApiUser's password
-- `tenant` (String) The EchoStream Tenant to manage
-- `user_pool_id` (String) The ApiUser's AWS Cognito User Pool Id
-- `username` (String) The ApiUser's username
+- `appsync_endpoint` (String) The ApiUser's AppSync Endpoint.
+- `client_id` (String) The ApiUser's AWS Cognito Client Id.
+- `password` (String, Sensitive) The ApiUser's password.
+- `tenant` (String) The EchoStream Tenant to manage.
+- `user_pool_id` (String) The ApiUser's AWS Cognito User Pool Id.
+- `username` (String) The ApiUser's username.

@@ -322,26 +322,26 @@ func (r *ManagedNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag
 		schema,
 		map[string]tfsdk.Attribute{
 			"app": {
-				MarkdownDescription: "The ManagedApp that this Node is associated with",
+				MarkdownDescription: "The ManagedApp that this Node is associated with.",
 				Required:            true,
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Type:                types.StringType,
 			},
 			"config": {
-				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map)",
+				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
 				Optional:            true,
 				Sensitive:           true,
 				Type:                common.ConfigType{},
 			},
 			"logging_level": {
-				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`",
+				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
 				Optional:            true,
 				Type:                types.StringType,
 				Validators:          []tfsdk.AttributeValidator{common.LogLevelValidator},
 			},
 			"managed_node_type": {
 				MarkdownDescription: "The ManagedNodeType of this ManagedNode. This Node must conform to all of the" +
-					" config, mount and port requirements specified in the ManagedNodeType",
+					" config, mount and port requirements specified in the ManagedNodeType.",
 				PlanModifiers: tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Required:      true,
 				Type:          types.StringType,
@@ -351,65 +351,65 @@ func (r *ManagedNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag
 					map[string]tfsdk.Attribute{
 						"description": {
 							Computed:            true,
-							MarkdownDescription: " A human-readable description",
+							MarkdownDescription: " A human-readable description.",
 							Type:                types.StringType,
 						},
 						"source": {
-							MarkdownDescription: "The source of the mount. If not present, an anonymous volume will be created",
+							MarkdownDescription: "The source of the mount. If not present, an anonymous volume will be created.",
 							Optional:            true,
 							Type:                types.StringType,
 						},
 						"target": {
-							MarkdownDescription: "The path to mount the volume in the Docker container",
+							MarkdownDescription: "The path to mount the volume in the Docker container.",
 							Required:            true,
 							Type:                types.StringType,
 						},
 					},
 				),
-				MarkdownDescription: "A list of the mounts (i.e. - volumes) used by the Docker container",
+				MarkdownDescription: "A list of the mounts (i.e. - volumes) used by the Docker container.",
 				Optional:            true,
 			},
 			"ports": {
 				Attributes: tfsdk.SetNestedAttributes(
 					map[string]tfsdk.Attribute{
 						"container_port": {
-							MarkdownDescription: "The exposed container port",
+							MarkdownDescription: "The exposed container port.",
 							Required:            true,
 							Type:                types.Int64Type,
 						},
 						"description": {
 							Computed:            true,
-							MarkdownDescription: "A human-readable description",
+							MarkdownDescription: "A human-readable description.",
 							Type:                types.StringType,
 						},
 						"host_address": {
-							MarkdownDescription: "The host address the port is exposed on. Defaults to `0.0.0.0`",
+							MarkdownDescription: "The host address the port is exposed on. Defaults to `0.0.0.0`.",
 							Optional:            true,
 							Type:                types.StringType,
 							Validators:          []tfsdk.AttributeValidator{validators.Ipaddr()},
 						},
 						"host_port": {
-							MarkdownDescription: "The exposed host port. Must be between `1024` and `65535`, inclusive",
+							MarkdownDescription: "The exposed host port. Must be between `1024` and `65535`, inclusive.",
 							Required:            true,
 							Type:                types.Int64Type,
 							Validators:          []tfsdk.AttributeValidator{common.PortValidator},
 						},
 						"protocol": {
-							MarkdownDescription: "The protocol to use for the port. One of `sctp`, `tcp` or `udp`",
+							MarkdownDescription: "The protocol to use for the port. One of `sctp`, `tcp` or `udp`.",
 							Required:            true,
 							Type:                types.StringType,
 							Validators:          []tfsdk.AttributeValidator{common.ProtocolValidator},
 						},
 					},
 				),
-				MarkdownDescription: "A list of ports exposed by the Docker container",
+				MarkdownDescription: "A list of ports exposed by the Docker container.",
 				Optional:            true,
 			},
 		},
 	)
 	return tfsdk.Schema{
 		Attributes:          schema,
-		MarkdownDescription: "[ManagedNodes](https://docs.echo.stream/docs/managed-node) are instances of Docker containers that exist within ManagedApps",
+		MarkdownDescription: "[ManagedNodes](https://docs.echo.stream/docs/managed-node) are instances of Docker containers that exist within ManagedApps.",
 	}, nil
 }
 

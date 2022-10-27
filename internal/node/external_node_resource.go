@@ -178,13 +178,13 @@ func (r *ExternalNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, dia
 		schema,
 		map[string]tfsdk.Attribute{
 			"app": {
-				MarkdownDescription: "The ExternalApp or CrossAccountApp this Node is associated with",
+				MarkdownDescription: "The ExternalApp or CrossAccountApp this Node is associated with.",
 				Optional:            true,
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Type:                types.StringType,
 			},
 			"config": {
-				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map)",
+				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
 				Optional:            true,
 				Sensitive:           true,
 				Type:                common.ConfigType{},
@@ -195,7 +195,7 @@ func (r *ExternalNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, dia
 		Attributes: schema,
 		MarkdownDescription: "[ExternalNodes](https://docs.echo.stream/docs/external-node) exist outside the " +
 			"EchoStream Cloud. Can be part of an ExternalApp or CrossAccountApp. You may use any computing resource " +
-			"or language that you want to implement them",
+			"or language that you want to implement them.",
 	}, nil
 }
 

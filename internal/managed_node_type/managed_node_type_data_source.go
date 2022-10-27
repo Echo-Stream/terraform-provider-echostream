@@ -40,7 +40,7 @@ func (d *ManagedNodeTypeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema
 	return tfsdk.Schema{
 		Attributes: dataManagedNodeTypeSchema(),
 		MarkdownDescription: "ManagedNodeTypes are wrappers around Docker image definitions and define the requirements " +
-			"necessary to instantiate those images as Docker containers inside a ManagedNode",
+			"necessary to instantiate those images as Docker containers inside a ManagedNode.",
 	}, nil
 }
 

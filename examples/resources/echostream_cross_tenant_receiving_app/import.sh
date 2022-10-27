@@ -1,0 +1,1 @@
+terraform import echostream_cross_tenant_receving_app.receiving "app_name"

@@ -57,6 +57,7 @@ jobs:
         terraform:
           - '1.1.*'
           - '1.2.*'
+          - '1.3.*'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
@@ -70,5 +71,5 @@ jobs:
       - run: go mod download
       - env:
           TF_ACC: "1"
-        run: go test -v -cover ./internal/test/
+        run: go test -v -cover ./test/
         timeout-minutes: 10

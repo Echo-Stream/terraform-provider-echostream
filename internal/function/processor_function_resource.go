@@ -140,7 +140,7 @@ func (r *ProcessorFunctionResource) GetSchema(ctx context.Context) (tfsdk.Schema
 	return tfsdk.Schema{
 		Attributes: resourceProcessorFunctionSchema(),
 		MarkdownDescription: "[ProcessorFunctions](https://docs.echo.stream/docs/processor-node#processor-function) provide " +
-			"reusable message processing and are used in either a ProcessorNode or a CrossTenantSendingNode",
+			"reusable message processing and are used in either a ProcessorNode or a CrossTenantSendingNode.",
 	}, nil
 }
 

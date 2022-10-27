@@ -3,12 +3,12 @@
 page_title: "echostream_api_user Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  ApiUsers are used to programatically interact with your Tenant
+  ApiUsers are used to programatically interact with your Tenant.
 ---
 
 # echostream_api_user (Resource)
 
-ApiUsers are used to programatically interact with your Tenant
+ApiUsers are used to programatically interact with your Tenant.
 
 ## Example Usage
 
@@ -24,27 +24,27 @@ resource "echostream_api_user" "api_user" {
 
 ### Required
 
-- `role` (String) The ApiUser's role. May be on of `admin`, `read_only`, or `user`
+- `role` (String) The ApiUser's role. May be on of `admin`, `read_only`, or `user`.
 
 ### Optional
 
-- `description` (String) Human-readble description for this ApiUser
+- `description` (String) Human-readble description for this ApiUser.
 
 ### Read-Only
 
-- `appsync_endpoint` (String) The EchoStream AppSync Endpoint that this ApiUser must use
-- `credentials` (Attributes) The AWS Cognito Credentials assigned to this ApiUser that must be used when accessing the appsync_endpoint (see [below for nested schema](#nestedatt--credentials))
-- `username` (String) The ApiUser's generated username
+- `appsync_endpoint` (String) The EchoStream AppSync Endpoint that this ApiUser must use.
+- `credentials` (Attributes) The AWS Cognito Credentials assigned to this ApiUser that must be used when accessing the appsync_endpoint. (see [below for nested schema](#nestedatt--credentials))
+- `username` (String) The ApiUser's generated username.
 
 <a id="nestedatt--credentials"></a>
 ### Nested Schema for `credentials`
 
 Read-Only:
 
-- `client_id` (String) The AWS Cognito Client ID used to connect to EchoStream
-- `password` (String, Sensitive) The password to use when connecting to EchoStream
-- `user_pool_id` (String) The AWS Cognito User Pool ID used to connect to EchoStream
-- `username` (String) The username to use when connecting to EchoStream
+- `client_id` (String) The AWS Cognito Client ID used to connect to EchoStream.
+- `password` (String, Sensitive) The password to use when connecting to EchoStream.
+- `user_pool_id` (String) The AWS Cognito User Pool ID used to connect to EchoStream.
+- `username` (String) The username to use when connecting to EchoStream.
 
 ## Import
 

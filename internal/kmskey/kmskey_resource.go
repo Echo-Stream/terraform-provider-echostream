@@ -115,21 +115,21 @@ func (r *KmsKeyResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diag
 		Attributes: map[string]tfsdk.Attribute{
 			"arn": {
 				Computed:            true,
-				MarkdownDescription: "The AWS ARN for the underlying KMS Key",
+				MarkdownDescription: "The AWS ARN for the underlying KMS Key.",
 				Type:                types.StringType,
 			},
 			"description": {
-				MarkdownDescription: "A human-readable description",
+				MarkdownDescription: "A human-readable description.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"in_use": {
 				Computed:            true,
-				MarkdownDescription: "True if this KmsKey is in use by Edges",
+				MarkdownDescription: "True if this KmsKey is in use by Edges.",
 				Type:                types.BoolType,
 			},
 			"name": {
-				MarkdownDescription: "The name of the KmsKey. Must be unique within the Tenant",
+				MarkdownDescription: "The name of the KmsKey. Must be unique within the Tenant.",
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Required:            true,
 				Type:                types.StringType,

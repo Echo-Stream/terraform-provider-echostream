@@ -233,7 +233,7 @@ func (r *ProcessorNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, di
 		schema,
 		map[string]tfsdk.Attribute{
 			"config": {
-				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map)",
+				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
 				Optional:            true,
 				Sensitive:           true,
 				Type:                common.ConfigType{},
@@ -243,29 +243,29 @@ func (r *ProcessorNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, di
 					"This function is used as a template when creating custom processing in ProcessorNodes" +
 					"that use this MessageType. This function must have the signature" +
 					"`(*, context, message, source, **kwargs)` and return None, a string or a list of strings." +
-					" Mutually exclusive with `managedProcessor`",
+					" Mutually exclusive with `managedProcessor`.",
 				Optional: true,
 				Type:     types.StringType,
 			},
 			"logging_level": {
-				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`",
+				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
 				Optional:            true,
 				Type:                types.StringType,
 				Validators:          []tfsdk.AttributeValidator{common.LogLevelValidator},
 			},
 			"managed_processor": {
-				MarkdownDescription: "The managedProcessor. Mutually exclusive with the `inlineProcessor`",
+				MarkdownDescription: "The managedProcessor. Mutually exclusive with the `inlineProcessor`.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"requirements": {
-				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format",
+				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
 				Optional:            true,
 				Type:                types.SetType{ElemType: types.StringType},
 				Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
 			},
 			"sequential_processing": {
-				MarkdownDescription: "`true` if messages should not be processed concurrently. If `false`, messages are processed concurrently. Defaults to `false`",
+				MarkdownDescription: "`true` if messages should not be processed concurrently. If `false`, messages are processed concurrently. Defaults to `false`.",
 				Optional:            true,
 				Type:                types.BoolType,
 			},
@@ -274,7 +274,7 @@ func (r *ProcessorNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, di
 	return tfsdk.Schema{
 		Attributes: schema,
 		MarkdownDescription: "[ProcessorNodes](https://docs.echo.stream/docs/processor-node) allow for almost any processing of messages, " +
-			"including transformation, augmentation, generation, combination and splitting",
+			"including transformation, augmentation, generation, combination and splitting.",
 	}, nil
 }
 

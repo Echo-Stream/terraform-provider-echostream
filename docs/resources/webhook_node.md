@@ -3,12 +3,12 @@
 page_title: "echostream_webhook_node Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  WebhookNodes https://docs.echo.stream/docs/webhook allow for almost any processing of messages, including transformation, augmentation, generation, combination and splitting
+  WebhookNodes https://docs.echo.stream/docs/webhook allow for almost any processing of messages, including transformation, augmentation, generation, combination and splitting.
 ---
 
 # echostream_webhook_node (Resource)
 
-[WebhookNodes](https://docs.echo.stream/docs/webhook) allow for almost any processing of messages, including transformation, augmentation, generation, combination and splitting
+[WebhookNodes](https://docs.echo.stream/docs/webhook) allow for almost any processing of messages, including transformation, augmentation, generation, combination and splitting.
 
 ## Example Usage
 
@@ -24,20 +24,26 @@ resource "echostream_webhook_node" "test" {
 
 ### Required
 
-- `name` (String) The name of the Node. Must be unique within the Tenant
+- `name` (String) The name of the Node. Must be unique within the Tenant.
 
 ### Optional
 
-- `config` (String, Sensitive) The config, in JSON object format (i.e. - dict, map)
-- `description` (String) A human-readable description
-- `inline_api_authenticator` (String) A Python code string that contains a single top-level function definition. This function must have the signature `(*, context, request, **kwargs)` and return `None` or a tuple containing an `AuthCredentials` and `BaseUser` (or subclasses). Mutually exclusive with `managedApiAuthenticator`
-- `logging_level` (String) The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`
-- `managed_api_authenticator` (String) The managedApiAuthenticator. Mutually exclusive with the `inlineApiAuthenticator`
-- `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format
-- `send_message_type` (String) Must be JSON based, defaults to `echo.json`
+- `config` (String, Sensitive) The config, in JSON object format (i.e. - dict, map).
+- `description` (String) A human-readable description.
+- `inline_api_authenticator` (String) A Python code string that contains a single top-level function definition. This function must have the signature `(*, context, request, **kwargs)` and return `None` or a tuple containing an `AuthCredentials` and `BaseUser` (or subclasses). Mutually exclusive with `managedApiAuthenticator`.
+- `logging_level` (String) The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.
+- `managed_api_authenticator` (String) The managedApiAuthenticator. Mutually exclusive with the `inlineApiAuthenticator`.
+- `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.
+- `send_message_type` (String) Must be JSON based, defaults to `echo.json`.
 
 ### Read-Only
 
-- `endpoint` (String) The Webhooks endpoint to forward webhooks events to. Accepts POST webhook events at the root path. POST events may be any JSON-based payload
+- `endpoint` (String) The Webhooks endpoint to forward webhooks events to. Accepts POST webhook events at the root path. POST events may be any JSON-based payload.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_webhook_node.webhook "node_name"
+```

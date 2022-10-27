@@ -3,12 +3,12 @@
 page_title: "echostream_api_authenticator_function Data Source - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  ApiAuthenticatorFunctions https://docs.echo.stream/docs/webhook#api-authenticator-function are managed Functions used in API-based Nodes (e.g. - WebhookNode)
+  ApiAuthenticatorFunctions https://docs.echo.stream/docs/webhook#api-authenticator-function are managed Functions used in API-based Nodes (e.g. - WebhookNode).
 ---
 
 # echostream_api_authenticator_function (Data Source)
 
-[ApiAuthenticatorFunctions](https://docs.echo.stream/docs/webhook#api-authenticator-function) are managed Functions used in API-based Nodes (e.g. - WebhookNode)
+[ApiAuthenticatorFunctions](https://docs.echo.stream/docs/webhook#api-authenticator-function) are managed Functions used in API-based Nodes (e.g. - WebhookNode).
 
 ## Example Usage
 
@@ -23,17 +23,17 @@ data "echostream_api_authenticator_function" "basic" {
 
 ### Required
 
-- `name` (String) The Function name. Must be unique within the Tenant
+- `name` (String) The Function name. Must be unique within the Tenant.
 
 ### Optional
 
-- `readme` (String) README in MarkDown format
-- `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format
+- `readme` (String) README in MarkDown format.
+- `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.
 
 ### Read-Only
 
-- `code` (String) The code of the Function in Python string format
-- `description` (String) A human-readable description
-- `in_use` (Boolean) True if this is used by other resources
+- `code` (String) The code of the Function in Python string format.
+- `description` (String) A human-readable description.
+- `in_use` (Boolean) True if this is used by other resources.
 
 

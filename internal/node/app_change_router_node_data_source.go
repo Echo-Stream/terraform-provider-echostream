@@ -49,7 +49,7 @@ func (d *AppChangeRouterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Sc
 	return tfsdk.Schema{
 		Attributes: dataSendReceiveNodeSchema(),
 		MarkdownDescription: "[AppChangeRouterNodes](https://docs.echo.stream/docs/app-change-router-node) route change messages " +
-			"to the appropriate App. One per Tenant, automatically created when the Tenant is created",
+			"to the appropriate App. One per Tenant, automatically created when the Tenant is created.",
 	}, nil
 }
 

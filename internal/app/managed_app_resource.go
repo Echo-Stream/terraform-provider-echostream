@@ -151,7 +151,7 @@ func (r *ManagedAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.
 	}
 	return tfsdk.Schema{
 		Attributes:          schema,
-		MarkdownDescription: "[ManagedApps](https://docs.echo.stream/docs/managed-app) provide fully managed (by EchoStream) processing resources in a remote virtual compute environment that you manage",
+		MarkdownDescription: "[ManagedApps](https://docs.echo.stream/docs/managed-app) provide fully managed (by EchoStream) processing resources in a remote virtual compute environment that you manage.",
 	}, nil
 }
 

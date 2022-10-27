@@ -3,12 +3,12 @@
 page_title: "echostream_edge Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  Edges https://docs.echo.stream/docs/edges transmit messages of a single MessageType between Nodes
+  Edges https://docs.echo.stream/docs/edges transmit messages of a single MessageType between Nodes.
 ---
 
 # echostream_edge (Resource)
 
-[Edges](https://docs.echo.stream/docs/edges) transmit messages of a single MessageType between Nodes
+[Edges](https://docs.echo.stream/docs/edges) transmit messages of a single MessageType between Nodes.
 
 ## Example Usage
 
@@ -34,18 +34,24 @@ resource "echostream_edge" "timer_to_lb1" {
 
 ### Required
 
-- `source` (String) The source Node to transmit messages from
-- `target` (String) The target Node to transmit messages to
+- `source` (String) The source Node to transmit messages from.
+- `target` (String) The target Node to transmit messages to.
 
 ### Optional
 
-- `description` (String) A human-readable description
-- `kmskey` (String) The name of the KmsKey to use to encrypt the message at rest and in flight. Defaults to the Tenant's KmsKey
+- `description` (String) A human-readable description.
+- `kmskey` (String) The name of the KmsKey to use to encrypt the message at rest and in flight. Defaults to the Tenant's KmsKey.
 - `max_receive_count` (Number) The maximum number of delivbery tries to the `target`. `0` is the default and will try forever. Any positive number will result in that many tries before sending the messagge to the `DeadLetterEmitterNode`.
 
 ### Read-Only
 
-- `message_type` (String) The MessageType that will be transmitted
-- `queue` (String) The URL of the underlying AWS SQS queue
+- `message_type` (String) The MessageType that will be transmitted.
+- `queue` (String) The URL of the underlying AWS SQS queue.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_edge.my_edge "source_name|target_name"
+```

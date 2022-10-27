@@ -129,7 +129,7 @@ func (r *BitmapperFunctionResource) Delete(ctx context.Context, req resource.Del
 func (r *BitmapperFunctionResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
 		Attributes:          resourceBitmapperFunctionSchema(),
-		MarkdownDescription: "[BitmapperFunctions](https://docs.echo.stream/docs/bitmap-router-node#bitmapper-function) provide reusable message bitmapping and are used in RouterNodes",
+		MarkdownDescription: "[BitmapperFunctions](https://docs.echo.stream/docs/bitmap-router-node#bitmapper-function) provide reusable message bitmapping and are used in RouterNodes.",
 	}, nil
 }
 

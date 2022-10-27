@@ -39,7 +39,7 @@ func (d *TenantDataSource) Configure(ctx context.Context, req datasource.Configu
 func (d *TenantDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
 		Attributes:          tenantDataSchema(),
-		MarkdownDescription: "Gets the current Tenant's information",
+		MarkdownDescription: "Gets the current Tenant's information.",
 	}, nil
 }
 

@@ -153,7 +153,7 @@ func (r *CrossAccountAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, 
 		schema,
 		map[string]tfsdk.Attribute{
 			"account": {
-				MarkdownDescription: "The AWS account number that will host this CrossAcountApp's compute resources",
+				MarkdownDescription: "The AWS account number that will host this CrossAcountApp's compute resources.",
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 				Required:            true,
 				Type:                types.StringType,
@@ -167,19 +167,19 @@ func (r *CrossAccountAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, 
 			},
 			"appsync_endpoint": {
 				Computed:            true,
-				MarkdownDescription: "The EchoStream AppSync Endpoint that this ExternalApp must use",
+				MarkdownDescription: "The EchoStream AppSync Endpoint that this ExternalApp must use.",
 				Type:                types.StringType,
 			},
 			"iam_policy": {
 				Computed:            true,
-				MarkdownDescription: "The IAM policy to apply to this CrossAccountApp's compute resources (e.g. - Lambda, EC2) to grant access to its EchoStream resources",
+				MarkdownDescription: "The IAM policy to apply to this CrossAccountApp's compute resources (e.g. - Lambda, EC2) to grant access to its EchoStream resources.",
 				Type:                types.StringType,
 			},
 		},
 	)
 	return tfsdk.Schema{
 		Attributes:          schema,
-		MarkdownDescription: "[CrossAccountApps](https://docs.echo.stream/docs/cross-account-app) provides a way to receive/send messages in their Nodes using cross-account IAM access",
+		MarkdownDescription: "[CrossAccountApps](https://docs.echo.stream/docs/cross-account-app) provides a way to receive/send messages in their Nodes using cross-account IAM access.",
 	}, nil
 }
 

@@ -110,22 +110,22 @@ func (r *TenantUserResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.
 	return tfsdk.Schema{
 		Attributes: map[string]tfsdk.Attribute{
 			"email": {
-				MarkdownDescription: "The user's email address",
+				MarkdownDescription: "The user's email address.",
 				Required:            true,
 				Type:                types.StringType,
 			},
 			"first_name": {
 				Computed:            true,
-				MarkdownDescription: "The user's first name, if available",
+				MarkdownDescription: "The user's first name, if available.",
 				Type:                types.StringType,
 			},
 			"last_name": {
 				Computed:            true,
-				MarkdownDescription: "The user's last name, if available",
+				MarkdownDescription: "The user's last name, if available.",
 				Type:                types.StringType,
 			},
 			"role": {
-				MarkdownDescription: fmt.Sprintf("The ApiUser's role. Must be one of `%s`, `%s`, `%s`, or `%s`", api.UserRoleAdmin, api.UserRoleOwner, api.UserRoleReadOnly, api.UserRoleUser),
+				MarkdownDescription: fmt.Sprintf("The ApiUser's role. Must be one of `%s`, `%s`, `%s`, or `%s`.", api.UserRoleAdmin, api.UserRoleOwner, api.UserRoleReadOnly, api.UserRoleUser),
 				Required:            true,
 				Type:                types.StringType,
 				Validators: []tfsdk.AttributeValidator{
@@ -139,7 +139,7 @@ func (r *TenantUserResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.
 			},
 			"status": {
 				Computed:            true,
-				MarkdownDescription: fmt.Sprintf("The status. If set, must be one of `%s` or `%s`", api.UserStatusActive, api.UserStatusInactive),
+				MarkdownDescription: fmt.Sprintf("The status. If set, must be one of `%s` or `%s`.", api.UserStatusActive, api.UserStatusInactive),
 				Optional:            true,
 				Type:                types.StringType,
 				Validators: []tfsdk.AttributeValidator{
@@ -152,7 +152,7 @@ func (r *TenantUserResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.
 				},
 			},
 		},
-		MarkdownDescription: "[TenantUsers](https://docs.echo.stream/docs/users-1) are used to interact with your Tenant via the UI",
+		MarkdownDescription: "[TenantUsers](https://docs.echo.stream/docs/users-1) are used to interact with your Tenant via the UI.",
 	}, nil
 }
 

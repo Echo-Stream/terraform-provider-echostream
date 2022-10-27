@@ -3,12 +3,12 @@
 page_title: "echostream_tenant Data Source - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  Gets the current Tenant's information
+  Gets the current Tenant's information.
 ---
 
 # echostream_tenant (Data Source)
 
-Gets the current Tenant's information
+Gets the current Tenant's information.
 
 ## Example Usage
 
@@ -21,26 +21,27 @@ data "echostream_tenant" "current" {}
 
 ### Optional
 
-- `aws_credentials_duration` (Number) The duration to request for `aws_credentials`. Must be set to obtain `aws_credentials`
+- `aws_credentials_duration` (Number) The duration to request for `aws_credentials`. Must be set to obtain `aws_credentials`.
 
 ### Read-Only
 
-- `active` (Boolean) The current Tenant's active state
-- `aws_credentials` (Attributes) The AWS Session Credentials that allow the current ApiUser (configured in the provider) to access the Tenant's resources (see [below for nested schema](#nestedatt--aws_credentials))
+- `active` (Boolean) The current Tenant's active state.
+- `aws_credentials` (Attributes) The AWS Session Credentials that allow the current ApiUser (configured in the provider) to access the Tenant's resources. (see [below for nested schema](#nestedatt--aws_credentials))
 - `config` (String, Sensitive) The config for the Tenant. All nodes in the Tenant will be allowed to access this. Must be a JSON object.
-- `description` (String) A human-readable description
-- `name` (String) The name
-- `region` (String) The current Tenant's AWS region name (e.g.  - `us-east-1`)
-- `table` (String) The current Tenant's DynamoDB [table](https://docs.echo.stream/docs/table) name
+- `description` (String) A human-readable description.
+- `id` (String) The ID of this resource.
+- `name` (String) The name.
+- `region` (String) The current Tenant's AWS region name (e.g.  - `us-east-1`).
+- `table` (String) The current Tenant's DynamoDB [table](https://docs.echo.stream/docs/table) name.
 
 <a id="nestedatt--aws_credentials"></a>
 ### Nested Schema for `aws_credentials`
 
 Read-Only:
 
-- `access_key_id` (String) The AWS Acces Key Id for the session
-- `expiration` (String) The date/time that the sesssion expires, in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format
-- `secret_access_key` (String, Sensitive) The AWS Secret Access Key for the session
-- `session_token` (String) The AWS Session Token for the session
+- `access_key_id` (String) The AWS Acces Key Id for the session.
+- `expiration` (String) The date/time that the sesssion expires, in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+- `secret_access_key` (String, Sensitive) The AWS Secret Access Key for the session.
+- `session_token` (String) The AWS Session Token for the session.
 
 

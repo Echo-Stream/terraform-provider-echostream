@@ -3,12 +3,12 @@
 page_title: "echostream_managed_node_type Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  ManagedNodeTypes are wrappers around Docker image definitions and define the requirements necessary to instantiate those images as Docker containers inside a ManagedNode
+  ManagedNodeTypes are wrappers around Docker image definitions and define the requirements necessary to instantiate those images as Docker containers inside a ManagedNode.
 ---
 
 # echostream_managed_node_type (Resource)
 
-ManagedNodeTypes are wrappers around Docker image definitions and define the requirements necessary to instantiate those images as Docker containers inside a ManagedNode
+ManagedNodeTypes are wrappers around Docker image definitions and define the requirements necessary to instantiate those images as Docker containers inside a ManagedNode.
 
 ## Example Usage
 
@@ -64,34 +64,34 @@ resource "echostream_managed_node_type" "test" {
 
 ### Required
 
-- `description` (String) A human-readable description
+- `description` (String) A human-readable description.
 - `image_uri` (String) The URI of the Docker image. Must be a [public](https://docs.aws.amazon.com/AmazonECR/latest/public/public-repositories.html) or a [private](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html) AWS ECR repository.
-- `name` (String) The name of the ManagedNodeType. Must be unique within the Tenant
+- `name` (String) The name of the ManagedNodeType. Must be unique within the Tenant.
 
 ### Optional
 
-- `config_template` (String) A [JSON Schema](https://json-schema.org/) document that specifies the requirements for the config attribute of ManagedNodes created using this ManagedNodeType
-- `mount_requirements` (Attributes Set) The mount (i.e. - volume) requirements of the Docker image (see [below for nested schema](#nestedatt--mount_requirements))
-- `port_requirements` (Attributes Set) The port requirements of the Docker image (see [below for nested schema](#nestedatt--port_requirements))
-- `readme` (String) README in MarkDown format
-- `receive_message_type` (String) The MessageType that ManagedNodes created with this ManagedNodeType are capable of receiving
-- `send_message_type` (String) The MessageType that ManagedNodes created with this ManagedNodeType are capable of sending
+- `config_template` (String) A [JSON Schema](https://json-schema.org/) document that specifies the requirements for the config attribute of ManagedNodes created using this ManagedNodeType.
+- `mount_requirements` (Attributes Set) The mount (i.e. - volume) requirements of the Docker image. (see [below for nested schema](#nestedatt--mount_requirements))
+- `port_requirements` (Attributes Set) The port requirements of the Docker image. (see [below for nested schema](#nestedatt--port_requirements))
+- `readme` (String) README in MarkDown format.
+- `receive_message_type` (String) The MessageType that ManagedNodes created with this ManagedNodeType are capable of receiving.
+- `send_message_type` (String) The MessageType that ManagedNodes created with this ManagedNodeType are capable of sending.
 
 ### Read-Only
 
-- `in_use` (Boolean) True if this is used by ManagedNodes
+- `in_use` (Boolean) True if this is used by ManagedNodes.
 
 <a id="nestedatt--mount_requirements"></a>
 ### Nested Schema for `mount_requirements`
 
 Required:
 
-- `description` (String) A human-readable description of the port
-- `target` (String) The path of the mount in the Docker container
+- `description` (String) A human-readable description of the port.
+- `target` (String) The path of the mount in the Docker container.
 
 Optional:
 
-- `source` (String) The path of the mount on the host
+- `source` (String) The path of the mount on the host.
 
 
 <a id="nestedatt--port_requirements"></a>
@@ -99,8 +99,14 @@ Optional:
 
 Required:
 
-- `container_port` (Number) The exposed container port
-- `description` (String) A human-readable description for the port
-- `protocol` (String) The protocol to use for the port. One of `sctp`, `tcp` or `udp`
+- `container_port` (Number) The exposed container port.
+- `description` (String) A human-readable description for the port.
+- `protocol` (String) The protocol to use for the port. One of `sctp`, `tcp` or `udp`.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_managed_node_type.managed "type_name"
+```

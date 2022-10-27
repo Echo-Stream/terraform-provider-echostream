@@ -15,11 +15,11 @@ func appSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"description": {
 			Optional:            true,
-			MarkdownDescription: "A human-readable description of the app",
+			MarkdownDescription: "A human-readable description of the app.",
 			Type:                types.StringType,
 		},
 		"name": {
-			MarkdownDescription: "The name of the app; must be unique in the Tenant",
+			MarkdownDescription: "The name of the app; must be unique in the Tenant.",
 			PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 			Required:            true,
 			Type:                types.StringType,
@@ -36,7 +36,7 @@ func remoteAppSchema() map[string]tfsdk.Attribute {
 			"audit_records_endpoint": {
 				Computed: true,
 				MarkdownDescription: "The app-specific endpoint for posting audit records. Details about this endpoint may be found" +
-					" [here](https://docs.echo.stream/docs/auditing-messages-from-cross-accountexternalmanaged-apps#auditing-without-use-of-the-echostreamnode-package)",
+					" [here](https://docs.echo.stream/docs/auditing-messages-from-cross-accountexternalmanaged-apps#auditing-without-use-of-the-echostreamnode-package).",
 				Type: types.StringType,
 			},
 			"config": {
@@ -48,11 +48,11 @@ func remoteAppSchema() map[string]tfsdk.Attribute {
 			"credentials": {
 				Attributes:          tfsdk.SingleNestedAttributes(common.CognitoCredentialsSchema()),
 				Computed:            true,
-				MarkdownDescription: "The AWS Cognito Credentials that allow the app to access the EchoStream GraphQL API",
+				MarkdownDescription: "The AWS Cognito Credentials that allow the app to access the EchoStream GraphQL API.",
 			},
 			"table_access": {
 				Computed:            true,
-				MarkdownDescription: "Indicates if this app can gain access to the Tenant's DynamoDB [table](https://docs.echo.stream/docs/table)",
+				MarkdownDescription: "Indicates if this app can gain access to the Tenant's DynamoDB [table](https://docs.echo.stream/docs/table).",
 				Optional:            true,
 				Type:                types.BoolType,
 			},
@@ -64,7 +64,7 @@ func remoteAppSchema() map[string]tfsdk.Attribute {
 func managedAppInstanceSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"app": {
-			MarkdownDescription: "The name of the app",
+			MarkdownDescription: "The name of the app.",
 			PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
 			Required:            true,
 			Type:                types.StringType,

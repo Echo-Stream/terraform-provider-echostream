@@ -1,11 +1,13 @@
 package provider_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/provider"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
+	"github.com/stretchr/testify/require"
 )
 
 // testAccProtoV6ProviderFactories are used to instantiate a provider during
@@ -17,7 +19,8 @@ var testAccProtoV6ProviderFactories = map[string]func() (tfprotov6.ProviderServe
 }
 
 func testAccPreCheck(t *testing.T) {
-	// You can add code here to run prior to any test case execution, for example assertions
-	// about the appropriate environment variables being set are common to see in a pre-check
-	// function.
+	suffixes := []string{"APPSYNC_ENDPOINT", "CLIENT_ID", "PASSWORD", "TENANT", "USERNAME", "USER_POOL_ID"}
+	for _, keySuffix := range suffixes {
+		require.NotEmpty(t, os.Getenv("ECHOSTREAM_"+keySuffix), "ECHOSTREAM_"+keySuffix+" must be set")
+	}
 }

@@ -3,12 +3,12 @@
 page_title: "echostream_app_change_router_node Data Source - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  AppChangeRouterNodes https://docs.echo.stream/docs/app-change-router-node route change messages to the appropriate App. One per Tenant, automatically created when the Tenant is created
+  AppChangeRouterNodes https://docs.echo.stream/docs/app-change-router-node route change messages to the appropriate App. One per Tenant, automatically created when the Tenant is created.
 ---
 
 # echostream_app_change_router_node (Data Source)
 
-[AppChangeRouterNodes](https://docs.echo.stream/docs/app-change-router-node) route change messages to the appropriate App. One per Tenant, automatically created when the Tenant is created
+[AppChangeRouterNodes](https://docs.echo.stream/docs/app-change-router-node) route change messages to the appropriate App. One per Tenant, automatically created when the Tenant is created.
 
 ## Example Usage
 
@@ -21,9 +21,9 @@ data "echostream_app_change_router_node" "test" {}
 
 ### Read-Only
 
-- `description` (String) A human-readable description
-- `name` (String) The name of the Node. Must be unique within the Tenant
-- `receive_message_type` (String) The MessageType that this Node is capable of receiving
-- `send_message_type` (String) The MessageType that this Node is capable of sending
+- `description` (String) A human-readable description.
+- `name` (String) The name of the Node. Must be unique within the Tenant.
+- `receive_message_type` (String) The MessageType that this Node is capable of receiving.
+- `send_message_type` (String) The MessageType that this Node is capable of sending.
 
 

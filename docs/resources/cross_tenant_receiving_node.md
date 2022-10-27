@@ -28,12 +28,18 @@ resource "echostream_cross_tenant_receiving_node" "test" {
 
 ### Required
 
-- `name` (String) The name of the Node. Automatically generated in the format `<sending_tenant>:<sending_node>`
+- `name` (String) The name of the Node. Automatically generated in the format `<sending_tenant>:<sending_node>`.
 
 ### Read-Only
 
-- `app` (String) The CrossTenantReceivingApp that this Node is associated with
-- `description` (String) A human-readable description
-- `send_message_type` (String) The MessageType that this Node is capable of sending
+- `app` (String) The CrossTenantReceivingApp that this Node is associated with.
+- `description` (String) A human-readable description.
+- `send_message_type` (String) The MessageType that this Node is capable of sending.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_cross_tenant_receiving_node.receiving "node_name"
+```

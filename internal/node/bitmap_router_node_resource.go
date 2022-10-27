@@ -247,7 +247,7 @@ func (r *BitmapRouterNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema,
 		schema,
 		map[string]tfsdk.Attribute{
 			"config": {
-				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map)",
+				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
 				Optional:            true,
 				Sensitive:           true,
 				Type:                common.ConfigType{},
@@ -255,30 +255,30 @@ func (r *BitmapRouterNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema,
 			"inline_bitmapper": {
 				MarkdownDescription: "A Python code string that contains a single top-level function definition." +
 					"This function must have the signature `(*, context, message, source, **kwargs)`" +
-					"and return an integer. Mutually exclusive with `managedBitmapper`",
+					"and return an integer. Mutually exclusive with `managedBitmapper`.",
 				Optional: true,
 				Type:     types.StringType,
 			},
 			"logging_level": {
-				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`",
+				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
 				Optional:            true,
 				Type:                types.StringType,
 				Validators:          []tfsdk.AttributeValidator{common.LogLevelValidator},
 			},
 			"managed_bitmapper": {
-				MarkdownDescription: "A managed BitmapperFunction. Mutually exclusive with `inlineBitmapper`",
+				MarkdownDescription: "A managed BitmapperFunction. Mutually exclusive with `inlineBitmapper`.",
 				Optional:            true,
 				Type:                types.StringType,
 			},
 			"requirements": {
-				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format",
+				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
 				Optional:            true,
 				Type:                types.SetType{ElemType: types.StringType},
 				Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
 			},
 			"route_table": {
 				MarkdownDescription: "The route table. A route table is a JSON object with hexidecimal (base-16) keys " +
-					"(the route bitmaps - e.g. 0xF1) and a list of target Node names as the values",
+					"(the route bitmaps - e.g. 0xF1) and a list of target Node names as the values.",
 				Optional: true,
 				Type:     types.MapType{ElemType: types.SetType{ElemType: types.StringType}},
 				Validators: []tfsdk.AttributeValidator{
@@ -301,7 +301,7 @@ func (r *BitmapRouterNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema,
 		Attributes: schema,
 		MarkdownDescription: "[BitmapRouterNodes](https://docs.echo.stream/docs/bitmap-router-node) use a bitmapper function (either " +
 			"inline or managed) to construct a bitmap of truthy values for each message processed. The message bitmap is then _and_'ed with " +
-			"route bitmaps. If the result of the _and_ is equal to the route bitmap then the message is sent along that route",
+			"route bitmaps. If the result of the _and_ is equal to the route bitmap then the message is sent along that route.",
 	}, nil
 }
 

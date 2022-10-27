@@ -46,12 +46,12 @@ func dataManagedNodeTypeSchema() map[string]tfsdk.Attribute {
 		"config_template": {
 			Computed: true,
 			MarkdownDescription: "A [JSON Schema](https://json-schema.org/) document that specifies the" +
-				" requirements for the config attribute of ManagedNodes created using this ManagedNodeType",
+				" requirements for the config attribute of ManagedNodes created using this ManagedNodeType.",
 			Type: common.ConfigType{},
 		},
 		"description": {
 			Computed:            true,
-			MarkdownDescription: "A human-readable description",
+			MarkdownDescription: "A human-readable description.",
 			Type:                types.StringType,
 		},
 		"image_uri": {
@@ -62,16 +62,16 @@ func dataManagedNodeTypeSchema() map[string]tfsdk.Attribute {
 		},
 		"in_use": {
 			Computed:            true,
-			MarkdownDescription: " True if this is used by ManagedNodes",
+			MarkdownDescription: " True if this is used by ManagedNodes.",
 			Type:                types.BoolType,
 		},
 		"mount_requirements": {
 			Attributes:          tfsdk.SetNestedAttributes(dataMountRequirementsSchema()),
 			Computed:            true,
-			MarkdownDescription: "The mount (i.e. - volume) requirements of the Docker image",
+			MarkdownDescription: "The mount (i.e. - volume) requirements of the Docker image.",
 		},
 		"name": {
-			MarkdownDescription: "The name of the ManagedNodeType. Must be unique within the Tenant",
+			MarkdownDescription: "The name of the ManagedNodeType. Must be unique within the Tenant.",
 			Required:            true,
 			Type:                types.StringType,
 			Validators:          common.NameValidators,
@@ -79,21 +79,21 @@ func dataManagedNodeTypeSchema() map[string]tfsdk.Attribute {
 		"port_requirements": {
 			Attributes:          tfsdk.SetNestedAttributes(dataPortRequirementsSchema()),
 			Computed:            true,
-			MarkdownDescription: "The port requirements of the Docker image",
+			MarkdownDescription: "The port requirements of the Docker image.",
 		},
 		"readme": {
 			Computed:            true,
-			MarkdownDescription: "README in MarkDown format",
+			MarkdownDescription: "README in MarkDown format.",
 			Type:                types.StringType,
 		},
 		"receive_message_type": {
 			Computed:            true,
-			MarkdownDescription: "The MessageType that ManagedNodes created with this ManagedNodeType are capable of receiving",
+			MarkdownDescription: "The MessageType that ManagedNodes created with this ManagedNodeType are capable of receiving.",
 			Type:                types.StringType,
 		},
 		"send_message_type": {
 			Computed:            true,
-			MarkdownDescription: "The MessageType that ManagedNodes created with this ManagedNodeType are capable of sending",
+			MarkdownDescription: "The MessageType that ManagedNodes created with this ManagedNodeType are capable of sending.",
 			Type:                types.StringType,
 		},
 	}
@@ -103,17 +103,17 @@ func dataMountRequirementsSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"description": {
 			Computed:            true,
-			MarkdownDescription: "A human-readable description of the port",
+			MarkdownDescription: "A human-readable description of the port.",
 			Type:                types.StringType,
 		},
 		"source": {
 			Computed:            true,
-			MarkdownDescription: "The path of the mount on the host",
+			MarkdownDescription: "The path of the mount on the host.",
 			Type:                types.StringType,
 		},
 		"target": {
 			Computed:            true,
-			MarkdownDescription: "The path of the mount in the Docker container",
+			MarkdownDescription: "The path of the mount in the Docker container.",
 			Type:                types.StringType,
 		},
 	}
@@ -123,17 +123,17 @@ func dataPortRequirementsSchema() map[string]tfsdk.Attribute {
 	return map[string]tfsdk.Attribute{
 		"container_port": {
 			Computed:            true,
-			MarkdownDescription: "The exposed container port",
+			MarkdownDescription: "The exposed container port.",
 			Type:                types.Int64Type,
 		},
 		"description": {
 			Computed:            true,
-			MarkdownDescription: "A human-readable description for the port",
+			MarkdownDescription: "A human-readable description for the port.",
 			Type:                types.StringType,
 		},
 		"protocol": {
 			Computed:            true,
-			MarkdownDescription: "The protocol to use for the port. One of `sctp`, `tcp` or `udp`",
+			MarkdownDescription: "The protocol to use for the port. One of `sctp`, `tcp` or `udp`.",
 			Type:                types.StringType,
 		},
 	}

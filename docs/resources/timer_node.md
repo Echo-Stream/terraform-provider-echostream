@@ -3,12 +3,12 @@
 page_title: "echostream_timer_node Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  TimerNodes https://docs.echo.stream/docs/timer-node emit echo.timer messages on a time period defined by the scheduleExpression. They can be used to cause other Nodes (normally ProcessorNodes) to perform complex actions on a schedule (e.g. - polling an API every 15 minutes)
+  TimerNodes https://docs.echo.stream/docs/timer-node emit echo.timer messages on a time period defined by the scheduleExpression. They can be used to cause other Nodes (normally ProcessorNodes) to perform complex actions on a schedule (e.g. - polling an API every 15 minutes).
 ---
 
 # echostream_timer_node (Resource)
 
-[TimerNodes](https://docs.echo.stream/docs/timer-node) emit echo.timer messages on a time period defined by the scheduleExpression. They can be used to cause other Nodes (normally ProcessorNodes) to perform complex actions on a schedule (e.g. - polling an API every 15 minutes)
+[TimerNodes](https://docs.echo.stream/docs/timer-node) emit echo.timer messages on a time period defined by the scheduleExpression. They can be used to cause other Nodes (normally ProcessorNodes) to perform complex actions on a schedule (e.g. - polling an API every 15 minutes).
 
 ## Example Usage
 
@@ -25,15 +25,21 @@ resource "echostream_timer_node" "test" {
 
 ### Required
 
-- `name` (String) The name of the Node. Must be unique within the Tenant
-- `schedule_expression` (String) An [Amazon Event Bridge cron expression](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions)
+- `name` (String) The name of the Node. Must be unique within the Tenant.
+- `schedule_expression` (String) An [Amazon Event Bridge cron expression](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html#eb-cron-expressions).
 
 ### Optional
 
-- `description` (String) A human-readable description
+- `description` (String) A human-readable description.
 
 ### Read-Only
 
-- `send_message_type` (String) The MessageType that this Node is capable of sending
+- `send_message_type` (String) The MessageType that this Node is capable of sending.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_timer_node.timer "node_name"
+```

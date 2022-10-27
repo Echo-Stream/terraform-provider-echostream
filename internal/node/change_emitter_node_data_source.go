@@ -48,7 +48,7 @@ func (d *ChangeEmitterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Sche
 	return tfsdk.Schema{
 		Attributes: dataSendNodeSchema(),
 		MarkdownDescription: "[ChangeEmitterNodes](https://docs.echo.stream/docs/change-emitter-node) emit change messages. " +
-			"One per Tenant, automatically created when the Tenant is created",
+			"One per Tenant, automatically created when the Tenant is created.",
 	}, nil
 }
 

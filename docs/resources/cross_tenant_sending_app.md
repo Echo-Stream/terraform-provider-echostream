@@ -3,12 +3,12 @@
 page_title: "echostream_cross_tenant_sending_app Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  CrossTenantSendingApps https://docs.echo.stream/docs/cross-tenant-app provide a way to send messages to another EchoStream Tenant
+  CrossTenantSendingApps https://docs.echo.stream/docs/cross-tenant-app provide a way to send messages to another EchoStream Tenant.
 ---
 
 # echostream_cross_tenant_sending_app (Resource)
 
-[CrossTenantSendingApps](https://docs.echo.stream/docs/cross-tenant-app) provide a way to send messages to another EchoStream Tenant
+[CrossTenantSendingApps](https://docs.echo.stream/docs/cross-tenant-app) provide a way to send messages to another EchoStream Tenant.
 
 ## Example Usage
 
@@ -25,12 +25,18 @@ resource "echostream_cross_tenant_sending_app" "test" {
 
 ### Required
 
-- `name` (String) The name of the app; must be unique in the Tenant
-- `receiving_app` (String) The CrossTenantReceivingApp in the `receiving_tenant`
-- `receiving_tenant` (String) The EchoStream Tenant that you will send message to
+- `name` (String) The name of the app; must be unique in the Tenant.
+- `receiving_app` (String) The CrossTenantReceivingApp in the `receiving_tenant`.
+- `receiving_tenant` (String) The EchoStream Tenant that you will send message to.
 
 ### Optional
 
-- `description` (String) A human-readable description of the app
+- `description` (String) A human-readable description of the app.
 
+## Import
 
+Import is supported using the following syntax:
+
+```shell
+terraform import echostream_cross_tenant_sending_app.sending "app_name"
+```

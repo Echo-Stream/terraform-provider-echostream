@@ -39,7 +39,7 @@ func (d *BitmapperFunctionDataSource) Configure(ctx context.Context, req datasou
 func (d *BitmapperFunctionDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
 	return tfsdk.Schema{
 		Attributes:          dataBitmapperFunctionSchema(),
-		MarkdownDescription: "[BitmapperFunctions](https://docs.echo.stream/docs/bitmap-router-node#bitmapper-function) provide reusable message bitmapping and are used in RouterNodes",
+		MarkdownDescription: "[BitmapperFunctions](https://docs.echo.stream/docs/bitmap-router-node#bitmapper-function) provide reusable message bitmapping and are used in RouterNodes.",
 	}, nil
 }
 

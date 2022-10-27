@@ -99,14 +99,14 @@ func (r *ManagedAppInstanceIsoResource) GetSchema(ctx context.Context) (tfsdk.Sc
 		map[string]tfsdk.Attribute{
 			"iso": {
 				Computed:            true,
-				MarkdownDescription: "The iso image, gzip'd and base64 encoded",
+				MarkdownDescription: "The iso image, gzip'd and base64 encoded.",
 				Type:                types.StringType,
 			},
 		},
 	)
 	return tfsdk.Schema{
 		Attributes:          schema,
-		MarkdownDescription: "ManagedAppInstanceIso may be used to create ManagedApp compute resources in the VM architecture of your choice",
+		MarkdownDescription: "ManagedAppInstanceIso may be used to create ManagedApp compute resources in the VM architecture of your choice.",
 	}, nil
 }
 

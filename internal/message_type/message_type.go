@@ -57,16 +57,16 @@ func dataMessageTypeSchema() map[string]tfsdk.Attribute {
 		},
 		"description": {
 			Computed:            true,
-			MarkdownDescription: "A human-readable description",
+			MarkdownDescription: "A human-readable description.",
 			Type:                types.StringType,
 		},
 		"in_use": {
 			Computed:            true,
-			MarkdownDescription: "True if this is used by other resources",
+			MarkdownDescription: "True if this is used by other resources.",
 			Type:                types.BoolType,
 		},
 		"name": {
-			MarkdownDescription: "The name of the MessageType",
+			MarkdownDescription: "The name of the MessageType.",
 			Required:            true,
 			Type:                types.StringType,
 			Validators:          messageTypeNameValidators,
@@ -81,18 +81,18 @@ func dataMessageTypeSchema() map[string]tfsdk.Attribute {
 		},
 		"readme": {
 			Computed:            true,
-			MarkdownDescription: "README in MarkDown format",
+			MarkdownDescription: "README in MarkDown format.",
 			Type:                types.StringType,
 		},
 		"requirements": {
 			Computed:            true,
-			MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format",
+			MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
 			Type:                types.SetType{ElemType: types.StringType},
 			Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
 		},
 		"sample_message": {
 			Computed:            true,
-			MarkdownDescription: "A sample message",
+			MarkdownDescription: "A sample message.",
 			Type:                types.StringType,
 		},
 	}
