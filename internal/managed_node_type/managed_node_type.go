@@ -19,6 +19,7 @@ import (
 type managedNodeTypeModel struct {
 	ConfigTemplate     common.Config `tfsdk:"config_template"`
 	Description        types.String  `tfsdk:"description"`
+	Id                 types.String  `tfsdk:"id"`
 	ImageUri           types.String  `tfsdk:"image_uri"`
 	InUse              types.Bool    `tfsdk:"in_use"`
 	MountRequirements  types.Set     `tfsdk:"mount_requirements"`
@@ -53,6 +54,10 @@ func dataManagedNodeTypeSchema() map[string]tfsdk.Attribute {
 			Computed:            true,
 			MarkdownDescription: "A human-readable description.",
 			Type:                types.StringType,
+		},
+		"id": {
+			Computed: true,
+			Type:     types.StringType,
 		},
 		"image_uri": {
 			Computed: true,
@@ -188,7 +193,7 @@ func portRequirementAttrValues(
 func resourceManagedNodeTypeSchema() map[string]tfsdk.Attribute {
 	schema := dataManagedNodeTypeSchema()
 	for key, attribute := range schema {
-		if key != "in_use" {
+		if !slices.Contains([]string{"id", "in_use"}, key) {
 			attribute.Computed = false
 			if slices.Contains([]string{"description", "image_uri", "name"}, key) {
 				attribute.Required = true
@@ -272,6 +277,7 @@ func readManagedNodeType(ctx context.Context, client graphql.Client, name string
 				data.ConfigTemplate = common.Config{Null: true}
 			}
 			data.Description = types.String{Value: echoResp.GetManagedNodeType.Description}
+			data.Id = types.String{Value: echoResp.GetManagedNodeType.Name}
 			data.ImageUri = types.String{Value: echoResp.GetManagedNodeType.ImageUri}
 			data.InUse = types.Bool{Value: echoResp.GetManagedNodeType.InUse}
 			data.MountRequirements = types.Set{ElemType: types.ObjectType{AttrTypes: mountRequirementsAttrTypes()}}

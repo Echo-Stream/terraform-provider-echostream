@@ -29,6 +29,7 @@ data "echostream_managed_node_type" "hl7_out" {
 
 - `config_template` (String) A [JSON Schema](https://json-schema.org/) document that specifies the requirements for the config attribute of ManagedNodes created using this ManagedNodeType.
 - `description` (String) A human-readable description.
+- `id` (String) The ID of this resource.
 - `image_uri` (String) The URI of the Docker image. Must be a [public](https://docs.aws.amazon.com/AmazonECR/latest/public/public-repositories.html) or a [private](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html) AWS ECR repository.
 - `in_use` (Boolean) True if this is used by ManagedNodes.
 - `mount_requirements` (Attributes Set) The mount (i.e. - volume) requirements of the Docker image. (see [below for nested schema](#nestedatt--mount_requirements))

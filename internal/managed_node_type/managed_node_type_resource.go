@@ -137,6 +137,7 @@ func (r *ManagedNodeTypeResource) Create(ctx context.Context, req resource.Creat
 		plan.ConfigTemplate = common.Config{Null: true}
 	}
 	plan.Description = types.String{Value: echoResp.CreateManagedNodeType.Description}
+	plan.Id = types.String{Value: echoResp.CreateManagedNodeType.Name}
 	plan.ImageUri = types.String{Value: echoResp.CreateManagedNodeType.ImageUri}
 	plan.InUse = types.Bool{Value: echoResp.CreateManagedNodeType.InUse}
 	plan.MountRequirements = types.Set{ElemType: types.ObjectType{AttrTypes: mountRequirementsAttrTypes()}}
@@ -334,6 +335,7 @@ func (r *ManagedNodeTypeResource) Update(ctx context.Context, req resource.Updat
 		plan.ConfigTemplate = common.Config{Null: true}
 	}
 	plan.Description = types.String{Value: echoResp.GetManagedNodeType.Update.Description}
+	plan.Id = types.String{Value: echoResp.GetManagedNodeType.Update.Name}
 	plan.ImageUri = types.String{Value: echoResp.GetManagedNodeType.Update.ImageUri}
 	plan.InUse = types.Bool{Value: echoResp.GetManagedNodeType.Update.InUse}
 	plan.MountRequirements = types.Set{ElemType: types.ObjectType{AttrTypes: mountRequirementsAttrTypes()}}

@@ -79,6 +79,7 @@ resource "echostream_managed_node_type" "test" {
 
 ### Read-Only
 
+- `id` (String) The ID of this resource.
 - `in_use` (Boolean) True if this is used by ManagedNodes.
 
 <a id="nestedatt--mount_requirements"></a>
