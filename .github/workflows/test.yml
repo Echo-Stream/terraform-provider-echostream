@@ -78,5 +78,5 @@ jobs:
           ECHOSTREAM_TENANT: "${{ secrets.ECHOSTREAM_TENANT }}"
           ECHOSTREAM_USERNAME: "${{ secrets.ECHOSTREAM_USERNAME }}"
           ECHOSTREAM_USER_POOL_ID: "${{ secrets.ECHOSTREAM_USER_POOL_ID }}"
-        run: go test -v -cover ./test/
+        run: go test -v ./test/
         timeout-minutes: 10
