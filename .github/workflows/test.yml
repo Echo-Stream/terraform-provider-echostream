@@ -71,5 +71,11 @@ jobs:
       - run: go mod download
       - env:
           TF_ACC: "1"
+          ECHOSTREAM_APPSYNC_ENDPOINT: "${{ secrets.ECHOSTREAM_APPSYNC_ENDPOINT }}"
+          ECHOSTREAM_CLIENT_ID: "${{ secrets.ECHOSTREAM_CLIENT_ID }}"
+          ECHOSTREAM_PASSWORD: "${{ secrets.ECHOSTREAM_PASSWORD }}"
+          ECHOSTREAM_TENANT: "${{ secrets.ECHOSTREAM_TENANT }}"
+          ECHOSTREAM_USERNAME: "${{ secrets.ECHOSTREAM_USERNAME }}"
+          ECHOSTREAM_USER_POOL_ID: "${{ secrets.ECHOSTREAM_USER_POOL_ID }}"
         run: go test -v -cover ./test/
         timeout-minutes: 10
