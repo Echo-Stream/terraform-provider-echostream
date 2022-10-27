@@ -1,4 +1,4 @@
-package provider_test
+package test
 
 import (
 	"fmt"
@@ -8,6 +8,7 @@ import (
 )
 
 func TestAccTenantResource(t *testing.T) {
+	t.Parallel()
 	resource.Test(t, resource.TestCase{
 		PreCheck:                 func() { testAccPreCheck(t) },
 		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,

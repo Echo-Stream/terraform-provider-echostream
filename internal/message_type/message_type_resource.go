@@ -91,6 +91,7 @@ func (r *MessageTypeResource) Create(ctx context.Context, req resource.CreateReq
 	plan.Auditor = types.String{Value: echoResp.CreateMessageType.Auditor}
 	plan.BitmapperTemplate = types.String{Value: echoResp.CreateMessageType.BitmapperTemplate}
 	plan.Description = types.String{Value: echoResp.CreateMessageType.Description}
+	plan.Id = types.String{Value: echoResp.CreateMessageType.Name}
 	plan.InUse = types.Bool{Value: echoResp.CreateMessageType.InUse}
 	plan.Name = types.String{Value: echoResp.CreateMessageType.Name}
 	plan.ProcessorTemplate = types.String{Value: echoResp.CreateMessageType.ProcessorTemplate}
@@ -281,6 +282,7 @@ func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateReq
 	plan.Auditor = types.String{Value: echoResp.GetMessageType.Update.Auditor}
 	plan.BitmapperTemplate = types.String{Value: echoResp.GetMessageType.Update.BitmapperTemplate}
 	plan.Description = types.String{Value: echoResp.GetMessageType.Update.Description}
+	plan.Id = types.String{Value: echoResp.GetMessageType.Update.Name}
 	plan.InUse = types.Bool{Value: echoResp.GetMessageType.Update.InUse}
 	plan.Name = types.String{Value: echoResp.GetMessageType.Update.Name}
 	plan.ProcessorTemplate = types.String{Value: echoResp.GetMessageType.Update.ProcessorTemplate}

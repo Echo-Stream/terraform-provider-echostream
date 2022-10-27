@@ -30,6 +30,7 @@ type messageTypeModel struct {
 	Auditor           types.String `tfsdk:"auditor"`
 	BitmapperTemplate types.String `tfsdk:"bitmapper_template"`
 	Description       types.String `tfsdk:"description"`
+	Id                types.String `tfsdk:"id"`
 	InUse             types.Bool   `tfsdk:"in_use"`
 	Name              types.String `tfsdk:"name"`
 	ProcessorTemplate types.String `tfsdk:"processor_template"`
@@ -59,6 +60,10 @@ func dataMessageTypeSchema() map[string]tfsdk.Attribute {
 			Computed:            true,
 			MarkdownDescription: "A human-readable description.",
 			Type:                types.StringType,
+		},
+		"id": {
+			Computed: true,
+			Type:     types.StringType,
 		},
 		"in_use": {
 			Computed:            true,
@@ -102,7 +107,7 @@ func resourceMessageTypeSchema() map[string]tfsdk.Attribute {
 	required := []string{"auditor", "bitmapper_template", "description", "name", "processor_template", "sample_message"}
 	schema := dataMessageTypeSchema()
 	for key, attribute := range schema {
-		if key != "in_use" {
+		if !slices.Contains([]string{"id", "in_use"}, key) {
 			attribute.Computed = false
 			if key == "name" {
 				attribute.Validators = append(messageTypeNameValidators, common.NotSystemNameValidator)
@@ -133,6 +138,7 @@ func readMessageType(ctx context.Context, client graphql.Client, name string, te
 			data.Auditor = types.String{Value: echoResp.GetMessageType.Auditor}
 			data.BitmapperTemplate = types.String{Value: echoResp.GetMessageType.BitmapperTemplate}
 			data.Description = types.String{Value: echoResp.GetMessageType.Description}
+			data.Id = types.String{Value: echoResp.GetMessageType.Name}
 			data.InUse = types.Bool{Value: echoResp.GetMessageType.InUse}
 			data.Name = types.String{Value: echoResp.GetMessageType.Name}
 			data.ProcessorTemplate = types.String{Value: echoResp.GetMessageType.ProcessorTemplate}
