@@ -33,6 +33,7 @@ resource "echostream_kms_key" "test" {
 ### Read-Only
 
 - `arn` (String) The AWS ARN for the underlying KMS Key.
+- `id` (String) The ID of this resource.
 - `in_use` (Boolean) True if this KmsKey is in use by Edges.
 
 ## Import

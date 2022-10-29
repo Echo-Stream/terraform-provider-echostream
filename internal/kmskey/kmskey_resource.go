@@ -28,6 +28,7 @@ type KmsKeyResource struct {
 type kmsKeyModel struct {
 	Arn         types.String `tfsdk:"arn"`
 	Description types.String `tfsdk:"description"`
+	Id          types.String `tfsdk:"id"`
 	InUse       types.Bool   `tfsdk:"in_use"`
 	Name        types.String `tfsdk:"name"`
 }
@@ -85,6 +86,7 @@ func (r *KmsKeyResource) Create(ctx context.Context, req resource.CreateRequest,
 	} else {
 		plan.Description = types.String{Null: true}
 	}
+	plan.Id = types.String{Value: echoResp.CreateKmsKey.Name}
 	plan.InUse = types.Bool{Value: echoResp.CreateKmsKey.InUse}
 	plan.Name = types.String{Value: echoResp.CreateKmsKey.Name}
 
@@ -122,6 +124,10 @@ func (r *KmsKeyResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diag
 				MarkdownDescription: "A human-readable description.",
 				Optional:            true,
 				Type:                types.StringType,
+			},
+			"id": {
+				Computed: true,
+				Type:     types.StringType,
 			},
 			"in_use": {
 				Computed:            true,
@@ -218,6 +224,7 @@ func (r *KmsKeyResource) Read(ctx context.Context, req resource.ReadRequest, res
 		} else {
 			state.Description = types.String{Null: true}
 		}
+		state.Id = types.String{Value: echoResp.GetKmsKey.Name}
 		state.InUse = types.Bool{Value: echoResp.GetKmsKey.InUse}
 		state.Name = types.String{Value: echoResp.GetKmsKey.Name}
 	}
@@ -259,6 +266,7 @@ func (r *KmsKeyResource) Update(ctx context.Context, req resource.UpdateRequest,
 	} else {
 		plan.Description = types.String{Null: true}
 	}
+	plan.Id = types.String{Value: echoResp.GetKmsKey.Update.Name}
 	plan.InUse = types.Bool{Value: echoResp.GetKmsKey.Update.InUse}
 	plan.Name = types.String{Value: echoResp.GetKmsKey.Update.Name}
 
