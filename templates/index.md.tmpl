@@ -12,7 +12,9 @@ The EchoStream provider allows for creation and management of resources within a
 > [ApiUser](https://docs.echo.stream/docs/api-users) with `admin` rights prior to Terraforming the Tenant. 
 > These may be created using the [EchoStream UI](https://app.echo.stream).
 
+
 Once you have created your Tenant and ApiUser, capture the following attributes of the Tenant and the ApiUser. These will be used to configure your provider:
+
 | Resource | Value |
 | - | - |
 | Tenant | Name |
@@ -25,6 +27,7 @@ Once you have created your Tenant and ApiUser, capture the following attributes 
 ## Environment Variables
 
 The provider supports passing the values above either directly within the provider schema or as environment variables. You may mix/match attributes in either the schema or the environment, with the schema taking precedence. The table below details the mapping:
+
 | Schema | Environment |
 | - | - |
 | appsync_endpoint | ECHOSTREAM_APPSYNC_ENDPOINT |
