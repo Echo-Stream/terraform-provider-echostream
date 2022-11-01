@@ -8,8 +8,7 @@ description: |-
 
 The EchoStream provider allows for creation and management of resources within an EchoStream Tenant.
 
--> The EchoStream [Tenant](https://docs.echo.stream/docs/tenants) must already exist and must have an [ApiUser](https://docs.echo.stream/docs/api-users) with `admin` rights prior to Terraforming the Tenant. These may be created using the [EchoStream UI](https://app.echo.stream).
-
+-> **Note:** The EchoStream [Tenant](https://docs.echo.stream/docs/tenants) must already exist and must have an [ApiUser](https://docs.echo.stream/docs/api-users) with `admin` rights prior to Terraforming the Tenant. These may be created using the [EchoStream UI](https://app.echo.stream).
 
 Once you have created your Tenant and ApiUser, capture the following attributes of the Tenant and the ApiUser. These will be used to configure your provider:
 
@@ -22,7 +21,11 @@ Once you have created your Tenant and ApiUser, capture the following attributes 
 ||Password|
 ||User Pool Id|
 
-## EchoStream Configuration Reference
+## Provider Configuration
+
+!> **Warning:** Hard-coded credentials are not recommended in any Terraform configuration and risks secret leakage should this file ever be committed to a public version control system.
+
+### EchoStream Configuration Reference
 
 The provider supports passing the values above either directly within the provider schema or as environment variables. You may mix/match attributes in either the schema or the environment, with the schema taking precedence. The table below details the mapping:
 
@@ -35,7 +38,7 @@ The provider supports passing the values above either directly within the provid
 |Api User Username|`username`|`ECHOSTREAM_USERNAME`|
 |Cognito User Pool Id|`user_pool_id`|`ECHOSTREAM_USER_POOL_ID`|
 
-## Example Usage
+### Example Usage
 {{ tffile "examples/provider/provider.tf" }}
 
 {{ .SchemaMarkdown | trimspace }}
