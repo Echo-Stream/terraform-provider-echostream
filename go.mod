@@ -13,7 +13,7 @@ require (
 	github.com/hashicorp/terraform-plugin-framework-validators v0.5.0
 	github.com/hashicorp/terraform-plugin-go v0.14.0
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.24.0
-	github.com/lestrrat-go/jwx/v2 v2.0.6
+	github.com/lestrrat-go/jwx/v2 v2.0.8
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/exp v0.0.0-20221031165847-c99f073a8326
 )
