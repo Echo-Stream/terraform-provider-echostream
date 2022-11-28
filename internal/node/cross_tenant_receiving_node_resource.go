@@ -62,7 +62,7 @@ func (r *CrossTenantReceivingNodeResource) Create(ctx context.Context, req resou
 		return
 	}
 
-	if echoResp, err := api.ReadNode(ctx, r.data.Client, plan.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadNode(ctx, r.data.Client, plan.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading CrossTenantReceivingNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
@@ -71,18 +71,18 @@ func (r *CrossTenantReceivingNodeResource) Create(ctx context.Context, req resou
 	} else {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeCrossTenantReceivingNode:
-			plan.App = types.String{Value: node.App.Name}
+			plan.App = types.StringValue(node.App.Name)
 			if node.Description != nil {
-				plan.Description = types.String{Value: *node.Description}
+				plan.Description = types.StringValue(*node.Description)
 			} else {
-				plan.Description = types.String{Null: true}
+				plan.Description = types.StringNull()
 			}
-			plan.Name = types.String{Value: node.Name}
-			plan.SendMessageType = types.String{Value: node.SendMessageType.Name}
+			plan.Name = types.StringValue(node.Name)
+			plan.SendMessageType = types.StringValue(node.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected CrossTenantReceivingNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.ValueString()),
 			)
 			return
 		}
@@ -102,7 +102,7 @@ func (r *CrossTenantReceivingNodeResource) Delete(ctx context.Context, req resou
 		return
 	}
 
-	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting CrossTenantReceivingNode", err.Error())
 		return
 	}
@@ -187,7 +187,7 @@ func (r *CrossTenantReceivingNodeResource) Read(ctx context.Context, req resourc
 		return
 	}
 
-	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading CrossTenantReceivingNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
@@ -196,18 +196,18 @@ func (r *CrossTenantReceivingNodeResource) Read(ctx context.Context, req resourc
 	} else {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeCrossTenantReceivingNode:
-			state.App = types.String{Value: node.App.Name}
+			state.App = types.StringValue(node.App.Name)
 			if node.Description != nil {
-				state.Description = types.String{Value: *node.Description}
+				state.Description = types.StringValue(*node.Description)
 			} else {
-				state.Description = types.String{Null: true}
+				state.Description = types.StringNull()
 			}
-			state.Name = types.String{Value: node.Name}
-			state.SendMessageType = types.String{Value: node.SendMessageType.Name}
+			state.Name = types.StringValue(node.Name)
+			state.SendMessageType = types.StringValue(node.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected CrossTenantReceivingNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.ValueString()),
 			)
 			return
 		}
@@ -230,35 +230,36 @@ func (r *CrossTenantReceivingNodeResource) Update(ctx context.Context, req resou
 	var description *string
 
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if echoResp, err := api.UpdateCrossTenantReceivingNode(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		description,
 	); err != nil {
 		resp.Diagnostics.AddError("Error updating CrossTenantReceivingNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
-		resp.Diagnostics.AddError("Cannot find CrossTenantReceivingNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.Value))
+		resp.Diagnostics.AddError("Cannot find CrossTenantReceivingNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.ValueString()))
 		return
 	} else {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.UpdateCrossTenantReceivingNodeGetNodeCrossTenantReceivingNode:
-			plan.App = types.String{Value: node.Update.App.Name}
+			plan.App = types.StringValue(node.Update.App.Name)
 			if node.Update.Description != nil {
-				plan.Description = types.String{Value: *node.Update.Description}
+				plan.Description = types.StringValue(*node.Update.Description)
 			} else {
-				plan.Description = types.String{Null: true}
+				plan.Description = types.StringNull()
 			}
-			plan.Name = types.String{Value: node.Update.Name}
-			plan.SendMessageType = types.String{Value: node.Update.SendMessageType.Name}
+			plan.Name = types.StringValue(node.Update.Name)
+			plan.SendMessageType = types.StringValue(node.Update.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected CrossTenantReceivingNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.ValueString()),
 			)
 			return
 		}

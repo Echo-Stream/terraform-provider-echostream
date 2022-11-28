@@ -7,6 +7,8 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -175,131 +177,155 @@ func resourceProcessorFunctionSchema() map[string]tfsdk.Attribute {
 	return schema
 }
 
-func readApiAuthenicatorFunction(ctx context.Context, client graphql.Client, name string, tenant string) (*functionModel, bool, error) {
+func readApiAuthenicatorFunction(ctx context.Context, client graphql.Client, name string, tenant string) (*functionModel, bool, diag.Diagnostics) {
 	var (
-		data     *functionModel
-		echoResp *api.ReadFunctionResponse
-		err      error
-		system   bool = false
+		data   *functionModel
+		diags  diag.Diagnostics
+		system bool = false
 	)
 
-	if echoResp, err = api.ReadFunction(ctx, client, name, tenant); err == nil {
+	if echoResp, err := api.ReadFunction(ctx, client, name, tenant); err == nil {
 		if echoResp.GetFunction != nil {
 			switch function := (*echoResp.GetFunction).(type) {
 			case *api.ReadFunctionGetFunctionApiAuthenticatorFunction:
 				data = &functionModel{}
-				data.Code = types.String{Value: function.Code}
-				data.Description = types.String{Value: function.Description}
-				data.InUse = types.Bool{Value: function.InUse}
-				data.Name = types.String{Value: function.Name}
+				data.Code = types.StringValue(function.Code)
+				data.Description = types.StringValue(function.Description)
+				data.InUse = types.BoolValue(function.InUse)
+				data.Name = types.StringValue(function.Name)
 				if function.Readme != nil {
-					data.Readme = types.String{Value: *function.Readme}
+					data.Readme = types.StringValue(*function.Readme)
 				} else {
-					data.Readme = types.String{Null: true}
+					data.Readme = types.StringNull()
 				}
 				if len(function.Requirements) > 0 {
-					data.Requirements = types.Set{ElemType: types.StringType}
+					var (
+						d     diag.Diagnostics
+						elems []attr.Value
+					)
 					for _, req := range function.Requirements {
-						data.Requirements.Elems = append(data.Requirements.Elems, types.String{Value: req})
+						elems = append(elems, types.StringValue(req))
+					}
+					data.Requirements, d = types.SetValue(types.StringType, elems)
+					if d != nil {
+						diags = d
 					}
 				} else {
-					data.Requirements.Null = true
+					data.Requirements = types.SetNull(types.StringType)
 				}
 				if function.System != nil {
 					system = *function.System
 				}
 			default:
-				err = fmt.Errorf("'%s' is incorrect Function type", data.Name.String())
+				diags.AddError("Invalid Function type", fmt.Sprintf("'%s' is incorrect Function type", data.Name.String()))
 			}
 		}
+	} else {
+		diags.AddError("Error reading ApiAuthenticatorFunction", err.Error())
 	}
 
-	return data, system, err
+	return data, system, diags
 }
 
-func readBitmapperFunction(ctx context.Context, client graphql.Client, name string, tenant string) (*bitmapperFunctionModel, bool, error) {
+func readBitmapperFunction(ctx context.Context, client graphql.Client, name string, tenant string) (*bitmapperFunctionModel, bool, diag.Diagnostics) {
 	var (
-		data     *bitmapperFunctionModel
-		echoResp *api.ReadFunctionResponse
-		err      error
-		system   bool = false
+		data   *bitmapperFunctionModel
+		diags  diag.Diagnostics
+		system bool = false
 	)
 
-	if echoResp, err = api.ReadFunction(ctx, client, name, tenant); err == nil {
+	if echoResp, err := api.ReadFunction(ctx, client, name, tenant); err == nil {
 		if echoResp.GetFunction != nil {
 			switch function := (*echoResp.GetFunction).(type) {
 			case *api.ReadFunctionGetFunctionBitmapperFunction:
 				data = &bitmapperFunctionModel{}
-				data.ArgumentMessageType = types.String{Value: function.ArgumentMessageType.Name}
-				data.Code = types.String{Value: function.Code}
-				data.Description = types.String{Value: function.Description}
-				data.InUse = types.Bool{Value: function.InUse}
-				data.Name = types.String{Value: function.Name}
+				data.ArgumentMessageType = types.StringValue(function.ArgumentMessageType.Name)
+				data.Code = types.StringValue(function.Code)
+				data.Description = types.StringValue(function.Description)
+				data.InUse = types.BoolValue(function.InUse)
+				data.Name = types.StringValue(function.Name)
 				if function.Readme != nil {
-					data.Readme = types.String{Value: *function.Readme}
+					data.Readme = types.StringValue(*function.Readme)
 				} else {
-					data.Readme = types.String{Null: true}
+					data.Readme = types.StringNull()
 				}
 				if len(function.Requirements) > 0 {
-					data.Requirements = types.Set{ElemType: types.StringType}
+					var (
+						d     diag.Diagnostics
+						elems []attr.Value
+					)
 					for _, req := range function.Requirements {
-						data.Requirements.Elems = append(data.Requirements.Elems, types.String{Value: req})
+						elems = append(elems, types.StringValue(req))
+					}
+					data.Requirements, d = types.SetValue(types.StringType, elems)
+					if d != nil {
+						diags = d
 					}
 				} else {
-					data.Requirements.Null = true
+					data.Requirements = types.SetNull(types.StringType)
 				}
 				if function.System != nil {
 					system = *function.System
 				}
 			default:
-				err = fmt.Errorf("'%s' is incorrect Function type", data.Name.String())
+				diags.AddError("Invalid Function type", fmt.Sprintf("'%s' is incorrect Function type", data.Name.String()))
 			}
 		}
+	} else {
+		diags.AddError("Error reading ApiAuthenticatorFunction", err.Error())
 	}
 
-	return data, system, err
+	return data, system, diags
 }
 
-func readProcessorFunction(ctx context.Context, client graphql.Client, name string, tenant string) (*processorFunctionModel, bool, error) {
+func readProcessorFunction(ctx context.Context, client graphql.Client, name string, tenant string) (*processorFunctionModel, bool, diag.Diagnostics) {
 	var (
-		data     *processorFunctionModel
-		echoResp *api.ReadFunctionResponse
-		err      error
-		system   bool = false
+		data   *processorFunctionModel
+		diags  diag.Diagnostics
+		system bool = false
 	)
 
-	if echoResp, err = api.ReadFunction(ctx, client, name, tenant); err == nil {
+	if echoResp, err := api.ReadFunction(ctx, client, name, tenant); err == nil {
 		if echoResp.GetFunction != nil {
 			switch function := (*echoResp.GetFunction).(type) {
 			case *api.ReadFunctionGetFunctionProcessorFunction:
 				data = &processorFunctionModel{}
-				data.ArgumentMessageType = types.String{Value: function.ArgumentMessageType.Name}
-				data.Code = types.String{Value: function.Code}
-				data.Description = types.String{Value: function.Description}
-				data.InUse = types.Bool{Value: function.InUse}
-				data.Name = types.String{Value: function.Name}
+				data.ArgumentMessageType = types.StringValue(function.ArgumentMessageType.Name)
+				data.Code = types.StringValue(function.Code)
+				data.Description = types.StringValue(function.Description)
+				data.InUse = types.BoolValue(function.InUse)
+				data.Name = types.StringValue(function.Name)
 				if function.Readme != nil {
-					data.Readme = types.String{Value: *function.Readme}
+					data.Readme = types.StringValue(*function.Readme)
 				} else {
-					data.Readme = types.String{Null: true}
+					data.Readme = types.StringNull()
 				}
 				if len(function.Requirements) > 0 {
-					data.Requirements = types.Set{ElemType: types.StringType}
+					var (
+						d     diag.Diagnostics
+						elems []attr.Value
+					)
 					for _, req := range function.Requirements {
-						data.Requirements.Elems = append(data.Requirements.Elems, types.String{Value: req})
+						elems = append(elems, types.StringValue(req))
+					}
+					data.Requirements, d = types.SetValue(types.StringType, elems)
+					if d != nil {
+						diags = d
 					}
 				} else {
-					data.Requirements.Null = true
+					data.Requirements = types.SetNull(types.StringType)
 				}
-				data.ReturnMessageType = types.String{Value: function.ReturnMessageType.Name}
+				data.ReturnMessageType = types.StringValue(function.ReturnMessageType.Name)
 				if function.System != nil {
 					system = *function.System
 				}
 			default:
-				err = fmt.Errorf("'%s' is incorrect Function type", data.Name.String())
+				diags.AddError("Invalid Function type", fmt.Sprintf("'%s' is incorrect Function type", data.Name.String()))
 			}
 		}
+	} else {
+		diags.AddError("Error reading ApiAuthenticatorFunction", err.Error())
 	}
 
-	return data, system, err
+	return data, system, diags
 }

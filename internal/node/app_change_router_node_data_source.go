@@ -73,14 +73,14 @@ func (d *AppChangeRouterNodeDataSource) Read(ctx context.Context, req datasource
 	} else if echoResp.GetNode != nil {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeAppChangeRouterNode:
-			config.Name = types.String{Value: node.Name}
+			config.Name = types.StringValue(node.Name)
 			if node.Description == nil {
-				config.Description = types.String{Null: true}
+				config.Description = types.StringNull()
 			} else {
-				config.Description = types.String{Value: *node.Description}
+				config.Description = types.StringValue(*node.Description)
 			}
-			config.ReceiveMessageType = types.String{Value: node.ReceiveMessageType.Name}
-			config.SendMessageType = types.String{Value: node.SendMessageType.Name}
+			config.ReceiveMessageType = types.StringValue(node.ReceiveMessageType.Name)
+			config.SendMessageType = types.StringValue(node.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError("Incorrect Node type", fmt.Sprintf("expected AppChangeRouterNode, got %v", node.GetTypename()))
 			return

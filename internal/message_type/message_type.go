@@ -8,6 +8,8 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 
 	"github.com/Khan/genqlient/graphql"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -124,43 +126,51 @@ func resourceMessageTypeSchema() map[string]tfsdk.Attribute {
 	return schema
 }
 
-func readMessageType(ctx context.Context, client graphql.Client, name string, tenant string) (*messageTypeModel, bool, error) {
+func readMessageType(ctx context.Context, client graphql.Client, name string, tenant string) (*messageTypeModel, bool, diag.Diagnostics) {
 	var (
-		data     *messageTypeModel
-		echoResp *api.ReadMessageTypeResponse
-		err      error
-		system   bool = false
+		data   *messageTypeModel
+		diags  diag.Diagnostics
+		system bool = false
 	)
 
-	if echoResp, err = api.ReadMessageType(ctx, client, name, tenant); err == nil {
+	if echoResp, err := api.ReadMessageType(ctx, client, name, tenant); err == nil {
 		if echoResp.GetMessageType != nil {
 			data = &messageTypeModel{}
-			data.Auditor = types.String{Value: echoResp.GetMessageType.Auditor}
-			data.BitmapperTemplate = types.String{Value: echoResp.GetMessageType.BitmapperTemplate}
-			data.Description = types.String{Value: echoResp.GetMessageType.Description}
-			data.Id = types.String{Value: echoResp.GetMessageType.Name}
-			data.InUse = types.Bool{Value: echoResp.GetMessageType.InUse}
-			data.Name = types.String{Value: echoResp.GetMessageType.Name}
-			data.ProcessorTemplate = types.String{Value: echoResp.GetMessageType.ProcessorTemplate}
+			data.Auditor = types.StringValue(echoResp.GetMessageType.Auditor)
+			data.BitmapperTemplate = types.StringValue(echoResp.GetMessageType.BitmapperTemplate)
+			data.Description = types.StringValue(echoResp.GetMessageType.Description)
+			data.Id = types.StringValue(echoResp.GetMessageType.Name)
+			data.InUse = types.BoolValue(echoResp.GetMessageType.InUse)
+			data.Name = types.StringValue(echoResp.GetMessageType.Name)
+			data.ProcessorTemplate = types.StringValue(echoResp.GetMessageType.ProcessorTemplate)
 			if echoResp.GetMessageType.Readme != nil {
-				data.Readme = types.String{Value: *echoResp.GetMessageType.Readme}
+				data.Readme = types.StringValue(*echoResp.GetMessageType.Readme)
 			} else {
-				data.Readme = types.String{Null: true}
+				data.Readme = types.StringNull()
 			}
-			data.Requirements = types.Set{ElemType: types.StringType}
 			if len(echoResp.GetMessageType.Requirements) > 0 {
+				var (
+					d     diag.Diagnostics
+					elems []attr.Value
+				)
 				for _, req := range echoResp.GetMessageType.Requirements {
-					data.Requirements.Elems = append(data.Requirements.Elems, types.String{Value: req})
+					elems = append(elems, types.StringValue(req))
+				}
+				data.Requirements, d = types.SetValue(types.StringType, elems)
+				if d != nil {
+					diags = d
 				}
 			} else {
-				data.Requirements.Null = true
+				data.Requirements = types.SetNull(types.StringType)
 			}
-			data.SampleMessage = types.String{Value: echoResp.GetMessageType.SampleMessage}
+			data.SampleMessage = types.StringValue(echoResp.GetMessageType.SampleMessage)
 			if echoResp.GetMessageType.System != nil {
 				system = *echoResp.GetMessageType.System
 			}
 		}
+	} else {
+		diags.AddError("Error reading MessageType", err.Error())
 	}
 
-	return data, system, err
+	return data, system, diags
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework-validators/resourcevalidator"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -80,6 +81,7 @@ func (r *WebhookNodeResource) Create(ctx context.Context, req resource.CreateReq
 	var (
 		config                  *string
 		description             *string
+		diags                   diag.Diagnostics
 		inlineApiAuthenticator  *string
 		loggingLevel            *api.LogLevel
 		managedApiAuthenticator *string
@@ -88,22 +90,26 @@ func (r *WebhookNodeResource) Create(ctx context.Context, req resource.CreateReq
 	)
 
 	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
-		config = &plan.Config.Value
+		temp := plan.Config.ValueConfig()
+		config = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.InlineApiAuthenticator.IsNull() || plan.InlineApiAuthenticator.IsUnknown()) {
-		inlineApiAuthenticator = &plan.InlineApiAuthenticator.Value
+		temp := plan.InlineApiAuthenticator.ValueString()
+		inlineApiAuthenticator = &temp
 	}
 	if !(plan.LoggingLevel.IsNull() || plan.LoggingLevel.IsUnknown()) {
-		loggingLevel = (*api.LogLevel)(&plan.LoggingLevel.Value)
+		temp := plan.LoggingLevel.ValueString()
+		loggingLevel = (*api.LogLevel)(&temp)
 	}
 	if !(plan.ManagedApiAuthenticator.IsNull() || plan.ManagedApiAuthenticator.IsUnknown()) {
-		managedApiAuthenticator = &plan.ManagedApiAuthenticator.Value
+		temp := plan.ManagedApiAuthenticator.ValueString()
+		managedApiAuthenticator = &temp
 	}
 	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
-		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
 			resp.Diagnostics.Append(diags...)
@@ -111,13 +117,14 @@ func (r *WebhookNodeResource) Create(ctx context.Context, req resource.CreateReq
 		}
 	}
 	if !(plan.SendMessageType.IsNull() || plan.SendMessageType.IsUnknown()) {
-		sendMessageType = &plan.SendMessageType.Value
+		temp := plan.SendMessageType.ValueString()
+		sendMessageType = &temp
 	}
 
 	if echoResp, err := api.CreateWebhookNode(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		config,
 		description,
@@ -131,41 +138,45 @@ func (r *WebhookNodeResource) Create(ctx context.Context, req resource.CreateReq
 		return
 	} else {
 		if echoResp.CreateWebhookNode.Config != nil {
-			plan.Config = common.Config{Value: *echoResp.CreateWebhookNode.Config}
+			plan.Config = common.ConfigValue(*echoResp.CreateWebhookNode.Config)
 		} else {
-			plan.Config = common.Config{Null: true}
+			plan.Config = common.ConfigNull()
 		}
 		if echoResp.CreateWebhookNode.Description != nil {
-			plan.Description = types.String{Value: *echoResp.CreateWebhookNode.Description}
+			plan.Description = types.StringValue(*echoResp.CreateWebhookNode.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
-		plan.Endpoint = types.String{Value: echoResp.CreateWebhookNode.Endpoint}
+		plan.Endpoint = types.StringValue(echoResp.CreateWebhookNode.Endpoint)
 		if echoResp.CreateWebhookNode.InlineApiAuthenticator != nil {
-			plan.InlineApiAuthenticator = types.String{Value: *echoResp.CreateWebhookNode.InlineApiAuthenticator}
+			plan.InlineApiAuthenticator = types.StringValue(*echoResp.CreateWebhookNode.InlineApiAuthenticator)
 		} else {
-			plan.InlineApiAuthenticator = types.String{Null: true}
+			plan.InlineApiAuthenticator = types.StringNull()
 		}
 		if echoResp.CreateWebhookNode.LoggingLevel != nil {
-			plan.LoggingLevel = types.String{Value: string(*echoResp.CreateWebhookNode.LoggingLevel)}
+			plan.LoggingLevel = types.StringValue(string(*echoResp.CreateWebhookNode.LoggingLevel))
 		} else {
-			plan.LoggingLevel = types.String{Null: true}
+			plan.LoggingLevel = types.StringNull()
 		}
 		if echoResp.CreateWebhookNode.ManagedApiAuthenticator != nil {
-			plan.ManagedApiAuthenticator = types.String{Value: echoResp.CreateWebhookNode.ManagedApiAuthenticator.Name}
+			plan.ManagedApiAuthenticator = types.StringValue(echoResp.CreateWebhookNode.ManagedApiAuthenticator.Name)
 		} else {
-			plan.ManagedApiAuthenticator = types.String{Null: true}
+			plan.ManagedApiAuthenticator = types.StringNull()
 		}
-		plan.Name = types.String{Value: echoResp.CreateWebhookNode.Name}
-		plan.Requirements = types.Set{ElemType: types.StringType}
+		plan.Name = types.StringValue(echoResp.CreateWebhookNode.Name)
 		if len(echoResp.CreateWebhookNode.Requirements) > 0 {
+			elems := []attr.Value{}
 			for _, req := range echoResp.CreateWebhookNode.Requirements {
-				plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
+				elems = append(elems, types.StringValue(req))
+			}
+			plan.Requirements, diags = types.SetValue(types.StringType, elems)
+			if diags != nil && diags.HasError() {
+				resp.Diagnostics.Append(diags...)
 			}
 		} else {
-			plan.Requirements.Null = true
+			plan.Requirements = types.SetNull(types.StringType)
 		}
-		plan.SendMessageType = types.String{Value: echoResp.CreateWebhookNode.SendMessageType.Name}
+		plan.SendMessageType = types.StringValue(echoResp.CreateWebhookNode.SendMessageType.Name)
 	}
 
 	// Save data into Terraform state
@@ -182,7 +193,7 @@ func (r *WebhookNodeResource) Delete(ctx context.Context, req resource.DeleteReq
 		return
 	}
 
-	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting WebhookNode", err.Error())
 		return
 	}
@@ -269,7 +280,10 @@ func (r *WebhookNodeResource) Metadata(ctx context.Context, req resource.Metadat
 }
 
 func (r *WebhookNodeResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var state webhookNodeModel
+	var (
+		diags diag.Diagnostics
+		state webhookNodeModel
+	)
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
@@ -278,7 +292,7 @@ func (r *WebhookNodeResource) Read(ctx context.Context, req resource.ReadRequest
 		return
 	}
 
-	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading WebhookNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
@@ -288,45 +302,49 @@ func (r *WebhookNodeResource) Read(ctx context.Context, req resource.ReadRequest
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeWebhookNode:
 			if node.Config != nil {
-				state.Config = common.Config{Value: *node.Config}
+				state.Config = common.ConfigValue(*node.Config)
 			} else {
-				state.Config = common.Config{Null: true}
+				state.Config = common.ConfigNull()
 			}
 			if node.Description != nil {
-				state.Description = types.String{Value: *node.Description}
+				state.Description = types.StringValue(*node.Description)
 			} else {
-				state.Description = types.String{Null: true}
+				state.Description = types.StringNull()
 			}
-			state.Endpoint = types.String{Value: node.Endpoint}
+			state.Endpoint = types.StringValue(node.Endpoint)
 			if node.InlineApiAuthenticator != nil {
-				state.InlineApiAuthenticator = types.String{Value: *node.InlineApiAuthenticator}
+				state.InlineApiAuthenticator = types.StringValue(*node.InlineApiAuthenticator)
 			} else {
-				state.InlineApiAuthenticator = types.String{Null: true}
+				state.InlineApiAuthenticator = types.StringNull()
 			}
 			if node.LoggingLevel != nil {
-				state.LoggingLevel = types.String{Value: string(*node.LoggingLevel)}
+				state.LoggingLevel = types.StringValue(string(*node.LoggingLevel))
 			} else {
-				state.LoggingLevel = types.String{Null: true}
+				state.LoggingLevel = types.StringNull()
 			}
 			if node.ManagedApiAuthenticator != nil {
-				state.ManagedApiAuthenticator = types.String{Value: node.ManagedApiAuthenticator.Name}
+				state.ManagedApiAuthenticator = types.StringValue(node.ManagedApiAuthenticator.Name)
 			} else {
-				state.ManagedApiAuthenticator = types.String{Null: true}
+				state.ManagedApiAuthenticator = types.StringNull()
 			}
-			state.Name = types.String{Value: node.Name}
-			state.Requirements = types.Set{ElemType: types.StringType}
+			state.Name = types.StringValue(node.Name)
 			if len(node.Requirements) > 0 {
+				elems := []attr.Value{}
 				for _, req := range node.Requirements {
-					state.Requirements.Elems = append(state.Requirements.Elems, types.String{Value: req})
+					elems = append(elems, types.StringValue(req))
+				}
+				state.Requirements, diags = types.SetValue(types.StringType, elems)
+				if diags != nil && diags.HasError() {
+					resp.Diagnostics.Append(diags...)
 				}
 			} else {
-				state.Requirements.Null = true
+				state.Requirements = types.SetNull(types.StringType)
 			}
-			state.SendMessageType = types.String{Value: node.SendMessageType.Name}
+			state.SendMessageType = types.StringValue(node.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected WebhookNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.ValueString()),
 			)
 			return
 		}
@@ -349,28 +367,33 @@ func (r *WebhookNodeResource) Update(ctx context.Context, req resource.UpdateReq
 	var (
 		config                  *string
 		description             *string
+		diags                   diag.Diagnostics
 		inlineApiAuthenticator  *string
 		loggingLevel            *api.LogLevel
 		managedApiAuthenticator *string
 		requirements            []string
 	)
 	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
-		config = &plan.Config.Value
+		temp := plan.Config.ValueConfig()
+		config = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.InlineApiAuthenticator.IsNull() || plan.InlineApiAuthenticator.IsUnknown()) {
-		inlineApiAuthenticator = &plan.InlineApiAuthenticator.Value
+		temp := plan.InlineApiAuthenticator.ValueString()
+		inlineApiAuthenticator = &temp
 	}
 	if !(plan.LoggingLevel.IsNull() || plan.LoggingLevel.IsUnknown()) {
-		loggingLevel = (*api.LogLevel)(&plan.LoggingLevel.Value)
+		temp := plan.LoggingLevel.ValueString()
+		loggingLevel = (*api.LogLevel)(&temp)
 	}
 	if !(plan.ManagedApiAuthenticator.IsNull() || plan.ManagedApiAuthenticator.IsUnknown()) {
-		managedApiAuthenticator = &plan.ManagedApiAuthenticator.Value
+		temp := plan.ManagedApiAuthenticator.ValueString()
+		managedApiAuthenticator = &temp
 	}
 	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
-		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
 			resp.Diagnostics.Append(diags...)
@@ -381,7 +404,7 @@ func (r *WebhookNodeResource) Update(ctx context.Context, req resource.UpdateReq
 	if echoResp, err := api.UpdateWebhookNode(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		config,
 		description,
@@ -393,51 +416,55 @@ func (r *WebhookNodeResource) Update(ctx context.Context, req resource.UpdateReq
 		resp.Diagnostics.AddError("Error updating WebhookNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
-		resp.Diagnostics.AddError("Cannot find WebhookNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.Value))
+		resp.Diagnostics.AddError("Cannot find WebhookNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.ValueString()))
 		return
 	} else {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.UpdateWebhookNodeGetNodeWebhookNode:
 			if node.Update.Config != nil {
-				plan.Config = common.Config{Value: *node.Update.Config}
+				plan.Config = common.ConfigValue(*node.Update.Config)
 			} else {
-				plan.Config = common.Config{Null: true}
+				plan.Config = common.ConfigNull()
 			}
 			if node.Update.Description != nil {
-				plan.Description = types.String{Value: *node.Update.Description}
+				plan.Description = types.StringValue(*node.Update.Description)
 			} else {
-				plan.Description = types.String{Null: true}
+				plan.Description = types.StringNull()
 			}
-			plan.Endpoint = types.String{Value: node.Update.Endpoint}
+			plan.Endpoint = types.StringValue(node.Update.Endpoint)
 			if node.Update.InlineApiAuthenticator != nil {
-				plan.InlineApiAuthenticator = types.String{Value: *node.Update.InlineApiAuthenticator}
+				plan.InlineApiAuthenticator = types.StringValue(*node.Update.InlineApiAuthenticator)
 			} else {
-				plan.InlineApiAuthenticator = types.String{Null: true}
+				plan.InlineApiAuthenticator = types.StringNull()
 			}
 			if node.Update.LoggingLevel != nil {
-				plan.LoggingLevel = types.String{Value: string(*node.Update.LoggingLevel)}
+				plan.LoggingLevel = types.StringValue(string(*node.Update.LoggingLevel))
 			} else {
-				plan.LoggingLevel = types.String{Null: true}
+				plan.LoggingLevel = types.StringNull()
 			}
 			if node.Update.ManagedApiAuthenticator != nil {
-				plan.ManagedApiAuthenticator = types.String{Value: node.Update.ManagedApiAuthenticator.Name}
+				plan.ManagedApiAuthenticator = types.StringValue(node.Update.ManagedApiAuthenticator.Name)
 			} else {
-				plan.ManagedApiAuthenticator = types.String{Null: true}
+				plan.ManagedApiAuthenticator = types.StringNull()
 			}
-			plan.Name = types.String{Value: node.Update.Name}
-			plan.Requirements = types.Set{ElemType: types.StringType}
+			plan.Name = types.StringValue(node.Update.Name)
 			if len(node.Update.Requirements) > 0 {
+				elems := []attr.Value{}
 				for _, req := range node.Update.Requirements {
-					plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
+					elems = append(elems, types.StringValue(req))
+				}
+				plan.Requirements, diags = types.SetValue(types.StringType, elems)
+				if diags != nil && diags.HasError() {
+					resp.Diagnostics.Append(diags...)
 				}
 			} else {
-				plan.Requirements.Null = true
+				plan.Requirements = types.SetNull(types.StringType)
 			}
-			plan.SendMessageType = types.String{Value: node.Update.SendMessageType.Name}
+			plan.SendMessageType = types.StringValue(node.Update.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected WebhookNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.ValueString()),
 			)
 			return
 		}

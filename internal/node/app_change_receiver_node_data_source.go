@@ -78,7 +78,7 @@ func (d *AppChangeReceiverNodeDataSource) Read(ctx context.Context, req datasour
 		return
 	}
 
-	name := config.App.Value + ":Change Receiver"
+	name := config.App.ValueString() + ":Change Receiver"
 
 	if echoResp, err := api.ReadNode(ctx, d.data.Client, name, d.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading AppChangeReceiverNode", err.Error())
@@ -86,14 +86,14 @@ func (d *AppChangeReceiverNodeDataSource) Read(ctx context.Context, req datasour
 	} else if echoResp.GetNode != nil {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeAppChangeReceiverNode:
-			config.App = types.String{Value: node.App.GetName()}
-			config.Name = types.String{Value: node.Name}
+			config.App = types.StringValue(node.App.GetName())
+			config.Name = types.StringValue(node.Name)
 			if node.Description == nil {
-				config.Description = types.String{Null: true}
+				config.Description = types.StringNull()
 			} else {
-				config.Description = types.String{Value: *node.Description}
+				config.Description = types.StringValue(*node.Description)
 			}
-			config.ReceiveMessageType = types.String{Value: node.ReceiveMessageType.Name}
+			config.ReceiveMessageType = types.StringValue(node.ReceiveMessageType.Name)
 		default:
 			resp.Diagnostics.AddError("Incorrect Node type", fmt.Sprintf("expected AppChangeReceiverNode, got %v", node.GetTypename()))
 			return

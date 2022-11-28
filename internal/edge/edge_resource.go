@@ -72,21 +72,23 @@ func (r *EdgeResource) Create(ctx context.Context, req resource.CreateRequest, r
 		maxReceiveCount *int
 	)
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.KmsKey.IsNull() || plan.KmsKey.IsUnknown()) {
-		kmsKey = &plan.KmsKey.Value
+		temp := plan.KmsKey.ValueString()
+		kmsKey = &temp
 	}
 	if !(plan.MaxReceiveCount.IsNull() || plan.MaxReceiveCount.IsUnknown()) {
-		mrc := int(plan.MaxReceiveCount.Value)
+		mrc := int(plan.MaxReceiveCount.ValueInt64())
 		maxReceiveCount = &mrc
 	}
 
 	if echoResp, err := api.CreateEdge(
 		ctx,
 		r.data.Client,
-		plan.Source.Value,
-		plan.Target.Value,
+		plan.Source.ValueString(),
+		plan.Target.ValueString(),
 		r.data.Tenant,
 		description,
 		kmsKey,
@@ -96,22 +98,22 @@ func (r *EdgeResource) Create(ctx context.Context, req resource.CreateRequest, r
 		return
 	} else {
 		if echoResp.CreateEdge.Description != nil {
-			plan.Description = types.String{Value: *echoResp.CreateEdge.Description}
+			plan.Description = types.StringValue(*echoResp.CreateEdge.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
 		if echoResp.CreateEdge.KmsKey != nil {
-			plan.KmsKey = types.String{Value: echoResp.CreateEdge.KmsKey.Name}
+			plan.KmsKey = types.StringValue(echoResp.CreateEdge.KmsKey.Name)
 		} else {
-			plan.KmsKey = types.String{Null: true}
+			plan.KmsKey = types.StringNull()
 		}
 		if echoResp.CreateEdge.MaxReceiveCount != nil {
-			plan.MaxReceiveCount = types.Int64{Value: int64(*echoResp.CreateEdge.MaxReceiveCount)}
+			plan.MaxReceiveCount = types.Int64Value(int64(*echoResp.CreateEdge.MaxReceiveCount))
 		}
-		plan.MessageType = types.String{Value: echoResp.CreateEdge.MessageType.Name}
-		plan.Queue = types.String{Value: echoResp.CreateEdge.Queue}
-		plan.Source = types.String{Value: echoResp.CreateEdge.Source.GetName()}
-		plan.Target = types.String{Value: echoResp.CreateEdge.Target.GetName()}
+		plan.MessageType = types.StringValue(echoResp.CreateEdge.MessageType.Name)
+		plan.Queue = types.StringValue(echoResp.CreateEdge.Queue)
+		plan.Source = types.StringValue(echoResp.CreateEdge.Source.GetName())
+		plan.Target = types.StringValue(echoResp.CreateEdge.Target.GetName())
 	}
 
 	// Save data into Terraform state
@@ -128,7 +130,7 @@ func (r *EdgeResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 		return
 	}
 
-	if _, err := api.DeleteEdge(ctx, r.data.Client, state.Source.Value, state.Target.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteEdge(ctx, r.data.Client, state.Source.ValueString(), state.Target.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting Edge", err.Error())
 		return
 	}
@@ -218,44 +220,44 @@ func (r *EdgeResource) ModifyPlan(ctx context.Context, req resource.ModifyPlanRe
 		return
 	}
 
-	newSourceMessageType := state.MessageType.Value
-	newTargetMessageType := state.MessageType.Value
+	newSourceMessageType := state.MessageType.ValueString()
+	newTargetMessageType := state.MessageType.ValueString()
 
 	if !state.Source.Equal(plan.Source) {
-		if echoResp, err := api.ReadNodeMessageTypes(ctx, r.data.Client, plan.Source.Value, r.data.Tenant); err != nil {
+		if echoResp, err := api.ReadNodeMessageTypes(ctx, r.data.Client, plan.Source.ValueString(), r.data.Tenant); err != nil {
 			resp.Diagnostics.AddError("Error reading planned source", err.Error())
 			return
 		} else if echoResp.GetNode == nil {
-			resp.Diagnostics.AddAttributeError(path.Root("source"), "Cannot find Node", fmt.Sprintf("'%s' Node does not exist", plan.Source.Value))
+			resp.Diagnostics.AddAttributeError(path.Root("source"), "Cannot find Node", fmt.Sprintf("'%s' Node does not exist", plan.Source.ValueString()))
 			return
 		} else {
 			node := reflect.Indirect(reflect.ValueOf(*echoResp.GetNode))
 			if smt := reflect.Indirect(node.FieldByName("SendMessageType")); !smt.IsZero() {
-				if name := smt.FieldByName("Name").String(); name != state.MessageType.Value {
+				if name := smt.FieldByName("Name").String(); name != state.MessageType.ValueString() {
 					newSourceMessageType = name
 					resp.RequiresReplace = append(resp.RequiresReplace, path.Root("source"))
 				}
 			} else {
-				resp.Diagnostics.AddAttributeError(path.Root("source"), "Invalid planned source", fmt.Sprintf("'%s' Node does not send messages", plan.Source.Value))
+				resp.Diagnostics.AddAttributeError(path.Root("source"), "Invalid planned source", fmt.Sprintf("'%s' Node does not send messages", plan.Source.ValueString()))
 			}
 		}
 	}
 	if !state.Target.Equal(plan.Target) {
-		if echoResp, err := api.ReadNodeMessageTypes(ctx, r.data.Client, plan.Target.Value, r.data.Tenant); err != nil {
+		if echoResp, err := api.ReadNodeMessageTypes(ctx, r.data.Client, plan.Target.ValueString(), r.data.Tenant); err != nil {
 			resp.Diagnostics.AddError("Error reading planned target", err.Error())
 			return
 		} else if echoResp.GetNode == nil {
-			resp.Diagnostics.AddAttributeError(path.Root("target"), "Cannot find Node", fmt.Sprintf("'%s' Node does not exist", plan.Target.Value))
+			resp.Diagnostics.AddAttributeError(path.Root("target"), "Cannot find Node", fmt.Sprintf("'%s' Node does not exist", plan.Target.ValueString()))
 			return
 		} else {
 			node := reflect.Indirect(reflect.ValueOf(*echoResp.GetNode))
 			if smt := reflect.Indirect(node.FieldByName("ReceiveMessageType")); !smt.IsZero() {
-				if name := smt.FieldByName("Name").String(); name != state.MessageType.Value {
+				if name := smt.FieldByName("Name").String(); name != state.MessageType.ValueString() {
 					newTargetMessageType = name
 					resp.RequiresReplace = append(resp.RequiresReplace, path.Root("target"))
 				}
 			} else {
-				resp.Diagnostics.AddAttributeError(path.Root("source"), "Invalid planned source", fmt.Sprintf("'%s' Node does not send messages", plan.Source.Value))
+				resp.Diagnostics.AddAttributeError(path.Root("source"), "Invalid planned source", fmt.Sprintf("'%s' Node does not send messages", plan.Source.ValueString()))
 			}
 		}
 	}
@@ -264,9 +266,9 @@ func (r *EdgeResource) ModifyPlan(ctx context.Context, req resource.ModifyPlanRe
 			"Planned source/target MessageType mismatch",
 			fmt.Sprintf(
 				"%s sends %s, but %s receives %s",
-				plan.Source.Value,
+				plan.Source.ValueString(),
 				newSourceMessageType,
-				plan.Target.Value,
+				plan.Target.ValueString(),
 				newTargetMessageType,
 			),
 		)
@@ -283,7 +285,7 @@ func (r *EdgeResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 		return
 	}
 
-	if echoResp, err := api.ReadEdge(ctx, r.data.Client, state.Source.Value, state.Target.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadEdge(ctx, r.data.Client, state.Source.ValueString(), state.Target.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading Edge", err.Error())
 		return
 	} else if echoResp.GetEdge == nil {
@@ -291,22 +293,22 @@ func (r *EdgeResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 		return
 	} else {
 		if echoResp.GetEdge.Description != nil {
-			state.Description = types.String{Value: *echoResp.GetEdge.Description}
+			state.Description = types.StringValue(*echoResp.GetEdge.Description)
 		} else {
-			state.Description = types.String{Null: true}
+			state.Description = types.StringNull()
 		}
 		if echoResp.GetEdge.KmsKey != nil {
-			state.KmsKey = types.String{Value: echoResp.GetEdge.KmsKey.Name}
+			state.KmsKey = types.StringValue(echoResp.GetEdge.KmsKey.Name)
 		} else {
-			state.KmsKey = types.String{Null: true}
+			state.KmsKey = types.StringNull()
 		}
 		if echoResp.GetEdge.MaxReceiveCount != nil {
-			state.MaxReceiveCount = types.Int64{Value: int64(*echoResp.GetEdge.MaxReceiveCount)}
+			state.MaxReceiveCount = types.Int64Value(int64(*echoResp.GetEdge.MaxReceiveCount))
 		}
-		state.MessageType = types.String{Value: echoResp.GetEdge.MessageType.Name}
-		state.Queue = types.String{Value: echoResp.GetEdge.Queue}
-		state.Source = types.String{Value: echoResp.GetEdge.Source.GetName()}
-		state.Target = types.String{Value: echoResp.GetEdge.Target.GetName()}
+		state.MessageType = types.StringValue(echoResp.GetEdge.MessageType.Name)
+		state.Queue = types.StringValue(echoResp.GetEdge.Queue)
+		state.Source = types.StringValue(echoResp.GetEdge.Source.GetName())
+		state.Target = types.StringValue(echoResp.GetEdge.Target.GetName())
 	}
 
 	// Save updated data into Terraform state
@@ -329,76 +331,77 @@ func (r *EdgeResource) Update(ctx context.Context, req resource.UpdateRequest, r
 	}
 
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
 	if !(state.Source.Equal(plan.Source) && state.Target.Equal(plan.Target)) {
 		if echoResp, err := api.MoveEdge(
 			ctx,
 			r.data.Client,
-			state.Source.Value,
-			state.Target.Value,
+			state.Source.ValueString(),
+			state.Target.ValueString(),
 			r.data.Tenant,
-			plan.Source.Value,
-			plan.Target.Value,
+			plan.Source.ValueString(),
+			plan.Target.ValueString(),
 		); err != nil {
 			resp.Diagnostics.AddError("Error moving Edge", err.Error())
 			return
 		} else if echoResp.GetEdge == nil {
-			resp.Diagnostics.AddError("Cannot move Edge", fmt.Sprintf("'%s:%s' Edge does not exist", plan.Source.Value, plan.Target.Value))
+			resp.Diagnostics.AddError("Cannot move Edge", fmt.Sprintf("'%s:%s' Edge does not exist", plan.Source.ValueString(), plan.Target.ValueString()))
 			return
 		} else {
 			if echoResp.GetEdge.Move.Description != nil {
-				plan.Description = types.String{Value: *echoResp.GetEdge.Move.Description}
+				plan.Description = types.StringValue(*echoResp.GetEdge.Move.Description)
 			} else {
-				plan.Description = types.String{Null: true}
+				plan.Description = types.StringNull()
 			}
 			if echoResp.GetEdge.Move.KmsKey != nil {
-				plan.KmsKey = types.String{Value: echoResp.GetEdge.Move.KmsKey.Name}
+				plan.KmsKey = types.StringValue(echoResp.GetEdge.Move.KmsKey.Name)
 			} else {
-				plan.KmsKey = types.String{Null: true}
+				plan.KmsKey = types.StringNull()
 			}
 			if echoResp.GetEdge.Move.MaxReceiveCount != nil {
-				plan.MaxReceiveCount = types.Int64{Value: int64(*echoResp.GetEdge.Move.MaxReceiveCount)}
+				plan.MaxReceiveCount = types.Int64Value(int64(*echoResp.GetEdge.Move.MaxReceiveCount))
 			}
-			plan.MessageType = types.String{Value: echoResp.GetEdge.Move.MessageType.Name}
-			plan.Queue = types.String{Value: echoResp.GetEdge.Move.Queue}
-			plan.Source = types.String{Value: echoResp.GetEdge.Move.Source.GetName()}
-			plan.Target = types.String{Value: echoResp.GetEdge.Move.Target.GetName()}
+			plan.MessageType = types.StringValue(echoResp.GetEdge.Move.MessageType.Name)
+			plan.Queue = types.StringValue(echoResp.GetEdge.Move.Queue)
+			plan.Source = types.StringValue(echoResp.GetEdge.Move.Source.GetName())
+			plan.Target = types.StringValue(echoResp.GetEdge.Move.Target.GetName())
 		}
 	}
 
 	if echoResp, err := api.UpdateEdge(
 		ctx,
 		r.data.Client,
-		plan.Source.Value,
-		plan.Target.Value,
+		plan.Source.ValueString(),
+		plan.Target.ValueString(),
 		r.data.Tenant,
 		description,
 	); err != nil {
 		resp.Diagnostics.AddError("Error updating Edge", err.Error())
 		return
 	} else if echoResp.GetEdge == nil {
-		resp.Diagnostics.AddError("Cannot update Edge", fmt.Sprintf("'%s:%s' Edge does not exist", plan.Source.Value, plan.Target.Value))
+		resp.Diagnostics.AddError("Cannot update Edge", fmt.Sprintf("'%s:%s' Edge does not exist", plan.Source.ValueString(), plan.Target.ValueString()))
 		return
 	} else {
 		if echoResp.GetEdge.Update.Description != nil {
-			plan.Description = types.String{Value: *echoResp.GetEdge.Update.Description}
+			plan.Description = types.StringValue(*echoResp.GetEdge.Update.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
 		if echoResp.GetEdge.Update.KmsKey != nil {
-			plan.KmsKey = types.String{Value: echoResp.GetEdge.Update.KmsKey.Name}
+			plan.KmsKey = types.StringValue(echoResp.GetEdge.Update.KmsKey.Name)
 		} else {
-			plan.KmsKey = types.String{Null: true}
+			plan.KmsKey = types.StringNull()
 		}
 		if echoResp.GetEdge.Update.MaxReceiveCount != nil {
-			plan.MaxReceiveCount = types.Int64{Value: int64(*echoResp.GetEdge.Update.MaxReceiveCount)}
+			plan.MaxReceiveCount = types.Int64Value(int64(*echoResp.GetEdge.Update.MaxReceiveCount))
 		}
-		plan.MessageType = types.String{Value: echoResp.GetEdge.Update.MessageType.Name}
-		plan.Queue = types.String{Value: echoResp.GetEdge.Update.Queue}
-		plan.Source = types.String{Value: echoResp.GetEdge.Update.Source.GetName()}
-		plan.Target = types.String{Value: echoResp.GetEdge.Update.Target.GetName()}
+		plan.MessageType = types.StringValue(echoResp.GetEdge.Update.MessageType.Name)
+		plan.Queue = types.StringValue(echoResp.GetEdge.Update.Queue)
+		plan.Source = types.StringValue(echoResp.GetEdge.Update.Source.GetName())
+		plan.Target = types.StringValue(echoResp.GetEdge.Update.Target.GetName())
 	}
 
 	// Save updated data into Terraform state

@@ -66,14 +66,15 @@ func (r *FilesDotComWebhookNodeResource) Create(ctx context.Context, req resourc
 
 	var description *string
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
 	if echoResp, err := api.CreateFilesDotComWebhookNode(
 		ctx,
 		r.data.Client,
-		plan.ApiKey.Value,
-		plan.Name.Value,
+		plan.ApiKey.ValueString(),
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		description,
 	); err != nil {
@@ -81,14 +82,14 @@ func (r *FilesDotComWebhookNodeResource) Create(ctx context.Context, req resourc
 		return
 	} else {
 		if echoResp.CreateFilesDotComWebhookNode.Description != nil {
-			plan.Description = types.String{Value: *echoResp.CreateFilesDotComWebhookNode.Description}
+			plan.Description = types.StringValue(*echoResp.CreateFilesDotComWebhookNode.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
-		plan.Endpoint = types.String{Value: echoResp.CreateFilesDotComWebhookNode.Endpoint}
-		plan.Name = types.String{Value: echoResp.CreateFilesDotComWebhookNode.Name}
-		plan.SendMessageType = types.String{Value: echoResp.CreateFilesDotComWebhookNode.SendMessageType.Name}
-		plan.Token = types.String{Value: echoResp.CreateFilesDotComWebhookNode.Token}
+		plan.Endpoint = types.StringValue(echoResp.CreateFilesDotComWebhookNode.Endpoint)
+		plan.Name = types.StringValue(echoResp.CreateFilesDotComWebhookNode.Name)
+		plan.SendMessageType = types.StringValue(echoResp.CreateFilesDotComWebhookNode.SendMessageType.Name)
+		plan.Token = types.StringValue(echoResp.CreateFilesDotComWebhookNode.Token)
 	}
 
 	// Save data into Terraform state
@@ -105,7 +106,7 @@ func (r *FilesDotComWebhookNodeResource) Delete(ctx context.Context, req resourc
 		return
 	}
 
-	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting FilesDotComWebhookNode", err.Error())
 		return
 	}
@@ -178,7 +179,7 @@ func (r *FilesDotComWebhookNodeResource) Read(ctx context.Context, req resource.
 		return
 	}
 
-	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading FilesDotComWebhookNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
@@ -188,18 +189,18 @@ func (r *FilesDotComWebhookNodeResource) Read(ctx context.Context, req resource.
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeFilesDotComWebhookNode:
 			if node.Description != nil {
-				state.Description = types.String{Value: *node.Description}
+				state.Description = types.StringValue(*node.Description)
 			} else {
-				state.Description = types.String{Null: true}
+				state.Description = types.StringNull()
 			}
-			state.Endpoint = types.String{Value: node.Endpoint}
-			state.Name = types.String{Value: node.Name}
-			state.SendMessageType = types.String{Value: node.SendMessageType.Name}
-			state.Token = types.String{Value: node.Token}
+			state.Endpoint = types.StringValue(node.Endpoint)
+			state.Name = types.StringValue(node.Name)
+			state.SendMessageType = types.StringValue(node.SendMessageType.Name)
+			state.Token = types.StringValue(node.Token)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected FilesDotComWebhookNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.ValueString()),
 			)
 			return
 		}
@@ -221,38 +222,40 @@ func (r *FilesDotComWebhookNodeResource) Update(ctx context.Context, req resourc
 
 	var description *string
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
+	apiKey := plan.ApiKey.ValueString()
 	if echoResp, err := api.UpdateFilesDotComWebhookNode(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
-		&plan.ApiKey.Value,
+		&apiKey,
 		description,
 	); err != nil {
 		resp.Diagnostics.AddError("Error updating FilesDotComWebhookNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
-		resp.Diagnostics.AddError("Cannot find FilesDotComWebhookNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.Value))
+		resp.Diagnostics.AddError("Cannot find FilesDotComWebhookNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.ValueString()))
 		return
 	} else {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.UpdateFilesDotComWebhookNodeGetNodeFilesDotComWebhookNode:
 			if node.Update.Description != nil {
-				plan.Description = types.String{Value: *node.Update.Description}
+				plan.Description = types.StringValue(*node.Update.Description)
 			} else {
-				plan.Description = types.String{Null: true}
+				plan.Description = types.StringNull()
 			}
-			plan.Endpoint = types.String{Value: node.Update.Endpoint}
-			plan.Name = types.String{Value: node.Update.Name}
-			plan.SendMessageType = types.String{Value: node.Update.SendMessageType.Name}
-			plan.Token = types.String{Value: node.Update.Token}
+			plan.Endpoint = types.StringValue(node.Update.Endpoint)
+			plan.Name = types.StringValue(node.Update.Name)
+			plan.SendMessageType = types.StringValue(node.Update.SendMessageType.Name)
+			plan.Token = types.StringValue(node.Update.Token)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected FilesDotComWebhookNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.ValueString()),
 			)
 			return
 		}

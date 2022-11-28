@@ -88,16 +88,16 @@ func (ct ConfigType) Validate(ctx context.Context, in tftypes.Value, path path.P
 
 func (ct ConfigType) ValueFromTerraform(ctx context.Context, in tftypes.Value) (attr.Value, error) {
 	if !in.IsKnown() {
-		return Config{Unknown: true}, nil
+		return ConfigUnknown(), nil
 	}
 	if in.IsNull() {
-		return Config{Null: true}, nil
+		return ConfigNull(), nil
 	}
 	var s string
 	if err := in.As(&s); err != nil {
 		return nil, err
 	}
-	return Config{Value: s}, nil
+	return ConfigValue(s), nil
 }
 
 func (ct ConfigType) ValueType(ctx context.Context) attr.Value {
@@ -106,16 +106,41 @@ func (ct ConfigType) ValueType(ctx context.Context) attr.Value {
 
 // Config represents a UTF-8 string value.
 type Config struct {
-	// Unknown will be true if the value is not yet known.
-	Unknown bool
-
-	// Null will be true if the value was not set, or was explicitly set to
-	// null.
-	Null bool
+	// state represents whether the value is null, unknown, or known. The
+	// zero-value is null.
+	state attr.ValueState
 
 	// Value contains the set value, as long as Unknown and Null are both
 	// false.
-	Value string
+	value string
+}
+
+// ConfigNull creates a Config with a null value. Determine whether the value is
+// null via the Config type IsNull method.
+func ConfigNull() Config {
+	return Config{
+		state: attr.ValueStateNull,
+	}
+}
+
+// ConfigUnknown creates a Config with an unknown value. Determine whether the
+// value is unknown via the Config type IsUnknown method.
+func ConfigUnknown() Config {
+	return Config{
+		state: attr.ValueStateUnknown,
+	}
+}
+
+// ConfigValue creates a Config with a known value. Access the value via the Config
+// type ValueConfig method.
+//
+// Setting the deprecated String type Null, Unknown, or Value fields after
+// creating a String with this function has no effect.
+func ConfigValue(value string) Config {
+	return Config{
+		state: attr.ValueStateKnown,
+		value: value,
+	}
 }
 
 // Equal returns true if `other` is a Config and has the same value as `c`.
@@ -124,55 +149,61 @@ func (c Config) Equal(other attr.Value) bool {
 	if !ok {
 		return false
 	}
-	if c.Unknown != o.Unknown {
+	if c.IsUnknown() != o.IsUnknown() {
 		return false
 	}
-	if c.Null != o.Null {
+	if c.IsNull() != o.IsNull() {
 		return false
 	}
-	return c.Value == o.Value
+	return c.value == o.value
 }
 
 // IsNull returns true if the Config represents a null value.
 func (c Config) IsNull() bool {
-	return c.Null
+	return c.state == attr.ValueStateNull
 }
 
 // IsUnknown returns true if the Config represents a currently unknown value.
 func (c Config) IsUnknown() bool {
-	return c.Unknown
+	return c.state == attr.ValueStateUnknown
 }
 
 // String returns a human-readable representation of the Config value.
 // The string returned here is not protected by any compatibility guarantees,
 // and is intended for logging and error reporting.
 func (c Config) String() string {
-	if c.Unknown {
+	if c.IsUnknown() {
 		return attr.UnknownValueString
 	}
 
-	if c.Null {
+	if c.IsNull() {
 		return attr.NullValueString
 	}
 
-	return fmt.Sprintf("%q", c.Value)
+	return fmt.Sprintf("%q", c.value)
 }
 
 // ToTerraformValue returns the data contained in the *Config as a tftypes.Value.
 func (c Config) ToTerraformValue(_ context.Context) (tftypes.Value, error) {
-	if c.Null {
+	if c.IsNull() {
 		return tftypes.NewValue(tftypes.String, nil), nil
 	}
-	if c.Unknown {
+	if c.IsUnknown() {
 		return tftypes.NewValue(tftypes.String, tftypes.UnknownValue), nil
 	}
-	if err := tftypes.ValidateValue(tftypes.String, c.Value); err != nil {
+	if err := tftypes.ValidateValue(tftypes.String, c.value); err != nil {
 		return tftypes.NewValue(tftypes.String, tftypes.UnknownValue), err
 	}
-	return tftypes.NewValue(tftypes.String, c.Value), nil
+	return tftypes.NewValue(tftypes.String, c.value), nil
 }
 
 // Type returns a ConfigType.
 func (c Config) Type(_ context.Context) attr.Type {
 	return ConfigType{}
+}
+
+// ValueConfig returns the known config value. If Config is null or unknown, returns
+// "".
+func (c Config) ValueConfig() string {
+	return c.value
 }

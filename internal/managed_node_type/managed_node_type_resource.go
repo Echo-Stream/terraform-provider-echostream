@@ -7,6 +7,7 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -56,6 +57,7 @@ func (r *ManagedNodeTypeResource) Create(ctx context.Context, req resource.Creat
 
 	var (
 		configTemplate     *string
+		diags              diag.Diagnostics
 		mountRequirements  []api.MountRequirementInput
 		portRequirements   []api.PortRequirementInput
 		readme             *string
@@ -64,7 +66,8 @@ func (r *ManagedNodeTypeResource) Create(ctx context.Context, req resource.Creat
 	)
 
 	if !(plan.ConfigTemplate.IsNull() || plan.ConfigTemplate.IsUnknown()) {
-		configTemplate = &plan.ConfigTemplate.Value
+		temp := plan.ConfigTemplate.ValueConfig()
+		configTemplate = &temp
 	}
 	if !(plan.MountRequirements.IsNull() || plan.MountRequirements.IsUnknown()) {
 		mr := []mountRequirementsModel{}
@@ -73,11 +76,12 @@ func (r *ManagedNodeTypeResource) Create(ctx context.Context, req resource.Creat
 			mountRequirements = make([]api.MountRequirementInput, len(mr))
 			for i, t_mri := range mr {
 				mri := api.MountRequirementInput{
-					Description: t_mri.Description.Value,
-					Target:      t_mri.Target.Value,
+					Description: t_mri.Description.ValueString(),
+					Target:      t_mri.Target.ValueString(),
 				}
 				if !(t_mri.Source.IsNull() || t_mri.Source.IsUnknown()) {
-					mri.Source = &t_mri.Source.Value
+					temp := t_mri.Source.ValueString()
+					mri.Source = &temp
 				}
 				mountRequirements[i] = mri
 			}
@@ -90,22 +94,25 @@ func (r *ManagedNodeTypeResource) Create(ctx context.Context, req resource.Creat
 			portRequirements = make([]api.PortRequirementInput, len(pr))
 			for i, t_pri := range pr {
 				pri := api.PortRequirementInput{
-					ContainerPort: int(t_pri.ContainerPort.Value),
-					Description:   t_pri.Description.Value,
-					Protocol:      api.Protocol(t_pri.Protocol.Value),
+					ContainerPort: int(t_pri.ContainerPort.ValueInt64()),
+					Description:   t_pri.Description.ValueString(),
+					Protocol:      api.Protocol(t_pri.Protocol.ValueString()),
 				}
 				portRequirements[i] = pri
 			}
 		}
 	}
 	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
-		readme = &plan.Readme.Value
+		temp := plan.Readme.ValueString()
+		readme = &temp
 	}
 	if !(plan.ReceiveMessageType.IsNull() || plan.ReceiveMessageType.IsUnknown()) {
-		receiveMessageType = &plan.ReceiveMessageType.Value
+		temp := plan.ReceiveMessageType.ValueString()
+		receiveMessageType = &temp
 	}
 	if !(plan.SendMessageType.IsNull() || plan.SendMessageType.IsUnknown()) {
-		sendMessageType = &plan.SendMessageType.Value
+		temp := plan.SendMessageType.ValueString()
+		sendMessageType = &temp
 	}
 
 	if resp.Diagnostics.HasError() {
@@ -115,9 +122,9 @@ func (r *ManagedNodeTypeResource) Create(ctx context.Context, req resource.Creat
 	echoResp, err := api.CreateManagedNodeType(
 		ctx,
 		r.data.Client,
-		plan.Description.Value,
-		plan.ImageUri.Value,
-		plan.Name.Value,
+		plan.Description.ValueString(),
+		plan.ImageUri.ValueString(),
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		configTemplate,
 		mountRequirements,
@@ -132,57 +139,61 @@ func (r *ManagedNodeTypeResource) Create(ctx context.Context, req resource.Creat
 	}
 
 	if echoResp.CreateManagedNodeType.ConfigTemplate != nil {
-		plan.ConfigTemplate = common.Config{Value: *echoResp.CreateManagedNodeType.ConfigTemplate}
+		plan.ConfigTemplate = common.ConfigValue(*echoResp.CreateManagedNodeType.ConfigTemplate)
 	} else {
-		plan.ConfigTemplate = common.Config{Null: true}
+		plan.ConfigTemplate = common.ConfigNull()
 	}
-	plan.Description = types.String{Value: echoResp.CreateManagedNodeType.Description}
-	plan.Id = types.String{Value: echoResp.CreateManagedNodeType.Name}
-	plan.ImageUri = types.String{Value: echoResp.CreateManagedNodeType.ImageUri}
-	plan.InUse = types.Bool{Value: echoResp.CreateManagedNodeType.InUse}
-	plan.MountRequirements = types.Set{ElemType: types.ObjectType{AttrTypes: mountRequirementsAttrTypes()}}
+	plan.Description = types.StringValue(echoResp.CreateManagedNodeType.Description)
+	plan.Id = types.StringValue(echoResp.CreateManagedNodeType.Name)
+	plan.ImageUri = types.StringValue(echoResp.CreateManagedNodeType.ImageUri)
+	plan.InUse = types.BoolValue(echoResp.CreateManagedNodeType.InUse)
 	if len(echoResp.CreateManagedNodeType.MountRequirements) > 0 {
-		for _, mr := range echoResp.CreateManagedNodeType.MountRequirements {
-			plan.MountRequirements.Elems = append(
-				plan.MountRequirements.Elems,
-				types.Object{
-					Attrs:     mountRequirementsAttrValues(mr.Description, mr.Source, mr.Target),
-					AttrTypes: mountRequirementsAttrTypes(),
-				},
-			)
+		elems := []attr.Value{}
+		for _, mountReq := range echoResp.CreateManagedNodeType.MountRequirements {
+			if elem, d := types.ObjectValue(mountRequirementsAttrTypes(), mountRequirementsAttrValues(mountReq.Description, mountReq.Source, mountReq.Target)); d != nil {
+				resp.Diagnostics.Append(d...)
+			} else {
+				elems = append(elems, elem)
+			}
+		}
+		plan.MountRequirements, diags = types.SetValue(types.ObjectType{AttrTypes: mountRequirementsAttrTypes()}, elems)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 	} else {
-		plan.MountRequirements.Null = true
+		plan.MountRequirements = types.SetNull(types.ObjectType{AttrTypes: mountRequirementsAttrTypes()})
 	}
-	plan.Name = types.String{Value: echoResp.CreateManagedNodeType.Name}
-	plan.PortRequirements = types.Set{ElemType: types.ObjectType{AttrTypes: portRequirementAttrTypes()}}
+	plan.Name = types.StringValue(echoResp.CreateManagedNodeType.Name)
 	if len(echoResp.CreateManagedNodeType.PortRequirements) > 0 {
-		for _, pr := range echoResp.CreateManagedNodeType.PortRequirements {
-			plan.PortRequirements.Elems = append(
-				plan.PortRequirements.Elems,
-				types.Object{
-					Attrs:     portRequirementAttrValues(pr.ContainerPort, pr.Description, pr.Protocol),
-					AttrTypes: portRequirementAttrTypes(),
-				},
-			)
+		elems := []attr.Value{}
+		for _, portReq := range echoResp.CreateManagedNodeType.PortRequirements {
+			if elem, d := types.ObjectValue(portRequirementAttrTypes(), portRequirementAttrValues(portReq.ContainerPort, portReq.Description, portReq.Protocol)); d != nil {
+				resp.Diagnostics.Append(d...)
+			} else {
+				elems = append(elems, elem)
+			}
+		}
+		plan.PortRequirements, diags = types.SetValue(types.ObjectType{AttrTypes: portRequirementAttrTypes()}, elems)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 	} else {
-		plan.PortRequirements.Null = true
+		plan.PortRequirements = types.SetNull(types.ObjectType{AttrTypes: portRequirementAttrTypes()})
 	}
 	if echoResp.CreateManagedNodeType.Readme != nil {
-		plan.Readme = types.String{Value: *echoResp.CreateManagedNodeType.Readme}
+		plan.Readme = types.StringValue(*echoResp.CreateManagedNodeType.Readme)
 	} else {
-		plan.Readme = types.String{Null: true}
+		plan.Readme = types.StringNull()
 	}
 	if echoResp.CreateManagedNodeType.ReceiveMessageType != nil {
-		plan.ReceiveMessageType = types.String{Value: echoResp.CreateManagedNodeType.ReceiveMessageType.Name}
+		plan.ReceiveMessageType = types.StringValue(echoResp.CreateManagedNodeType.ReceiveMessageType.Name)
 	} else {
-		plan.ReceiveMessageType = types.String{Null: true}
+		plan.ReceiveMessageType = types.StringNull()
 	}
 	if echoResp.CreateManagedNodeType.SendMessageType != nil {
-		plan.SendMessageType = types.String{Value: echoResp.CreateManagedNodeType.SendMessageType.Name}
+		plan.SendMessageType = types.StringValue(echoResp.CreateManagedNodeType.SendMessageType.Name)
 	} else {
-		plan.SendMessageType = types.String{Null: true}
+		plan.SendMessageType = types.StringNull()
 	}
 
 	// Save data into Terraform state
@@ -199,7 +210,7 @@ func (r *ManagedNodeTypeResource) Delete(ctx context.Context, req resource.Delet
 		return
 	}
 
-	if _, err := api.DeleteManagedNodeType(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteManagedNodeType(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting ManagedNodeType", err.Error())
 		return
 	}
@@ -239,7 +250,7 @@ func (r *ManagedNodeTypeResource) ModifyPlan(ctx context.Context, req resource.M
 	}
 
 	// If the ManagedNodeType is not in use it can be destroyed at will.
-	if !state.InUse.Value {
+	if !state.InUse.ValueBool() {
 		return
 	}
 
@@ -259,7 +270,7 @@ func (r *ManagedNodeTypeResource) ModifyPlan(ctx context.Context, req resource.M
 	}
 
 	if prevent_destroy {
-		resp.Diagnostics.AddError("Cannot destroy ManagedNodeType", fmt.Sprintf("ManagedNodeType %s is in use and may not be destroyed", state.Name.Value))
+		resp.Diagnostics.AddError("Cannot destroy ManagedNodeType", fmt.Sprintf("ManagedNodeType %s is in use and may not be destroyed", state.Name.ValueString()))
 	}
 }
 
@@ -273,8 +284,8 @@ func (r *ManagedNodeTypeResource) Read(ctx context.Context, req resource.ReadReq
 		return
 	}
 
-	if data, system, err := readManagedNodeType(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
-		resp.Diagnostics.AddError("Error reading ManagedNodeType", err.Error())
+	if data, system, diags := readManagedNodeType(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); diags != nil {
+		resp.Diagnostics.Append(diags...)
 		return
 	} else if system {
 		resp.Diagnostics.AddError("Invalid ManagedNodeType", "Cannot import resource for system ManagedNodeType")
@@ -302,23 +313,27 @@ func (r *ManagedNodeTypeResource) Update(ctx context.Context, req resource.Updat
 
 	var (
 		description *string
+		diags       diag.Diagnostics
 		imageUri    *string
 		readme      *string
 	)
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.ImageUri.IsNull() || plan.ImageUri.IsUnknown()) {
-		imageUri = &plan.ImageUri.Value
+		temp := plan.ImageUri.ValueString()
+		imageUri = &temp
 	}
 	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
-		readme = &plan.Readme.Value
+		temp := plan.Readme.ValueString()
+		readme = &temp
 	}
 
 	echoResp, err := api.UpdateManagedNodeType(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		description,
 		imageUri,
@@ -330,57 +345,61 @@ func (r *ManagedNodeTypeResource) Update(ctx context.Context, req resource.Updat
 	}
 
 	if echoResp.GetManagedNodeType.Update.ConfigTemplate != nil {
-		plan.ConfigTemplate = common.Config{Value: *echoResp.GetManagedNodeType.Update.ConfigTemplate}
+		plan.ConfigTemplate = common.ConfigValue(*echoResp.GetManagedNodeType.Update.ConfigTemplate)
 	} else {
-		plan.ConfigTemplate = common.Config{Null: true}
+		plan.ConfigTemplate = common.ConfigNull()
 	}
-	plan.Description = types.String{Value: echoResp.GetManagedNodeType.Update.Description}
-	plan.Id = types.String{Value: echoResp.GetManagedNodeType.Update.Name}
-	plan.ImageUri = types.String{Value: echoResp.GetManagedNodeType.Update.ImageUri}
-	plan.InUse = types.Bool{Value: echoResp.GetManagedNodeType.Update.InUse}
-	plan.MountRequirements = types.Set{ElemType: types.ObjectType{AttrTypes: mountRequirementsAttrTypes()}}
+	plan.Description = types.StringValue(echoResp.GetManagedNodeType.Update.Description)
+	plan.Id = types.StringValue(echoResp.GetManagedNodeType.Update.Name)
+	plan.ImageUri = types.StringValue(echoResp.GetManagedNodeType.Update.ImageUri)
+	plan.InUse = types.BoolValue(echoResp.GetManagedNodeType.Update.InUse)
 	if len(echoResp.GetManagedNodeType.Update.MountRequirements) > 0 {
-		for _, mr := range echoResp.GetManagedNodeType.Update.MountRequirements {
-			plan.MountRequirements.Elems = append(
-				plan.MountRequirements.Elems,
-				types.Object{
-					Attrs:     mountRequirementsAttrValues(mr.Description, mr.Source, mr.Target),
-					AttrTypes: mountRequirementsAttrTypes(),
-				},
-			)
+		elems := []attr.Value{}
+		for _, mountReq := range echoResp.GetManagedNodeType.Update.MountRequirements {
+			if elem, d := types.ObjectValue(mountRequirementsAttrTypes(), mountRequirementsAttrValues(mountReq.Description, mountReq.Source, mountReq.Target)); d != nil {
+				resp.Diagnostics.Append(d...)
+			} else {
+				elems = append(elems, elem)
+			}
+		}
+		plan.MountRequirements, diags = types.SetValue(types.ObjectType{AttrTypes: mountRequirementsAttrTypes()}, elems)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 	} else {
-		plan.MountRequirements.Null = true
+		plan.MountRequirements = types.SetNull(types.ObjectType{AttrTypes: mountRequirementsAttrTypes()})
 	}
-	plan.Name = types.String{Value: echoResp.GetManagedNodeType.Update.Name}
-	plan.PortRequirements = types.Set{ElemType: types.ObjectType{AttrTypes: portRequirementAttrTypes()}}
+	plan.Name = types.StringValue(echoResp.GetManagedNodeType.Update.Name)
 	if len(echoResp.GetManagedNodeType.Update.PortRequirements) > 0 {
-		for _, pr := range echoResp.GetManagedNodeType.Update.PortRequirements {
-			plan.PortRequirements.Elems = append(
-				plan.PortRequirements.Elems,
-				types.Object{
-					Attrs:     portRequirementAttrValues(pr.ContainerPort, pr.Description, pr.Protocol),
-					AttrTypes: portRequirementAttrTypes(),
-				},
-			)
+		elems := []attr.Value{}
+		for _, portReq := range echoResp.GetManagedNodeType.Update.PortRequirements {
+			if elem, d := types.ObjectValue(portRequirementAttrTypes(), portRequirementAttrValues(portReq.ContainerPort, portReq.Description, portReq.Protocol)); d != nil {
+				resp.Diagnostics.Append(d...)
+			} else {
+				elems = append(elems, elem)
+			}
+		}
+		plan.PortRequirements, diags = types.SetValue(types.ObjectType{AttrTypes: portRequirementAttrTypes()}, elems)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 	} else {
-		plan.PortRequirements.Null = true
+		plan.PortRequirements = types.SetNull(types.ObjectType{AttrTypes: portRequirementAttrTypes()})
 	}
 	if echoResp.GetManagedNodeType.Update.Readme != nil {
-		plan.Readme = types.String{Value: *echoResp.GetManagedNodeType.Update.Readme}
+		plan.Readme = types.StringValue(*echoResp.GetManagedNodeType.Update.Readme)
 	} else {
-		plan.Readme = types.String{Null: true}
+		plan.Readme = types.StringNull()
 	}
 	if echoResp.GetManagedNodeType.Update.ReceiveMessageType != nil {
-		plan.ReceiveMessageType = types.String{Value: echoResp.GetManagedNodeType.Update.ReceiveMessageType.Name}
+		plan.ReceiveMessageType = types.StringValue(echoResp.GetManagedNodeType.Update.ReceiveMessageType.Name)
 	} else {
-		plan.ReceiveMessageType = types.String{Null: true}
+		plan.ReceiveMessageType = types.StringNull()
 	}
 	if echoResp.GetManagedNodeType.Update.SendMessageType != nil {
-		plan.SendMessageType = types.String{Value: echoResp.GetManagedNodeType.Update.SendMessageType.Name}
+		plan.SendMessageType = types.StringValue(echoResp.GetManagedNodeType.Update.SendMessageType.Name)
 	} else {
-		plan.SendMessageType = types.String{Null: true}
+		plan.SendMessageType = types.StringNull()
 	}
 
 	// Save updated data into Terraform state

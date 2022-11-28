@@ -65,13 +65,14 @@ func (r *KmsKeyResource) Create(ctx context.Context, req resource.CreateRequest,
 	var description *string
 
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
 	echoResp, err := api.CreateKmsKey(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		description,
 	)
@@ -80,15 +81,15 @@ func (r *KmsKeyResource) Create(ctx context.Context, req resource.CreateRequest,
 		return
 	}
 
-	plan.Arn = types.String{Value: echoResp.CreateKmsKey.Arn}
+	plan.Arn = types.StringValue(echoResp.CreateKmsKey.Arn)
 	if echoResp.CreateKmsKey.Description != nil {
-		plan.Description = types.String{Value: *echoResp.CreateKmsKey.Description}
+		plan.Description = types.StringValue(*echoResp.CreateKmsKey.Description)
 	} else {
-		plan.Description = types.String{Null: true}
+		plan.Description = types.StringNull()
 	}
-	plan.Id = types.String{Value: echoResp.CreateKmsKey.Name}
-	plan.InUse = types.Bool{Value: echoResp.CreateKmsKey.InUse}
-	plan.Name = types.String{Value: echoResp.CreateKmsKey.Name}
+	plan.Id = types.StringValue(echoResp.CreateKmsKey.Name)
+	plan.InUse = types.BoolValue(echoResp.CreateKmsKey.InUse)
+	plan.Name = types.StringValue(echoResp.CreateKmsKey.Name)
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
@@ -104,7 +105,7 @@ func (r *KmsKeyResource) Delete(ctx context.Context, req resource.DeleteRequest,
 		return
 	}
 
-	if _, err := api.DeleteKmsKey(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteKmsKey(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting KmsKey", err.Error())
 		return
 	}
@@ -177,7 +178,7 @@ func (r *KmsKeyResource) ModifyPlan(ctx context.Context, req resource.ModifyPlan
 	}
 
 	// If the KmsKeyis not in use it can be destroyed at will.
-	if !state.InUse.Value {
+	if !state.InUse.ValueBool() {
 		return
 	}
 
@@ -197,7 +198,7 @@ func (r *KmsKeyResource) ModifyPlan(ctx context.Context, req resource.ModifyPlan
 	}
 
 	if prevent_destroy {
-		resp.Diagnostics.AddError("Cannot destroy KmsKey", fmt.Sprintf("KmsKey %s is in use and may not be destroyed", state.Name.Value))
+		resp.Diagnostics.AddError("Cannot destroy KmsKey", fmt.Sprintf("KmsKey %s is in use and may not be destroyed", state.Name.ValueString()))
 	}
 }
 
@@ -211,22 +212,22 @@ func (r *KmsKeyResource) Read(ctx context.Context, req resource.ReadRequest, res
 		return
 	}
 
-	if echoResp, err := api.ReadKmsKey(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadKmsKey(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading KmsKey", err.Error())
 		return
 	} else if echoResp.GetKmsKey == nil {
 		resp.State.RemoveResource(ctx)
 		return
 	} else {
-		state.Arn = types.String{Value: echoResp.GetKmsKey.Name}
+		state.Arn = types.StringValue(echoResp.GetKmsKey.Name)
 		if echoResp.GetKmsKey.Description != nil {
-			state.Description = types.String{Value: *echoResp.GetKmsKey.Description}
+			state.Description = types.StringValue(*echoResp.GetKmsKey.Description)
 		} else {
-			state.Description = types.String{Null: true}
+			state.Description = types.StringNull()
 		}
-		state.Id = types.String{Value: echoResp.GetKmsKey.Name}
-		state.InUse = types.Bool{Value: echoResp.GetKmsKey.InUse}
-		state.Name = types.String{Value: echoResp.GetKmsKey.Name}
+		state.Id = types.StringValue(echoResp.GetKmsKey.Name)
+		state.InUse = types.BoolValue(echoResp.GetKmsKey.InUse)
+		state.Name = types.StringValue(echoResp.GetKmsKey.Name)
 	}
 
 	// Save updated data into Terraform state
@@ -245,13 +246,14 @@ func (r *KmsKeyResource) Update(ctx context.Context, req resource.UpdateRequest,
 
 	var description *string
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
 	echoResp, err := api.UpdateKmsKey(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		description,
 	)
@@ -260,15 +262,15 @@ func (r *KmsKeyResource) Update(ctx context.Context, req resource.UpdateRequest,
 		return
 	}
 
-	plan.Arn = types.String{Value: echoResp.GetKmsKey.Update.Arn}
+	plan.Arn = types.StringValue(echoResp.GetKmsKey.Update.Arn)
 	if echoResp.GetKmsKey.Update.Description != nil {
-		plan.Description = types.String{Value: *echoResp.GetKmsKey.Update.Description}
+		plan.Description = types.StringValue(*echoResp.GetKmsKey.Update.Description)
 	} else {
-		plan.Description = types.String{Null: true}
+		plan.Description = types.StringNull()
 	}
-	plan.Id = types.String{Value: echoResp.GetKmsKey.Update.Name}
-	plan.InUse = types.Bool{Value: echoResp.GetKmsKey.Update.InUse}
-	plan.Name = types.String{Value: echoResp.GetKmsKey.Update.Name}
+	plan.Id = types.StringValue(echoResp.GetKmsKey.Update.Name)
+	plan.InUse = types.BoolValue(echoResp.GetKmsKey.Update.InUse)
+	plan.Name = types.StringValue(echoResp.GetKmsKey.Update.Name)
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)

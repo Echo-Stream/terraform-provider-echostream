@@ -62,14 +62,15 @@ func (r *LoadBalancerNodeResource) Create(ctx context.Context, req resource.Crea
 
 	var description *string
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
 	if echoResp, err := api.CreateLoadBalancerNode(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
-		plan.ReceiveMessageType.Value,
+		plan.Name.ValueString(),
+		plan.ReceiveMessageType.ValueString(),
 		r.data.Tenant,
 		description,
 	); err != nil {
@@ -77,13 +78,13 @@ func (r *LoadBalancerNodeResource) Create(ctx context.Context, req resource.Crea
 		return
 	} else {
 		if echoResp.CreateLoadBalancerNode.Description != nil {
-			plan.Description = types.String{Value: *echoResp.CreateLoadBalancerNode.Description}
+			plan.Description = types.StringValue(*echoResp.CreateLoadBalancerNode.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
-		plan.Name = types.String{Value: echoResp.CreateLoadBalancerNode.Name}
-		plan.ReceiveMessageType = types.String{Value: echoResp.CreateLoadBalancerNode.ReceiveMessageType.Name}
-		plan.SendMessageType = types.String{Value: echoResp.CreateLoadBalancerNode.SendMessageType.Name}
+		plan.Name = types.StringValue(echoResp.CreateLoadBalancerNode.Name)
+		plan.ReceiveMessageType = types.StringValue(echoResp.CreateLoadBalancerNode.ReceiveMessageType.Name)
+		plan.SendMessageType = types.StringValue(echoResp.CreateLoadBalancerNode.SendMessageType.Name)
 	}
 
 	// Save data into Terraform state
@@ -100,7 +101,7 @@ func (r *LoadBalancerNodeResource) Delete(ctx context.Context, req resource.Dele
 		return
 	}
 
-	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting LoadBalancerNode", err.Error())
 		return
 	}
@@ -153,7 +154,7 @@ func (r *LoadBalancerNodeResource) Read(ctx context.Context, req resource.ReadRe
 		return
 	}
 
-	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading LoadBalancerNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
@@ -163,17 +164,17 @@ func (r *LoadBalancerNodeResource) Read(ctx context.Context, req resource.ReadRe
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeLoadBalancerNode:
 			if node.Description != nil {
-				state.Description = types.String{Value: *node.Description}
+				state.Description = types.StringValue(*node.Description)
 			} else {
-				state.Description = types.String{Null: true}
+				state.Description = types.StringNull()
 			}
-			state.Name = types.String{Value: node.Name}
-			state.ReceiveMessageType = types.String{Value: node.ReceiveMessageType.Name}
-			state.SendMessageType = types.String{Value: node.SendMessageType.Name}
+			state.Name = types.StringValue(node.Name)
+			state.ReceiveMessageType = types.StringValue(node.ReceiveMessageType.Name)
+			state.SendMessageType = types.StringValue(node.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected LoadBalancerNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.ValueString()),
 			)
 			return
 		}
@@ -195,36 +196,37 @@ func (r *LoadBalancerNodeResource) Update(ctx context.Context, req resource.Upda
 
 	var description *string
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
 	if echoResp, err := api.UpdateLoadBalancerNode(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		description,
 	); err != nil {
 		resp.Diagnostics.AddError("Error updating LoadBalancerNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
-		resp.Diagnostics.AddError("Cannot find LoadBalancerNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.Value))
+		resp.Diagnostics.AddError("Cannot find LoadBalancerNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.ValueString()))
 		return
 	} else {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.UpdateLoadBalancerNodeGetNodeLoadBalancerNode:
 			if node.Update.Description != nil {
-				plan.Description = types.String{Value: *node.Update.Description}
+				plan.Description = types.StringValue(*node.Update.Description)
 			} else {
-				plan.Description = types.String{Null: true}
+				plan.Description = types.StringNull()
 			}
-			plan.Name = types.String{Value: node.Update.Name}
-			plan.ReceiveMessageType = types.String{Value: node.Update.ReceiveMessageType.Name}
-			plan.SendMessageType = types.String{Value: node.Update.SendMessageType.Name}
+			plan.Name = types.StringValue(node.Update.Name)
+			plan.ReceiveMessageType = types.StringValue(node.Update.ReceiveMessageType.Name)
+			plan.SendMessageType = types.StringValue(node.Update.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected LoadBalancerNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.ValueString()),
 			)
 			return
 		}

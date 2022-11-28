@@ -139,10 +139,12 @@ func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) 
 	)
 
 	if !(data.Description.IsNull() || data.Description.IsUnknown()) {
-		description = &data.Description.Value
+		temp := data.Description.ValueString()
+		description = &temp
 	}
 	if !(data.Config.IsNull() || data.Config.IsUnknown()) {
-		config = &data.Config.Value
+		temp := data.Config.ValueConfig()
+		config = &temp
 	}
 
 	if echoResp, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, config, description); err != nil {
@@ -156,21 +158,21 @@ func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) 
 			fmt.Sprintf("Unable to find Tenant '%s'", r.data.Tenant),
 		)
 	} else {
-		data.Active = types.Bool{Value: echoResp.GetTenant.Update.Active}
+		data.Active = types.BoolValue(echoResp.GetTenant.Update.Active)
 		if echoResp.GetTenant.Update.Config != nil {
-			data.Config = common.Config{Value: *echoResp.GetTenant.Update.Config}
+			data.Config = common.ConfigValue(*echoResp.GetTenant.Update.Config)
 		} else {
-			data.Config = common.Config{Null: true}
+			data.Config = common.ConfigNull()
 		}
 		if echoResp.GetTenant.Update.Description != nil {
-			data.Description = types.String{Value: *echoResp.GetTenant.Update.Description}
+			data.Description = types.StringValue(*echoResp.GetTenant.Update.Description)
 		} else {
-			data.Description = types.String{Null: true}
+			data.Description = types.StringNull()
 		}
-		data.Id = types.String{Value: echoResp.GetTenant.Update.Name}
-		data.Name = types.String{Value: echoResp.GetTenant.Update.Name}
-		data.Region = types.String{Value: echoResp.GetTenant.Update.Region}
-		data.Table = types.String{Value: echoResp.GetTenant.Update.Table}
+		data.Id = types.StringValue(echoResp.GetTenant.Update.Name)
+		data.Name = types.StringValue(echoResp.GetTenant.Update.Name)
+		data.Region = types.StringValue(echoResp.GetTenant.Update.Region)
+		data.Table = types.StringValue(echoResp.GetTenant.Update.Table)
 		diags.Append(readTenantAwsCredentials(ctx, r.data.Client, r.data.Tenant, data)...)
 	}
 

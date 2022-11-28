@@ -7,6 +7,7 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -55,15 +56,16 @@ func (r *ProcessorFunctionResource) Create(ctx context.Context, req resource.Cre
 	}
 
 	var (
+		diags               diag.Diagnostics
 		readme              *string
 		requirements        []string
 		return_message_type *string
 	)
 	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
-		readme = &plan.Readme.Value
+		temp := plan.Readme.ValueString()
+		readme = &temp
 	}
 	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
-		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
 			resp.Diagnostics.Append(diags...)
@@ -71,16 +73,17 @@ func (r *ProcessorFunctionResource) Create(ctx context.Context, req resource.Cre
 		}
 	}
 	if !(plan.ReturnMessageType.IsNull() || plan.ReturnMessageType.IsUnknown()) {
-		return_message_type = &plan.ReturnMessageType.Value
+		temp := plan.ReturnMessageType.ValueString()
+		return_message_type = &temp
 	}
 
 	echoResp, err := api.CreateProcessorFunction(
 		ctx,
 		r.data.Client,
-		plan.ArgumentMessageType.Value,
-		plan.Code.Value,
-		plan.Description.Value,
-		plan.Name.Value,
+		plan.ArgumentMessageType.ValueString(),
+		plan.Code.ValueString(),
+		plan.Description.ValueString(),
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		readme,
 		requirements,
@@ -91,27 +94,31 @@ func (r *ProcessorFunctionResource) Create(ctx context.Context, req resource.Cre
 		return
 	}
 
-	plan.ArgumentMessageType = types.String{Value: echoResp.CreateProcessorFunction.ArgumentMessageType.Name}
-	plan.Code = types.String{Value: echoResp.CreateProcessorFunction.Code}
-	plan.InUse = types.Bool{Value: echoResp.CreateProcessorFunction.InUse}
-	plan.Name = types.String{Value: echoResp.CreateProcessorFunction.Name}
+	plan.ArgumentMessageType = types.StringValue(echoResp.CreateProcessorFunction.ArgumentMessageType.Name)
+	plan.Code = types.StringValue(echoResp.CreateProcessorFunction.Code)
+	plan.InUse = types.BoolValue(echoResp.CreateProcessorFunction.InUse)
+	plan.Name = types.StringValue(echoResp.CreateProcessorFunction.Name)
 	if echoResp.CreateProcessorFunction.Readme != nil {
-		plan.Readme = types.String{Value: *echoResp.CreateProcessorFunction.Readme}
+		plan.Readme = types.StringValue(*echoResp.CreateProcessorFunction.Readme)
 	} else {
-		plan.Readme = types.String{Null: true}
+		plan.Readme = types.StringNull()
 	}
-	plan.Requirements = types.Set{ElemType: types.StringType}
 	if len(echoResp.CreateProcessorFunction.Requirements) > 0 {
+		elems := []attr.Value{}
 		for _, req := range echoResp.CreateProcessorFunction.Requirements {
-			plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
+			elems = append(elems, types.StringValue(req))
+		}
+		plan.Requirements, diags = types.SetValue(types.StringType, elems)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 	} else {
-		plan.Requirements.Null = true
+		plan.Requirements = types.SetNull(types.StringType)
 	}
 	if echoResp.CreateProcessorFunction.ReturnMessageType != nil {
-		plan.ReturnMessageType = types.String{Value: echoResp.CreateProcessorFunction.ReturnMessageType.Name}
+		plan.ReturnMessageType = types.StringValue(echoResp.CreateProcessorFunction.ReturnMessageType.Name)
 	} else {
-		plan.ReturnMessageType = types.String{Null: true}
+		plan.ReturnMessageType = types.StringNull()
 	}
 
 	// Save data into Terraform state
@@ -128,7 +135,7 @@ func (r *ProcessorFunctionResource) Delete(ctx context.Context, req resource.Del
 		return
 	}
 
-	if _, err := api.DeleteFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteFunction(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting ProcessorFunction", err.Error())
 		return
 	}
@@ -168,7 +175,7 @@ func (r *ProcessorFunctionResource) ModifyPlan(ctx context.Context, req resource
 	}
 
 	// If the MessageType is not in use it can be destroyed at will.
-	if !state.InUse.Value {
+	if !state.InUse.ValueBool() {
 		return
 	}
 
@@ -188,7 +195,7 @@ func (r *ProcessorFunctionResource) ModifyPlan(ctx context.Context, req resource
 	}
 
 	if prevent_destroy {
-		resp.Diagnostics.AddError("Cannot destroy ProcessorFunction", fmt.Sprintf("ProcessorFunction %s is in use and may not be destroyed", state.Name.Value))
+		resp.Diagnostics.AddError("Cannot destroy ProcessorFunction", fmt.Sprintf("ProcessorFunction %s is in use and may not be destroyed", state.Name.ValueString()))
 	}
 }
 
@@ -202,8 +209,8 @@ func (r *ProcessorFunctionResource) Read(ctx context.Context, req resource.ReadR
 		return
 	}
 
-	if data, system, err := readProcessorFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
-		resp.Diagnostics.AddError("Error reading ProcessorFunction", err.Error())
+	if data, system, diags := readProcessorFunction(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); diags.HasError() {
+		resp.Diagnostics.Append(diags...)
 		return
 	} else if system {
 		resp.Diagnostics.AddError("Invalid ProcessorFunction", "Cannot create resource for system ProcessorFunction")
@@ -232,20 +239,23 @@ func (r *ProcessorFunctionResource) Update(ctx context.Context, req resource.Upd
 	var (
 		code         *string
 		description  *string
+		diags        diag.Diagnostics
 		readme       *string
 		requirements []string
 	)
 	if !(plan.Code.IsNull() || plan.Code.IsUnknown()) {
-		code = &plan.Code.Value
+		temp := plan.Code.ValueString()
+		code = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
-		readme = &plan.Readme.Value
+		temp := plan.Readme.ValueString()
+		readme = &temp
 	}
 	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
-		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
 			resp.Diagnostics.Append(diags...)
@@ -256,7 +266,7 @@ func (r *ProcessorFunctionResource) Update(ctx context.Context, req resource.Upd
 	echoResp, err := api.UpdateFunction(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		code,
 		description,
@@ -270,28 +280,32 @@ func (r *ProcessorFunctionResource) Update(ctx context.Context, req resource.Upd
 
 	switch function := (*echoResp.GetFunction).(type) {
 	case *api.UpdateFunctionGetFunctionProcessorFunction:
-		plan.ArgumentMessageType = types.String{Value: function.Update.ArgumentMessageType.Name}
-		plan.Code = types.String{Value: function.Update.Code}
-		plan.Description = types.String{Value: function.Update.Description}
-		plan.InUse = types.Bool{Value: function.Update.InUse}
-		plan.Name = types.String{Value: function.Update.Name}
+		plan.ArgumentMessageType = types.StringValue(function.Update.ArgumentMessageType.Name)
+		plan.Code = types.StringValue(function.Update.Code)
+		plan.Description = types.StringValue(function.Update.Description)
+		plan.InUse = types.BoolValue(function.Update.InUse)
+		plan.Name = types.StringValue(function.Update.Name)
 		if function.Update.Readme != nil {
-			plan.Readme = types.String{Value: *function.Update.Readme}
+			plan.Readme = types.StringValue(*function.Update.Readme)
 		} else {
-			plan.Readme = types.String{Null: true}
+			plan.Readme = types.StringNull()
 		}
-		plan.Requirements = types.Set{ElemType: types.StringType}
 		if len(function.Update.Requirements) > 0 {
+			elems := []attr.Value{}
 			for _, req := range function.Update.Requirements {
-				plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
+				elems = append(elems, types.StringValue(req))
+			}
+			plan.Requirements, diags = types.SetValue(types.StringType, elems)
+			if diags != nil && diags.HasError() {
+				resp.Diagnostics.Append(diags...)
 			}
 		} else {
-			plan.Requirements.Null = true
+			plan.Requirements = types.SetNull(types.StringType)
 		}
 		if function.Update.ReturnMessageType != nil {
-			plan.ReturnMessageType = types.String{Value: function.Update.ReturnMessageType.Name}
+			plan.ReturnMessageType = types.StringValue(function.Update.ReturnMessageType.Name)
 		} else {
-			plan.ReturnMessageType = types.String{Null: true}
+			plan.ReturnMessageType = types.StringNull()
 		}
 	}
 
