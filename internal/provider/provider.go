@@ -82,13 +82,13 @@ func (d *echoStreamApiDoer) getToken(ctx context.Context) (*string, error) {
 
 func newEchoStreamDoer(ctx context.Context, data *EchoStreamProviderModel) (*echoStreamApiDoer, error) {
 	d := echoStreamApiDoer{
-		clientId: data.ClientId.Value,
+		clientId: data.ClientId.ValueString(),
 	}
 	csrp, err := cognitosrp.NewCognitoSRP(
-		data.Username.Value,
-		data.Password.Value,
-		data.UserPoolId.Value,
-		data.ClientId.Value,
+		data.Username.ValueString(),
+		data.Password.ValueString(),
+		data.UserPoolId.ValueString(),
+		data.ClientId.ValueString(),
 		nil,
 	)
 	if err != nil {
@@ -97,7 +97,7 @@ func newEchoStreamDoer(ctx context.Context, data *EchoStreamProviderModel) (*ech
 	// configure cognito identity provider
 	cfg, err := config.LoadDefaultConfig(
 		ctx,
-		config.WithRegion(strings.Split(data.UserPoolId.Value, "_")[0]),
+		config.WithRegion(strings.Split(data.UserPoolId.ValueString(), "_")[0]),
 	)
 	if err != nil {
 		return nil, err
@@ -184,7 +184,7 @@ func (p *echoStreamProvider) Configure(ctx context.Context, req provider.Configu
 	if data.AppsyncEndpoint.IsNull() {
 		appsyncEndpoint := os.Getenv("ECHOSTREAM_APPSYNC_ENDPOINT")
 		if appsyncEndpoint != "" {
-			data.AppsyncEndpoint = types.String{Value: appsyncEndpoint}
+			data.AppsyncEndpoint = types.StringValue(appsyncEndpoint)
 		} else {
 			resp.Diagnostics.AddError(
 				"Missing AppSync Endpoint Configuration",
@@ -197,7 +197,7 @@ func (p *echoStreamProvider) Configure(ctx context.Context, req provider.Configu
 	if data.ClientId.IsNull() {
 		clientId := os.Getenv("ECHOSTREAM_CLIENT_ID")
 		if clientId != "" {
-			data.ClientId = types.String{Value: clientId}
+			data.ClientId = types.StringValue(clientId)
 		} else {
 			resp.Diagnostics.AddError(
 				"Missing Client ID Configuration",
@@ -210,7 +210,7 @@ func (p *echoStreamProvider) Configure(ctx context.Context, req provider.Configu
 	if data.Password.IsNull() {
 		password := os.Getenv("ECHOSTREAM_PASSWORD")
 		if password != "" {
-			data.Password = types.String{Value: password}
+			data.Password = types.StringValue(password)
 		} else {
 			resp.Diagnostics.AddError(
 				"Missing Password Configuration",
@@ -223,7 +223,7 @@ func (p *echoStreamProvider) Configure(ctx context.Context, req provider.Configu
 	if data.Tenant.IsNull() {
 		tenant := os.Getenv("ECHOSTREAM_TENANT")
 		if tenant != "" {
-			data.Tenant = types.String{Value: tenant}
+			data.Tenant = types.StringValue(tenant)
 		} else {
 			resp.Diagnostics.AddError(
 				"Missing Tenant Configuration",
@@ -236,7 +236,7 @@ func (p *echoStreamProvider) Configure(ctx context.Context, req provider.Configu
 	if data.Username.IsNull() {
 		username := os.Getenv("ECHOSTREAM_USERNAME")
 		if username != "" {
-			data.Username = types.String{Value: username}
+			data.Username = types.StringValue(username)
 		} else {
 			resp.Diagnostics.AddError(
 				"Missing Username Configuration",
@@ -249,7 +249,7 @@ func (p *echoStreamProvider) Configure(ctx context.Context, req provider.Configu
 	if data.UserPoolId.IsNull() {
 		userPoolId := os.Getenv("ECHOSTREAM_USER_POOL_ID")
 		if userPoolId != "" {
-			data.UserPoolId = types.String{Value: userPoolId}
+			data.UserPoolId = types.StringValue(userPoolId)
 		} else {
 			resp.Diagnostics.AddError(
 				"Missing User Pool ID Configuration",
@@ -272,8 +272,8 @@ func (p *echoStreamProvider) Configure(ctx context.Context, req provider.Configu
 
 	// Example client configuration for data sources and resources
 	pd := common.ProviderData{
-		Client: graphql.NewClient(data.AppsyncEndpoint.Value, doer),
-		Tenant: data.Tenant.Value,
+		Client: graphql.NewClient(data.AppsyncEndpoint.ValueString(), doer),
+		Tenant: data.Tenant.ValueString(),
 	}
 	resp.DataSourceData = &pd
 	resp.ResourceData = &pd

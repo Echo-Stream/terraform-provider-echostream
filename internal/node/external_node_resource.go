@@ -69,23 +69,27 @@ func (r *ExternalNodeResource) Create(ctx context.Context, req resource.CreateRe
 	)
 
 	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
-		config = &plan.Config.Value
+		temp := plan.Config.ValueConfig()
+		config = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.ReceiveMessageType.IsNull() || plan.ReceiveMessageType.IsUnknown()) {
-		receiveMessageType = &plan.ReceiveMessageType.Value
+		temp := plan.ReceiveMessageType.ValueString()
+		receiveMessageType = &temp
 	}
 	if !(plan.SendMessageType.IsNull() || plan.SendMessageType.IsUnknown()) {
-		sendMessageType = &plan.SendMessageType.Value
+		temp := plan.SendMessageType.ValueString()
+		sendMessageType = &temp
 	}
 
 	if echoResp, err := api.CreateExternalNode(
 		ctx,
 		r.data.Client,
-		plan.App.Value,
-		plan.Name.Value,
+		plan.App.ValueString(),
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		config,
 		description,
@@ -97,9 +101,9 @@ func (r *ExternalNodeResource) Create(ctx context.Context, req resource.CreateRe
 	} else {
 		switch app := (echoResp.CreateExternalNode.App).(type) {
 		case *api.ExternalNodeFieldsAppCrossAccountApp:
-			plan.App = types.String{Value: app.Name}
+			plan.App = types.StringValue(app.Name)
 		case *api.ExternalNodeFieldsAppExternalApp:
-			plan.App = types.String{Value: app.Name}
+			plan.App = types.StringValue(app.Name)
 		default:
 			resp.Diagnostics.AddError(
 				"Invalid App type",
@@ -107,25 +111,25 @@ func (r *ExternalNodeResource) Create(ctx context.Context, req resource.CreateRe
 			)
 		}
 		if echoResp.CreateExternalNode.Config != nil {
-			plan.Config = common.Config{Value: *echoResp.CreateExternalNode.Config}
+			plan.Config = common.ConfigValue(*echoResp.CreateExternalNode.Config)
 		} else {
-			plan.Config = common.Config{Null: true}
+			plan.Config = common.ConfigNull()
 		}
 		if echoResp.CreateExternalNode.Description != nil {
-			plan.Description = types.String{Value: *echoResp.CreateExternalNode.Description}
+			plan.Description = types.StringValue(*echoResp.CreateExternalNode.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
-		plan.Name = types.String{Value: echoResp.CreateExternalNode.Name}
+		plan.Name = types.StringValue(echoResp.CreateExternalNode.Name)
 		if echoResp.CreateExternalNode.ReceiveMessageType != nil {
-			plan.ReceiveMessageType = types.String{Value: echoResp.CreateExternalNode.ReceiveMessageType.Name}
+			plan.ReceiveMessageType = types.StringValue(echoResp.CreateExternalNode.ReceiveMessageType.Name)
 		} else {
-			plan.ReceiveMessageType = types.String{Null: true}
+			plan.ReceiveMessageType = types.StringNull()
 		}
 		if echoResp.CreateExternalNode.SendMessageType != nil {
-			plan.SendMessageType = types.String{Value: echoResp.CreateExternalNode.SendMessageType.Name}
+			plan.SendMessageType = types.StringValue(echoResp.CreateExternalNode.SendMessageType.Name)
 		} else {
-			plan.SendMessageType = types.String{Null: true}
+			plan.SendMessageType = types.StringNull()
 		}
 	}
 
@@ -143,7 +147,7 @@ func (r *ExternalNodeResource) Delete(ctx context.Context, req resource.DeleteRe
 		return
 	}
 
-	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting ExternalNode", err.Error())
 		return
 	}
@@ -217,7 +221,7 @@ func (r *ExternalNodeResource) Read(ctx context.Context, req resource.ReadReques
 		return
 	}
 
-	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading ExternalNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
@@ -228,9 +232,9 @@ func (r *ExternalNodeResource) Read(ctx context.Context, req resource.ReadReques
 		case *api.ReadNodeGetNodeExternalNode:
 			switch app := (node.App).(type) {
 			case *api.ExternalNodeFieldsAppCrossAccountApp:
-				state.App = types.String{Value: app.Name}
+				state.App = types.StringValue(app.Name)
 			case *api.ExternalNodeFieldsAppExternalApp:
-				state.App = types.String{Value: app.Name}
+				state.App = types.StringValue(app.Name)
 			default:
 				resp.Diagnostics.AddError(
 					"Invalid App type",
@@ -238,30 +242,30 @@ func (r *ExternalNodeResource) Read(ctx context.Context, req resource.ReadReques
 				)
 			}
 			if node.Config != nil {
-				state.Config = common.Config{Value: *node.Config}
+				state.Config = common.ConfigValue(*node.Config)
 			} else {
-				state.Config = common.Config{Null: true}
+				state.Config = common.ConfigNull()
 			}
 			if node.Description != nil {
-				state.Description = types.String{Value: *node.Description}
+				state.Description = types.StringValue(*node.Description)
 			} else {
-				state.Description = types.String{Null: true}
+				state.Description = types.StringNull()
 			}
-			state.Name = types.String{Value: node.Name}
+			state.Name = types.StringValue(node.Name)
 			if node.ReceiveMessageType != nil {
-				state.ReceiveMessageType = types.String{Value: node.ReceiveMessageType.Name}
+				state.ReceiveMessageType = types.StringValue(node.ReceiveMessageType.Name)
 			} else {
-				state.ReceiveMessageType = types.String{Null: true}
+				state.ReceiveMessageType = types.StringNull()
 			}
 			if node.SendMessageType != nil {
-				state.SendMessageType = types.String{Value: node.SendMessageType.Name}
+				state.SendMessageType = types.StringValue(node.SendMessageType.Name)
 			} else {
-				state.SendMessageType = types.String{Null: true}
+				state.SendMessageType = types.StringNull()
 			}
 		default:
 			resp.Diagnostics.AddError(
 				"Expected ExternalNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.ValueString()),
 			)
 			return
 		}
@@ -286,16 +290,18 @@ func (r *ExternalNodeResource) Update(ctx context.Context, req resource.UpdateRe
 		description *string
 	)
 	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
-		config = &plan.Config.Value
+		temp := plan.Config.ValueConfig()
+		config = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
 	if echoResp, err := api.UpdateExternalNode(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		config,
 		description,
@@ -303,16 +309,16 @@ func (r *ExternalNodeResource) Update(ctx context.Context, req resource.UpdateRe
 		resp.Diagnostics.AddError("Error updating ExternalNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
-		resp.Diagnostics.AddError("Cannot find ExternalNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.Value))
+		resp.Diagnostics.AddError("Cannot find ExternalNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.ValueString()))
 		return
 	} else {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.UpdateExternalNodeGetNodeExternalNode:
 			switch app := (node.Update.App).(type) {
 			case *api.ExternalNodeFieldsAppCrossAccountApp:
-				plan.App = types.String{Value: app.Name}
+				plan.App = types.StringValue(app.Name)
 			case *api.ExternalNodeFieldsAppExternalApp:
-				plan.App = types.String{Value: app.Name}
+				plan.App = types.StringValue(app.Name)
 			default:
 				resp.Diagnostics.AddError(
 					"Invalid App type",
@@ -320,30 +326,30 @@ func (r *ExternalNodeResource) Update(ctx context.Context, req resource.UpdateRe
 				)
 			}
 			if node.Update.Config != nil {
-				plan.Config = common.Config{Value: *node.Update.Config}
+				plan.Config = common.ConfigValue(*node.Update.Config)
 			} else {
-				plan.Config = common.Config{Null: true}
+				plan.Config = common.ConfigNull()
 			}
 			if node.Update.Description != nil {
-				plan.Description = types.String{Value: *node.Update.Description}
+				plan.Description = types.StringValue(*node.Update.Description)
 			} else {
-				plan.Description = types.String{Null: true}
+				plan.Description = types.StringNull()
 			}
-			plan.Name = types.String{Value: node.Update.Name}
+			plan.Name = types.StringValue(node.Update.Name)
 			if node.Update.ReceiveMessageType != nil {
-				plan.ReceiveMessageType = types.String{Value: node.Update.ReceiveMessageType.Name}
+				plan.ReceiveMessageType = types.StringValue(node.Update.ReceiveMessageType.Name)
 			} else {
-				plan.ReceiveMessageType = types.String{Null: true}
+				plan.ReceiveMessageType = types.StringNull()
 			}
 			if node.Update.SendMessageType != nil {
-				plan.SendMessageType = types.String{Value: node.Update.SendMessageType.Name}
+				plan.SendMessageType = types.StringValue(node.Update.SendMessageType.Name)
 			} else {
-				plan.SendMessageType = types.String{Null: true}
+				plan.SendMessageType = types.StringNull()
 			}
 		default:
 			resp.Diagnostics.AddError(
 				"Expected ExternalNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.ValueString()),
 			)
 			return
 		}

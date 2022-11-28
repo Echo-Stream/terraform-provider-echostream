@@ -87,6 +87,7 @@ func (r *BitmapRouterNodeResource) Create(ctx context.Context, req resource.Crea
 	var (
 		config           *string
 		description      *string
+		diags            diag.Diagnostics
 		inlineBitmapper  *string
 		loggingLevel     *api.LogLevel
 		managedBitmapper *string
@@ -95,22 +96,26 @@ func (r *BitmapRouterNodeResource) Create(ctx context.Context, req resource.Crea
 	)
 
 	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
-		config = &plan.Config.Value
+		temp := plan.Config.ValueConfig()
+		config = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.InlineBitmapper.IsNull() || plan.InlineBitmapper.IsUnknown()) {
-		inlineBitmapper = &plan.InlineBitmapper.Value
+		temp := plan.InlineBitmapper.ValueString()
+		inlineBitmapper = &temp
 	}
 	if !(plan.LoggingLevel.IsNull() || plan.LoggingLevel.IsUnknown()) {
-		loggingLevel = (*api.LogLevel)(&plan.LoggingLevel.Value)
+		temp := plan.LoggingLevel.ValueString()
+		loggingLevel = (*api.LogLevel)(&temp)
 	}
 	if !(plan.ManagedBitmapper.IsNull() || plan.ManagedBitmapper.IsUnknown()) {
-		managedBitmapper = &plan.ManagedBitmapper.Value
+		temp := plan.ManagedBitmapper.ValueString()
+		managedBitmapper = &temp
 	}
 	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
-		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
 			resp.Diagnostics.Append(diags...)
@@ -118,7 +123,7 @@ func (r *BitmapRouterNodeResource) Create(ctx context.Context, req resource.Crea
 		}
 	}
 	if !(plan.RouteTable.IsNull() || plan.RouteTable.IsUnknown()) {
-		rt := make(map[string][]string, len(plan.RouteTable.Elems))
+		rt := map[string][]string{}
 		resp.Diagnostics.Append(plan.RouteTable.ElementsAs(ctx, &rt, false)...)
 		if resp.Diagnostics.HasError() {
 			return
@@ -134,8 +139,8 @@ func (r *BitmapRouterNodeResource) Create(ctx context.Context, req resource.Crea
 	if echoResp, err := api.CreateBitmapRouterNode(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
-		plan.ReceiveMessageType.Value,
+		plan.Name.ValueString(),
+		plan.ReceiveMessageType.ValueString(),
 		r.data.Tenant,
 		config,
 		description,
@@ -149,57 +154,68 @@ func (r *BitmapRouterNodeResource) Create(ctx context.Context, req resource.Crea
 		return
 	} else {
 		if echoResp.CreateBitmapRouterNode.Config != nil {
-			plan.Config = common.Config{Value: *echoResp.CreateBitmapRouterNode.Config}
+			plan.Config = common.ConfigValue(*echoResp.CreateBitmapRouterNode.Config)
 		} else {
-			plan.Config = common.Config{Null: true}
+			plan.Config = common.ConfigNull()
 		}
 		if echoResp.CreateBitmapRouterNode.Description != nil {
-			plan.Description = types.String{Value: *echoResp.CreateBitmapRouterNode.Description}
+			plan.Description = types.StringValue(*echoResp.CreateBitmapRouterNode.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
 		if echoResp.CreateBitmapRouterNode.InlineBitmapper != nil {
-			plan.InlineBitmapper = types.String{Value: *echoResp.CreateBitmapRouterNode.InlineBitmapper}
+			plan.InlineBitmapper = types.StringValue(*echoResp.CreateBitmapRouterNode.InlineBitmapper)
 		} else {
-			plan.InlineBitmapper = types.String{Null: true}
+			plan.InlineBitmapper = types.StringNull()
 		}
 		if echoResp.CreateBitmapRouterNode.LoggingLevel != nil {
-			plan.LoggingLevel = types.String{Value: string(*echoResp.CreateBitmapRouterNode.LoggingLevel)}
+			plan.LoggingLevel = types.StringValue(string(*echoResp.CreateBitmapRouterNode.LoggingLevel))
 		} else {
-			plan.LoggingLevel = types.String{Null: true}
+			plan.LoggingLevel = types.StringNull()
 		}
 		if echoResp.CreateBitmapRouterNode.ManagedBitmapper != nil {
-			plan.ManagedBitmapper = types.String{Value: echoResp.CreateBitmapRouterNode.ManagedBitmapper.Name}
+			plan.ManagedBitmapper = types.StringValue(echoResp.CreateBitmapRouterNode.ManagedBitmapper.Name)
 		} else {
-			plan.ManagedBitmapper = types.String{Null: true}
+			plan.ManagedBitmapper = types.StringNull()
 		}
-		plan.Name = types.String{Value: echoResp.CreateBitmapRouterNode.Name}
-		plan.ReceiveMessageType = types.String{Value: echoResp.CreateBitmapRouterNode.ReceiveMessageType.Name}
-		plan.Requirements = types.Set{ElemType: types.StringType}
+		plan.Name = types.StringValue(echoResp.CreateBitmapRouterNode.Name)
+		plan.ReceiveMessageType = types.StringValue(echoResp.CreateBitmapRouterNode.ReceiveMessageType.Name)
 		if len(echoResp.CreateBitmapRouterNode.Requirements) > 0 {
+			elems := []attr.Value{}
 			for _, req := range echoResp.CreateBitmapRouterNode.Requirements {
-				plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
+				elems = append(elems, types.StringValue(req))
+			}
+			plan.Requirements, diags = types.SetValue(types.StringType, elems)
+			if diags != nil && diags.HasError() {
+				resp.Diagnostics.Append(diags...)
 			}
 		} else {
-			plan.Requirements.Null = true
+			plan.Requirements = types.SetNull(types.StringType)
 		}
 		rt := map[string][]string{}
 		if err := json.Unmarshal([]byte(echoResp.CreateBitmapRouterNode.RouteTable), &rt); err != nil {
 			resp.Diagnostics.AddError("Error unmashalling route_table", err.Error())
 			return
 		} else if len(rt) > 0 {
-			plan.RouteTable = types.Map{Elems: map[string]attr.Value{}, ElemType: types.SetType{ElemType: types.StringType}}
+			elems := map[string]attr.Value{}
 			for route_bitmap, t := range rt {
-				targets := types.Set{ElemType: types.StringType}
+				targets := []attr.Value{}
 				for _, target := range t {
-					targets.Elems = append(targets.Elems, types.String{Value: target})
+					targets = append(targets, types.StringValue(target))
 				}
-				plan.RouteTable.Elems[route_bitmap] = targets
+				elems[route_bitmap], diags = types.SetValue(types.StringType, targets)
+				if diags != nil && diags.HasError() {
+					resp.Diagnostics.Append(diags...)
+				}
+			}
+			plan.RouteTable, diags = types.MapValue(types.SetType{ElemType: types.StringType}, elems)
+			if diags != nil && diags.HasError() {
+				resp.Diagnostics.Append(diags...)
 			}
 		} else {
-			plan.RouteTable = types.Map{ElemType: types.SetType{ElemType: types.StringType}, Null: true}
+			plan.RouteTable = types.MapNull(types.SetType{ElemType: types.StringType})
 		}
-		plan.SendMessageType = types.String{Value: echoResp.CreateBitmapRouterNode.SendMessageType.Name}
+		plan.SendMessageType = types.StringValue(echoResp.CreateBitmapRouterNode.SendMessageType.Name)
 	}
 
 	// Save data into Terraform state
@@ -216,7 +232,7 @@ func (r *BitmapRouterNodeResource) Delete(ctx context.Context, req resource.Dele
 		return
 	}
 
-	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting BitmapRouterNode", err.Error())
 		return
 	}
@@ -314,7 +330,10 @@ func (r *BitmapRouterNodeResource) Metadata(ctx context.Context, req resource.Me
 }
 
 func (r *BitmapRouterNodeResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var state bitmapRouterNodeModel
+	var (
+		diags diag.Diagnostics
+		state bitmapRouterNodeModel
+	)
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
@@ -323,7 +342,7 @@ func (r *BitmapRouterNodeResource) Read(ctx context.Context, req resource.ReadRe
 		return
 	}
 
-	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadNode(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading BitmapRouterNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
@@ -333,61 +352,72 @@ func (r *BitmapRouterNodeResource) Read(ctx context.Context, req resource.ReadRe
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeBitmapRouterNode:
 			if node.Config != nil {
-				state.Config = common.Config{Value: *node.Config}
+				state.Config = common.ConfigValue(*node.Config)
 			} else {
-				state.Config = common.Config{Null: true}
+				state.Config = common.ConfigNull()
 			}
 			if node.Description != nil {
-				state.Description = types.String{Value: *node.Description}
+				state.Description = types.StringValue(*node.Description)
 			} else {
-				state.Description = types.String{Null: true}
+				state.Description = types.StringNull()
 			}
 			if node.InlineBitmapper != nil {
-				state.InlineBitmapper = types.String{Value: *node.InlineBitmapper}
+				state.InlineBitmapper = types.StringValue(*node.InlineBitmapper)
 			} else {
-				state.InlineBitmapper = types.String{Null: true}
+				state.InlineBitmapper = types.StringNull()
 			}
 			if node.LoggingLevel != nil {
-				state.LoggingLevel = types.String{Value: string(*node.LoggingLevel)}
+				state.LoggingLevel = types.StringValue(string(*node.LoggingLevel))
 			} else {
-				state.LoggingLevel = types.String{Null: true}
+				state.LoggingLevel = types.StringNull()
 			}
 			if node.ManagedBitmapper != nil {
-				state.ManagedBitmapper = types.String{Value: node.ManagedBitmapper.Name}
+				state.ManagedBitmapper = types.StringValue(node.ManagedBitmapper.Name)
 			} else {
-				state.ManagedBitmapper = types.String{Null: true}
+				state.ManagedBitmapper = types.StringNull()
 			}
-			state.Name = types.String{Value: node.Name}
-			state.ReceiveMessageType = types.String{Value: node.ReceiveMessageType.Name}
-			state.Requirements = types.Set{ElemType: types.StringType}
+			state.Name = types.StringValue(node.Name)
+			state.ReceiveMessageType = types.StringValue(node.ReceiveMessageType.Name)
 			if len(node.Requirements) > 0 {
+				elems := []attr.Value{}
 				for _, req := range node.Requirements {
-					state.Requirements.Elems = append(state.Requirements.Elems, types.String{Value: req})
+					elems = append(elems, types.StringValue(req))
+				}
+				state.Requirements, diags = types.SetValue(types.StringType, elems)
+				if diags != nil && diags.HasError() {
+					resp.Diagnostics.Append(diags...)
 				}
 			} else {
-				state.Requirements.Null = true
+				state.Requirements = types.SetNull(types.StringType)
 			}
 			rt := map[string][]string{}
 			if err := json.Unmarshal([]byte(node.RouteTable), &rt); err != nil {
 				resp.Diagnostics.AddError("Error unmashalling route_table", err.Error())
 				return
 			} else if len(rt) > 0 {
-				state.RouteTable = types.Map{Elems: map[string]attr.Value{}, ElemType: types.SetType{ElemType: types.StringType}}
+				elems := map[string]attr.Value{}
 				for route_bitmap, t := range rt {
-					targets := types.Set{ElemType: types.StringType}
+					targets := []attr.Value{}
 					for _, target := range t {
-						targets.Elems = append(targets.Elems, types.String{Value: target})
+						targets = append(targets, types.StringValue(target))
 					}
-					state.RouteTable.Elems[route_bitmap] = targets
+					elems[route_bitmap], diags = types.SetValue(types.StringType, targets)
+					if diags != nil && diags.HasError() {
+						resp.Diagnostics.Append(diags...)
+					}
+				}
+				state.RouteTable, diags = types.MapValue(types.SetType{ElemType: types.StringType}, elems)
+				if diags != nil && diags.HasError() {
+					resp.Diagnostics.Append(diags...)
 				}
 			} else {
-				state.RouteTable = types.Map{ElemType: types.SetType{ElemType: types.StringType}, Null: true}
+				state.RouteTable = types.MapNull(types.SetType{ElemType: types.StringType})
 			}
-			state.SendMessageType = types.String{Value: node.SendMessageType.Name}
+			state.SendMessageType = types.StringValue(node.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected BitmapRouterNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), state.Name.ValueString()),
 			)
 			return
 		}
@@ -398,7 +428,10 @@ func (r *BitmapRouterNodeResource) Read(ctx context.Context, req resource.ReadRe
 }
 
 func (r *BitmapRouterNodeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan bitmapRouterNodeModel
+	var (
+		diags diag.Diagnostics
+		plan  bitmapRouterNodeModel
+	)
 
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
@@ -417,22 +450,26 @@ func (r *BitmapRouterNodeResource) Update(ctx context.Context, req resource.Upda
 		routeTable       *string
 	)
 	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
-		config = &plan.Config.Value
+		temp := plan.Config.ValueConfig()
+		config = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.InlineBitmapper.IsNull() || plan.InlineBitmapper.IsUnknown()) {
-		inlineBitmapper = &plan.InlineBitmapper.Value
+		temp := plan.InlineBitmapper.ValueString()
+		inlineBitmapper = &temp
 	}
 	if !(plan.LoggingLevel.IsNull() || plan.LoggingLevel.IsUnknown()) {
-		loggingLevel = (*api.LogLevel)(&plan.LoggingLevel.Value)
+		temp := plan.LoggingLevel.ValueString()
+		loggingLevel = (*api.LogLevel)(&temp)
 	}
 	if !(plan.ManagedBitmapper.IsNull() || plan.ManagedBitmapper.IsUnknown()) {
-		managedBitmapper = &plan.ManagedBitmapper.Value
+		temp := plan.ManagedBitmapper.ValueString()
+		managedBitmapper = &temp
 	}
 	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
-		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
 			resp.Diagnostics.Append(diags...)
@@ -440,7 +477,7 @@ func (r *BitmapRouterNodeResource) Update(ctx context.Context, req resource.Upda
 		}
 	}
 	if !(plan.RouteTable.IsNull() || plan.RouteTable.IsUnknown()) {
-		rt := make(map[string][]string, len(plan.RouteTable.Elems))
+		rt := map[string][]string{}
 		resp.Diagnostics.Append(plan.RouteTable.ElementsAs(ctx, &rt, false)...)
 		if resp.Diagnostics.HasError() {
 			return
@@ -456,7 +493,7 @@ func (r *BitmapRouterNodeResource) Update(ctx context.Context, req resource.Upda
 	if echoResp, err := api.UpdateBitmapRouterNode(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		config,
 		description,
@@ -469,67 +506,78 @@ func (r *BitmapRouterNodeResource) Update(ctx context.Context, req resource.Upda
 		resp.Diagnostics.AddError("Error updating BitmapRouterNode", err.Error())
 		return
 	} else if echoResp.GetNode == nil {
-		resp.Diagnostics.AddError("Cannot find BitmapRouterNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.Value))
+		resp.Diagnostics.AddError("Cannot find BitmapRouterNode", fmt.Sprintf("'%s' Node does not exist", plan.Name.ValueString()))
 		return
 	} else {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.UpdateBitmapRouterNodeGetNodeBitmapRouterNode:
 			if node.Update.Config != nil {
-				plan.Config = common.Config{Value: *node.Update.Config}
+				plan.Config = common.ConfigValue(*node.Update.Config)
 			} else {
-				plan.Config = common.Config{Null: true}
+				plan.Config = common.ConfigNull()
 			}
 			if node.Update.Description != nil {
-				plan.Description = types.String{Value: *node.Update.Description}
+				plan.Description = types.StringValue(*node.Update.Description)
 			} else {
-				plan.Description = types.String{Null: true}
+				plan.Description = types.StringNull()
 			}
 			if node.Update.InlineBitmapper != nil {
-				plan.InlineBitmapper = types.String{Value: *node.Update.InlineBitmapper}
+				plan.InlineBitmapper = types.StringValue(*node.Update.InlineBitmapper)
 			} else {
-				plan.InlineBitmapper = types.String{Null: true}
+				plan.InlineBitmapper = types.StringNull()
 			}
 			if node.Update.LoggingLevel != nil {
-				plan.LoggingLevel = types.String{Value: string(*node.Update.LoggingLevel)}
+				plan.LoggingLevel = types.StringValue(string(*node.Update.LoggingLevel))
 			} else {
-				plan.LoggingLevel = types.String{Null: true}
+				plan.LoggingLevel = types.StringNull()
 			}
 			if node.Update.ManagedBitmapper != nil {
-				plan.ManagedBitmapper = types.String{Value: node.Update.ManagedBitmapper.Name}
+				plan.ManagedBitmapper = types.StringValue(node.Update.ManagedBitmapper.Name)
 			} else {
-				plan.ManagedBitmapper = types.String{Null: true}
+				plan.ManagedBitmapper = types.StringNull()
 			}
-			plan.Name = types.String{Value: node.Update.Name}
-			plan.ReceiveMessageType = types.String{Value: node.Update.ReceiveMessageType.Name}
-			plan.Requirements = types.Set{ElemType: types.StringType}
+			plan.Name = types.StringValue(node.Update.Name)
+			plan.ReceiveMessageType = types.StringValue(node.Update.ReceiveMessageType.Name)
 			if len(node.Update.Requirements) > 0 {
+				elems := []attr.Value{}
 				for _, req := range node.Update.Requirements {
-					plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
+					elems = append(elems, types.StringValue(req))
+				}
+				plan.Requirements, diags = types.SetValue(types.StringType, elems)
+				if diags != nil && diags.HasError() {
+					resp.Diagnostics.Append(diags...)
 				}
 			} else {
-				plan.Requirements.Null = true
+				plan.Requirements = types.SetNull(types.StringType)
 			}
 			rt := map[string][]string{}
 			if err := json.Unmarshal([]byte(node.Update.RouteTable), &rt); err != nil {
 				resp.Diagnostics.AddError("Error unmashalling route_table", err.Error())
 				return
 			} else if len(rt) > 0 {
-				plan.RouteTable = types.Map{Elems: map[string]attr.Value{}, ElemType: types.SetType{ElemType: types.StringType}}
+				elems := map[string]attr.Value{}
 				for route_bitmap, t := range rt {
-					targets := types.Set{ElemType: types.StringType}
+					targets := []attr.Value{}
 					for _, target := range t {
-						targets.Elems = append(targets.Elems, types.String{Value: target})
+						targets = append(targets, types.StringValue(target))
 					}
-					plan.RouteTable.Elems[route_bitmap] = targets
+					elems[route_bitmap], diags = types.SetValue(types.StringType, targets)
+					if diags != nil && diags.HasError() {
+						resp.Diagnostics.Append(diags...)
+					}
+				}
+				plan.RouteTable, diags = types.MapValue(types.SetType{ElemType: types.StringType}, elems)
+				if diags != nil && diags.HasError() {
+					resp.Diagnostics.Append(diags...)
 				}
 			} else {
-				plan.RouteTable = types.Map{ElemType: types.SetType{ElemType: types.StringType}, Null: true}
+				plan.RouteTable = types.MapNull(types.SetType{ElemType: types.StringType})
 			}
-			plan.SendMessageType = types.String{Value: node.Update.SendMessageType.Name}
+			plan.SendMessageType = types.StringValue(node.Update.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError(
 				"Expected BitmapRouterNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.Value),
+				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.ValueString()),
 			)
 			return
 		}

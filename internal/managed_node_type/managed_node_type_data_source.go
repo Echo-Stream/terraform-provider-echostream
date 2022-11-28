@@ -58,11 +58,11 @@ func (d *ManagedNodeTypeDataSource) Read(ctx context.Context, req datasource.Rea
 		return
 	}
 
-	if data, _, err := readManagedNodeType(ctx, d.data.Client, config.Name.Value, d.data.Tenant); err != nil {
-		resp.Diagnostics.AddError("Error reading ManagedNodeType", err.Error())
+	if data, _, diags := readManagedNodeType(ctx, d.data.Client, config.Name.ValueString(), d.data.Tenant); diags.HasError() {
+		resp.Diagnostics.Append(diags...)
 		return
 	} else if data == nil {
-		resp.Diagnostics.AddError("ManagedNodeType not found", fmt.Sprintf("Unable to find ManagedNodeType '%s'", config.Name.Value))
+		resp.Diagnostics.AddError("ManagedNodeType not found", fmt.Sprintf("Unable to find ManagedNodeType '%s'", config.Name.ValueString()))
 		return
 	} else {
 		config = *data

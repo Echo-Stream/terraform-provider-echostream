@@ -41,16 +41,16 @@ func (v ipaddrValidator) Validate(ctx context.Context, req tfsdk.ValidateAttribu
 	} else {
 		s := req.AttributeConfig.(types.String)
 
-		if s.Unknown || s.Null {
+		if s.IsUnknown() || s.IsNull() {
 			return
 		}
 
-		if ip := net.ParseIP(s.Value); ip == nil {
+		if ip := net.ParseIP(s.ValueString()); ip == nil {
 			resp.Diagnostics.Append(
 				validatordiag.InvalidAttributeValueDiagnostic(
 					req.AttributePath,
 					"Expected valid IPv4/IPv6 address",
-					s.Value,
+					s.ValueString(),
 				),
 			)
 		}

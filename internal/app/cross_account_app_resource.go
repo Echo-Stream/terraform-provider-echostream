@@ -76,20 +76,23 @@ func (r *CrossAccountAppResource) Create(ctx context.Context, req resource.Creat
 	)
 
 	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
-		config = &plan.Config.Value
+		temp := plan.Config.ValueConfig()
+		config = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.TableAccess.IsNull() || plan.TableAccess.IsUnknown()) {
-		tableAccess = &plan.TableAccess.Value
+		temp := plan.TableAccess.ValueBool()
+		tableAccess = &temp
 	}
 
 	if echoResp, err := api.CreateCrossAccountApp(
 		ctx,
 		r.data.Client,
-		plan.Account.Value,
-		plan.Name.Value,
+		plan.Account.ValueString(),
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		config,
 		description,
@@ -98,31 +101,35 @@ func (r *CrossAccountAppResource) Create(ctx context.Context, req resource.Creat
 		resp.Diagnostics.AddError("Error creating CrossAccountApp", err.Error())
 		return
 	} else {
-		plan.Account = types.String{Value: echoResp.CreateCrossAccountApp.Account}
-		plan.AppsyncEndpoint = types.String{Value: echoResp.CreateCrossAccountApp.AppsyncEndpoint}
-		plan.AuditRecordsEndpoint = types.String{Value: echoResp.CreateCrossAccountApp.AuditRecordsEndpoint}
+		plan.Account = types.StringValue(echoResp.CreateCrossAccountApp.Account)
+		plan.AppsyncEndpoint = types.StringValue(echoResp.CreateCrossAccountApp.AppsyncEndpoint)
+		plan.AuditRecordsEndpoint = types.StringValue(echoResp.CreateCrossAccountApp.AuditRecordsEndpoint)
 		if echoResp.CreateCrossAccountApp.Config != nil {
-			plan.Config = common.Config{Value: *echoResp.CreateCrossAccountApp.Config}
+			plan.Config = common.ConfigValue(*echoResp.CreateCrossAccountApp.Config)
 		} else {
-			plan.Config = common.Config{Null: true}
+			plan.Config = common.ConfigNull()
 		}
-		plan.Credentials = types.Object{
-			Attrs: common.CognitoCredentialsAttrValues(
+		var diags diag.Diagnostics
+		plan.Credentials, diags = types.ObjectValue(
+			common.CognitoCredentialsAttrTypes(),
+			common.CognitoCredentialsAttrValues(
 				echoResp.CreateCrossAccountApp.Credentials.ClientId,
 				echoResp.CreateCrossAccountApp.Credentials.Password,
 				echoResp.CreateCrossAccountApp.Credentials.UserPoolId,
 				echoResp.CreateCrossAccountApp.Credentials.Username,
 			),
-			AttrTypes: common.CognitoCredentialsAttrTypes(),
+		)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 		if echoResp.CreateCrossAccountApp.Description != nil {
-			plan.Description = types.String{Value: *echoResp.CreateCrossAccountApp.Description}
+			plan.Description = types.StringValue(*echoResp.CreateCrossAccountApp.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
-		plan.IamPolicy = types.String{Value: echoResp.CreateCrossAccountApp.IamPolicy}
-		plan.Name = types.String{Value: echoResp.CreateCrossAccountApp.Name}
-		plan.TableAccess = types.Bool{Value: echoResp.CreateCrossAccountApp.TableAccess}
+		plan.IamPolicy = types.StringValue(echoResp.CreateCrossAccountApp.IamPolicy)
+		plan.Name = types.StringValue(echoResp.CreateCrossAccountApp.Name)
+		plan.TableAccess = types.BoolValue(echoResp.CreateCrossAccountApp.TableAccess)
 	}
 
 	// Save data into Terraform state
@@ -139,7 +146,7 @@ func (r *CrossAccountAppResource) Delete(ctx context.Context, req resource.Delet
 		return
 	}
 
-	if _, err := api.DeleteApp(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteApp(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting CrossAccountApp", err.Error())
 		return
 	}
@@ -210,7 +217,7 @@ func (r *CrossAccountAppResource) ModifyPlan(ctx context.Context, req resource.M
 	if req.Plan.Raw.IsNull() {
 		resp.Diagnostics.AddWarning(
 			"Destroying connected CrossAccountApp",
-			fmt.Sprintf("This will terminate the connection with %s permanently!!", state.Account.Value),
+			fmt.Sprintf("This will terminate the connection with %s permanently!!", state.Account.ValueString()),
 		)
 	} else {
 		var plan crossAccountAppModel
@@ -225,7 +232,7 @@ func (r *CrossAccountAppResource) ModifyPlan(ctx context.Context, req resource.M
 		if !(plan.Name.Equal(state.Name) && plan.Account.Equal(state.Account)) {
 			resp.Diagnostics.AddWarning(
 				"Replacing connected CrossAccountApp",
-				fmt.Sprintf("This will terminate the connection with %s permanently!!", state.Account.Value),
+				fmt.Sprintf("This will terminate the connection with %s permanently!!", state.Account.ValueString()),
 			)
 		}
 	}
@@ -241,38 +248,42 @@ func (r *CrossAccountAppResource) Read(ctx context.Context, req resource.ReadReq
 		return
 	}
 
-	if echoResp, err := api.ReadApp(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadApp(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading CrossAccountApp", err.Error())
 		return
 	} else if echoResp.GetApp != nil {
 		switch app := (*echoResp.GetApp).(type) {
 		case *api.ReadAppGetAppCrossAccountApp:
-			state.Account = types.String{Value: app.Account}
-			state.AppsyncEndpoint = types.String{Value: app.AppsyncEndpoint}
-			state.AuditRecordsEndpoint = types.String{Value: app.AuditRecordsEndpoint}
-			state.Name = types.String{Value: app.Name}
+			state.Account = types.StringValue(app.Account)
+			state.AppsyncEndpoint = types.StringValue(app.AppsyncEndpoint)
+			state.AuditRecordsEndpoint = types.StringValue(app.AuditRecordsEndpoint)
+			state.Name = types.StringValue(app.Name)
 			if app.Config != nil {
-				state.Config = common.Config{Value: *app.Config}
+				state.Config = common.ConfigValue(*app.Config)
 			} else {
-				state.Config = common.Config{Null: true}
+				state.Config = common.ConfigNull()
 			}
-			state.Credentials = types.Object{
-				Attrs: common.CognitoCredentialsAttrValues(
+			var diags diag.Diagnostics
+			state.Credentials, diags = types.ObjectValue(
+				common.CognitoCredentialsAttrTypes(),
+				common.CognitoCredentialsAttrValues(
 					app.Credentials.ClientId,
 					app.Credentials.Password,
 					app.Credentials.UserPoolId,
 					app.Credentials.Username,
 				),
-				AttrTypes: common.CognitoCredentialsAttrTypes(),
+			)
+			if diags != nil && diags.HasError() {
+				resp.Diagnostics.Append(diags...)
 			}
 			if app.Description != nil {
-				state.Description = types.String{Value: *app.Description}
+				state.Description = types.StringValue(*app.Description)
 			} else {
-				state.Description = types.String{Null: true}
+				state.Description = types.StringNull()
 			}
-			state.IamPolicy = types.String{Value: app.IamPolicy}
-			state.Name = types.String{Value: app.Name}
-			state.TableAccess = types.Bool{Value: app.TableAccess}
+			state.IamPolicy = types.StringValue(app.IamPolicy)
+			state.Name = types.StringValue(app.Name)
+			state.TableAccess = types.BoolValue(app.TableAccess)
 		default:
 			resp.Diagnostics.AddError(
 				"Incorrect App type",
@@ -306,19 +317,22 @@ func (r *CrossAccountAppResource) Update(ctx context.Context, req resource.Updat
 	)
 
 	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
-		config = &plan.Config.Value
+		temp := plan.Config.ValueConfig()
+		config = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.TableAccess.IsNull() || plan.TableAccess.IsUnknown()) {
-		tableAccess = &plan.TableAccess.Value
+		temp := plan.TableAccess.ValueBool()
+		tableAccess = &temp
 	}
 
 	echoResp, err := api.UpdateRemotetApp(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		config,
 		description,
@@ -331,32 +345,36 @@ func (r *CrossAccountAppResource) Update(ctx context.Context, req resource.Updat
 
 	switch app := (*echoResp.GetApp).(type) {
 	case *api.UpdateRemotetAppGetAppCrossAccountApp:
-		plan.Account = types.String{Value: app.Update.Account}
-		plan.AppsyncEndpoint = types.String{Value: app.Update.AppsyncEndpoint}
-		plan.AuditRecordsEndpoint = types.String{Value: app.Update.AuditRecordsEndpoint}
-		plan.Name = types.String{Value: app.Update.Name}
+		plan.Account = types.StringValue(app.Update.Account)
+		plan.AppsyncEndpoint = types.StringValue(app.Update.AppsyncEndpoint)
+		plan.AuditRecordsEndpoint = types.StringValue(app.Update.AuditRecordsEndpoint)
+		plan.Name = types.StringValue(app.Update.Name)
 		if app.Update.Config != nil {
-			plan.Config = common.Config{Value: *app.Update.Config}
+			plan.Config = common.ConfigValue(*app.Update.Config)
 		} else {
-			plan.Config = common.Config{Null: true}
+			plan.Config = common.ConfigNull()
 		}
-		plan.Credentials = types.Object{
-			Attrs: common.CognitoCredentialsAttrValues(
+		var diags diag.Diagnostics
+		plan.Credentials, diags = types.ObjectValue(
+			common.CognitoCredentialsAttrTypes(),
+			common.CognitoCredentialsAttrValues(
 				app.Update.Credentials.ClientId,
 				app.Update.Credentials.Password,
 				app.Update.Credentials.UserPoolId,
 				app.Update.Credentials.Username,
 			),
-			AttrTypes: common.CognitoCredentialsAttrTypes(),
+		)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 		if app.Update.Description != nil {
-			plan.Description = types.String{Value: *app.Update.Description}
+			plan.Description = types.StringValue(*app.Update.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
-		plan.IamPolicy = types.String{Value: app.Update.IamPolicy}
-		plan.Name = types.String{Value: app.Update.Name}
-		plan.TableAccess = types.Bool{Value: app.Update.TableAccess}
+		plan.IamPolicy = types.StringValue(app.Update.IamPolicy)
+		plan.Name = types.StringValue(app.Update.Name)
+		plan.TableAccess = types.BoolValue(app.Update.TableAccess)
 	default:
 		resp.Diagnostics.AddError(
 			"Incorrect App type",

@@ -58,11 +58,11 @@ func (d *MessageTypeDataSource) Read(ctx context.Context, req datasource.ReadReq
 		return
 	}
 
-	if data, _, err := readMessageType(ctx, d.data.Client, config.Name.Value, d.data.Tenant); err != nil {
-		resp.Diagnostics.AddError("Error reading MessageType", err.Error())
+	if data, _, diags := readMessageType(ctx, d.data.Client, config.Name.ValueString(), d.data.Tenant); diags.HasError() {
+		resp.Diagnostics.Append(diags...)
 		return
 	} else if data == nil {
-		resp.Diagnostics.AddError("MessageType not found", fmt.Sprintf("Unable to find MessageType '%s'", config.Name.Value))
+		resp.Diagnostics.AddError("MessageType not found", fmt.Sprintf("Unable to find MessageType '%s'", config.Name.ValueString()))
 		return
 	} else {
 		config = *data

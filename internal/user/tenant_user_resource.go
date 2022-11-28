@@ -61,8 +61,8 @@ func (r *TenantUserResource) Create(ctx context.Context, req resource.CreateRequ
 	echoResp, err := api.CreateTenantUser(
 		ctx,
 		r.data.Client,
-		plan.Email.Value,
-		api.UserRole(plan.Role.Value),
+		plan.Email.ValueString(),
+		api.UserRole(plan.Role.ValueString()),
 		r.data.Tenant,
 	)
 	if err != nil {
@@ -70,19 +70,19 @@ func (r *TenantUserResource) Create(ctx context.Context, req resource.CreateRequ
 		return
 	}
 
-	plan.Email = types.String{Value: echoResp.GetTenant.AddUser.Email}
+	plan.Email = types.StringValue(echoResp.GetTenant.AddUser.Email)
 	if echoResp.GetTenant.AddUser.FirstName != nil {
-		plan.FirstName = types.String{Value: *echoResp.GetTenant.AddUser.FirstName}
+		plan.FirstName = types.StringValue(*echoResp.GetTenant.AddUser.FirstName)
 	} else {
-		plan.FirstName = types.String{Null: true}
+		plan.FirstName = types.StringNull()
 	}
 	if echoResp.GetTenant.AddUser.LastName != nil {
-		plan.LastName = types.String{Value: *echoResp.GetTenant.AddUser.LastName}
+		plan.LastName = types.StringValue(*echoResp.GetTenant.AddUser.LastName)
 	} else {
-		plan.LastName = types.String{Null: true}
+		plan.LastName = types.StringNull()
 	}
-	plan.Role = types.String{Value: string(echoResp.GetTenant.AddUser.Role)}
-	plan.Status = types.String{Value: string(echoResp.GetTenant.AddUser.Status)}
+	plan.Role = types.StringValue(string(echoResp.GetTenant.AddUser.Role))
+	plan.Status = types.StringValue(string(echoResp.GetTenant.AddUser.Status))
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
@@ -98,7 +98,7 @@ func (r *TenantUserResource) Delete(ctx context.Context, req resource.DeleteRequ
 		return
 	}
 
-	if _, err := api.DeleteTenantUser(ctx, r.data.Client, state.Email.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteTenantUser(ctx, r.data.Client, state.Email.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting TenantUser", err.Error())
 		return
 	}
@@ -174,26 +174,26 @@ func (r *TenantUserResource) Read(ctx context.Context, req resource.ReadRequest,
 		return
 	}
 
-	if echoResp, err := api.ReadTenantUser(ctx, r.data.Client, state.Email.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadTenantUser(ctx, r.data.Client, state.Email.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading TenantUser", err.Error())
 		return
 	} else if echoResp.GetTenantUser == nil {
 		resp.State.RemoveResource(ctx)
 		return
 	} else {
-		state.Email = types.String{Value: echoResp.GetTenantUser.Email}
+		state.Email = types.StringValue(echoResp.GetTenantUser.Email)
 		if echoResp.GetTenantUser.FirstName != nil {
-			state.FirstName = types.String{Value: *echoResp.GetTenantUser.FirstName}
+			state.FirstName = types.StringValue(*echoResp.GetTenantUser.FirstName)
 		} else {
-			state.FirstName = types.String{Null: true}
+			state.FirstName = types.StringNull()
 		}
 		if echoResp.GetTenantUser.LastName != nil {
-			state.LastName = types.String{Value: *echoResp.GetTenantUser.LastName}
+			state.LastName = types.StringValue(*echoResp.GetTenantUser.LastName)
 		} else {
-			state.LastName = types.String{Null: true}
+			state.LastName = types.StringNull()
 		}
-		state.Role = types.String{Value: string(echoResp.GetTenantUser.Role)}
-		state.Status = types.String{Value: string(echoResp.GetTenantUser.Status)}
+		state.Role = types.StringValue(string(echoResp.GetTenantUser.Role))
+		state.Status = types.StringValue(string(echoResp.GetTenantUser.Status))
 	}
 
 	// Save updated data into Terraform state
@@ -213,7 +213,7 @@ func (r *TenantUserResource) Update(ctx context.Context, req resource.UpdateRequ
 	var status *api.UserStatus
 
 	if !(plan.Status.IsNull() || plan.Status.IsUnknown()) {
-		if plan.Status.Value == string(api.UserStatusInvited) || plan.Status.Value == string(api.UserStatusPending) {
+		if plan.Status.ValueString() == string(api.UserStatusInvited) || plan.Status.ValueString() == string(api.UserStatusPending) {
 			resp.Diagnostics.AddAttributeError(
 				path.Root("status"),
 				"Invalid planned status",
@@ -221,15 +221,17 @@ func (r *TenantUserResource) Update(ctx context.Context, req resource.UpdateRequ
 			)
 			return
 		}
-		status = (*api.UserStatus)(&plan.Status.Value)
+		temp := plan.Status.ValueString()
+		status = (*api.UserStatus)(&temp)
 	}
 
+	roleValue := plan.Role.ValueString()
 	echoResp, err := api.UpdateTenantUser(
 		ctx,
 		r.data.Client,
-		plan.Email.Value,
+		plan.Email.ValueString(),
 		r.data.Tenant,
-		(*api.UserRole)(&plan.Role.Value),
+		(*api.UserRole)(&roleValue),
 		status,
 	)
 	if err != nil {
@@ -237,19 +239,19 @@ func (r *TenantUserResource) Update(ctx context.Context, req resource.UpdateRequ
 		return
 	}
 
-	plan.Email = types.String{Value: echoResp.GetTenantUser.Update.Email}
+	plan.Email = types.StringValue(echoResp.GetTenantUser.Update.Email)
 	if echoResp.GetTenantUser.Update.FirstName != nil {
-		plan.FirstName = types.String{Value: *echoResp.GetTenantUser.Update.FirstName}
+		plan.FirstName = types.StringValue(*echoResp.GetTenantUser.Update.FirstName)
 	} else {
-		plan.FirstName = types.String{Null: true}
+		plan.FirstName = types.StringNull()
 	}
 	if echoResp.GetTenantUser.Update.LastName != nil {
-		plan.LastName = types.String{Value: *echoResp.GetTenantUser.Update.LastName}
+		plan.LastName = types.StringValue(*echoResp.GetTenantUser.Update.LastName)
 	} else {
-		plan.LastName = types.String{Null: true}
+		plan.LastName = types.StringNull()
 	}
-	plan.Role = types.String{Value: string(echoResp.GetTenantUser.Update.Role)}
-	plan.Status = types.String{Value: string(echoResp.GetTenantUser.Update.Status)}
+	plan.Role = types.StringValue(string(echoResp.GetTenantUser.Update.Role))
+	plan.Status = types.StringValue(string(echoResp.GetTenantUser.Update.Status))
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)

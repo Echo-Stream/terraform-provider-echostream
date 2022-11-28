@@ -61,7 +61,7 @@ func (r *ManagedAppInstanceUserdataResource) Create(ctx context.Context, req res
 	if echoResp, err := api.ReadManagedAppUserdata(
 		ctx,
 		r.data.Client,
-		plan.App.Value,
+		plan.App.ValueString(),
 		r.data.Tenant,
 	); err != nil {
 		resp.Diagnostics.AddError("Error creating ManagedAppInstanceUserdata", err.Error())
@@ -70,7 +70,7 @@ func (r *ManagedAppInstanceUserdataResource) Create(ctx context.Context, req res
 		if echoResp.GetApp != nil {
 			switch app := (*echoResp.GetApp).(type) {
 			case *api.ReadManagedAppUserdataGetAppManagedApp:
-				plan.Userdata = types.String{Value: app.Userdata}
+				plan.Userdata = types.StringValue(app.Userdata)
 			default:
 				resp.Diagnostics.AddError(
 					"Incorrect App type",

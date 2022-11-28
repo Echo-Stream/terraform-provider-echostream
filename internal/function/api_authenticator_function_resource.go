@@ -7,6 +7,7 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -55,14 +56,15 @@ func (r *ApiAuthenticatorFunctionResource) Create(ctx context.Context, req resou
 	}
 
 	var (
+		diags        diag.Diagnostics
 		readme       *string
 		requirements []string
 	)
 	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
-		readme = &plan.Readme.Value
+		temp := plan.Readme.ValueString()
+		readme = &temp
 	}
 	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
-		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
 			resp.Diagnostics.Append(diags...)
@@ -73,9 +75,9 @@ func (r *ApiAuthenticatorFunctionResource) Create(ctx context.Context, req resou
 	echoResp, err := api.CreateApiAuthenticatorFunction(
 		ctx,
 		r.data.Client,
-		plan.Code.Value,
-		plan.Description.Value,
-		plan.Name.Value,
+		plan.Code.ValueString(),
+		plan.Description.ValueString(),
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		readme,
 		requirements,
@@ -85,21 +87,25 @@ func (r *ApiAuthenticatorFunctionResource) Create(ctx context.Context, req resou
 		return
 	}
 
-	plan.Code = types.String{Value: echoResp.CreateApiAuthenticatorFunction.Code}
-	plan.InUse = types.Bool{Value: echoResp.CreateApiAuthenticatorFunction.InUse}
-	plan.Name = types.String{Value: echoResp.CreateApiAuthenticatorFunction.Name}
+	plan.Code = types.StringValue(echoResp.CreateApiAuthenticatorFunction.Code)
+	plan.InUse = types.BoolValue(echoResp.CreateApiAuthenticatorFunction.InUse)
+	plan.Name = types.StringValue(echoResp.CreateApiAuthenticatorFunction.Name)
 	if echoResp.CreateApiAuthenticatorFunction.Readme != nil {
-		plan.Readme = types.String{Value: *echoResp.CreateApiAuthenticatorFunction.Readme}
+		plan.Readme = types.StringValue(*echoResp.CreateApiAuthenticatorFunction.Readme)
 	} else {
-		plan.Readme = types.String{Null: true}
+		plan.Readme = types.StringNull()
 	}
-	plan.Requirements = types.Set{ElemType: types.StringType}
 	if len(echoResp.CreateApiAuthenticatorFunction.Requirements) > 0 {
+		elems := []attr.Value{}
 		for _, req := range echoResp.CreateApiAuthenticatorFunction.Requirements {
-			plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
+			elems = append(elems, types.StringValue(req))
+		}
+		plan.Requirements, diags = types.SetValue(types.StringType, elems)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 	} else {
-		plan.Requirements.Null = true
+		plan.Requirements = types.SetNull(types.StringType)
 	}
 
 	// Save data into Terraform state
@@ -116,7 +122,7 @@ func (r *ApiAuthenticatorFunctionResource) Delete(ctx context.Context, req resou
 		return
 	}
 
-	if _, err := api.DeleteFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteFunction(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting ApiAuthenticatorFunction", err.Error())
 		return
 	}
@@ -155,7 +161,7 @@ func (r *ApiAuthenticatorFunctionResource) ModifyPlan(ctx context.Context, req r
 	}
 
 	// If the MessageType is not in use it can be destroyed at will.
-	if !state.InUse.Value {
+	if !state.InUse.ValueBool() {
 		return
 	}
 
@@ -175,7 +181,7 @@ func (r *ApiAuthenticatorFunctionResource) ModifyPlan(ctx context.Context, req r
 	}
 
 	if prevent_destroy {
-		resp.Diagnostics.AddError("Cannot destroy ApiAuthenticatorFunction", fmt.Sprintf("ApiAuthenticatorFunction %s is in use and may not be destroyed", state.Name.Value))
+		resp.Diagnostics.AddError("Cannot destroy ApiAuthenticatorFunction", fmt.Sprintf("ApiAuthenticatorFunction %s is in use and may not be destroyed", state.Name.ValueString()))
 	}
 }
 
@@ -189,8 +195,8 @@ func (r *ApiAuthenticatorFunctionResource) Read(ctx context.Context, req resourc
 		return
 	}
 
-	if data, system, err := readApiAuthenicatorFunction(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
-		resp.Diagnostics.AddError("Error reading ApiAuthenticatorFunction", err.Error())
+	if data, system, diags := readApiAuthenicatorFunction(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); diags.HasError() {
+		resp.Diagnostics.Append(diags...)
 		return
 	} else if system {
 		resp.Diagnostics.AddError("Invalid ApiAuthenticatorFunction", "Cannot create resource for system ApiAuthenticatorFunction")
@@ -219,20 +225,23 @@ func (r *ApiAuthenticatorFunctionResource) Update(ctx context.Context, req resou
 	var (
 		code         *string
 		description  *string
+		diags        diag.Diagnostics
 		readme       *string
 		requirements []string
 	)
 	if !(plan.Code.IsNull() || plan.Code.IsUnknown()) {
-		code = &plan.Code.Value
+		temp := plan.Code.ValueString()
+		code = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
-		readme = &plan.Readme.Value
+		temp := plan.Readme.ValueString()
+		readme = &temp
 	}
 	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
-		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
 			resp.Diagnostics.Append(diags...)
@@ -243,7 +252,7 @@ func (r *ApiAuthenticatorFunctionResource) Update(ctx context.Context, req resou
 	echoResp, err := api.UpdateFunction(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		code,
 		description,
@@ -257,22 +266,26 @@ func (r *ApiAuthenticatorFunctionResource) Update(ctx context.Context, req resou
 
 	switch function := (*echoResp.GetFunction).(type) {
 	case *api.UpdateFunctionGetFunctionApiAuthenticatorFunction:
-		plan.Code = types.String{Value: function.Update.Code}
-		plan.Description = types.String{Value: function.Update.Description}
-		plan.InUse = types.Bool{Value: function.Update.InUse}
-		plan.Name = types.String{Value: function.Update.Name}
+		plan.Code = types.StringValue(function.Update.Code)
+		plan.Description = types.StringValue(function.Update.Description)
+		plan.InUse = types.BoolValue(function.Update.InUse)
+		plan.Name = types.StringValue(function.Update.Name)
 		if function.Update.Readme != nil {
-			plan.Readme = types.String{Value: *function.Update.Readme}
+			plan.Readme = types.StringValue(*function.Update.Readme)
 		} else {
-			plan.Readme = types.String{Null: true}
+			plan.Readme = types.StringNull()
 		}
-		plan.Requirements = types.Set{ElemType: types.StringType}
 		if len(function.Update.Requirements) > 0 {
+			elems := []attr.Value{}
 			for _, req := range function.Update.Requirements {
-				plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
+				elems = append(elems, types.StringValue(req))
+			}
+			plan.Requirements, diags = types.SetValue(types.StringType, elems)
+			if diags != nil && diags.HasError() {
+				resp.Diagnostics.Append(diags...)
 			}
 		} else {
-			plan.Requirements.Null = true
+			plan.Requirements = types.SetNull(types.StringType)
 		}
 	}
 

@@ -57,11 +57,11 @@ func (d *BitmapperFunctionDataSource) Read(ctx context.Context, req datasource.R
 		return
 	}
 
-	if data, _, err := readBitmapperFunction(ctx, d.data.Client, config.Name.Value, d.data.Tenant); err != nil {
-		resp.Diagnostics.AddError("Error reading Function", err.Error())
+	if data, _, diags := readBitmapperFunction(ctx, d.data.Client, config.Name.ValueString(), d.data.Tenant); diags.HasError() {
+		resp.Diagnostics.Append(diags...)
 		return
 	} else if data == nil {
-		resp.Diagnostics.AddError("BitmapperFunction not found", fmt.Sprintf("Unable to find BitmapperFunction '%s'", config.Name.Value))
+		resp.Diagnostics.AddError("BitmapperFunction not found", fmt.Sprintf("Unable to find BitmapperFunction '%s'", config.Name.ValueString()))
 		return
 	} else {
 		config = *data

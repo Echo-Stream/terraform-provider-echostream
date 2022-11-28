@@ -29,10 +29,10 @@ func CognitoCredentialsAttrValues(
 	username string,
 ) map[string]attr.Value {
 	return map[string]attr.Value{
-		"client_id":    types.String{Value: clientId},
-		"password":     types.String{Value: password},
-		"user_pool_id": types.String{Value: userPoolId},
-		"username":     types.String{Value: username},
+		"client_id":    types.StringValue(clientId),
+		"password":     types.StringValue(password),
+		"user_pool_id": types.StringValue(userPoolId),
+		"username":     types.StringValue(username),
 	}
 }
 

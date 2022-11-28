@@ -61,7 +61,7 @@ func (r *ManagedAppInstanceIsoResource) Create(ctx context.Context, req resource
 	if echoResp, err := api.ReadManagedAppIso(
 		ctx,
 		r.data.Client,
-		plan.App.Value,
+		plan.App.ValueString(),
 		r.data.Tenant,
 	); err != nil {
 		resp.Diagnostics.AddError("Error creating ManagedAppInstanceIso", err.Error())
@@ -70,7 +70,7 @@ func (r *ManagedAppInstanceIsoResource) Create(ctx context.Context, req resource
 		if echoResp.GetApp != nil {
 			switch app := (*echoResp.GetApp).(type) {
 			case *api.ReadManagedAppIsoGetAppManagedApp:
-				plan.Iso = types.String{Value: app.Iso}
+				plan.Iso = types.StringValue(app.Iso)
 			default:
 				resp.Diagnostics.AddError(
 					"Incorrect App type",

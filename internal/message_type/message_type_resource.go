@@ -7,6 +7,7 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -55,15 +56,16 @@ func (r *MessageTypeResource) Create(ctx context.Context, req resource.CreateReq
 	}
 
 	var (
+		diags        diag.Diagnostics
 		readme       *string
 		requirements []string
 	)
 
 	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
-		readme = &plan.Readme.Value
+		temp := plan.Readme.ValueString()
+		readme = &temp
 	}
 	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
-		requirements = make([]string, len(plan.Requirements.Elems))
 		resp.Diagnostics.Append(plan.Requirements.ElementsAs(ctx, &requirements, false)...)
 		if resp.Diagnostics.HasError() {
 			return
@@ -73,12 +75,12 @@ func (r *MessageTypeResource) Create(ctx context.Context, req resource.CreateReq
 	echoResp, err := api.CreateMessageType(
 		ctx,
 		r.data.Client,
-		plan.Auditor.Value,
-		plan.BitmapperTemplate.Value,
-		plan.Description.Value,
-		plan.Name.Value,
-		plan.ProcessorTemplate.Value,
-		plan.SampleMessage.Value,
+		plan.Auditor.ValueString(),
+		plan.BitmapperTemplate.ValueString(),
+		plan.Description.ValueString(),
+		plan.Name.ValueString(),
+		plan.ProcessorTemplate.ValueString(),
+		plan.SampleMessage.ValueString(),
 		r.data.Tenant,
 		readme,
 		requirements,
@@ -88,27 +90,31 @@ func (r *MessageTypeResource) Create(ctx context.Context, req resource.CreateReq
 		return
 	}
 
-	plan.Auditor = types.String{Value: echoResp.CreateMessageType.Auditor}
-	plan.BitmapperTemplate = types.String{Value: echoResp.CreateMessageType.BitmapperTemplate}
-	plan.Description = types.String{Value: echoResp.CreateMessageType.Description}
-	plan.Id = types.String{Value: echoResp.CreateMessageType.Name}
-	plan.InUse = types.Bool{Value: echoResp.CreateMessageType.InUse}
-	plan.Name = types.String{Value: echoResp.CreateMessageType.Name}
-	plan.ProcessorTemplate = types.String{Value: echoResp.CreateMessageType.ProcessorTemplate}
+	plan.Auditor = types.StringValue(echoResp.CreateMessageType.Auditor)
+	plan.BitmapperTemplate = types.StringValue(echoResp.CreateMessageType.BitmapperTemplate)
+	plan.Description = types.StringValue(echoResp.CreateMessageType.Description)
+	plan.Id = types.StringValue(echoResp.CreateMessageType.Name)
+	plan.InUse = types.BoolValue(echoResp.CreateMessageType.InUse)
+	plan.Name = types.StringValue(echoResp.CreateMessageType.Name)
+	plan.ProcessorTemplate = types.StringValue(echoResp.CreateMessageType.ProcessorTemplate)
 	if echoResp.CreateMessageType.Readme != nil {
-		plan.Readme = types.String{Value: *echoResp.CreateMessageType.Readme}
+		plan.Readme = types.StringValue(*echoResp.CreateMessageType.Readme)
 	} else {
-		plan.Readme = types.String{Null: true}
+		plan.Readme = types.StringNull()
 	}
-	plan.Requirements = types.Set{ElemType: types.StringType}
 	if len(echoResp.CreateMessageType.Requirements) > 0 {
+		elems := []attr.Value{}
 		for _, req := range echoResp.CreateMessageType.Requirements {
-			plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
+			elems = append(elems, types.StringValue(req))
+		}
+		plan.Requirements, diags = types.SetValue(types.StringType, elems)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 	} else {
-		plan.Requirements.Null = true
+		plan.Requirements = types.SetNull(types.StringType)
 	}
-	plan.SampleMessage = types.String{Value: echoResp.CreateMessageType.SampleMessage}
+	plan.SampleMessage = types.StringValue(echoResp.CreateMessageType.SampleMessage)
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
@@ -124,7 +130,7 @@ func (r *MessageTypeResource) Delete(ctx context.Context, req resource.DeleteReq
 		return
 	}
 
-	if _, err := api.DeleteMessageType(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteMessageType(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting Message Type", err.Error())
 		return
 	}
@@ -164,7 +170,7 @@ func (r *MessageTypeResource) ModifyPlan(ctx context.Context, req resource.Modif
 	}
 
 	// If the MessageType is not in use it can be destroyed at will.
-	if !state.InUse.Value {
+	if !state.InUse.ValueBool() {
 		return
 	}
 
@@ -184,7 +190,7 @@ func (r *MessageTypeResource) ModifyPlan(ctx context.Context, req resource.Modif
 	}
 
 	if prevent_destroy {
-		resp.Diagnostics.AddError("Cannot destroy MessageType", fmt.Sprintf("MessageType %s is in use and may not be destroyed", state.Name.Value))
+		resp.Diagnostics.AddError("Cannot destroy MessageType", fmt.Sprintf("MessageType %s is in use and may not be destroyed", state.Name.ValueString()))
 	}
 }
 
@@ -198,8 +204,8 @@ func (r *MessageTypeResource) Read(ctx context.Context, req resource.ReadRequest
 		return
 	}
 
-	if data, system, err := readMessageType(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
-		resp.Diagnostics.AddError("Error reading MessageType", err.Error())
+	if data, system, diags := readMessageType(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); diags.HasError() {
+		resp.Diagnostics.Append(diags...)
 		return
 	} else if system {
 		resp.Diagnostics.AddError("Invalid MessageType", "Cannot import resource for system MessageType")
@@ -229,28 +235,33 @@ func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateReq
 		auditor           *string
 		bitmapperTemplate *string
 		description       *string
+		diags             diag.Diagnostics
 		processorTemplate *string
 		readme            *string
 		requirements      []string
 		sampleMessage     *string
 	)
 	if !(plan.Auditor.IsNull() || plan.Auditor.IsUnknown()) {
-		auditor = &plan.Auditor.Value
+		temp := plan.Auditor.ValueString()
+		auditor = &temp
 	}
 	if !(plan.BitmapperTemplate.IsNull() || plan.BitmapperTemplate.IsUnknown()) {
-		bitmapperTemplate = &plan.BitmapperTemplate.Value
+		temp := plan.BitmapperTemplate.ValueString()
+		bitmapperTemplate = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.ProcessorTemplate.IsNull() || plan.ProcessorTemplate.IsUnknown()) {
-		processorTemplate = &plan.ProcessorTemplate.Value
+		temp := plan.ProcessorTemplate.ValueString()
+		processorTemplate = &temp
 	}
 	if !(plan.Readme.IsNull() || plan.Readme.IsUnknown()) {
-		readme = &plan.Readme.Value
+		temp := plan.Readme.ValueString()
+		readme = &temp
 	}
 	if !(plan.Requirements.IsNull() || plan.Requirements.IsUnknown()) {
-		requirements = make([]string, len(plan.Requirements.Elems))
 		diags := plan.Requirements.ElementsAs(ctx, &requirements, false)
 		if diags.HasError() {
 			resp.Diagnostics.Append(diags...)
@@ -258,13 +269,14 @@ func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateReq
 		}
 	}
 	if !(plan.SampleMessage.IsNull() || plan.SampleMessage.IsUnknown()) {
-		sampleMessage = &plan.SampleMessage.Value
+		temp := plan.SampleMessage.ValueString()
+		sampleMessage = &temp
 	}
 
 	echoResp, err := api.UpdateMessageType(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		auditor,
 		bitmapperTemplate,
@@ -279,27 +291,31 @@ func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateReq
 		return
 	}
 
-	plan.Auditor = types.String{Value: echoResp.GetMessageType.Update.Auditor}
-	plan.BitmapperTemplate = types.String{Value: echoResp.GetMessageType.Update.BitmapperTemplate}
-	plan.Description = types.String{Value: echoResp.GetMessageType.Update.Description}
-	plan.Id = types.String{Value: echoResp.GetMessageType.Update.Name}
-	plan.InUse = types.Bool{Value: echoResp.GetMessageType.Update.InUse}
-	plan.Name = types.String{Value: echoResp.GetMessageType.Update.Name}
-	plan.ProcessorTemplate = types.String{Value: echoResp.GetMessageType.Update.ProcessorTemplate}
+	plan.Auditor = types.StringValue(echoResp.GetMessageType.Update.Auditor)
+	plan.BitmapperTemplate = types.StringValue(echoResp.GetMessageType.Update.BitmapperTemplate)
+	plan.Description = types.StringValue(echoResp.GetMessageType.Update.Description)
+	plan.Id = types.StringValue(echoResp.GetMessageType.Update.Name)
+	plan.InUse = types.BoolValue(echoResp.GetMessageType.Update.InUse)
+	plan.Name = types.StringValue(echoResp.GetMessageType.Update.Name)
+	plan.ProcessorTemplate = types.StringValue(echoResp.GetMessageType.Update.ProcessorTemplate)
 	if echoResp.GetMessageType.Update.Readme != nil {
-		plan.Readme = types.String{Value: *echoResp.GetMessageType.Update.Readme}
+		plan.Readme = types.StringValue(*echoResp.GetMessageType.Update.Readme)
 	} else {
-		plan.Readme = types.String{Null: true}
+		plan.Readme = types.StringNull()
 	}
-	plan.Requirements = types.Set{ElemType: types.StringType}
 	if len(echoResp.GetMessageType.Update.Requirements) > 0 {
+		elems := []attr.Value{}
 		for _, req := range echoResp.GetMessageType.Update.Requirements {
-			plan.Requirements.Elems = append(plan.Requirements.Elems, types.String{Value: req})
+			elems = append(elems, types.StringValue(req))
+		}
+		plan.Requirements, diags = types.SetValue(types.StringType, elems)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 	} else {
-		plan.Requirements.Null = true
+		plan.Requirements = types.SetNull(types.StringType)
 	}
-	plan.SampleMessage = types.String{Value: echoResp.GetMessageType.Update.SampleMessage}
+	plan.SampleMessage = types.StringValue(echoResp.GetMessageType.Update.SampleMessage)
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)

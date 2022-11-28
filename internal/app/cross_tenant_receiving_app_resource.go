@@ -65,17 +65,17 @@ func (r *CrossTenantReceivingAppResource) Create(ctx context.Context, req resour
 	if echoResp, err := api.CreateCrossTenantReceivingApp(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
-		plan.SendingTenant.Value,
+		plan.Name.ValueString(),
+		plan.SendingTenant.ValueString(),
 		r.data.Tenant,
 	); err != nil {
 		resp.Diagnostics.AddError("Error creating CrossTenantReceivingApp", err.Error())
 		return
 	} else {
-		plan.Description = types.String{Value: *echoResp.CreateCrossTenantReceivingApp.Description}
-		plan.Name = types.String{Value: echoResp.CreateCrossTenantReceivingApp.Name}
-		plan.SendingApp = types.String{Null: true}
-		plan.SendingTenant = types.String{Value: echoResp.CreateCrossTenantReceivingApp.SendingTenant}
+		plan.Description = types.StringValue(*echoResp.CreateCrossTenantReceivingApp.Description)
+		plan.Name = types.StringValue(echoResp.CreateCrossTenantReceivingApp.Name)
+		plan.SendingApp = types.StringNull()
+		plan.SendingTenant = types.StringValue(echoResp.CreateCrossTenantReceivingApp.SendingTenant)
 	}
 
 	// Save data into Terraform state
@@ -92,7 +92,7 @@ func (r *CrossTenantReceivingAppResource) Delete(ctx context.Context, req resour
 		return
 	}
 
-	if _, err := api.DeleteApp(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteApp(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting CrossTenentReceivingApp", err.Error())
 		return
 	}
@@ -159,7 +159,7 @@ func (r *CrossTenantReceivingAppResource) ModifyPlan(ctx context.Context, req re
 	if req.Plan.Raw.IsNull() {
 		resp.Diagnostics.AddWarning(
 			"Destroying connected CrossTenantReceivingApp",
-			fmt.Sprintf("This will terminate the connection with %s permanently!!", state.SendingApp.Value),
+			fmt.Sprintf("This will terminate the connection with %s permanently!!", state.SendingApp.ValueString()),
 		)
 	} else {
 		var plan crossTenantReceivingAppModel
@@ -174,7 +174,7 @@ func (r *CrossTenantReceivingAppResource) ModifyPlan(ctx context.Context, req re
 		if !(plan.Name.Equal(state.Name) && plan.SendingTenant.Equal(state.SendingTenant)) {
 			resp.Diagnostics.AddWarning(
 				"Replacing connected CrossTenantReceivingApp",
-				fmt.Sprintf("This will terminate the connection with %s permanently!!", state.SendingApp.Value),
+				fmt.Sprintf("This will terminate the connection with %s permanently!!", state.SendingApp.ValueString()),
 			)
 		}
 	}
@@ -190,20 +190,20 @@ func (r *CrossTenantReceivingAppResource) Read(ctx context.Context, req resource
 		return
 	}
 
-	if echoResp, err := api.ReadApp(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadApp(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading CrossTenantReceivingApp", err.Error())
 		return
 	} else if echoResp.GetApp != nil {
 		switch app := (*echoResp.GetApp).(type) {
 		case *api.ReadAppGetAppCrossTenantReceivingApp:
-			state.Description = types.String{Value: *app.Description}
-			state.Name = types.String{Value: app.Name}
+			state.Description = types.StringValue(*app.Description)
+			state.Name = types.StringValue(app.Name)
 			if app.SendingApp != nil {
-				state.SendingApp = types.String{Value: *app.SendingApp}
+				state.SendingApp = types.StringValue(*app.SendingApp)
 			} else {
-				state.SendingApp = types.String{Null: true}
+				state.SendingApp = types.StringNull()
 			}
-			state.SendingTenant = types.String{Value: app.SendingTenant}
+			state.SendingTenant = types.StringValue(app.SendingTenant)
 		default:
 			resp.Diagnostics.AddError(
 				"Incorrect App type",
@@ -233,13 +233,14 @@ func (r *CrossTenantReceivingAppResource) Update(ctx context.Context, req resour
 	var description *string
 
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
 	echoResp, err := api.UpdateCrossTenantApp(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		description,
 	)
@@ -250,14 +251,14 @@ func (r *CrossTenantReceivingAppResource) Update(ctx context.Context, req resour
 
 	switch app := (*echoResp.GetApp).(type) {
 	case *api.UpdateCrossTenantAppGetAppCrossTenantReceivingApp:
-		plan.Description = types.String{Value: *app.Update.Description}
-		plan.Name = types.String{Value: app.Update.Name}
+		plan.Description = types.StringValue(*app.Update.Description)
+		plan.Name = types.StringValue(app.Update.Name)
 		if app.Update.SendingApp != nil {
-			plan.SendingApp = types.String{Value: *app.Update.SendingApp}
+			plan.SendingApp = types.StringValue(*app.Update.SendingApp)
 		} else {
-			plan.SendingApp = types.String{Null: true}
+			plan.SendingApp = types.StringNull()
 		}
-		plan.SendingTenant = types.String{Value: app.Update.SendingTenant}
+		plan.SendingTenant = types.StringValue(app.Update.SendingTenant)
 	default:
 		resp.Diagnostics.AddError(
 			"Incorrect App type",

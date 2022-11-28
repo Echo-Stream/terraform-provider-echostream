@@ -72,13 +72,13 @@ func (d *LogEmitterNodeDataSource) Read(ctx context.Context, req datasource.Read
 	} else if echoResp.GetNode != nil {
 		switch node := (*echoResp.GetNode).(type) {
 		case *api.ReadNodeGetNodeLogEmitterNode:
-			config.Name = types.String{Value: node.Name}
+			config.Name = types.StringValue(node.Name)
 			if node.Description == nil {
-				config.Description = types.String{Null: true}
+				config.Description = types.StringNull()
 			} else {
-				config.Description = types.String{Value: *node.Description}
+				config.Description = types.StringValue(*node.Description)
 			}
-			config.SendMessageType = types.String{Value: node.SendMessageType.Name}
+			config.SendMessageType = types.StringValue(node.SendMessageType.Name)
 		default:
 			resp.Diagnostics.AddError("Incorrect Node type", fmt.Sprintf("expected LogEmitterNode, got %v", node.GetTypename()))
 			return

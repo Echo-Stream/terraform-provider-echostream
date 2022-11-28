@@ -10,6 +10,7 @@ import (
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -157,16 +158,14 @@ func mountRequirementsAttrValues(
 	source *string,
 	target string,
 ) map[string]attr.Value {
-	s := types.String{}
+	s := types.StringNull()
 	if source != nil {
-		s.Value = *source
-	} else {
-		s.Null = true
+		s = types.StringValue(*source)
 	}
 	return map[string]attr.Value{
-		"description": types.String{Value: description},
+		"description": types.StringValue(description),
 		"source":      s,
-		"target":      types.String{Value: target},
+		"target":      types.StringValue(target),
 	}
 }
 
@@ -184,9 +183,9 @@ func portRequirementAttrValues(
 	protocol api.Protocol,
 ) map[string]attr.Value {
 	return map[string]attr.Value{
-		"container_port": types.Int64{Value: int64(contanerPort)},
-		"description":    types.String{Value: description},
-		"protocol":       types.String{Value: string(protocol)},
+		"container_port": types.Int64Value(int64(contanerPort)),
+		"description":    types.StringValue(description),
+		"protocol":       types.StringValue(string(protocol)),
 	}
 }
 
@@ -260,75 +259,82 @@ func resourcePortRequirementsSchema() map[string]tfsdk.Attribute {
 	return schema
 }
 
-func readManagedNodeType(ctx context.Context, client graphql.Client, name string, tenant string) (*managedNodeTypeModel, bool, error) {
+func readManagedNodeType(ctx context.Context, client graphql.Client, name string, tenant string) (*managedNodeTypeModel, bool, diag.Diagnostics) {
 	var (
-		data     *managedNodeTypeModel
-		echoResp *api.ReadManagedNodeTypeResponse
-		err      error
-		system   bool = false
+		data   *managedNodeTypeModel
+		diags  diag.Diagnostics
+		system bool = false
 	)
 
-	if echoResp, err = api.ReadManagedNodeType(ctx, client, name, tenant); err == nil {
+	if echoResp, err := api.ReadManagedNodeType(ctx, client, name, tenant); err == nil {
 		if echoResp.GetManagedNodeType != nil {
 			data = &managedNodeTypeModel{}
 			if echoResp.GetManagedNodeType.ConfigTemplate != nil {
-				data.ConfigTemplate = common.Config{Value: *echoResp.GetManagedNodeType.ConfigTemplate}
+				data.ConfigTemplate = common.ConfigValue(*echoResp.GetManagedNodeType.ConfigTemplate)
 			} else {
-				data.ConfigTemplate = common.Config{Null: true}
+				data.ConfigTemplate = common.ConfigNull()
 			}
-			data.Description = types.String{Value: echoResp.GetManagedNodeType.Description}
-			data.Id = types.String{Value: echoResp.GetManagedNodeType.Name}
-			data.ImageUri = types.String{Value: echoResp.GetManagedNodeType.ImageUri}
-			data.InUse = types.Bool{Value: echoResp.GetManagedNodeType.InUse}
-			data.MountRequirements = types.Set{ElemType: types.ObjectType{AttrTypes: mountRequirementsAttrTypes()}}
+			data.Description = types.StringValue(echoResp.GetManagedNodeType.Description)
+			data.Id = types.StringValue(echoResp.GetManagedNodeType.Name)
+			data.ImageUri = types.StringValue(echoResp.GetManagedNodeType.ImageUri)
+			data.InUse = types.BoolValue(echoResp.GetManagedNodeType.InUse)
 			if len(echoResp.GetManagedNodeType.MountRequirements) > 0 {
+				elems := []attr.Value{}
 				for _, mountReq := range echoResp.GetManagedNodeType.MountRequirements {
-					data.MountRequirements.Elems = append(
-						data.MountRequirements.Elems,
-						types.Object{
-							Attrs:     mountRequirementsAttrValues(mountReq.Description, mountReq.Source, mountReq.Target),
-							AttrTypes: mountRequirementsAttrTypes(),
-						},
-					)
+					if elem, d := types.ObjectValue(mountRequirementsAttrTypes(), mountRequirementsAttrValues(mountReq.Description, mountReq.Source, mountReq.Target)); d != nil {
+						diags.Append(d...)
+					} else {
+						elems = append(elems, elem)
+					}
+				}
+				var d diag.Diagnostics
+				data.MountRequirements, d = types.SetValue(types.ObjectType{AttrTypes: mountRequirementsAttrTypes()}, elems)
+				if d != nil && d.HasError() {
+					diags.Append(d...)
 				}
 			} else {
-				data.MountRequirements.Null = true
+				data.MountRequirements = types.SetNull(types.ObjectType{AttrTypes: mountRequirementsAttrTypes()})
 			}
-			data.Name = types.String{Value: echoResp.GetManagedNodeType.Name}
-			data.PortRequirements = types.Set{ElemType: types.ObjectType{AttrTypes: portRequirementAttrTypes()}}
+			data.Name = types.StringValue(echoResp.GetManagedNodeType.Name)
 			if len(echoResp.GetManagedNodeType.PortRequirements) > 0 {
+				elems := []attr.Value{}
 				for _, portReq := range echoResp.GetManagedNodeType.PortRequirements {
-					data.PortRequirements.Elems = append(
-						data.PortRequirements.Elems,
-						types.Object{
-							Attrs:     portRequirementAttrValues(portReq.ContainerPort, portReq.Description, portReq.Protocol),
-							AttrTypes: portRequirementAttrTypes(),
-						},
-					)
+					if elem, d := types.ObjectValue(portRequirementAttrTypes(), portRequirementAttrValues(portReq.ContainerPort, portReq.Description, portReq.Protocol)); d != nil {
+						diags.Append(d...)
+					} else {
+						elems = append(elems, elem)
+					}
+				}
+				var d diag.Diagnostics
+				data.PortRequirements, d = types.SetValue(types.ObjectType{AttrTypes: portRequirementAttrTypes()}, elems)
+				if d != nil && d.HasError() {
+					diags.Append(d...)
 				}
 			} else {
-				data.PortRequirements.Null = true
+				data.PortRequirements = types.SetNull(types.ObjectType{AttrTypes: portRequirementAttrTypes()})
 			}
 			if echoResp.GetManagedNodeType.Readme != nil {
-				data.Readme = types.String{Value: *echoResp.GetManagedNodeType.Readme}
+				data.Readme = types.StringValue(*echoResp.GetManagedNodeType.Readme)
 			} else {
-				data.Readme = types.String{Null: true}
+				data.Readme = types.StringNull()
 			}
 			if echoResp.GetManagedNodeType.ReceiveMessageType != nil {
-				data.ReceiveMessageType = types.String{Value: echoResp.GetManagedNodeType.ReceiveMessageType.Name}
+				data.ReceiveMessageType = types.StringValue(echoResp.GetManagedNodeType.ReceiveMessageType.Name)
 			} else {
-				data.ReceiveMessageType = types.String{Null: true}
+				data.ReceiveMessageType = types.StringNull()
 			}
 			if echoResp.GetManagedNodeType.SendMessageType != nil {
-				data.SendMessageType = types.String{Value: echoResp.GetManagedNodeType.SendMessageType.Name}
+				data.SendMessageType = types.StringValue(echoResp.GetManagedNodeType.SendMessageType.Name)
 			} else {
-				data.SendMessageType = types.String{Null: true}
+				data.SendMessageType = types.StringNull()
 			}
 			if echoResp.GetManagedNodeType.System != nil {
 				system = *echoResp.GetManagedNodeType.System
 			}
 		}
+	} else {
+		diags.AddError("Error reading ManagedNodeType", err.Error())
 	}
 
-	return data, system, err
+	return data, system, diags
 }

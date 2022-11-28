@@ -72,19 +72,22 @@ func (r *ExternalAppResource) Create(ctx context.Context, req resource.CreateReq
 	)
 
 	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
-		config = &plan.Config.Value
+		temp := plan.Config.ValueConfig()
+		config = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.TableAccess.IsNull() || plan.TableAccess.IsUnknown()) {
-		tableAccess = &plan.TableAccess.Value
+		temp := plan.TableAccess.ValueBool()
+		tableAccess = &temp
 	}
 
 	if echoResp, err := api.CreateExternalApp(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		config,
 		description,
@@ -93,29 +96,33 @@ func (r *ExternalAppResource) Create(ctx context.Context, req resource.CreateReq
 		resp.Diagnostics.AddError("Error creating ExternalApp", err.Error())
 		return
 	} else {
-		plan.AppsyncEndpoint = types.String{Value: echoResp.CreateExternalApp.AppsyncEndpoint}
-		plan.AuditRecordsEndpoint = types.String{Value: echoResp.CreateExternalApp.AuditRecordsEndpoint}
+		plan.AppsyncEndpoint = types.StringValue(echoResp.CreateExternalApp.AppsyncEndpoint)
+		plan.AuditRecordsEndpoint = types.StringValue(echoResp.CreateExternalApp.AuditRecordsEndpoint)
 		if echoResp.CreateExternalApp.Config != nil {
-			plan.Config = common.Config{Value: *echoResp.CreateExternalApp.Config}
+			plan.Config = common.ConfigValue(*echoResp.CreateExternalApp.Config)
 		} else {
-			plan.Config = common.Config{Null: true}
+			plan.Config = common.ConfigNull()
 		}
-		plan.Credentials = types.Object{
-			Attrs: common.CognitoCredentialsAttrValues(
+		var diags diag.Diagnostics
+		plan.Credentials, diags = types.ObjectValue(
+			common.CognitoCredentialsAttrTypes(),
+			common.CognitoCredentialsAttrValues(
 				echoResp.CreateExternalApp.Credentials.ClientId,
 				echoResp.CreateExternalApp.Credentials.Password,
 				echoResp.CreateExternalApp.Credentials.UserPoolId,
 				echoResp.CreateExternalApp.Credentials.Username,
 			),
-			AttrTypes: common.CognitoCredentialsAttrTypes(),
+		)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 		if echoResp.CreateExternalApp.Description != nil {
-			plan.Description = types.String{Value: *echoResp.CreateExternalApp.Description}
+			plan.Description = types.StringValue(*echoResp.CreateExternalApp.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
-		plan.Name = types.String{Value: echoResp.CreateExternalApp.Name}
-		plan.TableAccess = types.Bool{Value: echoResp.CreateExternalApp.TableAccess}
+		plan.Name = types.StringValue(echoResp.CreateExternalApp.Name)
+		plan.TableAccess = types.BoolValue(echoResp.CreateExternalApp.TableAccess)
 	}
 
 	// Save data into Terraform state
@@ -132,7 +139,7 @@ func (r *ExternalAppResource) Delete(ctx context.Context, req resource.DeleteReq
 		return
 	}
 
-	if _, err := api.DeleteApp(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if _, err := api.DeleteApp(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting ExternalApp", err.Error())
 		return
 	}
@@ -216,36 +223,40 @@ func (r *ExternalAppResource) Read(ctx context.Context, req resource.ReadRequest
 		return
 	}
 
-	if echoResp, err := api.ReadApp(ctx, r.data.Client, state.Name.Value, r.data.Tenant); err != nil {
+	if echoResp, err := api.ReadApp(ctx, r.data.Client, state.Name.ValueString(), r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error reading ExternalApp", err.Error())
 		return
 	} else if echoResp.GetApp != nil {
 		switch app := (*echoResp.GetApp).(type) {
 		case *api.ReadAppGetAppExternalApp:
-			state.AppsyncEndpoint = types.String{Value: app.AppsyncEndpoint}
-			state.AuditRecordsEndpoint = types.String{Value: app.AuditRecordsEndpoint}
-			state.Name = types.String{Value: app.Name}
+			state.AppsyncEndpoint = types.StringValue(app.AppsyncEndpoint)
+			state.AuditRecordsEndpoint = types.StringValue(app.AuditRecordsEndpoint)
+			state.Name = types.StringValue(app.Name)
 			if app.Config != nil {
-				state.Config = common.Config{Value: *app.Config}
+				state.Config = common.ConfigValue(*app.Config)
 			} else {
-				state.Config = common.Config{Null: true}
+				state.Config = common.ConfigNull()
 			}
-			state.Credentials = types.Object{
-				Attrs: common.CognitoCredentialsAttrValues(
+			var diags diag.Diagnostics
+			state.Credentials, diags = types.ObjectValue(
+				common.CognitoCredentialsAttrTypes(),
+				common.CognitoCredentialsAttrValues(
 					app.Credentials.ClientId,
 					app.Credentials.Password,
 					app.Credentials.UserPoolId,
 					app.Credentials.Username,
 				),
-				AttrTypes: common.CognitoCredentialsAttrTypes(),
+			)
+			if diags != nil && diags.HasError() {
+				resp.Diagnostics.Append(diags...)
 			}
 			if app.Description != nil {
-				state.Description = types.String{Value: *app.Description}
+				state.Description = types.StringValue(*app.Description)
 			} else {
-				state.Description = types.String{Null: true}
+				state.Description = types.StringNull()
 			}
-			state.Name = types.String{Value: app.Name}
-			state.TableAccess = types.Bool{Value: app.TableAccess}
+			state.Name = types.StringValue(app.Name)
+			state.TableAccess = types.BoolValue(app.TableAccess)
 		default:
 			resp.Diagnostics.AddError(
 				"Incorrect App type",
@@ -279,19 +290,22 @@ func (r *ExternalAppResource) Update(ctx context.Context, req resource.UpdateReq
 	)
 
 	if !(plan.Config.IsNull() || plan.Config.IsUnknown()) {
-		config = &plan.Config.Value
+		temp := plan.Config.ValueConfig()
+		config = &temp
 	}
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 	if !(plan.TableAccess.IsNull() || plan.TableAccess.IsUnknown()) {
-		tableAccess = &plan.TableAccess.Value
+		temp := plan.TableAccess.ValueBool()
+		tableAccess = &temp
 	}
 
 	echoResp, err := api.UpdateRemotetApp(
 		ctx,
 		r.data.Client,
-		plan.Name.Value,
+		plan.Name.ValueString(),
 		r.data.Tenant,
 		config,
 		description,
@@ -304,30 +318,34 @@ func (r *ExternalAppResource) Update(ctx context.Context, req resource.UpdateReq
 
 	switch app := (*echoResp.GetApp).(type) {
 	case *api.UpdateRemotetAppGetAppExternalApp:
-		plan.AppsyncEndpoint = types.String{Value: app.Update.AppsyncEndpoint}
-		plan.AuditRecordsEndpoint = types.String{Value: app.Update.AuditRecordsEndpoint}
-		plan.Name = types.String{Value: app.Update.Name}
+		plan.AppsyncEndpoint = types.StringValue(app.Update.AppsyncEndpoint)
+		plan.AuditRecordsEndpoint = types.StringValue(app.Update.AuditRecordsEndpoint)
+		plan.Name = types.StringValue(app.Update.Name)
 		if app.Update.Config != nil {
-			plan.Config = common.Config{Value: *app.Update.Config}
+			plan.Config = common.ConfigValue(*app.Update.Config)
 		} else {
-			plan.Config = common.Config{Null: true}
+			plan.Config = common.ConfigNull()
 		}
-		plan.Credentials = types.Object{
-			Attrs: common.CognitoCredentialsAttrValues(
+		var diags diag.Diagnostics
+		plan.Credentials, diags = types.ObjectValue(
+			common.CognitoCredentialsAttrTypes(),
+			common.CognitoCredentialsAttrValues(
 				app.Update.Credentials.ClientId,
 				app.Update.Credentials.Password,
 				app.Update.Credentials.UserPoolId,
 				app.Update.Credentials.Username,
 			),
-			AttrTypes: common.CognitoCredentialsAttrTypes(),
+		)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 		if app.Update.Description != nil {
-			plan.Description = types.String{Value: *app.Update.Description}
+			plan.Description = types.StringValue(*app.Update.Description)
 		} else {
-			plan.Description = types.String{Null: true}
+			plan.Description = types.StringNull()
 		}
-		plan.Name = types.String{Value: app.Update.Name}
-		plan.TableAccess = types.Bool{Value: app.Update.TableAccess}
+		plan.Name = types.StringValue(app.Update.Name)
+		plan.TableAccess = types.BoolValue(app.Update.TableAccess)
 	default:
 		resp.Diagnostics.AddError(
 			"Incorrect App type",

@@ -58,16 +58,20 @@ func (r *ApiUserResource) Create(ctx context.Context, req resource.CreateRequest
 		return
 	}
 
-	var description *string
+	var (
+		description *string
+		diags       diag.Diagnostics
+	)
 
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
 	echoResp, err := api.CreateApiUser(
 		ctx,
 		r.data.Client,
-		api.ApiUserRole(plan.Role.Value),
+		api.ApiUserRole(plan.Role.ValueString()),
 		r.data.Tenant,
 		description,
 	)
@@ -76,23 +80,26 @@ func (r *ApiUserResource) Create(ctx context.Context, req resource.CreateRequest
 		return
 	}
 
-	plan.AppsyncEndpoint = types.String{Value: echoResp.CreateApiUser.AppsyncEndpoint}
-	plan.Credentials = types.Object{
-		Attrs: common.CognitoCredentialsAttrValues(
+	plan.AppsyncEndpoint = types.StringValue(echoResp.CreateApiUser.AppsyncEndpoint)
+	plan.Credentials, diags = types.ObjectValue(
+		common.CognitoCredentialsAttrTypes(),
+		common.CognitoCredentialsAttrValues(
 			echoResp.CreateApiUser.Credentials.ClientId,
 			echoResp.CreateApiUser.Credentials.Password,
 			echoResp.CreateApiUser.Credentials.UserPoolId,
 			echoResp.CreateApiUser.Credentials.Username,
 		),
-		AttrTypes: common.CognitoCredentialsAttrTypes(),
+	)
+	if diags != nil && diags.HasError() {
+		resp.Diagnostics.Append(diags...)
 	}
 	if echoResp.CreateApiUser.Description != nil {
-		plan.Description = types.String{Value: *echoResp.CreateApiUser.Description}
+		plan.Description = types.StringValue(*echoResp.CreateApiUser.Description)
 	} else {
-		plan.Description = types.String{Null: true}
+		plan.Description = types.StringNull()
 	}
-	plan.Role = types.String{Value: string(echoResp.CreateApiUser.Role)}
-	plan.Username = types.String{Value: echoResp.CreateApiUser.Username}
+	plan.Role = types.StringValue(string(echoResp.CreateApiUser.Role))
+	plan.Username = types.StringValue(echoResp.CreateApiUser.Username)
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
@@ -108,7 +115,7 @@ func (r *ApiUserResource) Delete(ctx context.Context, req resource.DeleteRequest
 		return
 	}
 
-	if _, err := api.DeleteApiUser(ctx, r.data.Client, r.data.Tenant, state.Username.Value); err != nil {
+	if _, err := api.DeleteApiUser(ctx, r.data.Client, r.data.Tenant, state.Username.ValueString()); err != nil {
 		resp.Diagnostics.AddError("Error deleting ApiUser", err.Error())
 		return
 	}
@@ -165,7 +172,10 @@ func (r *ApiUserResource) Metadata(ctx context.Context, req resource.MetadataReq
 }
 
 func (r *ApiUserResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var state apiUserModel
+	var (
+		diags diag.Diagnostics
+		state apiUserModel
+	)
 
 	// Read Terraform prior state data into the model
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
@@ -174,30 +184,33 @@ func (r *ApiUserResource) Read(ctx context.Context, req resource.ReadRequest, re
 		return
 	}
 
-	if echoResp, err := api.ReadApiUser(ctx, r.data.Client, r.data.Tenant, state.Username.Value); err != nil {
+	if echoResp, err := api.ReadApiUser(ctx, r.data.Client, r.data.Tenant, state.Username.ValueString()); err != nil {
 		resp.Diagnostics.AddError("Error reading ApiUser", err.Error())
 		return
 	} else if echoResp.GetApiUser == nil {
 		resp.State.RemoveResource(ctx)
 		return
 	} else {
-		state.AppsyncEndpoint = types.String{Value: echoResp.GetApiUser.AppsyncEndpoint}
-		state.Credentials = types.Object{
-			Attrs: common.CognitoCredentialsAttrValues(
+		state.AppsyncEndpoint = types.StringValue(echoResp.GetApiUser.AppsyncEndpoint)
+		state.Credentials, diags = types.ObjectValue(
+			common.CognitoCredentialsAttrTypes(),
+			common.CognitoCredentialsAttrValues(
 				echoResp.GetApiUser.Credentials.ClientId,
 				echoResp.GetApiUser.Credentials.Password,
 				echoResp.GetApiUser.Credentials.UserPoolId,
 				echoResp.GetApiUser.Credentials.Username,
 			),
-			AttrTypes: common.CognitoCredentialsAttrTypes(),
+		)
+		if diags != nil && diags.HasError() {
+			resp.Diagnostics.Append(diags...)
 		}
 		if echoResp.GetApiUser.Description != nil {
-			state.Description = types.String{Value: *echoResp.GetApiUser.Description}
+			state.Description = types.StringValue(*echoResp.GetApiUser.Description)
 		} else {
-			state.Description = types.String{Null: true}
+			state.Description = types.StringNull()
 		}
-		state.Role = types.String{Value: string(echoResp.GetApiUser.Role)}
-		state.Username = types.String{Value: echoResp.GetApiUser.Username}
+		state.Role = types.StringValue(string(echoResp.GetApiUser.Role))
+		state.Username = types.StringValue(echoResp.GetApiUser.Username)
 	}
 
 	// Save updated data into Terraform state
@@ -206,6 +219,7 @@ func (r *ApiUserResource) Read(ctx context.Context, req resource.ReadRequest, re
 
 func (r *ApiUserResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var (
+		diags diag.Diagnostics
 		plan  apiUserModel
 		state apiUserModel
 	)
@@ -220,39 +234,44 @@ func (r *ApiUserResource) Update(ctx context.Context, req resource.UpdateRequest
 
 	var description *string
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
-		description = &plan.Description.Value
+		temp := plan.Description.ValueString()
+		description = &temp
 	}
 
+	roleValue := plan.Role.ValueString()
 	echoResp, err := api.UpdateApiUser(
 		ctx,
 		r.data.Client,
 		r.data.Tenant,
-		state.Username.Value,
+		state.Username.ValueString(),
 		description,
-		(*api.ApiUserRole)(&plan.Role.Value),
+		(*api.ApiUserRole)(&roleValue),
 	)
 	if err != nil {
 		resp.Diagnostics.AddError("Error updating ApiUser", err.Error())
 		return
 	}
 
-	plan.AppsyncEndpoint = types.String{Value: echoResp.GetApiUser.Update.AppsyncEndpoint}
-	plan.Credentials = types.Object{
-		Attrs: common.CognitoCredentialsAttrValues(
+	plan.AppsyncEndpoint = types.StringValue(echoResp.GetApiUser.Update.AppsyncEndpoint)
+	plan.Credentials, diags = types.ObjectValue(
+		common.CognitoCredentialsAttrTypes(),
+		common.CognitoCredentialsAttrValues(
 			echoResp.GetApiUser.Update.Credentials.ClientId,
 			echoResp.GetApiUser.Update.Credentials.Password,
 			echoResp.GetApiUser.Update.Credentials.UserPoolId,
 			echoResp.GetApiUser.Update.Credentials.Username,
 		),
-		AttrTypes: common.CognitoCredentialsAttrTypes(),
+	)
+	if diags != nil && diags.HasError() {
+		resp.Diagnostics.Append(diags...)
 	}
 	if echoResp.GetApiUser.Update.Description != nil {
-		plan.Description = types.String{Value: *echoResp.GetApiUser.Update.Description}
+		plan.Description = types.StringValue(*echoResp.GetApiUser.Update.Description)
 	} else {
-		plan.Description = types.String{Null: true}
+		plan.Description = types.StringNull()
 	}
-	plan.Role = types.String{Value: string(echoResp.GetApiUser.Update.Role)}
-	plan.Username = types.String{Value: echoResp.GetApiUser.Update.Username}
+	plan.Role = types.StringValue(string(echoResp.GetApiUser.Update.Role))
+	plan.Username = types.StringValue(echoResp.GetApiUser.Update.Username)
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
