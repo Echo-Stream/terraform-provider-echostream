@@ -10,7 +10,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider v1.21.1
 	github.com/hashicorp/terraform-plugin-docs v0.13.0
 	github.com/hashicorp/terraform-plugin-framework v0.16.0
-	github.com/hashicorp/terraform-plugin-framework-validators v0.5.0
+	github.com/hashicorp/terraform-plugin-framework-validators v0.6.0
 	github.com/hashicorp/terraform-plugin-go v0.14.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.24.1
 	github.com/lestrrat-go/jwx/v2 v2.0.8
