@@ -15,10 +15,10 @@ func TestAccMessageTypeDataSource(t *testing.T) {
 		Steps: []resource.TestStep{
 			// Read testing
 			{
-				Config: testAccMessageTypeDataSourceConfig("echo.json"),
+				Config: testAccMessageTypeDataSourceConfig("echo.hl7"),
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.echostream_message_type.test", "name", "echo.json"),
-					resource.TestCheckResourceAttr("data.echostream_message_type.test", "requirements.0", "simplejson"),
+					resource.TestCheckResourceAttr("data.echostream_message_type.test", "name", "echo.hl7"),
+					resource.TestCheckResourceAttr("data.echostream_message_type.test", "requirements.0", "hl7>=0.4.2"),
 				),
 			},
 		},
