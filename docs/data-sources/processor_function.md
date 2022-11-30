@@ -25,17 +25,14 @@ data "echostream_processor_function" "csv_2_json" {
 
 - `name` (String) The Function name. Must be unique within the Tenant.
 
-### Optional
-
-- `readme` (String) README in MarkDown format.
-- `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.
-
 ### Read-Only
 
 - `argument_message_type` (String) The MessageType passed in to the Function.
 - `code` (String) The code of the Function in Python string format.
 - `description` (String) A human-readable description.
 - `in_use` (Boolean) True if this is used by other resources.
+- `readme` (String) README in MarkDown format.
+- `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.
 - `return_message_type` (String) The MessageType returned by the Function.
 
 

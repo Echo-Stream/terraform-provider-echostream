@@ -51,13 +51,11 @@ func dataFunctionSchema() map[string]tfsdk.Attribute {
 		"readme": {
 			Computed:            true,
 			MarkdownDescription: "README in MarkDown format.",
-			Optional:            true,
 			Type:                types.StringType,
 		},
 		"requirements": {
 			Computed:            true,
 			MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
-			Optional:            true,
 			Type:                types.SetType{ElemType: types.StringType},
 			Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
 		},
@@ -66,6 +64,7 @@ func dataFunctionSchema() map[string]tfsdk.Attribute {
 
 func resourceFunctionSchema() map[string]tfsdk.Attribute {
 	required := []string{"code", "description", "name"}
+	optional := []string{"readme", "requirements"}
 	schema := dataFunctionSchema()
 	for key, attribute := range schema {
 		if key != "in_use" {
@@ -77,6 +76,9 @@ func resourceFunctionSchema() map[string]tfsdk.Attribute {
 		}
 		if slices.Contains(required, key) {
 			attribute.Required = true
+		}
+		if slices.Contains(optional, key) {
+			attribute.Optional = true
 		}
 		schema[key] = attribute
 	}
