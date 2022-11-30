@@ -60,6 +60,10 @@ func (r *FilesDotComWebhookNodeResource) Create(ctx context.Context, req resourc
 	// Read Terraform plan data into the model
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 
+	if plan.ApiKey.IsNull() || plan.ApiKey.IsUnknown() {
+		resp.Diagnostics.AddAttributeError(path.Root("api_key"), "Missing api_key", "api_key is a required attribute for creating FilesDotComWebhookNodes")
+	}
+
 	if resp.Diagnostics.HasError() {
 		return
 	}
@@ -133,11 +137,12 @@ func (r *FilesDotComWebhookNodeResource) GetSchema(ctx context.Context) (tfsdk.S
 		schema,
 		map[string]tfsdk.Attribute{
 			"api_key": {
-				MarkdownDescription: "The Files.com api key. Used by this node to obtain a whitelist of IP addresses from Files.com.",
-				Required:            true,
-				Sensitive:           true,
-				Type:                types.StringType,
-				Validators:          []tfsdk.AttributeValidator{stringvalidator.LengthAtLeast(1)},
+				MarkdownDescription: "The Files.com api key. Used by this node to obtain a whitelist of IP addresses from Files.com.\n\n" +
+					"!> **Warning:** While this attribute is marked as Optional to support the importation of these resources, it is *Required* for creating them.",
+				Optional:   true,
+				Sensitive:  true,
+				Type:       types.StringType,
+				Validators: []tfsdk.AttributeValidator{stringvalidator.LengthAtLeast(1)},
 			},
 			"endpoint": {
 				Computed:            true,
@@ -220,19 +225,25 @@ func (r *FilesDotComWebhookNodeResource) Update(ctx context.Context, req resourc
 		return
 	}
 
-	var description *string
+	var (
+		apiKey      *string
+		description *string
+	)
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
 		temp := plan.Description.ValueString()
 		description = &temp
 	}
+	if !(plan.ApiKey.IsNull() || plan.ApiKey.IsUnknown()) {
+		temp := plan.ApiKey.ValueString()
+		apiKey = &temp
+	}
 
-	apiKey := plan.ApiKey.ValueString()
 	if echoResp, err := api.UpdateFilesDotComWebhookNode(
 		ctx,
 		r.data.Client,
 		plan.Name.ValueString(),
 		r.data.Tenant,
-		&apiKey,
+		apiKey,
 		description,
 	); err != nil {
 		resp.Diagnostics.AddError("Error updating FilesDotComWebhookNode", err.Error())

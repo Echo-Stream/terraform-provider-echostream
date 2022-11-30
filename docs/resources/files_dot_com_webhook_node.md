@@ -24,11 +24,13 @@ resource "echostream_files_dot_com_webhook_node" "test" {
 
 ### Required
 
-- `api_key` (String, Sensitive) The Files.com api key. Used by this node to obtain a whitelist of IP addresses from Files.com.
 - `name` (String) The name of the Node. Must be unique within the Tenant.
 
 ### Optional
 
+- `api_key` (String, Sensitive) The Files.com api key. Used by this node to obtain a whitelist of IP addresses from Files.com.
+
+!> **Warning:** While this attribute is marked as Optional to support the importation of these resources, it is *Required* for creating them.
 - `description` (String) A human-readable description.
 
 ### Read-Only
