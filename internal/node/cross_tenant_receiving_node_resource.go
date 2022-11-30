@@ -53,43 +53,10 @@ func (r *CrossTenantReceivingNodeResource) Configure(ctx context.Context, req re
 }
 
 func (r *CrossTenantReceivingNodeResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var plan crossTenantReceivingNodeModel
-
-	// Read Terraform plan data into the model
-	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	if echoResp, err := api.ReadNode(ctx, r.data.Client, plan.Name.ValueString(), r.data.Tenant); err != nil {
-		resp.Diagnostics.AddError("Error reading CrossTenantReceivingNode", err.Error())
-		return
-	} else if echoResp.GetNode == nil {
-		resp.State.RemoveResource(ctx)
-		return
-	} else {
-		switch node := (*echoResp.GetNode).(type) {
-		case *api.ReadNodeGetNodeCrossTenantReceivingNode:
-			plan.App = types.StringValue(node.App.Name)
-			if node.Description != nil {
-				plan.Description = types.StringValue(*node.Description)
-			} else {
-				plan.Description = types.StringNull()
-			}
-			plan.Name = types.StringValue(node.Name)
-			plan.SendMessageType = types.StringValue(node.SendMessageType.Name)
-		default:
-			resp.Diagnostics.AddError(
-				"Expected CrossTenantReceivingNode",
-				fmt.Sprintf("Received '%s' for '%s'", *(*echoResp.GetNode).GetTypename(), plan.Name.ValueString()),
-			)
-			return
-		}
-	}
-
-	// Save updated data into Terraform state
-	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
+	resp.Diagnostics.AddError(
+		"Cannot create CrossTenantReceivingNode",
+		"CrossTenantReceivingNodes are automatically created when their peer CrossTenantSendingNode is created",
+	)
 }
 
 func (r *CrossTenantReceivingNodeResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
@@ -132,7 +99,8 @@ func (r *CrossTenantReceivingNodeResource) GetSchema(ctx context.Context) (tfsdk
 		Attributes: schema,
 		MarkdownDescription: "[CrossTenantReceivingNodes](https://docs.echo.stream/docs/cross-tenant-receiving-node) " +
 			"receive messages from other Tenants. Created automatically when the other Tenant's CrossTenantSendingApp has " +
-			"a CrossTenantSendingNode created in it. One per CrossTenantSendingNode.",
+			"a CrossTenantSendingNode created in it. This means that you cannot create this resource; you may only import " +
+			"it and manage it. One per CrossTenantSendingNode.",
 	}, nil
 }
 

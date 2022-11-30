@@ -3,12 +3,12 @@
 page_title: "echostream_cross_tenant_receiving_node Resource - terraform-provider-echostream"
 subcategory: ""
 description: |-
-  CrossTenantReceivingNodes https://docs.echo.stream/docs/cross-tenant-receiving-node receive messages from other Tenants. Created automatically when the other Tenant's CrossTenantSendingApp has a CrossTenantSendingNode created in it. One per CrossTenantSendingNode.
+  CrossTenantReceivingNodes https://docs.echo.stream/docs/cross-tenant-receiving-node receive messages from other Tenants. Created automatically when the other Tenant's CrossTenantSendingApp has a CrossTenantSendingNode created in it. This means that you cannot create this resource; you may only import it and manage it. One per CrossTenantSendingNode.
 ---
 
 # echostream_cross_tenant_receiving_node (Resource)
 
-[CrossTenantReceivingNodes](https://docs.echo.stream/docs/cross-tenant-receiving-node) receive messages from other Tenants. Created automatically when the other Tenant's CrossTenantSendingApp has a CrossTenantSendingNode created in it. One per CrossTenantSendingNode.
+[CrossTenantReceivingNodes](https://docs.echo.stream/docs/cross-tenant-receiving-node) receive messages from other Tenants. Created automatically when the other Tenant's CrossTenantSendingApp has a CrossTenantSendingNode created in it. This means that you cannot create this resource; you may only import it and manage it. One per CrossTenantSendingNode.
 
 ## Example Usage
 
@@ -41,5 +41,5 @@ resource "echostream_cross_tenant_receiving_node" "test" {
 Import is supported using the following syntax:
 
 ```shell
-terraform import echostream_cross_tenant_receiving_node.receiving "node_name"
+terraform import echostream_cross_tenant_receiving_node.receiving "sending_tenant:sending_node"
 ```
