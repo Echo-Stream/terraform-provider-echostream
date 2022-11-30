@@ -30,6 +30,9 @@ resource "echostream_cross_tenant_receiving_app" "test" {
 ### Optional
 
 - `description` (String) A human-readable description of the app.
+
+### Read-Only
+
 - `sending_app` (String) The CrossTenantSendingApp in the sending Tenant - this will be filled in once the other Tenant creates their CrossTenantSendingApp.
 
 ## Import

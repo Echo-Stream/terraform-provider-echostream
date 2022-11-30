@@ -108,7 +108,6 @@ func (r *CrossTenantReceivingAppResource) GetSchema(ctx context.Context) (tfsdk.
 			"sending_app": {
 				Computed:            true,
 				MarkdownDescription: "The CrossTenantSendingApp in the sending Tenant - this will be filled in once the other Tenant creates their CrossTenantSendingApp.",
-				Optional:            true,
 				Type:                types.StringType,
 			},
 			"sending_tenant": {
