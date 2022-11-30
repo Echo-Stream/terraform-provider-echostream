@@ -34,11 +34,11 @@ resource "echostream_external_node" "test" {
 
 ### Required
 
+- `app` (String) The ExternalApp or CrossAccountApp this Node is associated with.
 - `name` (String) The name of the Node. Must be unique within the Tenant.
 
 ### Optional
 
-- `app` (String) The ExternalApp or CrossAccountApp this Node is associated with.
 - `config` (String, Sensitive) The config, in JSON object format (i.e. - dict, map).
 - `description` (String) A human-readable description.
 - `receive_message_type` (String) The MessageType that this Node is capable of receiving.

@@ -183,8 +183,8 @@ func (r *ExternalNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, dia
 		map[string]tfsdk.Attribute{
 			"app": {
 				MarkdownDescription: "The ExternalApp or CrossAccountApp this Node is associated with.",
-				Optional:            true,
 				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
+				Required:            true,
 				Type:                types.StringType,
 			},
 			"config": {
