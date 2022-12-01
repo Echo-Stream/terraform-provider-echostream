@@ -317,7 +317,11 @@ func readProcessorFunction(ctx context.Context, client graphql.Client, name stri
 				} else {
 					data.Requirements = types.SetNull(types.StringType)
 				}
-				data.ReturnMessageType = types.StringValue(function.ReturnMessageType.Name)
+				if function.ReturnMessageType != nil {
+					data.ReturnMessageType = types.StringValue(function.ReturnMessageType.Name)
+				} else {
+					data.ReturnMessageType = types.StringNull()
+				}
 				if function.System != nil {
 					system = *function.System
 				}
