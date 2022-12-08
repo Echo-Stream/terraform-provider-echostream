@@ -1,58 +1,53 @@
 package node
 
 import (
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
-	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"golang.org/x/exp/maps"
 )
 
-func dataNodeSchema() map[string]tfsdk.Attribute {
-	return map[string]tfsdk.Attribute{
-		"description": {
+func dataNodeAttributes() map[string]schema.Attribute {
+	return map[string]schema.Attribute{
+		"description": schema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "A human-readable description.",
-			Type:                types.StringType,
 		},
-		"name": {
+		"name": schema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The name of the Node. Must be unique within the Tenant.",
-			Type:                types.StringType,
 		},
 	}
 }
 
-func dataReceiveNodeSchema() map[string]tfsdk.Attribute {
-	schema := dataNodeSchema()
+func dataReceiveNodeAttributes() map[string]schema.Attribute {
+	attributes := dataNodeAttributes()
 	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"receive_message_type": {
+		attributes,
+		map[string]schema.Attribute{
+			"receive_message_type": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "The MessageType that this Node is capable of receiving.",
-				Type:                types.StringType,
 			},
 		},
 	)
-	return schema
+	return attributes
 }
 
-func dataSendNodeSchema() map[string]tfsdk.Attribute {
-	schema := dataNodeSchema()
+func dataSendNodeAttributes() map[string]schema.Attribute {
+	attributes := dataNodeAttributes()
 	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"send_message_type": {
+		attributes,
+		map[string]schema.Attribute{
+			"send_message_type": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "The MessageType that this Node is capable of sending.",
-				Type:                types.StringType,
 			},
 		},
 	)
-	return schema
+	return attributes
 }
 
-func dataSendReceiveNodeSchema() map[string]tfsdk.Attribute {
-	schema := dataReceiveNodeSchema()
-	maps.Copy(schema, dataSendNodeSchema())
-	return schema
+func dataSendReceiveNodeAttributes() map[string]schema.Attribute {
+	attributes := dataReceiveNodeAttributes()
+	maps.Copy(attributes, dataSendNodeAttributes())
+	return attributes
 }

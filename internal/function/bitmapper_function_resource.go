@@ -11,7 +11,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -19,6 +21,7 @@ import (
 var (
 	_ resource.ResourceWithImportState = &BitmapperFunctionResource{}
 	_ resource.ResourceWithModifyPlan  = &BitmapperFunctionResource{}
+	_ resource.ResourceWithSchema      = &BitmapperFunctionResource{}
 )
 
 // BitmapperFunctionResource defines the resource implementation.
@@ -132,13 +135,6 @@ func (r *BitmapperFunctionResource) Delete(ctx context.Context, req resource.Del
 	time.Sleep(2 * time.Second)
 }
 
-func (r *BitmapperFunctionResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes:          resourceBitmapperFunctionSchema(),
-		MarkdownDescription: "[BitmapperFunctions](https://docs.echo.stream/docs/bitmap-router-node#bitmapper-function) provide reusable message bitmapping and are used in RouterNodes.",
-	}, nil
-}
-
 func (r *BitmapperFunctionResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -212,6 +208,19 @@ func (r *BitmapperFunctionResource) Read(ctx context.Context, req resource.ReadR
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *BitmapperFunctionResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	attributes := resourceFunctionAttributes()
+	attributes["argument_message_type"] = schema.StringAttribute{
+		MarkdownDescription: "The MessageType passed in to the Function.",
+		PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+		Required:            true,
+	}
+	resp.Schema = schema.Schema{
+		Attributes:          attributes,
+		MarkdownDescription: "[BitmapperFunctions](https://docs.echo.stream/docs/bitmap-router-node#bitmapper-function) provide reusable message bitmapping and are used in RouterNodes.",
+	}
 }
 
 func (r *BitmapperFunctionResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

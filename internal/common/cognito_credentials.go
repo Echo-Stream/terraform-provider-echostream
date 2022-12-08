@@ -2,7 +2,7 @@ package common
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -36,28 +36,24 @@ func CognitoCredentialsAttrValues(
 	}
 }
 
-func CognitoCredentialsSchema() map[string]tfsdk.Attribute {
-	return map[string]tfsdk.Attribute{
-		"client_id": {
+func CognitoCredentialsSchema() map[string]schema.Attribute {
+	return map[string]schema.Attribute{
+		"client_id": schema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The AWS Cognito Client ID used to connect to EchoStream.",
-			Type:                types.StringType,
 		},
-		"password": {
+		"password": schema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The password to use when connecting to EchoStream.",
 			Sensitive:           true,
-			Type:                types.StringType,
 		},
-		"user_pool_id": {
+		"user_pool_id": schema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The AWS Cognito User Pool ID used to connect to EchoStream.",
-			Type:                types.StringType,
 		},
-		"username": {
+		"username": schema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The username to use when connecting to EchoStream.",
-			Type:                types.StringType,
 		},
 	}
 }

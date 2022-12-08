@@ -9,18 +9,24 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common/validators"
+	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var _ resource.ResourceWithImportState = &ManagedNodeResource{}
+var (
+	_ resource.ResourceWithImportState = &ManagedNodeResource{}
+	_ resource.ResourceWithSchema      = &ManagedNodeResource{}
+)
 
 // ManagedNodeResource defines the resource implementation.
 type ManagedNodeResource struct {
@@ -301,122 +307,6 @@ func (r *ManagedNodeResource) Delete(ctx context.Context, req resource.DeleteReq
 	time.Sleep(2 * time.Second)
 }
 
-func (r *ManagedNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := dataSendReceiveNodeSchema()
-	for key, attribute := range schema {
-		switch key {
-		case "description":
-			attribute.Computed = false
-			attribute.Optional = true
-		case "name":
-			attribute.Computed = false
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-			attribute.Required = true
-			attribute.Validators = []tfsdk.AttributeValidator{
-				stringvalidator.LengthBetween(3, 63),
-				stringvalidator.RegexMatches(
-					regexp.MustCompile(`^[A-Za-z0-9\-]*$`),
-					"value must contain only lowercase/uppercase alphanumeric characters, or \"-\"",
-				),
-			}
-		}
-		schema[key] = attribute
-	}
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"app": {
-				MarkdownDescription: "The ManagedApp that this Node is associated with.",
-				Required:            true,
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Type:                types.StringType,
-			},
-			"config": {
-				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
-				Optional:            true,
-				Sensitive:           true,
-				Type:                common.ConfigType{},
-			},
-			"logging_level": {
-				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
-				Optional:            true,
-				Type:                types.StringType,
-				Validators:          []tfsdk.AttributeValidator{common.LogLevelValidator},
-			},
-			"managed_node_type": {
-				MarkdownDescription: "The ManagedNodeType of this ManagedNode. This Node must conform to all of the" +
-					" config, mount and port requirements specified in the ManagedNodeType.",
-				PlanModifiers: tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Required:      true,
-				Type:          types.StringType,
-			},
-			"mounts": {
-				Attributes: tfsdk.SetNestedAttributes(
-					map[string]tfsdk.Attribute{
-						"description": {
-							Computed:            true,
-							MarkdownDescription: " A human-readable description.",
-							Type:                types.StringType,
-						},
-						"source": {
-							MarkdownDescription: "The source of the mount. If not present, an anonymous volume will be created.",
-							Optional:            true,
-							Type:                types.StringType,
-						},
-						"target": {
-							MarkdownDescription: "The path to mount the volume in the Docker container.",
-							Required:            true,
-							Type:                types.StringType,
-						},
-					},
-				),
-				MarkdownDescription: "A list of the mounts (i.e. - volumes) used by the Docker container.",
-				Optional:            true,
-			},
-			"ports": {
-				Attributes: tfsdk.SetNestedAttributes(
-					map[string]tfsdk.Attribute{
-						"container_port": {
-							MarkdownDescription: "The exposed container port.",
-							Required:            true,
-							Type:                types.Int64Type,
-						},
-						"description": {
-							Computed:            true,
-							MarkdownDescription: "A human-readable description.",
-							Type:                types.StringType,
-						},
-						"host_address": {
-							MarkdownDescription: "The host address the port is exposed on. Defaults to `0.0.0.0`.",
-							Optional:            true,
-							Type:                types.StringType,
-							Validators:          []tfsdk.AttributeValidator{validators.Ipaddr()},
-						},
-						"host_port": {
-							MarkdownDescription: "The exposed host port. Must be between `1024` and `65535`, inclusive.",
-							Required:            true,
-							Type:                types.Int64Type,
-							Validators:          []tfsdk.AttributeValidator{common.PortValidator},
-						},
-						"protocol": {
-							MarkdownDescription: "The protocol to use for the port. One of `sctp`, `tcp` or `udp`.",
-							Required:            true,
-							Type:                types.StringType,
-							Validators:          []tfsdk.AttributeValidator{common.ProtocolValidator},
-						},
-					},
-				),
-				MarkdownDescription: "A list of ports exposed by the Docker container.",
-				Optional:            true,
-			},
-		},
-	)
-	return tfsdk.Schema{
-		Attributes:          schema,
-		MarkdownDescription: "[ManagedNodes](https://docs.echo.stream/docs/managed-node) are instances of Docker containers that exist within ManagedApps.",
-	}, nil
-}
-
 func (r *ManagedNodeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -518,6 +408,114 @@ func (r *ManagedNodeResource) Read(ctx context.Context, req resource.ReadRequest
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *ManagedNodeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"app": schema.StringAttribute{
+				MarkdownDescription: "The ManagedApp that this Node is associated with.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+			},
+			"config": schema.StringAttribute{
+				CustomType:          common.ConfigType{},
+				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
+				Optional:            true,
+				Sensitive:           true,
+			},
+			"description": schema.StringAttribute{
+				MarkdownDescription: "A human-readable description.",
+				Optional:            true,
+			},
+			"logging_level": schema.StringAttribute{
+				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
+				Optional:            true,
+				Validators:          []validator.String{common.LogLevelValidator},
+			},
+			"managed_node_type": schema.StringAttribute{
+				MarkdownDescription: "The ManagedNodeType of this ManagedNode. This Node must conform to all of the" +
+					" config, mount and port requirements specified in the ManagedNodeType.",
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:      true,
+			},
+			"mounts": schema.SetNestedAttribute{
+				MarkdownDescription: "A list of the mounts (i.e. - volumes) used by the Docker container.",
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"description": schema.StringAttribute{
+							Computed:            true,
+							MarkdownDescription: " A human-readable description.",
+						},
+						"source": schema.StringAttribute{
+							MarkdownDescription: "The source of the mount. If not present, an anonymous volume will be created.",
+							Optional:            true,
+						},
+						"target": schema.StringAttribute{
+							MarkdownDescription: "The path to mount the volume in the Docker container.",
+							Required:            true,
+						},
+					},
+				},
+				Optional: true,
+			},
+			"name": schema.StringAttribute{
+				MarkdownDescription: "The name of the Node. Must be unique within the Tenant.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+				Validators: []validator.String{
+					stringvalidator.LengthBetween(3, 63),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[A-Za-z0-9\-]*$`),
+						"value must contain only lowercase/uppercase alphanumeric characters, or \"-\"",
+					),
+				},
+			},
+			"ports": schema.SetNestedAttribute{
+				MarkdownDescription: "A list of ports exposed by the Docker container.",
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"container_port": schema.Int64Attribute{
+							MarkdownDescription: "The exposed container port.",
+							Required:            true,
+							Validators:          []validator.Int64{int64validator.Between(1, 65535)},
+						},
+						"description": schema.StringAttribute{
+							Computed:            true,
+							MarkdownDescription: "A human-readable description.",
+						},
+						"host_address": schema.StringAttribute{
+							MarkdownDescription: "The host address the port is exposed on. Defaults to `0.0.0.0`.",
+							Optional:            true,
+							Validators:          []validator.String{validators.Ipaddr()},
+						},
+						"host_port": schema.Int64Attribute{
+							MarkdownDescription: "The exposed host port. Must be between `1024` and `65535`, inclusive.",
+							Required:            true,
+							Validators:          []validator.Int64{common.PortValidator},
+						},
+						"protocol": schema.StringAttribute{
+							MarkdownDescription: "The protocol to use for the port. One of `sctp`, `tcp` or `udp`.",
+							Required:            true,
+							Validators:          []validator.String{common.ProtocolValidator},
+						},
+					},
+				},
+				Optional: true,
+			},
+			"receive_message_type": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The MessageType that this Node is capable of receiving.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
+			"send_message_type": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The MessageType that this Node is capable of sending.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
+		},
+		MarkdownDescription: "[ManagedNodes](https://docs.echo.stream/docs/managed-node) are instances of Docker containers that exist within ManagedApps.",
+	}
 }
 
 func (r *ManagedNodeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

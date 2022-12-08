@@ -26,19 +26,21 @@ import (
 	cognitoIdp "github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider"
 	cognitoIdp_types "github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider/types"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
+	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/lestrrat-go/jwx/v2/jwt"
 )
 
-// Ensure EchoStreamDoer satifies doer interface
-var _ graphql.Doer = &echoStreamApiDoer{}
+var (
+	// Ensure EchoStreamDoer satifies doer interface
+	_ graphql.Doer = &echoStreamApiDoer{}
 
-// Ensure EchoStreamProvider satisfies various provider interfaces.
-var _ provider.ProviderWithMetadata = &echoStreamProvider{}
+	// Ensure EchoStreamProvider satisfies various provider interfaces.
+	_ provider.ProviderWithMetadata = &echoStreamProvider{}
+	_ provider.ProviderWithSchema   = &echoStreamProvider{}
+)
 
 type echoStreamApiDoer struct {
 	sync.Mutex
@@ -289,42 +291,36 @@ type EchoStreamProviderModel struct {
 	UserPoolId      types.String `tfsdk:"user_pool_id"`
 }
 
-func (p *echoStreamProvider) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: map[string]tfsdk.Attribute{
-			"appsync_endpoint": {
+func (p *echoStreamProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"appsync_endpoint": schema.StringAttribute{
 				MarkdownDescription: "The ApiUser's AppSync Endpoint.",
 				Optional:            true,
-				Type:                types.StringType,
 			},
-			"client_id": {
+			"client_id": schema.StringAttribute{
 				MarkdownDescription: "The ApiUser's AWS Cognito Client Id.",
 				Optional:            true,
-				Type:                types.StringType,
 			},
-			"password": {
+			"password": schema.StringAttribute{
 				MarkdownDescription: "The ApiUser's password.",
 				Optional:            true,
 				Sensitive:           true,
-				Type:                types.StringType,
 			},
-			"tenant": {
+			"tenant": schema.StringAttribute{
 				MarkdownDescription: "The EchoStream Tenant to manage.",
 				Optional:            true,
-				Type:                types.StringType,
 			},
-			"username": {
+			"username": schema.StringAttribute{
 				MarkdownDescription: "The ApiUser's username.",
 				Optional:            true,
-				Type:                types.StringType,
 			},
-			"user_pool_id": {
+			"user_pool_id": schema.StringAttribute{
 				MarkdownDescription: "The ApiUser's AWS Cognito User Pool Id.",
 				Optional:            true,
-				Type:                types.StringType,
 			},
 		},
-	}, nil
+	}
 }
 
 func New(version string) func() provider.Provider {

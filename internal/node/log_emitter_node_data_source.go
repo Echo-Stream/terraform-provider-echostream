@@ -7,13 +7,15 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var _ datasource.DataSourceWithConfigure = &LogEmitterNodeDataSource{}
+var (
+	_ datasource.DataSourceWithConfigure = &LogEmitterNodeDataSource{}
+	_ datasource.DataSourceWithSchema    = &LogEmitterNodeDataSource{}
+)
 
 type LogEmitterNodeDataSource struct {
 	data *common.ProviderData
@@ -42,14 +44,6 @@ type logEmitterNodeDataSourceModel struct {
 	Description     types.String `tfsdk:"description"`
 	Name            types.String `tfsdk:"name"`
 	SendMessageType types.String `tfsdk:"send_message_type"`
-}
-
-func (d *LogEmitterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: dataSendNodeSchema(),
-		MarkdownDescription: "[LogEmitterNodes](https://docs.echo.stream/docs/log-emitter-node) emit log messages created by various Node types. " +
-			"One per Tenant, automatically created when the Tenant is created.",
-	}, nil
 }
 
 func (d *LogEmitterNodeDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -89,4 +83,12 @@ func (d *LogEmitterNodeDataSource) Read(ctx context.Context, req datasource.Read
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)
+}
+
+func (d *LogEmitterNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: dataSendNodeAttributes(),
+		MarkdownDescription: "[LogEmitterNodes](https://docs.echo.stream/docs/log-emitter-node) emit log messages created by various Node types. " +
+			"One per Tenant, automatically created when the Tenant is created.",
+	}
 }

@@ -12,9 +12,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
@@ -22,6 +24,7 @@ var (
 	_ resource.ResourceWithConfigValidators = &CrossTenantSendingNodeResource{}
 	_ resource.ResourceWithImportState      = &CrossTenantSendingNodeResource{}
 	_ resource.ResourceWithModifyPlan       = &CrossTenantSendingNodeResource{}
+	_ resource.ResourceWithSchema           = &CrossTenantSendingNodeResource{}
 )
 
 // ProcessorNodeResource defines the resource implementation.
@@ -222,83 +225,6 @@ func (r *CrossTenantSendingNodeResource) Delete(ctx context.Context, req resourc
 	time.Sleep(2 * time.Second)
 }
 
-func (r *CrossTenantSendingNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := dataSendReceiveNodeSchema()
-	for key, attribute := range schema {
-		switch key {
-		case "description":
-			attribute.Computed = false
-			attribute.Optional = true
-		case "name":
-			attribute.Computed = false
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-			attribute.Required = true
-			attribute.Validators = common.NameValidators
-		case "receive_message_type":
-			attribute.Computed = false
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-			attribute.Required = true
-		case "send_message_type":
-			attribute.Computed = false
-			attribute.Optional = true
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-		}
-		schema[key] = attribute
-	}
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"app": {
-				MarkdownDescription: "The CrossTenantSendingApp this Node is associated with.",
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Required:            true,
-				Type:                types.StringType,
-			},
-			"config": {
-				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
-				Optional:            true,
-				Sensitive:           true,
-				Type:                common.ConfigType{},
-			},
-			"inline_processor": {
-				MarkdownDescription: "A Python code string that contains a single top-level function definition." +
-					"This function is used as a template when creating custom processing in ProcessorNodes" +
-					"that use this MessageType. This function must have the signature" +
-					"`(*, context, message, source, **kwargs)` and return None, a string or a list of strings." +
-					" Mutually exclusive with `managedProcessor`.",
-				Optional: true,
-				Type:     types.StringType,
-			},
-			"logging_level": {
-				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
-				Optional:            true,
-				Type:                types.StringType,
-				Validators:          []tfsdk.AttributeValidator{common.LogLevelValidator},
-			},
-			"managed_processor": {
-				MarkdownDescription: "The managedProcessor. Mutually exclusive with the `inlineProcessor`.",
-				Optional:            true,
-				Type:                types.StringType,
-			},
-			"requirements": {
-				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
-				Optional:            true,
-				Type:                types.SetType{ElemType: types.StringType},
-				Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
-			},
-			"sequential_processing": {
-				MarkdownDescription: "`true` if messages should not be processed concurrently. If `false`, messages are processed concurrently. Defaults to `false`.",
-				Optional:            true,
-				Type:                types.BoolType,
-			},
-		},
-	)
-	return tfsdk.Schema{
-		Attributes:          schema,
-		MarkdownDescription: "[CrossTenantSendingNodes](https://docs.echo.stream/docs/cross-tenant-sending-node) send messages to a receiving Tenant.",
-	}, nil
-}
-
 func (r *CrossTenantSendingNodeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -444,6 +370,72 @@ func (r *CrossTenantSendingNodeResource) Read(ctx context.Context, req resource.
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *CrossTenantSendingNodeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"app": schema.StringAttribute{
+				MarkdownDescription: "The CrossTenantSendingApp this Node is associated with.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+			},
+			"config": schema.StringAttribute{
+				CustomType:          common.ConfigType{},
+				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
+				Optional:            true,
+				Sensitive:           true,
+			},
+			"description": schema.StringAttribute{
+				MarkdownDescription: "A human-readable description.",
+				Optional:            true,
+			},
+			"inline_processor": schema.StringAttribute{
+				MarkdownDescription: "A Python code string that contains a single top-level function definition." +
+					"This function is used as a template when creating custom processing in ProcessorNodes" +
+					"that use this MessageType. This function must have the signature" +
+					"`(*, context, message, source, **kwargs)` and return None, a string or a list of strings." +
+					" Mutually exclusive with `managedProcessor`.",
+				Optional: true,
+			},
+			"logging_level": schema.StringAttribute{
+				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
+				Optional:            true,
+				Validators:          []validator.String{common.LogLevelValidator},
+			},
+			"managed_processor": schema.StringAttribute{
+				MarkdownDescription: "The managedProcessor. Mutually exclusive with the `inlineProcessor`.",
+				Optional:            true,
+			},
+			"name": schema.StringAttribute{
+				MarkdownDescription: "The name of the Node. Must be unique within the Tenant.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+				Validators:          common.FunctionNodeNameValidators,
+			},
+			"receive_message_type": schema.StringAttribute{
+				MarkdownDescription: "The MessageType that this Node is capable of receiving.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+			},
+			"requirements": schema.SetAttribute{
+				ElementType:         types.StringType,
+				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
+				Optional:            true,
+				Validators:          []validator.Set{common.RequirementsValidator},
+			},
+			"send_message_type": schema.StringAttribute{
+				MarkdownDescription: "The MessageType that this Node is capable of sending.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Optional:            true,
+			},
+			"sequential_processing": schema.BoolAttribute{
+				MarkdownDescription: "`true` if messages should not be processed concurrently. If `false`, messages are processed concurrently. Defaults to `false`.",
+				Optional:            true,
+			},
+		},
+		MarkdownDescription: "[CrossTenantSendingNodes](https://docs.echo.stream/docs/cross-tenant-sending-node) send messages to a receiving Tenant.",
+	}
 }
 
 func (r *CrossTenantSendingNodeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

@@ -9,10 +9,14 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
+	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -20,6 +24,7 @@ import (
 var (
 	_ resource.ResourceWithImportState = &EdgeResource{}
 	_ resource.ResourceWithModifyPlan  = &EdgeResource{}
+	_ resource.ResourceWithSchema      = &EdgeResource{}
 )
 
 // EdgeResource defines the resource implementation.
@@ -138,50 +143,44 @@ func (r *EdgeResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 	time.Sleep(2 * time.Second)
 }
 
-func (r *EdgeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: map[string]tfsdk.Attribute{
-			"description": {
+func (r *EdgeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"description": schema.StringAttribute{
 				MarkdownDescription: "A human-readable description.",
 				Optional:            true,
-				Type:                types.StringType,
 			},
-			"kmskey": {
+			"kmskey": schema.StringAttribute{
 				MarkdownDescription: "The name of the KmsKey to use to encrypt the message at rest and in flight. Defaults to the Tenant's KmsKey.",
 				Optional:            true,
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Type:                types.StringType,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
-			"max_receive_count": {
+			"max_receive_count": schema.Int64Attribute{
 				MarkdownDescription: "The maximum number of delivbery tries to the `target`. `0` is the default and will try forever. " +
 					"Any positive number will result in that many tries before sending the messagge to the `DeadLetterEmitterNode`.",
 				Optional:      true,
-				PlanModifiers: tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Type:          types.Int64Type,
+				PlanModifiers: []planmodifier.Int64{int64planmodifier.RequiresReplace()},
+				Validators:    []validator.Int64{int64validator.AtLeast(0)},
 			},
-			"message_type": {
+			"message_type": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "The MessageType that will be transmitted.",
-				Type:                types.StringType,
 			},
-			"queue": {
+			"queue": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "The URL of the underlying AWS SQS queue.",
-				Type:                types.StringType,
 			},
-			"source": {
+			"source": schema.StringAttribute{
 				MarkdownDescription: "The source Node to transmit messages from.",
 				Required:            true,
-				Type:                types.StringType,
 			},
-			"target": {
+			"target": schema.StringAttribute{
 				MarkdownDescription: "The target Node to transmit messages to.",
 				Required:            true,
-				Type:                types.StringType,
 			},
 		},
 		MarkdownDescription: "[Edges](https://docs.echo.stream/docs/edges) transmit messages of a single MessageType between Nodes.",
-	}, nil
+	}
 }
 
 func (r *EdgeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {

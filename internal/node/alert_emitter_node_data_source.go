@@ -7,13 +7,15 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var _ datasource.DataSourceWithConfigure = &AlertEmitterNodeDataSource{}
+var (
+	_ datasource.DataSourceWithConfigure = &AlertEmitterNodeDataSource{}
+	_ datasource.DataSourceWithSchema    = &AlertEmitterNodeDataSource{}
+)
 
 type AlertEmitterNodeDataSource struct {
 	data *common.ProviderData
@@ -42,14 +44,6 @@ type alertEmitterNodeDataSourceModel struct {
 	Description     types.String `tfsdk:"description"`
 	Name            types.String `tfsdk:"name"`
 	SendMessageType types.String `tfsdk:"send_message_type"`
-}
-
-func (d *AlertEmitterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: dataSendNodeSchema(),
-		MarkdownDescription: "[AlertEmitterNodes](https://docs.echo.stream/docs/alert-emitter-node) emit alert messages. " +
-			"One per Tenant, automatically created when the Tenant is created.",
-	}, nil
 }
 
 func (d *AlertEmitterNodeDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -89,4 +83,12 @@ func (d *AlertEmitterNodeDataSource) Read(ctx context.Context, req datasource.Re
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)
+}
+
+func (d *AlertEmitterNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: dataSendNodeAttributes(),
+		MarkdownDescription: "[AlertEmitterNodes](https://docs.echo.stream/docs/alert-emitter-node) emit alert messages. " +
+			"One per Tenant, automatically created when the Tenant is created.",
+	}
 }

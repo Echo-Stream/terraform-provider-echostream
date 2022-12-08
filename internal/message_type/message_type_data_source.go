@@ -6,12 +6,15 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var _ datasource.DataSourceWithConfigure = &MessageTypeDataSource{}
+var (
+	_ datasource.DataSourceWithConfigure = &MessageTypeDataSource{}
+	_ datasource.DataSourceWithSchema    = &MessageTypeDataSource{}
+)
 
 type MessageTypeDataSource struct {
 	data *common.ProviderData
@@ -34,14 +37,6 @@ func (d *MessageTypeDataSource) Configure(ctx context.Context, req datasource.Co
 	}
 
 	d.data = data
-}
-
-func (d *MessageTypeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: dataMessageTypeSchema(),
-		MarkdownDescription: "A specific [MessageType](https://docs.echo.stream/docs/message-types) in the Tenant. " +
-			"All messages sent or received must be loosely associated (via Node and Edge typing) with a MessageType.",
-	}, nil
 }
 
 func (d *MessageTypeDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -69,4 +64,62 @@ func (d *MessageTypeDataSource) Read(ctx context.Context, req datasource.ReadReq
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)
+}
+
+func (d *MessageTypeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"auditor": schema.StringAttribute{
+				Computed: true,
+				MarkdownDescription: "A Python code string that contains a single top-level function definition." +
+					" This function must have the signature `(*, message, **kwargs)` where" +
+					" message is a string and must return a flat dictionary.",
+			},
+			"bitmapper_template": schema.StringAttribute{
+				Computed: true,
+				MarkdownDescription: " A Python code string that contains a single top-level function definition." +
+					" This function is used as a template when creating custom routing rules in" +
+					" RouterNodes that use this MessageType. This function must have the signature" +
+					" `(*, context, message, source, **kwargs)` and return an integer.",
+			},
+			"description": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "A human-readable description.",
+			},
+			"id": schema.StringAttribute{
+				Computed: true,
+			},
+			"in_use": schema.BoolAttribute{
+				Computed:            true,
+				MarkdownDescription: "True if this is used by other resources.",
+			},
+			"name": schema.StringAttribute{
+				MarkdownDescription: "The name of the MessageType.",
+				Required:            true,
+				Validators:          messageTypeNameValidators,
+			},
+			"processor_template": schema.StringAttribute{
+				Computed: true,
+				MarkdownDescription: " A Python code string that contains a single top-leve function definition." +
+					" This function is used as a template when creating custom processing in" +
+					" ProcessorNodes that use this MessageType. This function must have the signature" +
+					" `(*, context, message, source, **kwargs)` and return `None`, a string or a list of strings.",
+			},
+			"readme": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "README in MarkDown format.",
+			},
+			"requirements": schema.SetAttribute{
+				Computed:            true,
+				ElementType:         types.StringType,
+				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
+			},
+			"sample_message": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "A sample message.",
+			},
+		},
+		MarkdownDescription: "A specific [MessageType](https://docs.echo.stream/docs/message-types) in the Tenant. " +
+			"All messages sent or received must be loosely associated (via Node and Edge typing) with a MessageType.",
+	}
 }

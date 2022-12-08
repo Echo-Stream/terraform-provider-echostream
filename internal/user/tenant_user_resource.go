@@ -8,14 +8,17 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-var _ resource.ResourceWithImportState = &TenantUserResource{}
+var (
+	_ resource.ResourceWithImportState = &TenantUserResource{}
+	_ resource.ResourceWithSchema      = &TenantUserResource{}
+)
 
 type TenantUserResource struct {
 	data *common.ProviderData
@@ -106,56 +109,6 @@ func (r *TenantUserResource) Delete(ctx context.Context, req resource.DeleteRequ
 	time.Sleep(2 * time.Second)
 }
 
-func (r *TenantUserResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: map[string]tfsdk.Attribute{
-			"email": {
-				MarkdownDescription: "The user's email address.",
-				Required:            true,
-				Type:                types.StringType,
-			},
-			"first_name": {
-				Computed:            true,
-				MarkdownDescription: "The user's first name, if available.",
-				Type:                types.StringType,
-			},
-			"last_name": {
-				Computed:            true,
-				MarkdownDescription: "The user's last name, if available.",
-				Type:                types.StringType,
-			},
-			"role": {
-				MarkdownDescription: fmt.Sprintf("The ApiUser's role. Must be one of `%s`, `%s`, `%s`, or `%s`.", api.UserRoleAdmin, api.UserRoleOwner, api.UserRoleReadOnly, api.UserRoleUser),
-				Required:            true,
-				Type:                types.StringType,
-				Validators: []tfsdk.AttributeValidator{
-					stringvalidator.OneOf(
-						string(api.UserRoleAdmin),
-						string(api.UserRoleOwner),
-						string(api.UserRoleReadOnly),
-						string(api.UserRoleUser),
-					),
-				},
-			},
-			"status": {
-				Computed:            true,
-				MarkdownDescription: fmt.Sprintf("The status. If set, must be one of `%s` or `%s`.", api.UserStatusActive, api.UserStatusInactive),
-				Optional:            true,
-				Type:                types.StringType,
-				Validators: []tfsdk.AttributeValidator{
-					stringvalidator.OneOf(
-						string(api.UserStatusActive),
-						string(api.UserStatusInactive),
-						string(api.UserStatusInvited),
-						string(api.UserStatusPending),
-					),
-				},
-			},
-		},
-		MarkdownDescription: "[TenantUsers](https://docs.echo.stream/docs/users-1) are used to interact with your Tenant via the UI.",
-	}, nil
-}
-
 func (r *TenantUserResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("email"), req, resp)
 }
@@ -198,6 +151,51 @@ func (r *TenantUserResource) Read(ctx context.Context, req resource.ReadRequest,
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *TenantUserResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"email": schema.StringAttribute{
+				MarkdownDescription: "The user's email address.",
+				Required:            true,
+			},
+			"first_name": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The user's first name, if available.",
+			},
+			"last_name": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The user's last name, if available.",
+			},
+			"role": schema.StringAttribute{
+				MarkdownDescription: fmt.Sprintf("The ApiUser's role. Must be one of `%s`, `%s`, `%s`, or `%s`.", api.UserRoleAdmin, api.UserRoleOwner, api.UserRoleReadOnly, api.UserRoleUser),
+				Required:            true,
+				Validators: []validator.String{
+					stringvalidator.OneOf(
+						string(api.UserRoleAdmin),
+						string(api.UserRoleOwner),
+						string(api.UserRoleReadOnly),
+						string(api.UserRoleUser),
+					),
+				},
+			},
+			"status": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: fmt.Sprintf("The status. If set, must be one of `%s` or `%s`.", api.UserStatusActive, api.UserStatusInactive),
+				Optional:            true,
+				Validators: []validator.String{
+					stringvalidator.OneOf(
+						string(api.UserStatusActive),
+						string(api.UserStatusInactive),
+						string(api.UserStatusInvited),
+						string(api.UserStatusPending),
+					),
+				},
+			},
+		},
+		MarkdownDescription: "[TenantUsers](https://docs.echo.stream/docs/users-1) are used to interact with your Tenant via the UI.",
+	}
 }
 
 func (r *TenantUserResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

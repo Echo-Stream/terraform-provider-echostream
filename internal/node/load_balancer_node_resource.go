@@ -7,16 +7,18 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
 	_ resource.ResourceWithImportState = &LoadBalancerNodeResource{}
+	_ resource.ResourceWithSchema      = &LoadBalancerNodeResource{}
 )
 
 // LoadBalancerNodeResource defines the resource implementation.
@@ -109,33 +111,6 @@ func (r *LoadBalancerNodeResource) Delete(ctx context.Context, req resource.Dele
 	time.Sleep(2 * time.Second)
 }
 
-func (r *LoadBalancerNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := dataSendReceiveNodeSchema()
-	for key, attribute := range schema {
-		switch key {
-		case "description":
-			attribute.Computed = false
-			attribute.Optional = true
-		case "name":
-			attribute.Computed = false
-			attribute.Required = true
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-			attribute.Validators = common.NameValidators
-		case "receive_message_type":
-			attribute.Computed = false
-			attribute.Required = true
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-		}
-		schema[key] = attribute
-	}
-	return tfsdk.Schema{
-		Attributes: schema,
-		MarkdownDescription: "[LoadBalancerNodes](https://docs.echo.stream/docs/load-balancer) balance receive messages across all send Edges by " +
-			"distributing messages evenly and then randomly distributing any remaining messages. While not required, all Nodes that are targets to a " +
-			"LoadBalancerNode's send Edges should be clones of each other. By definition will eliminate guaranteed ordering.",
-	}, nil
-}
-
 func (r *LoadBalancerNodeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -182,6 +157,35 @@ func (r *LoadBalancerNodeResource) Read(ctx context.Context, req resource.ReadRe
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *LoadBalancerNodeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"description": schema.StringAttribute{
+				MarkdownDescription: "A human-readable description.",
+				Optional:            true,
+			},
+			"name": schema.StringAttribute{
+				MarkdownDescription: "The name of the Node. Must be unique within the Tenant.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+				Validators:          common.NameValidators,
+			},
+			"receive_message_type": schema.StringAttribute{
+				MarkdownDescription: "The MessageType that this Node is capable of receiving.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+			},
+			"send_message_type": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The MessageType that this Node is capable of sending.",
+			},
+		},
+		MarkdownDescription: "[LoadBalancerNodes](https://docs.echo.stream/docs/load-balancer) balance receive messages across all send Edges by " +
+			"distributing messages evenly and then randomly distributing any remaining messages. While not required, all Nodes that are targets to a " +
+			"LoadBalancerNode's send Edges should be clones of each other. By definition will eliminate guaranteed ordering.",
+	}
 }
 
 func (r *LoadBalancerNodeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

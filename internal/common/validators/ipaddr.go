@@ -4,12 +4,10 @@ import (
 	"context"
 	"net"
 
-	"github.com/hashicorp/terraform-plugin-framework-validators/helpers/validatordiag"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
-	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 )
 
-var _ tfsdk.AttributeValidator = ipaddrValidator{}
+var _ validator.String = ipaddrValidator{}
 
 // notValidator validates that value does not validate against the value validator.
 type ipaddrValidator struct {
@@ -29,31 +27,19 @@ func (v ipaddrValidator) MarkdownDescription(ctx context.Context) string {
 // The validator will pass if it encounters a value validator that returns no errors and will then return any warnings
 // from the passing validator. Using All validator as value validators will pass if all the validators supplied in an
 // All validator pass.
-func (v ipaddrValidator) Validate(ctx context.Context, req tfsdk.ValidateAttributeRequest, resp *tfsdk.ValidateAttributeResponse) {
-	if t := req.AttributeConfig.Type(ctx); t != types.StringType {
-		resp.Diagnostics.Append(
-			validatordiag.InvalidAttributeTypeDiagnostic(
-				req.AttributePath,
-				"expected value of type string",
-				t.String(),
-			),
+func (v ipaddrValidator) ValidateString(ctx context.Context, req validator.StringRequest, resp *validator.StringResponse) {
+	if req.ConfigValue.IsUnknown() || req.ConfigValue.IsNull() {
+		return
+	}
+
+	s := req.ConfigValue.ValueString()
+
+	if ip := net.ParseIP(s); ip == nil {
+		resp.Diagnostics.AddAttributeError(
+			req.Path,
+			"Expected valid IPv4/IPv6 address",
+			s,
 		)
-	} else {
-		s := req.AttributeConfig.(types.String)
-
-		if s.IsUnknown() || s.IsNull() {
-			return
-		}
-
-		if ip := net.ParseIP(s.ValueString()); ip == nil {
-			resp.Diagnostics.Append(
-				validatordiag.InvalidAttributeValueDiagnostic(
-					req.AttributePath,
-					"Expected valid IPv4/IPv6 address",
-					s.ValueString(),
-				),
-			)
-		}
 	}
 }
 
@@ -66,6 +52,6 @@ func (v ipaddrValidator) Validate(ctx context.Context, req tfsdk.ValidateAttribu
 // conflicting logic, only warnings from the passing validator are returned.
 // Use AnyWithAllWarnings() to return warnings from non-passing validators
 // as well.
-func Ipaddr() tfsdk.AttributeValidator {
+func Ipaddr() validator.String {
 	return ipaddrValidator{}
 }

@@ -3,15 +3,22 @@ package managed_node_type
 import (
 	"context"
 	"fmt"
+	"regexp"
 	"time"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
+	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
+	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/setplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -19,6 +26,7 @@ import (
 var (
 	_ resource.ResourceWithImportState = &ManagedNodeTypeResource{}
 	_ resource.ResourceWithModifyPlan  = &ManagedNodeTypeResource{}
+	_ resource.ResourceWithSchema      = &ManagedNodeTypeResource{}
 )
 
 // ManagedNodeTypeResource defines the resource implementation.
@@ -218,14 +226,6 @@ func (r *ManagedNodeTypeResource) Delete(ctx context.Context, req resource.Delet
 	time.Sleep(2 * time.Second)
 }
 
-func (r *ManagedNodeTypeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: resourceManagedNodeTypeSchema(),
-		MarkdownDescription: "ManagedNodeTypes are wrappers around Docker image definitions and define the requirements " +
-			"necessary to instantiate those images as Docker containers inside a ManagedNode.",
-	}, nil
-}
-
 func (r *ManagedNodeTypeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -299,6 +299,108 @@ func (r *ManagedNodeTypeResource) Read(ctx context.Context, req resource.ReadReq
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *ManagedNodeTypeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"config_template": schema.StringAttribute{
+				CustomType: common.ConfigType{},
+				MarkdownDescription: "A [JSON Schema](https://json-schema.org/) document that specifies the" +
+					" requirements for the config attribute of ManagedNodes created using this ManagedNodeType.",
+				Optional:      true,
+				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
+			"description": schema.StringAttribute{
+				MarkdownDescription: "A human-readable description.",
+				Required:            true,
+			},
+			"id": schema.StringAttribute{
+				Computed: true,
+			},
+			"image_uri": schema.StringAttribute{
+				MarkdownDescription: "The URI of the Docker image. Must be a [public](https://docs.aws.amazon.com/AmazonECR/latest/public/public-repositories.html) " +
+					"or a [private](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html) AWS ECR repository.",
+				Required: true,
+				Validators: []validator.String{
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^(?:(?:[0-9]{12}\.dkr\.ecr\.[a-z]+\-[a-z]+\-[0-9]\.amazonaws\.com/.+\:.+)|(?:public\.ecr\.aws/.+/.+\:.+))$`),
+						`must be either a private ECR image URI (aws_account_id.dkr.ecr.region.amazonaws.com/respository:tag) or a public ECR image URI (public.ecr.aws/registry_alias/repository:tag)`,
+					),
+				},
+			},
+			"in_use": schema.BoolAttribute{
+				Computed:            true,
+				MarkdownDescription: " True if this is used by ManagedNodes.",
+			},
+			"mount_requirements": schema.SetNestedAttribute{
+				MarkdownDescription: "The mount (i.e. - volume) requirements of the Docker image.",
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"description": schema.StringAttribute{
+							MarkdownDescription: "A human-readable description of the port.",
+							Required:            true,
+						},
+						"source": schema.StringAttribute{
+							MarkdownDescription: "The path of the mount on the host.",
+							Optional:            true,
+						},
+						"target": schema.StringAttribute{
+							MarkdownDescription: "The path of the mount in the Docker container.",
+							Required:            true,
+						},
+					},
+				},
+				Optional:      true,
+				PlanModifiers: []planmodifier.Set{setplanmodifier.RequiresReplace()},
+			},
+			"name": schema.StringAttribute{
+				MarkdownDescription: "The name of the ManagedNodeType. Must be unique within the Tenant.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+				Validators:          append(common.NameValidators, common.NotSystemNameValidator),
+			},
+			"port_requirements": schema.SetNestedAttribute{
+				MarkdownDescription: "The port requirements of the Docker image.",
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"container_port": schema.Int64Attribute{
+							MarkdownDescription: "The exposed container port.",
+							Required:            true,
+							Validators:          []validator.Int64{int64validator.Between(1, 65535)},
+						},
+						"description": schema.StringAttribute{
+							MarkdownDescription: "A human-readable description for the port.",
+							Required:            true,
+						},
+						"protocol": schema.StringAttribute{
+							MarkdownDescription: "The protocol to use for the port. One of `sctp`, `tcp` or `udp`.",
+							Required:            true,
+							Validators:          []validator.String{common.ProtocolValidator},
+						},
+					},
+				},
+				Optional:      true,
+				PlanModifiers: []planmodifier.Set{setplanmodifier.RequiresReplace()},
+			},
+			"readme": schema.StringAttribute{
+				MarkdownDescription: "README in MarkDown format.",
+				Optional:            true,
+			},
+			"receive_message_type": schema.StringAttribute{
+				MarkdownDescription: "The MessageType that ManagedNodes created with this ManagedNodeType are capable of receiving.",
+				Optional:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
+			"send_message_type": schema.StringAttribute{
+				MarkdownDescription: "The MessageType that ManagedNodes created with this ManagedNodeType are capable of sending.",
+				Optional:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
+		},
+		MarkdownDescription: "ManagedNodeTypes are wrappers around Docker image definitions and define the requirements " +
+			"necessary to instantiate those images as Docker containers inside a ManagedNode.",
+	}
 }
 
 func (r *ManagedNodeTypeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

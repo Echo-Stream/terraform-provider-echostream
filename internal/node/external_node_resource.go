@@ -7,16 +7,19 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var _ resource.ResourceWithImportState = &ExternalNodeResource{}
+var (
+	_ resource.ResourceWithImportState = &ExternalNodeResource{}
+	_ resource.ResourceWithSchema      = &ExternalNodeResource{}
+)
 
 // ExternalNodeResource defines the resource implementation.
 type ExternalNodeResource struct {
@@ -155,54 +158,6 @@ func (r *ExternalNodeResource) Delete(ctx context.Context, req resource.DeleteRe
 	time.Sleep(2 * time.Second)
 }
 
-func (r *ExternalNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := dataSendReceiveNodeSchema()
-	for key, attribute := range schema {
-		switch key {
-		case "description":
-			attribute.Computed = false
-			attribute.Optional = true
-		case "name":
-			attribute.Computed = false
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-			attribute.Required = true
-			attribute.Validators = common.NameValidators
-		case "receive_message_type":
-			attribute.Computed = false
-			attribute.Optional = true
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-		case "send_message_type":
-			attribute.Computed = false
-			attribute.Optional = true
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-		}
-		schema[key] = attribute
-	}
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"app": {
-				MarkdownDescription: "The ExternalApp or CrossAccountApp this Node is associated with.",
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Required:            true,
-				Type:                types.StringType,
-			},
-			"config": {
-				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
-				Optional:            true,
-				Sensitive:           true,
-				Type:                common.ConfigType{},
-			},
-		},
-	)
-	return tfsdk.Schema{
-		Attributes: schema,
-		MarkdownDescription: "[ExternalNodes](https://docs.echo.stream/docs/external-node) exist outside the " +
-			"EchoStream Cloud. Can be part of an ExternalApp or CrossAccountApp. You may use any computing resource " +
-			"or language that you want to implement them.",
-	}, nil
-}
-
 func (r *ExternalNodeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -273,6 +228,47 @@ func (r *ExternalNodeResource) Read(ctx context.Context, req resource.ReadReques
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *ExternalNodeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"app": schema.StringAttribute{
+				MarkdownDescription: "The ExternalApp or CrossAccountApp this Node is associated with.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+			},
+			"config": schema.StringAttribute{
+				CustomType:          common.ConfigType{},
+				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
+				Optional:            true,
+				Sensitive:           true,
+			},
+			"description": schema.StringAttribute{
+				MarkdownDescription: "A human-readable description.",
+				Optional:            true,
+			},
+			"name": schema.StringAttribute{
+				MarkdownDescription: "The name of the Node. Must be unique within the Tenant.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+				Validators:          common.NameValidators,
+			},
+			"receive_message_type": schema.StringAttribute{
+				MarkdownDescription: "The MessageType that this Node is capable of receiving.",
+				Optional:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
+			"send_message_type": schema.StringAttribute{
+				MarkdownDescription: "The MessageType that this Node is capable of sending.",
+				Optional:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
+		},
+		MarkdownDescription: "[ExternalNodes](https://docs.echo.stream/docs/external-node) exist outside the " +
+			"EchoStream Cloud. Can be part of an ExternalApp or CrossAccountApp. You may use any computing resource " +
+			"or language that you want to implement them.",
+	}
 }
 
 func (r *ExternalNodeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

@@ -8,42 +8,42 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/setvalidator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 )
 
 var (
-	FunctionNodeNameValidators []tfsdk.AttributeValidator = []tfsdk.AttributeValidator{
+	FunctionNodeNameValidators []validator.String = []validator.String{
 		stringvalidator.LengthBetween(3, 80),
 		stringvalidator.RegexMatches(
 			regexp.MustCompile(`^[A-Za-z0-9\-\_ ]*$`),
 			"value must contain only lowercase/uppercase alphanumeric characters, \"-\", or \"_\"",
 		),
 	}
-	LogLevelValidator tfsdk.AttributeValidator = stringvalidator.OneOf(
+	LogLevelValidator validator.String = stringvalidator.OneOf(
 		string(api.LogLevelDebug),
 		string(api.LogLevelError),
 		string(api.LogLevelInfo),
 		string(api.LogLevelWarning),
 	)
-	NameValidators []tfsdk.AttributeValidator = []tfsdk.AttributeValidator{
+	NameValidators []validator.String = []validator.String{
 		stringvalidator.LengthBetween(3, 80),
 		stringvalidator.RegexMatches(
 			regexp.MustCompile(`^[A-Za-z0-9\-\_\.\: ]*$`),
 			"value must contain only lowercase/uppercase alphanumeric characters, \"-\", \"_\", \":\", or \".\"",
 		),
 	}
-	PortValidator     tfsdk.AttributeValidator = int64validator.Between(1024, 65535)
-	ProtocolValidator tfsdk.AttributeValidator = stringvalidator.OneOf(
+	PortValidator     validator.Int64  = int64validator.Between(1024, 65535)
+	ProtocolValidator validator.String = stringvalidator.OneOf(
 		string(api.ProtocolSctp),
 		string(api.ProtocolTcp),
 		string(api.ProtocolUdp),
 	)
-	RequirementsValidator tfsdk.AttributeValidator = setvalidator.ValuesAre(
+	RequirementsValidator validator.Set = setvalidator.ValueStringsAre(
 		stringvalidator.LengthAtLeast(1),
 	)
-	SystemNameValidator tfsdk.AttributeValidator = stringvalidator.RegexMatches(
+	SystemNameValidator validator.String = stringvalidator.RegexMatches(
 		regexp.MustCompile(`^echo\..*$`),
 		"value must begin with \"echo.\"",
 	)
-	NotSystemNameValidator tfsdk.AttributeValidator = validators.Not(SystemNameValidator)
+	NotSystemNameValidator validator.String = validators.Not(SystemNameValidator)
 )

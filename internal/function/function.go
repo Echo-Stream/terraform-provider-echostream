@@ -8,12 +8,13 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/Khan/genqlient/graphql"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
+	ds_schema "github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	r_schema "github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 )
 
 type functionModel struct {
@@ -25,64 +26,68 @@ type functionModel struct {
 	Requirements types.Set    `tfsdk:"requirements"`
 }
 
-func dataFunctionSchema() map[string]tfsdk.Attribute {
-	return map[string]tfsdk.Attribute{
-		"code": {
+func dataFunctionAttributes() map[string]ds_schema.Attribute {
+	return map[string]ds_schema.Attribute{
+		"code": ds_schema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The code of the Function in Python string format.",
-			Type:                types.StringType,
 		},
-		"description": {
+		"description": ds_schema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: " A human-readable description.",
-			Type:                types.StringType,
 		},
-		"in_use": {
+		"in_use": ds_schema.BoolAttribute{
 			Computed:            true,
 			MarkdownDescription: "True if this is used by other resources.",
-			Type:                types.BoolType,
 		},
-		"name": {
+		"name": ds_schema.StringAttribute{
 			MarkdownDescription: "The Function name. Must be unique within the Tenant.",
 			Required:            true,
-			Type:                types.StringType,
 			Validators:          common.NameValidators,
 		},
-		"readme": {
+		"readme": ds_schema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "README in MarkDown format.",
-			Type:                types.StringType,
 		},
-		"requirements": {
+		"requirements": ds_schema.SetAttribute{
 			Computed:            true,
+			ElementType:         types.StringType,
 			MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
-			Type:                types.SetType{ElemType: types.StringType},
-			Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
 		},
 	}
 }
 
-func resourceFunctionSchema() map[string]tfsdk.Attribute {
-	required := []string{"code", "description", "name"}
-	optional := []string{"readme", "requirements"}
-	schema := dataFunctionSchema()
-	for key, attribute := range schema {
-		if key != "in_use" {
-			attribute.Computed = false
-		}
-		if key == "name" {
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-			attribute.Validators = append(common.NameValidators, common.NotSystemNameValidator)
-		}
-		if slices.Contains(required, key) {
-			attribute.Required = true
-		}
-		if slices.Contains(optional, key) {
-			attribute.Optional = true
-		}
-		schema[key] = attribute
+func resourceFunctionAttributes() map[string]r_schema.Attribute {
+	return map[string]r_schema.Attribute{
+		"code": r_schema.StringAttribute{
+			MarkdownDescription: "The code of the Function in Python string format.",
+			Required:            true,
+		},
+		"description": r_schema.StringAttribute{
+			MarkdownDescription: " A human-readable description.",
+			Required:            true,
+		},
+		"in_use": r_schema.BoolAttribute{
+			Computed:            true,
+			MarkdownDescription: "True if this is used by other resources.",
+		},
+		"name": r_schema.StringAttribute{
+			MarkdownDescription: "The Function name. Must be unique within the Tenant.",
+			PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			Required:            true,
+			Validators:          append(common.NameValidators, common.NotSystemNameValidator),
+		},
+		"readme": r_schema.StringAttribute{
+			MarkdownDescription: "README in MarkDown format.",
+			Optional:            true,
+		},
+		"requirements": r_schema.SetAttribute{
+			ElementType:         types.StringType,
+			MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
+			Optional:            true,
+			Validators:          []validator.Set{common.RequirementsValidator},
+		},
 	}
-	return schema
 }
 
 type bitmapperFunctionModel struct {
@@ -95,37 +100,6 @@ type bitmapperFunctionModel struct {
 	Requirements        types.Set    `tfsdk:"requirements"`
 }
 
-func dataBitmapperFunctionSchema() map[string]tfsdk.Attribute {
-	schema := dataFunctionSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"argument_message_type": {
-				Computed:            true,
-				MarkdownDescription: "The MessageType passed in to the Function.",
-				Type:                types.StringType,
-			},
-		},
-	)
-	return schema
-}
-
-func resourceBitmapperFunctionSchema() map[string]tfsdk.Attribute {
-	schema := resourceFunctionSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"argument_message_type": {
-				MarkdownDescription: "The MessageType passed in to the Function.",
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Required:            true,
-				Type:                types.StringType,
-			},
-		},
-	)
-	return schema
-}
-
 type processorFunctionModel struct {
 	ArgumentMessageType types.String `tfsdk:"argument_message_type"`
 	Code                types.String `tfsdk:"code"`
@@ -135,48 +109,6 @@ type processorFunctionModel struct {
 	Readme              types.String `tfsdk:"readme"`
 	Requirements        types.Set    `tfsdk:"requirements"`
 	ReturnMessageType   types.String `tfsdk:"return_message_type"`
-}
-
-func dataProcessorFunctionSchema() map[string]tfsdk.Attribute {
-	schema := dataFunctionSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"argument_message_type": {
-				Computed:            true,
-				MarkdownDescription: "The MessageType passed in to the Function.",
-				Type:                types.StringType,
-			},
-			"return_message_type": {
-				Computed:            true,
-				MarkdownDescription: "The MessageType returned by the Function.",
-				Type:                types.StringType,
-			},
-		},
-	)
-	return schema
-}
-
-func resourceProcessorFunctionSchema() map[string]tfsdk.Attribute {
-	schema := resourceFunctionSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"argument_message_type": {
-				MarkdownDescription: "The MessageType passed in to the Function.",
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Required:            true,
-				Type:                types.StringType,
-			},
-			"return_message_type": {
-				MarkdownDescription: "The MessageType returned by the Function.",
-				Optional:            true,
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Type:                types.StringType,
-			},
-		},
-	)
-	return schema
 }
 
 func readApiAuthenicatorFunction(ctx context.Context, client graphql.Client, name string, tenant string) (*functionModel, bool, diag.Diagnostics) {

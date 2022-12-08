@@ -2,19 +2,14 @@ package managed_node_type
 
 import (
 	"context"
-	"regexp"
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"golang.org/x/exp/slices"
 )
 
 type managedNodeTypeModel struct {
@@ -41,108 +36,6 @@ type portRequirementsModel struct {
 	ContainerPort types.Int64  `tfsdk:"container_port"`
 	Description   types.String `tfsdk:"description"`
 	Protocol      types.String `tfsdk:"protocol"`
-}
-
-func dataManagedNodeTypeSchema() map[string]tfsdk.Attribute {
-	return map[string]tfsdk.Attribute{
-		"config_template": {
-			Computed: true,
-			MarkdownDescription: "A [JSON Schema](https://json-schema.org/) document that specifies the" +
-				" requirements for the config attribute of ManagedNodes created using this ManagedNodeType.",
-			Type: common.ConfigType{},
-		},
-		"description": {
-			Computed:            true,
-			MarkdownDescription: "A human-readable description.",
-			Type:                types.StringType,
-		},
-		"id": {
-			Computed: true,
-			Type:     types.StringType,
-		},
-		"image_uri": {
-			Computed: true,
-			MarkdownDescription: "The URI of the Docker image. Must be a [public](https://docs.aws.amazon.com/AmazonECR/latest/public/public-repositories.html) " +
-				"or a [private](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html) AWS ECR repository.",
-			Type: types.StringType,
-		},
-		"in_use": {
-			Computed:            true,
-			MarkdownDescription: " True if this is used by ManagedNodes.",
-			Type:                types.BoolType,
-		},
-		"mount_requirements": {
-			Attributes:          tfsdk.SetNestedAttributes(dataMountRequirementsSchema()),
-			Computed:            true,
-			MarkdownDescription: "The mount (i.e. - volume) requirements of the Docker image.",
-		},
-		"name": {
-			MarkdownDescription: "The name of the ManagedNodeType. Must be unique within the Tenant.",
-			Required:            true,
-			Type:                types.StringType,
-			Validators:          common.NameValidators,
-		},
-		"port_requirements": {
-			Attributes:          tfsdk.SetNestedAttributes(dataPortRequirementsSchema()),
-			Computed:            true,
-			MarkdownDescription: "The port requirements of the Docker image.",
-		},
-		"readme": {
-			Computed:            true,
-			MarkdownDescription: "README in MarkDown format.",
-			Type:                types.StringType,
-		},
-		"receive_message_type": {
-			Computed:            true,
-			MarkdownDescription: "The MessageType that ManagedNodes created with this ManagedNodeType are capable of receiving.",
-			Type:                types.StringType,
-		},
-		"send_message_type": {
-			Computed:            true,
-			MarkdownDescription: "The MessageType that ManagedNodes created with this ManagedNodeType are capable of sending.",
-			Type:                types.StringType,
-		},
-	}
-}
-
-func dataMountRequirementsSchema() map[string]tfsdk.Attribute {
-	return map[string]tfsdk.Attribute{
-		"description": {
-			Computed:            true,
-			MarkdownDescription: "A human-readable description of the port.",
-			Type:                types.StringType,
-		},
-		"source": {
-			Computed:            true,
-			MarkdownDescription: "The path of the mount on the host.",
-			Type:                types.StringType,
-		},
-		"target": {
-			Computed:            true,
-			MarkdownDescription: "The path of the mount in the Docker container.",
-			Type:                types.StringType,
-		},
-	}
-}
-
-func dataPortRequirementsSchema() map[string]tfsdk.Attribute {
-	return map[string]tfsdk.Attribute{
-		"container_port": {
-			Computed:            true,
-			MarkdownDescription: "The exposed container port.",
-			Type:                types.Int64Type,
-		},
-		"description": {
-			Computed:            true,
-			MarkdownDescription: "A human-readable description for the port.",
-			Type:                types.StringType,
-		},
-		"protocol": {
-			Computed:            true,
-			MarkdownDescription: "The protocol to use for the port. One of `sctp`, `tcp` or `udp`.",
-			Type:                types.StringType,
-		},
-	}
 }
 
 func mountRequirementsAttrTypes() map[string]attr.Type {
@@ -187,76 +80,6 @@ func portRequirementAttrValues(
 		"description":    types.StringValue(description),
 		"protocol":       types.StringValue(string(protocol)),
 	}
-}
-
-func resourceManagedNodeTypeSchema() map[string]tfsdk.Attribute {
-	schema := dataManagedNodeTypeSchema()
-	for key, attribute := range schema {
-		if !slices.Contains([]string{"id", "in_use"}, key) {
-			attribute.Computed = false
-			if slices.Contains([]string{"description", "image_uri", "name"}, key) {
-				attribute.Required = true
-			} else {
-				attribute.Optional = true
-			}
-			if slices.Contains(
-				[]string{
-					"config_template",
-					"mount_requirements",
-					"name",
-					"port_requirements",
-					"receive_message_type",
-					"send_message_type",
-				}, key) {
-				attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-			}
-			switch key {
-			case "image_uri":
-				attribute.Validators = []tfsdk.AttributeValidator{
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^(?:(?:[0-9]{12}\.dkr\.ecr\.[a-z]+\-[a-z]+\-[0-9]\.amazonaws\.com/.+\:.+)|(?:public\.ecr\.aws/.+/.+\:.+))$`),
-						`must be either a private ECR image URI (aws_account_id.dkr.ecr.region.amazonaws.com/respository:tag) or a public ECR image URI (public.ecr.aws/registry_alias/repository:tag)`,
-					),
-				}
-			case "mount_requirements":
-				attribute.Attributes = tfsdk.SetNestedAttributes(resourceMountRequirementsSchema())
-			case "name":
-				attribute.Validators = append(common.NameValidators, common.NotSystemNameValidator)
-			case "port_requirements":
-				attribute.Attributes = tfsdk.SetNestedAttributes(resourcePortRequirementsSchema())
-			}
-		}
-		schema[key] = attribute
-	}
-	return schema
-}
-
-func resourceMountRequirementsSchema() map[string]tfsdk.Attribute {
-	schema := dataMountRequirementsSchema()
-	for key, attribute := range schema {
-		attribute.Computed = false
-		switch key {
-		case "description", "target":
-			attribute.Required = true
-		case "source":
-			attribute.Optional = true
-		}
-		schema[key] = attribute
-	}
-	return schema
-}
-
-func resourcePortRequirementsSchema() map[string]tfsdk.Attribute {
-	schema := dataPortRequirementsSchema()
-	for key, attribute := range schema {
-		attribute.Computed = false
-		attribute.Required = true
-		if key == "protocol" {
-			attribute.Validators = []tfsdk.AttributeValidator{common.ProtocolValidator}
-		}
-		schema[key] = attribute
-	}
-	return schema
 }
 
 func readManagedNodeType(ctx context.Context, client graphql.Client, name string, tenant string) (*managedNodeTypeModel, bool, diag.Diagnostics) {
