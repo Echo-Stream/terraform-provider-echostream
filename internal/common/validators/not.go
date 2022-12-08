@@ -5,14 +5,14 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 )
 
-var _ tfsdk.AttributeValidator = notValidator{}
+var _ validator.String = notValidator{}
 
 // notValidator validates that value does not validate against the value validator.
 type notValidator struct {
-	valueValidator tfsdk.AttributeValidator
+	valueValidator validator.String
 }
 
 // Description describes the validation in plain text formatting.
@@ -29,24 +29,22 @@ func (v notValidator) MarkdownDescription(ctx context.Context) string {
 // The validator will pass if it encounters a value validator that returns no errors and will then return any warnings
 // from the passing validator. Using All validator as value validators will pass if all the validators supplied in an
 // All validator pass.
-func (v notValidator) Validate(ctx context.Context, req tfsdk.ValidateAttributeRequest, resp *tfsdk.ValidateAttributeResponse) {
-	validatorResp := &tfsdk.ValidateAttributeResponse{
+func (v notValidator) ValidateString(ctx context.Context, req validator.StringRequest, resp *validator.StringResponse) {
+	validatorResp := &validator.StringResponse{
 		Diagnostics: diag.Diagnostics{},
 	}
 
-	v.valueValidator.Validate(ctx, req, validatorResp)
+	v.valueValidator.ValidateString(ctx, req, validatorResp)
 
 	// If there was an error then the not condition is true, simply return
 	if validatorResp.Diagnostics.HasError() {
 		return
 	}
 
-	resp.Diagnostics.Append(
-		diag.NewAttributeErrorDiagnostic(
-			req.AttributePath,
-			"Invalid not condition",
-			fmt.Sprintf("NOT %s", v.valueValidator.Description(ctx)),
-		),
+	resp.Diagnostics.AddAttributeError(
+		req.Path,
+		"Invalid not condition",
+		fmt.Sprintf("NOT %s", v.valueValidator.Description(ctx)),
 	)
 }
 
@@ -59,6 +57,6 @@ func (v notValidator) Validate(ctx context.Context, req tfsdk.ValidateAttributeR
 // conflicting logic, only warnings from the passing validator are returned.
 // Use AnyWithAllWarnings() to return warnings from non-passing validators
 // as well.
-func Not(valueValidator tfsdk.AttributeValidator) tfsdk.AttributeValidator {
+func Not(valueValidator validator.String) validator.String {
 	return notValidator{valueValidator: valueValidator}
 }

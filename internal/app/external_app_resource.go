@@ -10,7 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"golang.org/x/exp/maps"
 )
@@ -19,6 +19,7 @@ import (
 var (
 	_ resource.ResourceWithImportState = &ExternalAppResource{}
 	_ resource.ResourceWithModifyPlan  = &ExternalAppResource{}
+	_ resource.ResourceWithSchema      = &ExternalAppResource{}
 )
 
 // ExternalAppResource defines the resource implementation.
@@ -147,24 +148,6 @@ func (r *ExternalAppResource) Delete(ctx context.Context, req resource.DeleteReq
 	time.Sleep(2 * time.Second)
 }
 
-func (r *ExternalAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := remoteAppSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"appsync_endpoint": {
-				Computed:            true,
-				MarkdownDescription: "The EchoStream AppSync Endpoint that this ExternalApp must use.",
-				Type:                types.StringType,
-			},
-		},
-	)
-	return tfsdk.Schema{
-		Attributes:          schema,
-		MarkdownDescription: "[ExternalApps](https://docs.echo.stream/docs/external-app) provide a way to process messages in their Nodes using any compute resource.",
-	}, nil
-}
-
 func (r *ExternalAppResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -271,6 +254,23 @@ func (r *ExternalAppResource) Read(ctx context.Context, req resource.ReadRequest
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *ExternalAppResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	attributes := remoteAppAttributes()
+	maps.Copy(
+		attributes,
+		map[string]schema.Attribute{
+			"appsync_endpoint": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The EchoStream AppSync Endpoint that this ExternalApp must use.",
+			},
+		},
+	)
+	resp.Schema = schema.Schema{
+		Attributes:          attributes,
+		MarkdownDescription: "[ExternalApps](https://docs.echo.stream/docs/external-app) provide a way to process messages in their Nodes using any compute resource.",
+	}
 }
 
 func (r *ExternalAppResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

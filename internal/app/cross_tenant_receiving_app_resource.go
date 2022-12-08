@@ -7,10 +7,11 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"golang.org/x/exp/maps"
 )
@@ -19,6 +20,7 @@ import (
 var (
 	_ resource.ResourceWithImportState = &CrossTenantReceivingAppResource{}
 	_ resource.ResourceWithModifyPlan  = &CrossTenantReceivingAppResource{}
+	_ resource.ResourceWithSchema      = &CrossTenantReceivingAppResource{}
 )
 
 // CrossTenantReceivingAppResource defines the resource implementation.
@@ -98,32 +100,6 @@ func (r *CrossTenantReceivingAppResource) Delete(ctx context.Context, req resour
 	}
 
 	time.Sleep(2 * time.Second)
-}
-
-func (r *CrossTenantReceivingAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := appSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"sending_app": {
-				Computed:            true,
-				MarkdownDescription: "The CrossTenantSendingApp in the sending Tenant - this will be filled in once the other Tenant creates their CrossTenantSendingApp.",
-				Type:                types.StringType,
-			},
-			"sending_tenant": {
-				MarkdownDescription: "The EchoStream Tenant that will be sending messages to this CrossTenantReceivingApp.",
-				Required:            true,
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Type:                types.StringType,
-			},
-		},
-	)
-	description := schema["description"]
-	description.Computed = true
-	return tfsdk.Schema{
-		Attributes:          schema,
-		MarkdownDescription: "[CrossTenantReceivingApps](https://docs.echo.stream/docs/cross-tenant-app) provide a way to receive messages from other EchoStream Tenants.",
-	}, nil
 }
 
 func (r *CrossTenantReceivingAppResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
@@ -217,6 +193,28 @@ func (r *CrossTenantReceivingAppResource) Read(ctx context.Context, req resource
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *CrossTenantReceivingAppResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	attributes := appAttributes()
+	maps.Copy(
+		attributes,
+		map[string]schema.Attribute{
+			"sending_app": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The CrossTenantSendingApp in the sending Tenant - this will be filled in once the other Tenant creates their CrossTenantSendingApp.",
+			},
+			"sending_tenant": schema.StringAttribute{
+				MarkdownDescription: "The EchoStream Tenant that will be sending messages to this CrossTenantReceivingApp.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+			},
+		},
+	)
+	resp.Schema = schema.Schema{
+		Attributes:          attributes,
+		MarkdownDescription: "[CrossTenantReceivingApps](https://docs.echo.stream/docs/cross-tenant-app) provide a way to receive messages from other EchoStream Tenants.",
+	}
 }
 
 func (r *CrossTenantReceivingAppResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

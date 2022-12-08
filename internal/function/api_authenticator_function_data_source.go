@@ -6,12 +6,14 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var _ datasource.DataSourceWithConfigure = &ApiAuthenticatorFunctionDataSource{}
+var (
+	_ datasource.DataSourceWithConfigure = &ApiAuthenticatorFunctionDataSource{}
+	_ datasource.DataSourceWithSchema    = &ApiAuthenticatorFunctionDataSource{}
+)
 
 type ApiAuthenticatorFunctionDataSource struct {
 	data *common.ProviderData
@@ -34,13 +36,6 @@ func (d *ApiAuthenticatorFunctionDataSource) Configure(ctx context.Context, req 
 	}
 
 	d.data = data
-}
-
-func (d *ApiAuthenticatorFunctionDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes:          dataFunctionSchema(),
-		MarkdownDescription: "[ApiAuthenticatorFunctions](https://docs.echo.stream/docs/webhook#api-authenticator-function) are managed Functions used in API-based Nodes (e.g. - WebhookNode).",
-	}, nil
 }
 
 func (d *ApiAuthenticatorFunctionDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -68,4 +63,11 @@ func (d *ApiAuthenticatorFunctionDataSource) Read(ctx context.Context, req datas
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)
+}
+
+func (d *ApiAuthenticatorFunctionDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes:          dataFunctionAttributes(),
+		MarkdownDescription: "[ApiAuthenticatorFunctions](https://docs.echo.stream/docs/webhook#api-authenticator-function) are managed Functions used in API-based Nodes (e.g. - WebhookNode).",
+	}
 }

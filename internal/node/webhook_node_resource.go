@@ -12,15 +12,18 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
 	_ resource.ResourceWithConfigValidators = &WebhookNodeResource{}
 	_ resource.ResourceWithImportState      = &WebhookNodeResource{}
+	_ resource.ResourceWithSchema           = &WebhookNodeResource{}
 )
 
 // WebhookNodeResource defines the resource implementation.
@@ -201,76 +204,6 @@ func (r *WebhookNodeResource) Delete(ctx context.Context, req resource.DeleteReq
 	time.Sleep(2 * time.Second)
 }
 
-func (r *WebhookNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := dataSendNodeSchema()
-	for key, attribute := range schema {
-		switch key {
-		case "description":
-			attribute.Computed = false
-			attribute.Optional = true
-		case "name":
-			attribute.Computed = false
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-			attribute.Required = true
-			attribute.Validators = common.FunctionNodeNameValidators
-		case "send_message_type":
-			attribute.Computed = true
-			attribute.MarkdownDescription = "Must be JSON based, defaults to `echo.json`."
-			attribute.Optional = true
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-		}
-		schema[key] = attribute
-	}
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"config": {
-				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
-				Optional:            true,
-				Sensitive:           true,
-				Type:                common.ConfigType{},
-			},
-			"endpoint": {
-				Computed: true,
-				MarkdownDescription: "The Webhooks endpoint to forward webhooks events to." +
-					" Accepts POST webhook events at the root path." +
-					" POST events may be any JSON-based payload.",
-				Type: types.StringType,
-			},
-			"inline_api_authenticator": {
-				MarkdownDescription: "A Python code string that contains a single top-level function definition." +
-					" This function must have the signature `(*, context, request, **kwargs)` and return" +
-					" `None` or a tuple containing an `AuthCredentials` and `BaseUser` (or subclasses)." +
-					" Mutually exclusive with `managedApiAuthenticator`.",
-				Optional: true,
-				Type:     types.StringType,
-			},
-			"logging_level": {
-				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
-				Optional:            true,
-				Type:                types.StringType,
-				Validators:          []tfsdk.AttributeValidator{common.LogLevelValidator},
-			},
-			"managed_api_authenticator": {
-				MarkdownDescription: "The managedApiAuthenticator. Mutually exclusive with the `inlineApiAuthenticator`.",
-				Optional:            true,
-				Type:                types.StringType,
-			},
-			"requirements": {
-				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
-				Optional:            true,
-				Type:                types.SetType{ElemType: types.StringType},
-				Validators:          []tfsdk.AttributeValidator{common.RequirementsValidator},
-			},
-		},
-	)
-	return tfsdk.Schema{
-		Attributes: schema,
-		MarkdownDescription: "[WebhookNodes](https://docs.echo.stream/docs/webhook) allow for almost any processing " +
-			"of messages, including transformation, augmentation, generation, combination and splitting.",
-	}, nil
-}
-
 func (r *WebhookNodeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -352,6 +285,65 @@ func (r *WebhookNodeResource) Read(ctx context.Context, req resource.ReadRequest
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *WebhookNodeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"config": schema.StringAttribute{
+				CustomType:          common.ConfigType{},
+				MarkdownDescription: "The config, in JSON object format (i.e. - dict, map).",
+				Optional:            true,
+				Sensitive:           true,
+			},
+			"description": schema.StringAttribute{
+				MarkdownDescription: "A human-readable description.",
+				Optional:            true,
+			},
+			"endpoint": schema.StringAttribute{
+				Computed: true,
+				MarkdownDescription: "The Webhooks endpoint to forward webhooks events to." +
+					" Accepts POST webhook events at the root path." +
+					" POST events may be any JSON-based payload.",
+			},
+			"inline_api_authenticator": schema.StringAttribute{
+				MarkdownDescription: "A Python code string that contains a single top-level function definition." +
+					" This function must have the signature `(*, context, request, **kwargs)` and return" +
+					" `None` or a tuple containing an `AuthCredentials` and `BaseUser` (or subclasses)." +
+					" Mutually exclusive with `managedApiAuthenticator`.",
+				Optional: true,
+			},
+			"logging_level": schema.StringAttribute{
+				MarkdownDescription: "The logging level. One of `DEBUG`, `ERROR`, `INFO`, `WARNING`. Defaults to `INFO`.",
+				Optional:            true,
+				Validators:          []validator.String{common.LogLevelValidator},
+			},
+			"managed_api_authenticator": schema.StringAttribute{
+				MarkdownDescription: "The managedApiAuthenticator. Mutually exclusive with the `inlineApiAuthenticator`.",
+				Optional:            true,
+			},
+			"name": schema.StringAttribute{
+				MarkdownDescription: "The name of the Node. Must be unique within the Tenant.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+				Validators:          common.FunctionNodeNameValidators,
+			},
+			"requirements": schema.SetAttribute{
+				ElementType:         types.StringType,
+				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
+				Optional:            true,
+				Validators:          []validator.Set{common.RequirementsValidator},
+			},
+			"send_message_type": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "Must be JSON based, defaults to `echo.json`.",
+				Optional:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
+		},
+		MarkdownDescription: "[WebhookNodes](https://docs.echo.stream/docs/webhook) allow for almost any processing " +
+			"of messages, including transformation, augmentation, generation, combination and splitting.",
+	}
 }
 
 func (r *WebhookNodeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

@@ -11,11 +11,15 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-var _ resource.ResourceWithImportState = &ApiUserResource{}
+var (
+	_ resource.ResourceWithImportState = &ApiUserResource{}
+	_ resource.ResourceWithSchema      = &ApiUserResource{}
+)
 
 type ApiUserResource struct {
 	data *common.ProviderData
@@ -123,46 +127,6 @@ func (r *ApiUserResource) Delete(ctx context.Context, req resource.DeleteRequest
 	time.Sleep(2 * time.Second)
 }
 
-func (r *ApiUserResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: map[string]tfsdk.Attribute{
-			"appsync_endpoint": {
-				Computed:            true,
-				MarkdownDescription: "The EchoStream AppSync Endpoint that this ApiUser must use.",
-				Type:                types.StringType,
-			},
-			"credentials": {
-				Attributes:          tfsdk.SingleNestedAttributes(common.CognitoCredentialsSchema()),
-				Computed:            true,
-				MarkdownDescription: "The AWS Cognito Credentials assigned to this ApiUser that must be used when accessing the appsync_endpoint.",
-			},
-			"description": {
-				MarkdownDescription: "Human-readble description for this ApiUser.",
-				Optional:            true,
-				Type:                types.StringType,
-			},
-			"role": {
-				MarkdownDescription: fmt.Sprintf("The ApiUser's role. May be on of `%s`, `%s`, or `%s`.", api.ApiUserRoleAdmin, api.ApiUserRoleReadOnly, api.ApiUserRoleUser),
-				Required:            true,
-				Type:                types.StringType,
-				Validators: []tfsdk.AttributeValidator{
-					stringvalidator.OneOf(
-						string(api.ApiUserRoleAdmin),
-						string(api.ApiUserRoleReadOnly),
-						string(api.ApiUserRoleUser),
-					),
-				},
-			},
-			"username": {
-				Computed:            true,
-				MarkdownDescription: "The ApiUser's generated username.",
-				Type:                types.StringType,
-			},
-		},
-		MarkdownDescription: "ApiUsers are used to programatically interact with your Tenant.",
-	}, nil
-}
-
 func (r *ApiUserResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("username"), req, resp)
 }
@@ -215,6 +179,42 @@ func (r *ApiUserResource) Read(ctx context.Context, req resource.ReadRequest, re
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *ApiUserResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"appsync_endpoint": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The EchoStream AppSync Endpoint that this ApiUser must use.",
+			},
+			"credentials": schema.SingleNestedAttribute{
+				Attributes:          common.CognitoCredentialsSchema(),
+				Computed:            true,
+				MarkdownDescription: "The AWS Cognito Credentials assigned to this ApiUser that must be used when accessing the appsync_endpoint.",
+			},
+			"description": schema.StringAttribute{
+				MarkdownDescription: "Human-readble description for this ApiUser.",
+				Optional:            true,
+			},
+			"role": schema.StringAttribute{
+				MarkdownDescription: fmt.Sprintf("The ApiUser's role. May be on of `%s`, `%s`, or `%s`.", api.ApiUserRoleAdmin, api.ApiUserRoleReadOnly, api.ApiUserRoleUser),
+				Required:            true,
+				Validators: []validator.String{
+					stringvalidator.OneOf(
+						string(api.ApiUserRoleAdmin),
+						string(api.ApiUserRoleReadOnly),
+						string(api.ApiUserRoleUser),
+					),
+				},
+			},
+			"username": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The ApiUser's generated username.",
+			},
+		},
+		MarkdownDescription: "ApiUsers are used to programatically interact with your Tenant.",
+	}
 }
 
 func (r *ApiUserResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

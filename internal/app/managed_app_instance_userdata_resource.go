@@ -6,16 +6,16 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
-	_ resource.Resource = &ManagedAppInstanceUserdataResource{}
+	_ resource.Resource           = &ManagedAppInstanceUserdataResource{}
+	_ resource.ResourceWithSchema = &ManagedAppInstanceUserdataResource{}
 )
 
 // ManagedAppResource defines the resource implementation.
@@ -92,22 +92,21 @@ func (r *ManagedAppInstanceUserdataResource) Create(ctx context.Context, req res
 func (r *ManagedAppInstanceUserdataResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 }
 
-func (r *ManagedAppInstanceUserdataResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := managedAppInstanceSchema()
+func (r *ManagedAppInstanceUserdataResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	attributes := managedAppInstanceAttributes()
 	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"userdata": {
+		attributes,
+		map[string]schema.Attribute{
+			"userdata": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "Cloud-init userdata specifically targeted for Amazon Linux 2.",
-				Type:                types.StringType,
 			},
 		},
 	)
-	return tfsdk.Schema{
-		Attributes:          schema,
+	resp.Schema = schema.Schema{
+		Attributes:          attributes,
 		MarkdownDescription: "ManagedAppInstanceUserdata may be used to create ManagedApp compute resources based on Amazon Linux 2.",
-	}, nil
+	}
 }
 
 func (r *ManagedAppInstanceUserdataResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {

@@ -12,7 +12,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -20,6 +21,7 @@ import (
 var (
 	_ resource.ResourceWithImportState = &ManagedAppResource{}
 	_ resource.ResourceWithModifyPlan  = &ManagedAppResource{}
+	_ resource.ResourceWithSchema      = &ManagedAppResource{}
 )
 
 // ManagedAppResource defines the resource implementation.
@@ -146,22 +148,6 @@ func (r *ManagedAppResource) Delete(ctx context.Context, req resource.DeleteRequ
 	time.Sleep(2 * time.Second)
 }
 
-func (r *ManagedAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := remoteAppSchema()
-	name := schema["name"]
-	name.Validators = []tfsdk.AttributeValidator{
-		stringvalidator.LengthBetween(3, 80),
-		stringvalidator.RegexMatches(
-			regexp.MustCompile(`^[A-Za-z0-9\-\_]*$`),
-			"value must contain only lowercase/uppercase alphanumeric characters, \"-\", \"_\"",
-		),
-	}
-	return tfsdk.Schema{
-		Attributes:          schema,
-		MarkdownDescription: "[ManagedApps](https://docs.echo.stream/docs/managed-app) provide fully managed (by EchoStream) processing resources in a remote virtual compute environment that you manage.",
-	}, nil
-}
-
 func (r *ManagedAppResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -267,6 +253,23 @@ func (r *ManagedAppResource) Read(ctx context.Context, req resource.ReadRequest,
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *ManagedAppResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	attributes := remoteAppAttributes()
+	name := attributes["name"].(schema.StringAttribute)
+	name.Validators = []validator.String{
+		stringvalidator.LengthBetween(3, 80),
+		stringvalidator.RegexMatches(
+			regexp.MustCompile(`^[A-Za-z0-9\-\_]*$`),
+			"value must contain only lowercase/uppercase alphanumeric characters, \"-\", \"_\"",
+		),
+	}
+	attributes["name"] = name
+	resp.Schema = schema.Schema{
+		Attributes:          attributes,
+		MarkdownDescription: "[ManagedApps](https://docs.echo.stream/docs/managed-app) provide fully managed (by EchoStream) processing resources in a remote virtual compute environment that you manage.",
+	}
 }
 
 func (r *ManagedAppResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

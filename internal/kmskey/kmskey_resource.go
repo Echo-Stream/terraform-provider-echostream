@@ -9,16 +9,19 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 var (
 	_ resource.ResourceWithImportState = &KmsKeyResource{}
 	_ resource.ResourceWithModifyPlan  = &KmsKeyResource{}
+	_ resource.ResourceWithSchema      = &KmsKeyResource{}
 )
 
 type KmsKeyResource struct {
@@ -113,47 +116,6 @@ func (r *KmsKeyResource) Delete(ctx context.Context, req resource.DeleteRequest,
 	time.Sleep(2 * time.Second)
 }
 
-func (r *KmsKeyResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: map[string]tfsdk.Attribute{
-			"arn": {
-				Computed:            true,
-				MarkdownDescription: "The AWS ARN for the underlying KMS Key.",
-				Type:                types.StringType,
-			},
-			"description": {
-				MarkdownDescription: "A human-readable description.",
-				Optional:            true,
-				Type:                types.StringType,
-			},
-			"id": {
-				Computed: true,
-				Type:     types.StringType,
-			},
-			"in_use": {
-				Computed:            true,
-				MarkdownDescription: "True if this KmsKey is in use by Edges.",
-				Type:                types.BoolType,
-			},
-			"name": {
-				MarkdownDescription: "The name of the KmsKey. Must be unique within the Tenant.",
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Required:            true,
-				Type:                types.StringType,
-				Validators: []tfsdk.AttributeValidator{
-					stringvalidator.LengthBetween(3, 80),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile(`^[A-Za-z0-9\-\_]*$`),
-						"value must contain only lowercase/uppercase alphanumeric characters, \"-\" or \"_\"",
-					),
-				},
-			},
-		},
-		MarkdownDescription: "KmsKeys are used to encrypt message on Edges. This enables limiting certain Apps and Nodes, " +
-			"especially External and Managed Nodes that are outside of your control (e.g. - shared with a partner), to specific encryption permissions.",
-	}, nil
-}
-
 func (r *KmsKeyResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -232,6 +194,42 @@ func (r *KmsKeyResource) Read(ctx context.Context, req resource.ReadRequest, res
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *KmsKeyResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"arn": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The AWS ARN for the underlying KMS Key.",
+			},
+			"description": schema.StringAttribute{
+				MarkdownDescription: "A human-readable description.",
+				Optional:            true,
+			},
+			"id": schema.StringAttribute{
+				Computed: true,
+			},
+			"in_use": schema.BoolAttribute{
+				Computed:            true,
+				MarkdownDescription: "True if this KmsKey is in use by Edges.",
+			},
+			"name": schema.StringAttribute{
+				MarkdownDescription: "The name of the KmsKey. Must be unique within the Tenant.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+				Validators: []validator.String{
+					stringvalidator.LengthBetween(3, 80),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile(`^[A-Za-z0-9\-\_]*$`),
+						"value must contain only lowercase/uppercase alphanumeric characters, \"-\" or \"_\"",
+					),
+				},
+			},
+		},
+		MarkdownDescription: "KmsKeys are used to encrypt message on Edges. This enables limiting certain Apps and Nodes, " +
+			"especially External and Managed Nodes that are outside of your control (e.g. - shared with a partner), to specific encryption permissions.",
+	}
 }
 
 func (r *KmsKeyResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

@@ -6,12 +6,14 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var _ datasource.DataSourceWithConfigure = &BitmapperFunctionDataSource{}
+var (
+	_ datasource.DataSourceWithConfigure = &BitmapperFunctionDataSource{}
+	_ datasource.DataSourceWithSchema    = &BitmapperFunctionDataSource{}
+)
 
 type BitmapperFunctionDataSource struct {
 	data *common.ProviderData
@@ -34,13 +36,6 @@ func (d *BitmapperFunctionDataSource) Configure(ctx context.Context, req datasou
 	}
 
 	d.data = data
-}
-
-func (d *BitmapperFunctionDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes:          dataBitmapperFunctionSchema(),
-		MarkdownDescription: "[BitmapperFunctions](https://docs.echo.stream/docs/bitmap-router-node#bitmapper-function) provide reusable message bitmapping and are used in RouterNodes.",
-	}, nil
 }
 
 func (d *BitmapperFunctionDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -68,4 +63,16 @@ func (d *BitmapperFunctionDataSource) Read(ctx context.Context, req datasource.R
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)
+}
+
+func (d *BitmapperFunctionDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+	attributes := dataFunctionAttributes()
+	attributes["argument_message_type"] = schema.StringAttribute{
+		Computed:            true,
+		MarkdownDescription: "The MessageType passed in to the Function.",
+	}
+	resp.Schema = schema.Schema{
+		Attributes:          attributes,
+		MarkdownDescription: "[BitmapperFunctions](https://docs.echo.stream/docs/bitmap-router-node#bitmapper-function) provide reusable message bitmapping and are used in RouterNodes.",
+	}
 }

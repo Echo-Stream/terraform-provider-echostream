@@ -9,12 +9,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/attr/xattr"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
+	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-go/tftypes"
 )
 
 var (
-	_ xattr.TypeWithValidate = ConfigType{}
-	_ attr.Value             = Config{}
+	_ types.StringTypable    = &ConfigType{}
+	_ xattr.TypeWithValidate = &ConfigType{}
+	_ types.StringValuable   = &Config{}
 )
 
 type ConfigType struct{}
@@ -84,6 +86,16 @@ func (ct ConfigType) Validate(ctx context.Context, in tftypes.Value, path path.P
 	}
 
 	return diags
+}
+
+func (ct ConfigType) ValueFromString(ctx context.Context, in types.String) (types.StringValuable, diag.Diagnostics) {
+	if in.IsUnknown() {
+		return ConfigUnknown(), nil
+	}
+	if in.IsNull() {
+		return ConfigNull(), nil
+	}
+	return ConfigValue(in.ValueString()), nil
 }
 
 func (ct ConfigType) ValueFromTerraform(ctx context.Context, in tftypes.Value) (attr.Value, error) {
@@ -181,6 +193,16 @@ func (c Config) String() string {
 	}
 
 	return fmt.Sprintf("%q", c.value)
+}
+
+func (c Config) ToStringValue(ctx context.Context) (types.String, diag.Diagnostics) {
+	if c.IsUnknown() {
+		return types.StringUnknown(), nil
+	}
+	if c.IsNull() {
+		return types.StringNull(), nil
+	}
+	return types.StringValue(c.value), nil
 }
 
 // ToTerraformValue returns the data contained in the *Config as a tftypes.Value.

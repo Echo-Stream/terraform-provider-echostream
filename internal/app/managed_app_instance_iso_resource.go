@@ -6,16 +6,16 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
-	_ resource.Resource = &ManagedAppInstanceIsoResource{}
+	_ resource.Resource           = &ManagedAppInstanceIsoResource{}
+	_ resource.ResourceWithSchema = &ManagedAppInstanceIsoResource{}
 )
 
 // ManagedAppResource defines the resource implementation.
@@ -92,24 +92,6 @@ func (r *ManagedAppInstanceIsoResource) Create(ctx context.Context, req resource
 func (r *ManagedAppInstanceIsoResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 }
 
-func (r *ManagedAppInstanceIsoResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := managedAppInstanceSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"iso": {
-				Computed:            true,
-				MarkdownDescription: "The iso image, gzip'd and base64 encoded.",
-				Type:                types.StringType,
-			},
-		},
-	)
-	return tfsdk.Schema{
-		Attributes:          schema,
-		MarkdownDescription: "ManagedAppInstanceIso may be used to create ManagedApp compute resources in the VM architecture of your choice.",
-	}, nil
-}
-
 func (r *ManagedAppInstanceIsoResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_managed_app_instance_iso"
 }
@@ -126,6 +108,23 @@ func (r *ManagedAppInstanceIsoResource) Read(ctx context.Context, req resource.R
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *ManagedAppInstanceIsoResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	attributes := managedAppInstanceAttributes()
+	maps.Copy(
+		attributes,
+		map[string]schema.Attribute{
+			"iso": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The iso image, gzip'd and base64 encoded.",
+			},
+		},
+	)
+	resp.Schema = schema.Schema{
+		Attributes:          attributes,
+		MarkdownDescription: "ManagedAppInstanceIso may be used to create ManagedApp compute resources in the VM architecture of your choice.",
+	}
 }
 
 func (r *ManagedAppInstanceIsoResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

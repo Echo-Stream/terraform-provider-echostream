@@ -8,17 +8,19 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
 	_ resource.ResourceWithImportState = &FilesDotComWebhookNodeResource{}
+	_ resource.ResourceWithSchema      = &FilesDotComWebhookNodeResource{}
 )
 
 // FilesDotComWebhookNodeResource defines the resource implementation.
@@ -118,54 +120,6 @@ func (r *FilesDotComWebhookNodeResource) Delete(ctx context.Context, req resourc
 	time.Sleep(2 * time.Second)
 }
 
-func (r *FilesDotComWebhookNodeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := dataSendNodeSchema()
-	for key, attribute := range schema {
-		switch key {
-		case "description":
-			attribute.Computed = false
-			attribute.Optional = true
-		case "name":
-			attribute.Computed = false
-			attribute.Required = true
-			attribute.PlanModifiers = tfsdk.AttributePlanModifiers{resource.RequiresReplace()}
-			attribute.Validators = common.NameValidators
-		}
-		schema[key] = attribute
-	}
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"api_key": {
-				MarkdownDescription: "The Files.com api key. Used by this node to obtain a whitelist of IP addresses from Files.com.\n\n" +
-					"!> **Warning:** While this attribute is marked as Optional to support the importation of these resources, it is *Required* for creating them.",
-				Optional:   true,
-				Sensitive:  true,
-				Type:       types.StringType,
-				Validators: []tfsdk.AttributeValidator{stringvalidator.LengthAtLeast(1)},
-			},
-			"endpoint": {
-				Computed:            true,
-				MarkdownDescription: "The Webhooks endpoint to forward Files.com webhooks events to. Accepts all version of Files.com webhook events at the root path.",
-				Type:                types.StringType,
-			},
-			"token": {
-				Computed: true,
-				MarkdownDescription: "The token for the event endpoint. Files.com doesn't support real Webhooks" +
-					" security, so we add a token that is to be sent in the webhook in the headers." +
-					" Place this token as the value for the `Authorization` header, prepending it with `Bearer`." +
-					" For example, if token was `12345` then the header would be `Authorization: Bearer 12345`.",
-				Sensitive: true,
-				Type:      types.StringType,
-			},
-		},
-	)
-	return tfsdk.Schema{
-		Attributes:          schema,
-		MarkdownDescription: "[FilesDotComWebhookNodes](https://docs.echo.stream/docs/filescom-webhook-node) receive webhooks from [Files.com](https://www.files.com).",
-	}, nil
-}
-
 func (r *FilesDotComWebhookNodeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -215,6 +169,46 @@ func (r *FilesDotComWebhookNodeResource) Read(ctx context.Context, req resource.
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }
 
+func (r *FilesDotComWebhookNodeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"api_key": schema.StringAttribute{
+				MarkdownDescription: "The Files.com api key. Used by this node to obtain a whitelist of IP addresses from Files.com.\n\n" +
+					"!> **Warning:** While this attribute is marked as Optional to support the importation of these resources, it is *Required* for creating them.",
+				Optional:   true,
+				Sensitive:  true,
+				Validators: []validator.String{stringvalidator.LengthAtLeast(1)},
+			},
+			"description": schema.StringAttribute{
+				MarkdownDescription: "A human-readable description.",
+				Optional:            true,
+			},
+			"endpoint": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The Webhooks endpoint to forward Files.com webhooks events to. Accepts all version of Files.com webhook events at the root path.",
+			},
+			"name": schema.StringAttribute{
+				MarkdownDescription: "The name of the Node. Must be unique within the Tenant.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+				Validators:          common.NameValidators,
+			},
+			"send_message_type": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The MessageType that this Node is capable of sending.",
+			},
+			"token": schema.StringAttribute{
+				Computed: true,
+				MarkdownDescription: "The token for the event endpoint. Files.com doesn't support real Webhooks" +
+					" security, so we add a token that is to be sent in the webhook in the headers." +
+					" Place this token as the value for the `Authorization` header, prepending it with `Bearer`." +
+					" For example, if token was `12345` then the header would be `Authorization: Bearer 12345`.",
+				Sensitive: true,
+			},
+		},
+		MarkdownDescription: "[FilesDotComWebhookNodes](https://docs.echo.stream/docs/filescom-webhook-node) receive webhooks from [Files.com](https://www.files.com).",
+	}
+}
 func (r *FilesDotComWebhookNodeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	var plan filesDotComWebhookNodeModel
 

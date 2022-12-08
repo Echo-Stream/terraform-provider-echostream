@@ -7,14 +7,15 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"golang.org/x/exp/maps"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var _ datasource.DataSourceWithConfigure = &AppChangeReceiverNodeDataSource{}
+var (
+	_ datasource.DataSourceWithConfigure = &AppChangeReceiverNodeDataSource{}
+	_ datasource.DataSourceWithSchema    = &AppChangeReceiverNodeDataSource{}
+)
 
 type AppChangeReceiverNodeDataSource struct {
 	data *common.ProviderData
@@ -44,24 +45,6 @@ type appChangeReceiverNodeDataSourceModel struct {
 	Description        types.String `tfsdk:"description"`
 	Name               types.String `tfsdk:"name"`
 	ReceiveMessageType types.String `tfsdk:"receive_message_type"`
-}
-
-func (d *AppChangeReceiverNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := dataReceiveNodeSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"app": {
-				MarkdownDescription: "The App for this AppChangeReceiverNode",
-				Required:            true,
-				Type:                types.StringType,
-			},
-		},
-	)
-	return tfsdk.Schema{
-		Attributes:          schema,
-		MarkdownDescription: "AppChangeReceiverNodes receive change messages from the AppChangeRouterNode. One per App, created when the App is created.",
-	}, nil
 }
 
 func (d *AppChangeReceiverNodeDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -104,4 +87,16 @@ func (d *AppChangeReceiverNodeDataSource) Read(ctx context.Context, req datasour
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)
+}
+
+func (d *AppChangeReceiverNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+	attributes := dataReceiveNodeAttributes()
+	attributes["app"] = schema.StringAttribute{
+		MarkdownDescription: "The App for this AppChangeReceiverNode",
+		Required:            true,
+	}
+	resp.Schema = schema.Schema{
+		Attributes:          attributes,
+		MarkdownDescription: "AppChangeReceiverNodes receive change messages from the AppChangeRouterNode. One per App, created when the App is created.",
+	}
 }

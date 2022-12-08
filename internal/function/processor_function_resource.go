@@ -11,7 +11,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -19,6 +21,7 @@ import (
 var (
 	_ resource.ResourceWithImportState = &ProcessorFunctionResource{}
 	_ resource.ResourceWithModifyPlan  = &ProcessorFunctionResource{}
+	_ resource.ResourceWithSchema      = &ProcessorFunctionResource{}
 )
 
 // BitmapperFunctionResource defines the resource implementation.
@@ -143,14 +146,6 @@ func (r *ProcessorFunctionResource) Delete(ctx context.Context, req resource.Del
 	time.Sleep(2 * time.Second)
 }
 
-func (r *ProcessorFunctionResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: resourceProcessorFunctionSchema(),
-		MarkdownDescription: "[ProcessorFunctions](https://docs.echo.stream/docs/processor-node#processor-function) provide " +
-			"reusable message processing and are used in either a ProcessorNode or a CrossTenantSendingNode.",
-	}, nil
-}
-
 func (r *ProcessorFunctionResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -224,6 +219,25 @@ func (r *ProcessorFunctionResource) Read(ctx context.Context, req resource.ReadR
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *ProcessorFunctionResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	attributes := resourceFunctionAttributes()
+	attributes["argument_message_type"] = schema.StringAttribute{
+		MarkdownDescription: "The MessageType passed in to the Function.",
+		PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+		Required:            true,
+	}
+	attributes["return_message_type"] = schema.StringAttribute{
+		MarkdownDescription: "The MessageType returned by the Function.",
+		Optional:            true,
+		PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+	}
+	resp.Schema = schema.Schema{
+		Attributes: attributes,
+		MarkdownDescription: "[ProcessorFunctions](https://docs.echo.stream/docs/processor-node#processor-function) provide " +
+			"reusable message processing and are used in either a ProcessorNode or a CrossTenantSendingNode.",
+	}
 }
 
 func (r *ProcessorFunctionResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

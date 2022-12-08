@@ -12,7 +12,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"golang.org/x/exp/maps"
 )
@@ -21,6 +24,7 @@ import (
 var (
 	_ resource.ResourceWithImportState = &CrossAccountAppResource{}
 	_ resource.ResourceWithModifyPlan  = &CrossAccountAppResource{}
+	_ resource.ResourceWithSchema      = &CrossAccountAppResource{}
 )
 
 // CrossAccountAppResource defines the resource implementation.
@@ -154,42 +158,6 @@ func (r *CrossAccountAppResource) Delete(ctx context.Context, req resource.Delet
 	time.Sleep(2 * time.Second)
 }
 
-func (r *CrossAccountAppResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	schema := remoteAppSchema()
-	maps.Copy(
-		schema,
-		map[string]tfsdk.Attribute{
-			"account": {
-				MarkdownDescription: "The AWS account number that will host this CrossAcountApp's compute resources.",
-				PlanModifiers:       tfsdk.AttributePlanModifiers{resource.RequiresReplace()},
-				Required:            true,
-				Type:                types.StringType,
-				Validators: []tfsdk.AttributeValidator{
-					stringvalidator.LengthBetween(12, 12),
-					stringvalidator.RegexMatches(
-						regexp.MustCompile("^[0-9]+$"),
-						"value must contain only numbers",
-					),
-				},
-			},
-			"appsync_endpoint": {
-				Computed:            true,
-				MarkdownDescription: "The EchoStream AppSync Endpoint that this ExternalApp must use.",
-				Type:                types.StringType,
-			},
-			"iam_policy": {
-				Computed:            true,
-				MarkdownDescription: "The IAM policy to apply to this CrossAccountApp's compute resources (e.g. - Lambda, EC2) to grant access to its EchoStream resources.",
-				Type:                types.StringType,
-			},
-		},
-	)
-	return tfsdk.Schema{
-		Attributes:          schema,
-		MarkdownDescription: "[CrossAccountApps](https://docs.echo.stream/docs/cross-account-app) provides a way to receive/send messages in their Nodes using cross-account IAM access.",
-	}, nil
-}
-
 func (r *CrossAccountAppResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -298,6 +266,39 @@ func (r *CrossAccountAppResource) Read(ctx context.Context, req resource.ReadReq
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *CrossAccountAppResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	attributes := remoteAppAttributes()
+	maps.Copy(
+		attributes,
+		map[string]schema.Attribute{
+			"account": schema.StringAttribute{
+				MarkdownDescription: "The AWS account number that will host this CrossAcountApp's compute resources.",
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Required:            true,
+				Validators: []validator.String{
+					stringvalidator.LengthBetween(12, 12),
+					stringvalidator.RegexMatches(
+						regexp.MustCompile("^[0-9]+$"),
+						"value must contain only numbers",
+					),
+				},
+			},
+			"appsync_endpoint": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The EchoStream AppSync Endpoint that this ExternalApp must use.",
+			},
+			"iam_policy": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The IAM policy to apply to this CrossAccountApp's compute resources (e.g. - Lambda, EC2) to grant access to its EchoStream resources.",
+			},
+		},
+	)
+	resp.Schema = schema.Schema{
+		Attributes:          attributes,
+		MarkdownDescription: "[CrossAccountApps](https://docs.echo.stream/docs/cross-account-app) provides a way to receive/send messages in their Nodes using cross-account IAM access.",
+	}
 }
 
 func (r *CrossAccountAppResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

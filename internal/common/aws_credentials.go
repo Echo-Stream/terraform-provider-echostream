@@ -2,7 +2,7 @@ package common
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	dsschema "github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -36,28 +36,24 @@ func AwsCredentialsAttrValues(
 	}
 }
 
-func AwsCredentialsSchema() map[string]tfsdk.Attribute {
-	return map[string]tfsdk.Attribute{
-		"access_key_id": {
+func AwsCredentialsSchema() map[string]dsschema.Attribute {
+	return map[string]dsschema.Attribute{
+		"access_key_id": dsschema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The AWS Acces Key Id for the session.",
-			Type:                types.StringType,
 		},
-		"expiration": {
+		"expiration": dsschema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The date/time that the sesssion expires, in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format.",
-			Type:                types.StringType,
 		},
-		"secret_access_key": {
+		"secret_access_key": dsschema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The AWS Secret Access Key for the session.",
 			Sensitive:           true,
-			Type:                types.StringType,
 		},
-		"session_token": {
+		"session_token": dsschema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The AWS Session Token for the session.",
-			Type:                types.StringType,
 		},
 	}
 }

@@ -7,13 +7,15 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var _ datasource.DataSourceWithConfigure = &AppChangeRouterNodeDataSource{}
+var (
+	_ datasource.DataSourceWithConfigure = &AppChangeRouterNodeDataSource{}
+	_ datasource.DataSourceWithSchema    = &AppChangeRouterNodeDataSource{}
+)
 
 type AppChangeRouterNodeDataSource struct {
 	data *common.ProviderData
@@ -43,14 +45,6 @@ type appChangeRouterNodeDataSourceModel struct {
 	Name               types.String `tfsdk:"name"`
 	ReceiveMessageType types.String `tfsdk:"receive_message_type"`
 	SendMessageType    types.String `tfsdk:"send_message_type"`
-}
-
-func (d *AppChangeRouterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: dataSendReceiveNodeSchema(),
-		MarkdownDescription: "[AppChangeRouterNodes](https://docs.echo.stream/docs/app-change-router-node) route change messages " +
-			"to the appropriate App. One per Tenant, automatically created when the Tenant is created.",
-	}, nil
 }
 
 func (d *AppChangeRouterNodeDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -91,4 +85,12 @@ func (d *AppChangeRouterNodeDataSource) Read(ctx context.Context, req datasource
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)
+}
+
+func (d *AppChangeRouterNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: dataSendReceiveNodeAttributes(),
+		MarkdownDescription: "[AppChangeRouterNodes](https://docs.echo.stream/docs/app-change-router-node) route change messages " +
+			"to the appropriate App. One per Tenant, automatically created when the Tenant is created.",
+	}
 }

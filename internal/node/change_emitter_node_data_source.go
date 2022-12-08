@@ -7,13 +7,15 @@ import (
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/api"
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/diag"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var _ datasource.DataSourceWithConfigure = &ChangeEmitterNodeDataSource{}
+var (
+	_ datasource.DataSourceWithConfigure = &ChangeEmitterNodeDataSource{}
+	_ datasource.DataSourceWithSchema    = &ChangeEmitterNodeDataSource{}
+)
 
 type ChangeEmitterNodeDataSource struct {
 	data *common.ProviderData
@@ -42,14 +44,6 @@ type changeEmitterNodeDataSourceModel struct {
 	Description     types.String `tfsdk:"description"`
 	Name            types.String `tfsdk:"name"`
 	SendMessageType types.String `tfsdk:"send_message_type"`
-}
-
-func (d *ChangeEmitterNodeDataSource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: dataSendNodeSchema(),
-		MarkdownDescription: "[ChangeEmitterNodes](https://docs.echo.stream/docs/change-emitter-node) emit change messages. " +
-			"One per Tenant, automatically created when the Tenant is created.",
-	}, nil
 }
 
 func (d *ChangeEmitterNodeDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -89,4 +83,12 @@ func (d *ChangeEmitterNodeDataSource) Read(ctx context.Context, req datasource.R
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &config)...)
+}
+
+func (d *ChangeEmitterNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: dataSendNodeAttributes(),
+		MarkdownDescription: "[ChangeEmitterNodes](https://docs.echo.stream/docs/change-emitter-node) emit change messages. " +
+			"One per Tenant, automatically created when the Tenant is created.",
+	}
 }

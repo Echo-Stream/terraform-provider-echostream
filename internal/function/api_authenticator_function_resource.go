@@ -11,7 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -19,6 +19,7 @@ import (
 var (
 	_ resource.ResourceWithImportState = &ApiAuthenticatorFunctionResource{}
 	_ resource.ResourceWithModifyPlan  = &ApiAuthenticatorFunctionResource{}
+	_ resource.ResourceWithSchema      = &ApiAuthenticatorFunctionResource{}
 )
 
 // ApiAuthenticatorFunctionResource defines the resource implementation.
@@ -130,13 +131,6 @@ func (r *ApiAuthenticatorFunctionResource) Delete(ctx context.Context, req resou
 	time.Sleep(2 * time.Second)
 }
 
-func (r *ApiAuthenticatorFunctionResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes:          resourceFunctionSchema(),
-		MarkdownDescription: "[ApiAuthenticatorFunctions](https://docs.echo.stream/docs/webhook#api-authenticator-function) are managed Functions used in API-based Nodes (e.g. - WebhookNode).",
-	}, nil
-}
-
 func (r *ApiAuthenticatorFunctionResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -210,6 +204,13 @@ func (r *ApiAuthenticatorFunctionResource) Read(ctx context.Context, req resourc
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *ApiAuthenticatorFunctionResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes:          resourceFunctionAttributes(),
+		MarkdownDescription: "[ApiAuthenticatorFunctions](https://docs.echo.stream/docs/webhook#api-authenticator-function) are managed Functions used in API-based Nodes (e.g. - WebhookNode).",
+	}
 }
 
 func (r *ApiAuthenticatorFunctionResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {

@@ -11,7 +11,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
+	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -19,6 +22,7 @@ import (
 var (
 	_ resource.ResourceWithImportState = &MessageTypeResource{}
 	_ resource.ResourceWithModifyPlan  = &MessageTypeResource{}
+	_ resource.ResourceWithSchema      = &MessageTypeResource{}
 )
 
 // MessageTypeResource defines the resource implementation.
@@ -138,14 +142,6 @@ func (r *MessageTypeResource) Delete(ctx context.Context, req resource.DeleteReq
 	time.Sleep(2 * time.Second)
 }
 
-func (r *MessageTypeResource) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
-	return tfsdk.Schema{
-		Attributes: resourceMessageTypeSchema(),
-		MarkdownDescription: "A specific [MessageType](https://docs.echo.stream/docs/message-types) in the Tenant. " +
-			"All messages sent or received must be loosely associated (via Node and Edge typing) with a MessageType.",
-	}, nil
-}
-
 func (r *MessageTypeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("name"), req, resp)
 }
@@ -219,6 +215,66 @@ func (r *MessageTypeResource) Read(ctx context.Context, req resource.ReadRequest
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *MessageTypeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"auditor": schema.StringAttribute{
+				MarkdownDescription: "A Python code string that contains a single top-level function definition." +
+					" This function must have the signature `(*, message, **kwargs)` where" +
+					" message is a string and must return a flat dictionary.",
+				Required: true,
+			},
+			"bitmapper_template": schema.StringAttribute{
+				MarkdownDescription: " A Python code string that contains a single top-level function definition." +
+					" This function is used as a template when creating custom routing rules in" +
+					" RouterNodes that use this MessageType. This function must have the signature" +
+					" `(*, context, message, source, **kwargs)` and return an integer.",
+				Required: true,
+			},
+			"description": schema.StringAttribute{
+				MarkdownDescription: "A human-readable description.",
+				Required:            true,
+			},
+			"id": schema.StringAttribute{
+				Computed: true,
+			},
+			"in_use": schema.BoolAttribute{
+				Computed:            true,
+				MarkdownDescription: "True if this is used by other resources.",
+			},
+			"name": schema.StringAttribute{
+				MarkdownDescription: "The name of the MessageType.",
+				Required:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+				Validators:          append(messageTypeNameValidators, common.NotSystemNameValidator),
+			},
+			"processor_template": schema.StringAttribute{
+				MarkdownDescription: " A Python code string that contains a single top-leve function definition." +
+					" This function is used as a template when creating custom processing in" +
+					" ProcessorNodes that use this MessageType. This function must have the signature" +
+					" `(*, context, message, source, **kwargs)` and return `None`, a string or a list of strings.",
+				Required: true,
+			},
+			"readme": schema.StringAttribute{
+				MarkdownDescription: "README in MarkDown format.",
+				Optional:            true,
+			},
+			"requirements": schema.SetAttribute{
+				ElementType:         types.StringType,
+				MarkdownDescription: "The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.",
+				Optional:            true,
+				Validators:          []validator.Set{common.RequirementsValidator},
+			},
+			"sample_message": schema.StringAttribute{
+				MarkdownDescription: "A sample message.",
+				Required:            true,
+			},
+		},
+		MarkdownDescription: "A specific [MessageType](https://docs.echo.stream/docs/message-types) in the Tenant. " +
+			"All messages sent or received must be loosely associated (via Node and Edge typing) with a MessageType.",
+	}
 }
 
 func (r *MessageTypeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
