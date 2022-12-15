@@ -22,9 +22,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &CrossAccountAppResource{}
 	_ resource.ResourceWithImportState = &CrossAccountAppResource{}
 	_ resource.ResourceWithModifyPlan  = &CrossAccountAppResource{}
-	_ resource.ResourceWithSchema      = &CrossAccountAppResource{}
 )
 
 // CrossAccountAppResource defines the resource implementation.

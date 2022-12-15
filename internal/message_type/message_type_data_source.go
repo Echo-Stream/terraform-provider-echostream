@@ -11,10 +11,7 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var (
-	_ datasource.DataSourceWithConfigure = &MessageTypeDataSource{}
-	_ datasource.DataSourceWithSchema    = &MessageTypeDataSource{}
-)
+var _ datasource.DataSourceWithConfigure = &MessageTypeDataSource{}
 
 type MessageTypeDataSource struct {
 	data *common.ProviderData

@@ -17,9 +17,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &ApiAuthenticatorFunctionResource{}
 	_ resource.ResourceWithImportState = &ApiAuthenticatorFunctionResource{}
 	_ resource.ResourceWithModifyPlan  = &ApiAuthenticatorFunctionResource{}
-	_ resource.ResourceWithSchema      = &ApiAuthenticatorFunctionResource{}
 )
 
 // ApiAuthenticatorFunctionResource defines the resource implementation.

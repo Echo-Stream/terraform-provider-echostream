@@ -38,8 +38,7 @@ var (
 	_ graphql.Doer = &echoStreamApiDoer{}
 
 	// Ensure EchoStreamProvider satisfies various provider interfaces.
-	_ provider.ProviderWithMetadata = &echoStreamProvider{}
-	_ provider.ProviderWithSchema   = &echoStreamProvider{}
+	_ provider.Provider = &echoStreamProvider{}
 )
 
 type echoStreamApiDoer struct {

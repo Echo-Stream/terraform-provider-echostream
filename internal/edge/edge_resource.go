@@ -22,9 +22,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &EdgeResource{}
 	_ resource.ResourceWithImportState = &EdgeResource{}
 	_ resource.ResourceWithModifyPlan  = &EdgeResource{}
-	_ resource.ResourceWithSchema      = &EdgeResource{}
 )
 
 // EdgeResource defines the resource implementation.

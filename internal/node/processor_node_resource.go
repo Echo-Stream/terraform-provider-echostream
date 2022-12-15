@@ -21,9 +21,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure        = &ProcessorNodeResource{}
 	_ resource.ResourceWithConfigValidators = &ProcessorNodeResource{}
 	_ resource.ResourceWithImportState      = &ProcessorNodeResource{}
-	_ resource.ResourceWithSchema           = &ProcessorNodeResource{}
 )
 
 // ProcessorNodeResource defines the resource implementation.

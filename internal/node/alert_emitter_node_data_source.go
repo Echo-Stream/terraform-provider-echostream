@@ -12,10 +12,7 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var (
-	_ datasource.DataSourceWithConfigure = &AlertEmitterNodeDataSource{}
-	_ datasource.DataSourceWithSchema    = &AlertEmitterNodeDataSource{}
-)
+var _ datasource.DataSourceWithConfigure = &AlertEmitterNodeDataSource{}
 
 type AlertEmitterNodeDataSource struct {
 	data *common.ProviderData

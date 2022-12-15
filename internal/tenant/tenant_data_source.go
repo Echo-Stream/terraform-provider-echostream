@@ -10,10 +10,7 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var (
-	_ datasource.DataSourceWithConfigure = &TenantDataSource{}
-	_ datasource.DataSourceWithSchema    = &TenantDataSource{}
-)
+var _ datasource.DataSourceWithConfigure = &TenantDataSource{}
 
 type TenantDataSource struct {
 	data *common.ProviderData

@@ -17,8 +17,8 @@ import (
 )
 
 var (
+	_ resource.ResourceWithConfigure   = &ApiUserResource{}
 	_ resource.ResourceWithImportState = &ApiUserResource{}
-	_ resource.ResourceWithSchema      = &ApiUserResource{}
 )
 
 type ApiUserResource struct {

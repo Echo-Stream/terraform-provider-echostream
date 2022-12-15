@@ -15,8 +15,8 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &TenantResource{}
 	_ resource.ResourceWithImportState = &TenantResource{}
-	_ resource.ResourceWithSchema      = &TenantResource{}
 )
 
 // TenantResource defines the resource implementation.

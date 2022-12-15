@@ -21,9 +21,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure        = &WebhookNodeResource{}
 	_ resource.ResourceWithConfigValidators = &WebhookNodeResource{}
 	_ resource.ResourceWithImportState      = &WebhookNodeResource{}
-	_ resource.ResourceWithSchema           = &WebhookNodeResource{}
 )
 
 // WebhookNodeResource defines the resource implementation.

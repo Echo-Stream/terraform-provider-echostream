@@ -24,8 +24,8 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &ManagedNodeResource{}
 	_ resource.ResourceWithImportState = &ManagedNodeResource{}
-	_ resource.ResourceWithSchema      = &ManagedNodeResource{}
 )
 
 // ManagedNodeResource defines the resource implementation.

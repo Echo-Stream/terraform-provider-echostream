@@ -16,8 +16,8 @@ import (
 )
 
 var (
+	_ resource.ResourceWithConfigure   = &TenantUserResource{}
 	_ resource.ResourceWithImportState = &TenantUserResource{}
-	_ resource.ResourceWithSchema      = &TenantUserResource{}
 )
 
 type TenantUserResource struct {

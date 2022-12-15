@@ -19,9 +19,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &BitmapperFunctionResource{}
 	_ resource.ResourceWithImportState = &BitmapperFunctionResource{}
 	_ resource.ResourceWithModifyPlan  = &BitmapperFunctionResource{}
-	_ resource.ResourceWithSchema      = &BitmapperFunctionResource{}
 )
 
 // BitmapperFunctionResource defines the resource implementation.

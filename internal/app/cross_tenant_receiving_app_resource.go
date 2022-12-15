@@ -18,9 +18,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &CrossTenantReceivingAppResource{}
 	_ resource.ResourceWithImportState = &CrossTenantReceivingAppResource{}
 	_ resource.ResourceWithModifyPlan  = &CrossTenantReceivingAppResource{}
-	_ resource.ResourceWithSchema      = &CrossTenantReceivingAppResource{}
 )
 
 // CrossTenantReceivingAppResource defines the resource implementation.

@@ -19,9 +19,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &ManagedAppResource{}
 	_ resource.ResourceWithImportState = &ManagedAppResource{}
 	_ resource.ResourceWithModifyPlan  = &ManagedAppResource{}
-	_ resource.ResourceWithSchema      = &ManagedAppResource{}
 )
 
 // ManagedAppResource defines the resource implementation.

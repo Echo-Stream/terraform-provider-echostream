@@ -10,10 +10,7 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var (
-	_ datasource.DataSourceWithConfigure = &BitmapperFunctionDataSource{}
-	_ datasource.DataSourceWithSchema    = &BitmapperFunctionDataSource{}
-)
+var _ datasource.DataSourceWithConfigure = &BitmapperFunctionDataSource{}
 
 type BitmapperFunctionDataSource struct {
 	data *common.ProviderData

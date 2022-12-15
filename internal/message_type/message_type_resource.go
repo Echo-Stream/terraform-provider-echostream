@@ -20,9 +20,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &MessageTypeResource{}
 	_ resource.ResourceWithImportState = &MessageTypeResource{}
 	_ resource.ResourceWithModifyPlan  = &MessageTypeResource{}
-	_ resource.ResourceWithSchema      = &MessageTypeResource{}
 )
 
 // MessageTypeResource defines the resource implementation.

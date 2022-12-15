@@ -10,10 +10,7 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var (
-	_ datasource.DataSourceWithConfigure = &ApiAuthenticatorFunctionDataSource{}
-	_ datasource.DataSourceWithSchema    = &ApiAuthenticatorFunctionDataSource{}
-)
+var _ datasource.DataSourceWithConfigure = &ApiAuthenticatorFunctionDataSource{}
 
 type ApiAuthenticatorFunctionDataSource struct {
 	data *common.ProviderData

@@ -10,10 +10,7 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var (
-	_ datasource.DataSourceWithConfigure = &ProcessorFunctionDataSource{}
-	_ datasource.DataSourceWithSchema    = &ProcessorFunctionDataSource{}
-)
+var _ datasource.DataSourceWithConfigure = &ProcessorFunctionDataSource{}
 
 type ProcessorFunctionDataSource struct {
 	data *common.ProviderData

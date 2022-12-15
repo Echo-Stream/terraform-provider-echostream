@@ -19,9 +19,9 @@ import (
 )
 
 var (
+	_ resource.ResourceWithConfigure   = &KmsKeyResource{}
 	_ resource.ResourceWithImportState = &KmsKeyResource{}
 	_ resource.ResourceWithModifyPlan  = &KmsKeyResource{}
-	_ resource.ResourceWithSchema      = &KmsKeyResource{}
 )
 
 type KmsKeyResource struct {

@@ -10,13 +10,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/types"
+	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-go/tftypes"
 )
 
 var (
-	_ types.StringTypable    = &ConfigType{}
-	_ xattr.TypeWithValidate = &ConfigType{}
-	_ types.StringValuable   = &Config{}
+	_ basetypes.StringTypable  = &ConfigType{}
+	_ xattr.TypeWithValidate   = &ConfigType{}
+	_ basetypes.StringValuable = &Config{}
 )
 
 type ConfigType struct{}
@@ -88,7 +89,7 @@ func (ct ConfigType) Validate(ctx context.Context, in tftypes.Value, path path.P
 	return diags
 }
 
-func (ct ConfigType) ValueFromString(ctx context.Context, in types.String) (types.StringValuable, diag.Diagnostics) {
+func (ct ConfigType) ValueFromString(ctx context.Context, in types.String) (basetypes.StringValuable, diag.Diagnostics) {
 	if in.IsUnknown() {
 		return ConfigUnknown(), nil
 	}

@@ -12,10 +12,7 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var (
-	_ datasource.DataSourceWithConfigure = &DeadLetterEmitterNodeDataSource{}
-	_ datasource.DataSourceWithSchema    = &DeadLetterEmitterNodeDataSource{}
-)
+var _ datasource.DataSourceWithConfigure = &DeadLetterEmitterNodeDataSource{}
 
 type DeadLetterEmitterNodeDataSource struct {
 	data *common.ProviderData

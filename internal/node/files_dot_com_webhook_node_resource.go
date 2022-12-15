@@ -19,8 +19,8 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &FilesDotComWebhookNodeResource{}
 	_ resource.ResourceWithImportState = &FilesDotComWebhookNodeResource{}
-	_ resource.ResourceWithSchema      = &FilesDotComWebhookNodeResource{}
 )
 
 // FilesDotComWebhookNodeResource defines the resource implementation.

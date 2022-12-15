@@ -20,8 +20,8 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &TimerNodeResource{}
 	_ resource.ResourceWithImportState = &TimerNodeResource{}
-	_ resource.ResourceWithSchema      = &TimerNodeResource{}
 )
 
 // TimerNodeResource defines the resource implementation.

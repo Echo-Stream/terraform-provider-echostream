@@ -17,8 +17,8 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &LoadBalancerNodeResource{}
 	_ resource.ResourceWithImportState = &LoadBalancerNodeResource{}
-	_ resource.ResourceWithSchema      = &LoadBalancerNodeResource{}
 )
 
 // LoadBalancerNodeResource defines the resource implementation.

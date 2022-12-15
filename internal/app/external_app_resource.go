@@ -17,9 +17,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &ExternalAppResource{}
 	_ resource.ResourceWithImportState = &ExternalAppResource{}
 	_ resource.ResourceWithModifyPlan  = &ExternalAppResource{}
-	_ resource.ResourceWithSchema      = &ExternalAppResource{}
 )
 
 // ExternalAppResource defines the resource implementation.

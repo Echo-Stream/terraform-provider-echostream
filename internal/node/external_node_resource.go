@@ -17,8 +17,8 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure   = &ExternalNodeResource{}
 	_ resource.ResourceWithImportState = &ExternalNodeResource{}
-	_ resource.ResourceWithSchema      = &ExternalNodeResource{}
 )
 
 // ExternalNodeResource defines the resource implementation.

@@ -13,10 +13,7 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var (
-	_ resource.Resource           = &ManagedAppInstanceIsoResource{}
-	_ resource.ResourceWithSchema = &ManagedAppInstanceIsoResource{}
-)
+var _ resource.ResourceWithConfigure = &ManagedAppInstanceIsoResource{}
 
 // ManagedAppResource defines the resource implementation.
 type ManagedAppInstanceIsoResource struct {

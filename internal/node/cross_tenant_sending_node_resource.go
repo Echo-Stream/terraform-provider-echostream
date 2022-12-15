@@ -21,10 +21,10 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
+	_ resource.ResourceWithConfigure        = &CrossTenantSendingNodeResource{}
 	_ resource.ResourceWithConfigValidators = &CrossTenantSendingNodeResource{}
 	_ resource.ResourceWithImportState      = &CrossTenantSendingNodeResource{}
 	_ resource.ResourceWithModifyPlan       = &CrossTenantSendingNodeResource{}
-	_ resource.ResourceWithSchema           = &CrossTenantSendingNodeResource{}
 )
 
 // ProcessorNodeResource defines the resource implementation.

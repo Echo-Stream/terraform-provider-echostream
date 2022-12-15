@@ -26,9 +26,9 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces
 var (
-	_ resource.ResourceWithImportState      = &BitmapRouterNodeResource{}
+	_ resource.ResourceWithConfigure        = &BitmapRouterNodeResource{}
 	_ resource.ResourceWithConfigValidators = &BitmapRouterNodeResource{}
-	_ resource.ResourceWithSchema           = &BitmapRouterNodeResource{}
+	_ resource.ResourceWithImportState      = &BitmapRouterNodeResource{}
 )
 
 // BitmapRouterNodeResource defines the resource implementation.

@@ -12,10 +12,7 @@ import (
 )
 
 // Ensure provider defined types fully satisfy framework interfaces
-var (
-	_ datasource.DataSourceWithConfigure = &AppChangeRouterNodeDataSource{}
-	_ datasource.DataSourceWithSchema    = &AppChangeRouterNodeDataSource{}
-)
+var _ datasource.DataSourceWithConfigure = &AppChangeRouterNodeDataSource{}
 
 type AppChangeRouterNodeDataSource struct {
 	data *common.ProviderData
