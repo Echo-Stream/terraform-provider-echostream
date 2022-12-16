@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/Khan/genqlient v0.5.0
 	github.com/alexrudd/cognito-srp/v4 v4.1.0
-	github.com/aws/aws-sdk-go-v2 v1.17.2
+	github.com/aws/aws-sdk-go-v2 v1.17.3
 	github.com/aws/aws-sdk-go-v2/config v1.18.4
 	github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider v1.21.3
 	github.com/hashicorp/terraform-plugin-docs v0.13.0
