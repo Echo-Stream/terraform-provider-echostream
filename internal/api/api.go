@@ -4253,6 +4253,8 @@ func (v *DeleteMessageTypeResponse) GetGetMessageType() *DeleteMessageTypeGetMes
 // DeleteNodeGetNodeProcessorNode
 // DeleteNodeGetNodeTimerNode
 // DeleteNodeGetNodeWebhookNode
+// DeleteNodeGetNodeWebSubHubNode
+// DeleteNodeGetNodeWebSubSubscriptionNode
 type DeleteNodeGetNode interface {
 	implementsGraphQLInterfaceDeleteNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -4276,6 +4278,8 @@ func (v *DeleteNodeGetNodeManagedNode) implementsGraphQLInterfaceDeleteNodeGetNo
 func (v *DeleteNodeGetNodeProcessorNode) implementsGraphQLInterfaceDeleteNodeGetNode()            {}
 func (v *DeleteNodeGetNodeTimerNode) implementsGraphQLInterfaceDeleteNodeGetNode()                {}
 func (v *DeleteNodeGetNodeWebhookNode) implementsGraphQLInterfaceDeleteNodeGetNode()              {}
+func (v *DeleteNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceDeleteNodeGetNode()            {}
+func (v *DeleteNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceDeleteNodeGetNode()   {}
 
 func __unmarshalDeleteNodeGetNode(b []byte, v *DeleteNodeGetNode) error {
 	if string(b) == "null" {
@@ -4341,6 +4345,12 @@ func __unmarshalDeleteNodeGetNode(b []byte, v *DeleteNodeGetNode) error {
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(DeleteNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(DeleteNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(DeleteNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -4489,6 +4499,22 @@ func __marshalDeleteNodeGetNode(v *DeleteNodeGetNode) ([]byte, error) {
 		result := struct {
 			TypeName string `json:"__typename"`
 			*DeleteNodeGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *DeleteNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*DeleteNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *DeleteNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*DeleteNodeGetNodeWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -4662,6 +4688,22 @@ func (v *DeleteNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
 
 // GetDelete returns DeleteNodeGetNodeTimerNode.Delete, and is useful for accessing the field via an interface.
 func (v *DeleteNodeGetNodeTimerNode) GetDelete() bool { return v.Delete }
+
+// DeleteNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type DeleteNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns DeleteNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *DeleteNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// DeleteNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type DeleteNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns DeleteNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *DeleteNodeGetNodeWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
 
 // DeleteNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type DeleteNodeGetNodeWebhookNode struct {
@@ -5109,6 +5151,8 @@ func (v *EdgeFieldsSourceManagedNode) GetName() string { return v.Name }
 // EdgeFieldsSourceProcessorNode
 // EdgeFieldsSourceTimerNode
 // EdgeFieldsSourceWebhookNode
+// EdgeFieldsSourceWebSubHubNode
+// EdgeFieldsSourceWebSubSubscriptionNode
 type EdgeFieldsSourceNode interface {
 	implementsGraphQLInterfaceEdgeFieldsSourceNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -5134,6 +5178,8 @@ func (v *EdgeFieldsSourceManagedNode) implementsGraphQLInterfaceEdgeFieldsSource
 func (v *EdgeFieldsSourceProcessorNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()            {}
 func (v *EdgeFieldsSourceTimerNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()                {}
 func (v *EdgeFieldsSourceWebhookNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()              {}
+func (v *EdgeFieldsSourceWebSubHubNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()            {}
+func (v *EdgeFieldsSourceWebSubSubscriptionNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()   {}
 
 func __unmarshalEdgeFieldsSourceNode(b []byte, v *EdgeFieldsSourceNode) error {
 	if string(b) == "null" {
@@ -5199,6 +5245,12 @@ func __unmarshalEdgeFieldsSourceNode(b []byte, v *EdgeFieldsSourceNode) error {
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(EdgeFieldsSourceWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(EdgeFieldsSourceWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(EdgeFieldsSourceWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -5349,6 +5401,22 @@ func __marshalEdgeFieldsSourceNode(v *EdgeFieldsSourceNode) ([]byte, error) {
 			*EdgeFieldsSourceWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
+	case *EdgeFieldsSourceWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*EdgeFieldsSourceWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *EdgeFieldsSourceWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*EdgeFieldsSourceWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
 	case nil:
 		return []byte("null"), nil
 	default:
@@ -5380,6 +5448,30 @@ func (v *EdgeFieldsSourceTimerNode) GetTypename() *string { return v.Typename }
 
 // GetName returns EdgeFieldsSourceTimerNode.Name, and is useful for accessing the field via an interface.
 func (v *EdgeFieldsSourceTimerNode) GetName() string { return v.Name }
+
+// EdgeFieldsSourceWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type EdgeFieldsSourceWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns EdgeFieldsSourceWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *EdgeFieldsSourceWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// GetName returns EdgeFieldsSourceWebSubHubNode.Name, and is useful for accessing the field via an interface.
+func (v *EdgeFieldsSourceWebSubHubNode) GetName() string { return v.Name }
+
+// EdgeFieldsSourceWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type EdgeFieldsSourceWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns EdgeFieldsSourceWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *EdgeFieldsSourceWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
+
+// GetName returns EdgeFieldsSourceWebSubSubscriptionNode.Name, and is useful for accessing the field via an interface.
+func (v *EdgeFieldsSourceWebSubSubscriptionNode) GetName() string { return v.Name }
 
 // EdgeFieldsSourceWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type EdgeFieldsSourceWebhookNode struct {
@@ -5581,6 +5673,8 @@ func (v *EdgeFieldsTargetManagedNode) GetName() string { return v.Name }
 // EdgeFieldsTargetProcessorNode
 // EdgeFieldsTargetTimerNode
 // EdgeFieldsTargetWebhookNode
+// EdgeFieldsTargetWebSubHubNode
+// EdgeFieldsTargetWebSubSubscriptionNode
 type EdgeFieldsTargetNode interface {
 	implementsGraphQLInterfaceEdgeFieldsTargetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -5606,6 +5700,8 @@ func (v *EdgeFieldsTargetManagedNode) implementsGraphQLInterfaceEdgeFieldsTarget
 func (v *EdgeFieldsTargetProcessorNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()            {}
 func (v *EdgeFieldsTargetTimerNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()                {}
 func (v *EdgeFieldsTargetWebhookNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()              {}
+func (v *EdgeFieldsTargetWebSubHubNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()            {}
+func (v *EdgeFieldsTargetWebSubSubscriptionNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()   {}
 
 func __unmarshalEdgeFieldsTargetNode(b []byte, v *EdgeFieldsTargetNode) error {
 	if string(b) == "null" {
@@ -5671,6 +5767,12 @@ func __unmarshalEdgeFieldsTargetNode(b []byte, v *EdgeFieldsTargetNode) error {
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(EdgeFieldsTargetWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(EdgeFieldsTargetWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(EdgeFieldsTargetWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -5821,6 +5923,22 @@ func __marshalEdgeFieldsTargetNode(v *EdgeFieldsTargetNode) ([]byte, error) {
 			*EdgeFieldsTargetWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
+	case *EdgeFieldsTargetWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*EdgeFieldsTargetWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *EdgeFieldsTargetWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*EdgeFieldsTargetWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
 	case nil:
 		return []byte("null"), nil
 	default:
@@ -5852,6 +5970,30 @@ func (v *EdgeFieldsTargetTimerNode) GetTypename() *string { return v.Typename }
 
 // GetName returns EdgeFieldsTargetTimerNode.Name, and is useful for accessing the field via an interface.
 func (v *EdgeFieldsTargetTimerNode) GetName() string { return v.Name }
+
+// EdgeFieldsTargetWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type EdgeFieldsTargetWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns EdgeFieldsTargetWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *EdgeFieldsTargetWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// GetName returns EdgeFieldsTargetWebSubHubNode.Name, and is useful for accessing the field via an interface.
+func (v *EdgeFieldsTargetWebSubHubNode) GetName() string { return v.Name }
+
+// EdgeFieldsTargetWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type EdgeFieldsTargetWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+	Name     string  `json:"name"`
+}
+
+// GetTypename returns EdgeFieldsTargetWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *EdgeFieldsTargetWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
+
+// GetName returns EdgeFieldsTargetWebSubSubscriptionNode.Name, and is useful for accessing the field via an interface.
+func (v *EdgeFieldsTargetWebSubSubscriptionNode) GetName() string { return v.Name }
 
 // EdgeFieldsTargetWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type EdgeFieldsTargetWebhookNode struct {
@@ -7019,6 +7161,8 @@ func (v *MoveEdgeResponse) GetGetEdge() *MoveEdgeGetEdge { return v.GetEdge }
 // NodeFieldsProcessorNode
 // NodeFieldsTimerNode
 // NodeFieldsWebhookNode
+// NodeFieldsWebSubHubNode
+// NodeFieldsWebSubSubscriptionNode
 type NodeFields interface {
 	implementsGraphQLInterfaceNodeFields()
 	// GetDescription returns the interface-field "description" from its implementation.
@@ -7044,6 +7188,8 @@ func (v *NodeFieldsManagedNode) implementsGraphQLInterfaceNodeFields()          
 func (v *NodeFieldsProcessorNode) implementsGraphQLInterfaceNodeFields()            {}
 func (v *NodeFieldsTimerNode) implementsGraphQLInterfaceNodeFields()                {}
 func (v *NodeFieldsWebhookNode) implementsGraphQLInterfaceNodeFields()              {}
+func (v *NodeFieldsWebSubHubNode) implementsGraphQLInterfaceNodeFields()            {}
+func (v *NodeFieldsWebSubSubscriptionNode) implementsGraphQLInterfaceNodeFields()   {}
 
 func __unmarshalNodeFields(b []byte, v *NodeFields) error {
 	if string(b) == "null" {
@@ -7109,6 +7255,12 @@ func __unmarshalNodeFields(b []byte, v *NodeFields) error {
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(NodeFieldsWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(NodeFieldsWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(NodeFieldsWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -7257,6 +7409,22 @@ func __marshalNodeFields(v *NodeFields) ([]byte, error) {
 		result := struct {
 			TypeName string `json:"__typename"`
 			*NodeFieldsWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *NodeFieldsWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*NodeFieldsWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *NodeFieldsWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*NodeFieldsWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -7458,6 +7626,30 @@ func (v *NodeFieldsTimerNode) GetDescription() *string { return v.Description }
 
 // GetName returns NodeFieldsTimerNode.Name, and is useful for accessing the field via an interface.
 func (v *NodeFieldsTimerNode) GetName() string { return v.Name }
+
+// NodeFields includes the GraphQL fields of WebSubHubNode requested by the fragment NodeFields.
+type NodeFieldsWebSubHubNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns NodeFieldsWebSubHubNode.Description, and is useful for accessing the field via an interface.
+func (v *NodeFieldsWebSubHubNode) GetDescription() *string { return v.Description }
+
+// GetName returns NodeFieldsWebSubHubNode.Name, and is useful for accessing the field via an interface.
+func (v *NodeFieldsWebSubHubNode) GetName() string { return v.Name }
+
+// NodeFields includes the GraphQL fields of WebSubSubscriptionNode requested by the fragment NodeFields.
+type NodeFieldsWebSubSubscriptionNode struct {
+	Description *string `json:"description"`
+	Name        string  `json:"name"`
+}
+
+// GetDescription returns NodeFieldsWebSubSubscriptionNode.Description, and is useful for accessing the field via an interface.
+func (v *NodeFieldsWebSubSubscriptionNode) GetDescription() *string { return v.Description }
+
+// GetName returns NodeFieldsWebSubSubscriptionNode.Name, and is useful for accessing the field via an interface.
+func (v *NodeFieldsWebSubSubscriptionNode) GetName() string { return v.Name }
 
 // NodeFields includes the GraphQL fields of WebhookNode requested by the fragment NodeFields.
 type NodeFieldsWebhookNode struct {
@@ -9902,6 +10094,8 @@ func (v *ReadMessageTypeResponse) GetGetMessageType() *ReadMessageTypeGetMessage
 // ReadNodeGetNodeProcessorNode
 // ReadNodeGetNodeTimerNode
 // ReadNodeGetNodeWebhookNode
+// ReadNodeGetNodeWebSubHubNode
+// ReadNodeGetNodeWebSubSubscriptionNode
 type ReadNodeGetNode interface {
 	implementsGraphQLInterfaceReadNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -9926,6 +10120,8 @@ func (v *ReadNodeGetNodeManagedNode) implementsGraphQLInterfaceReadNodeGetNode()
 func (v *ReadNodeGetNodeProcessorNode) implementsGraphQLInterfaceReadNodeGetNode()            {}
 func (v *ReadNodeGetNodeTimerNode) implementsGraphQLInterfaceReadNodeGetNode()                {}
 func (v *ReadNodeGetNodeWebhookNode) implementsGraphQLInterfaceReadNodeGetNode()              {}
+func (v *ReadNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceReadNodeGetNode()            {}
+func (v *ReadNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceReadNodeGetNode()   {}
 
 func __unmarshalReadNodeGetNode(b []byte, v *ReadNodeGetNode) error {
 	if string(b) == "null" {
@@ -9991,6 +10187,12 @@ func __unmarshalReadNodeGetNode(b []byte, v *ReadNodeGetNode) error {
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(ReadNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(ReadNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(ReadNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -10207,6 +10409,30 @@ func __marshalReadNodeGetNode(v *ReadNodeGetNode) ([]byte, error) {
 		result := struct {
 			TypeName string `json:"__typename"`
 			*__premarshalReadNodeGetNodeWebhookNode
+		}{typename, premarshaled}
+		return json.Marshal(result)
+	case *ReadNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		result := struct {
+			TypeName string `json:"__typename"`
+			*__premarshalReadNodeGetNodeWebSubHubNode
+		}{typename, premarshaled}
+		return json.Marshal(result)
+	case *ReadNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		result := struct {
+			TypeName string `json:"__typename"`
+			*__premarshalReadNodeGetNodeWebSubSubscriptionNode
 		}{typename, premarshaled}
 		return json.Marshal(result)
 	case nil:
@@ -11851,6 +12077,142 @@ func (v *ReadNodeGetNodeTimerNode) __premarshalJSON() (*__premarshalReadNodeGetN
 	return &retval, nil
 }
 
+// ReadNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type ReadNodeGetNodeWebSubHubNode struct {
+	Typename                *string `json:"__typename"`
+	NodeFieldsWebSubHubNode `json:"-"`
+}
+
+// GetTypename returns ReadNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// GetDescription returns ReadNodeGetNodeWebSubHubNode.Description, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetDescription() *string {
+	return v.NodeFieldsWebSubHubNode.Description
+}
+
+// GetName returns ReadNodeGetNodeWebSubHubNode.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetName() string { return v.NodeFieldsWebSubHubNode.Name }
+
+func (v *ReadNodeGetNodeWebSubHubNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeWebSubHubNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeWebSubHubNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.NodeFieldsWebSubHubNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeWebSubHubNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeWebSubHubNode) __premarshalJSON() (*__premarshalReadNodeGetNodeWebSubHubNode, error) {
+	var retval __premarshalReadNodeGetNodeWebSubHubNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.NodeFieldsWebSubHubNode.Description
+	retval.Name = v.NodeFieldsWebSubHubNode.Name
+	return &retval, nil
+}
+
+// ReadNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type ReadNodeGetNodeWebSubSubscriptionNode struct {
+	Typename                         *string `json:"__typename"`
+	NodeFieldsWebSubSubscriptionNode `json:"-"`
+}
+
+// GetTypename returns ReadNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
+
+// GetDescription returns ReadNodeGetNodeWebSubSubscriptionNode.Description, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubSubscriptionNode) GetDescription() *string {
+	return v.NodeFieldsWebSubSubscriptionNode.Description
+}
+
+// GetName returns ReadNodeGetNodeWebSubSubscriptionNode.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubSubscriptionNode) GetName() string {
+	return v.NodeFieldsWebSubSubscriptionNode.Name
+}
+
+func (v *ReadNodeGetNodeWebSubSubscriptionNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*ReadNodeGetNodeWebSubSubscriptionNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.ReadNodeGetNodeWebSubSubscriptionNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.NodeFieldsWebSubSubscriptionNode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalReadNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+}
+
+func (v *ReadNodeGetNodeWebSubSubscriptionNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *ReadNodeGetNodeWebSubSubscriptionNode) __premarshalJSON() (*__premarshalReadNodeGetNodeWebSubSubscriptionNode, error) {
+	var retval __premarshalReadNodeGetNodeWebSubSubscriptionNode
+
+	retval.Typename = v.Typename
+	retval.Description = v.NodeFieldsWebSubSubscriptionNode.Description
+	retval.Name = v.NodeFieldsWebSubSubscriptionNode.Name
+	return &retval, nil
+}
+
 // ReadNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type ReadNodeGetNodeWebhookNode struct {
 	Typename              *string `json:"__typename"`
@@ -11996,6 +12358,8 @@ func (v *ReadNodeGetNodeWebhookNode) __premarshalJSON() (*__premarshalReadNodeGe
 // ReadNodeMessageTypesGetNodeProcessorNode
 // ReadNodeMessageTypesGetNodeTimerNode
 // ReadNodeMessageTypesGetNodeWebhookNode
+// ReadNodeMessageTypesGetNodeWebSubHubNode
+// ReadNodeMessageTypesGetNodeWebSubSubscriptionNode
 type ReadNodeMessageTypesGetNode interface {
 	implementsGraphQLInterfaceReadNodeMessageTypesGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -12035,6 +12399,10 @@ func (v *ReadNodeMessageTypesGetNodeProcessorNode) implementsGraphQLInterfaceRea
 func (v *ReadNodeMessageTypesGetNodeTimerNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
 }
 func (v *ReadNodeMessageTypesGetNodeWebhookNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeWebSubHubNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
 }
 
 func __unmarshalReadNodeMessageTypesGetNode(b []byte, v *ReadNodeMessageTypesGetNode) error {
@@ -12101,6 +12469,12 @@ func __unmarshalReadNodeMessageTypesGetNode(b []byte, v *ReadNodeMessageTypesGet
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(ReadNodeMessageTypesGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(ReadNodeMessageTypesGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(ReadNodeMessageTypesGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -12249,6 +12623,22 @@ func __marshalReadNodeMessageTypesGetNode(v *ReadNodeMessageTypesGetNode) ([]byt
 		result := struct {
 			TypeName string `json:"__typename"`
 			*ReadNodeMessageTypesGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -12714,6 +13104,22 @@ type ReadNodeMessageTypesGetNodeTimerNodeSendMessageType struct {
 
 // GetName returns ReadNodeMessageTypesGetNodeTimerNodeSendMessageType.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeMessageTypesGetNodeTimerNodeSendMessageType) GetName() string { return v.Name }
+
+// ReadNodeMessageTypesGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type ReadNodeMessageTypesGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// ReadNodeMessageTypesGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type ReadNodeMessageTypesGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns ReadNodeMessageTypesGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
 
 // ReadNodeMessageTypesGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type ReadNodeMessageTypesGetNodeWebhookNode struct {
@@ -13301,6 +13707,8 @@ func (v *UpdateApiUserResponse) GetGetApiUser() *UpdateApiUserGetApiUser { retur
 // UpdateBitmapRouterNodeGetNodeProcessorNode
 // UpdateBitmapRouterNodeGetNodeTimerNode
 // UpdateBitmapRouterNodeGetNodeWebhookNode
+// UpdateBitmapRouterNodeGetNodeWebSubHubNode
+// UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode
 type UpdateBitmapRouterNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -13340,6 +13748,10 @@ func (v *UpdateBitmapRouterNodeGetNodeProcessorNode) implementsGraphQLInterfaceU
 func (v *UpdateBitmapRouterNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
 func (v *UpdateBitmapRouterNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
+}
+func (v *UpdateBitmapRouterNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
+}
+func (v *UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
 
 func __unmarshalUpdateBitmapRouterNodeGetNode(b []byte, v *UpdateBitmapRouterNodeGetNode) error {
@@ -13406,6 +13818,12 @@ func __unmarshalUpdateBitmapRouterNodeGetNode(b []byte, v *UpdateBitmapRouterNod
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(UpdateBitmapRouterNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(UpdateBitmapRouterNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -13554,6 +13972,22 @@ func __marshalUpdateBitmapRouterNodeGetNode(v *UpdateBitmapRouterNodeGetNode) ([
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateBitmapRouterNodeGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateBitmapRouterNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateBitmapRouterNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -13835,6 +14269,24 @@ type UpdateBitmapRouterNodeGetNodeTimerNode struct {
 
 // GetTypename returns UpdateBitmapRouterNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
 func (v *UpdateBitmapRouterNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
+
+// UpdateBitmapRouterNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateBitmapRouterNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateBitmapRouterNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode) GetTypename() *string {
+	return v.Typename
+}
 
 // UpdateBitmapRouterNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type UpdateBitmapRouterNodeGetNodeWebhookNode struct {
@@ -14349,6 +14801,8 @@ func (v *UpdateCrossTenantAppResponse) __premarshalJSON() (*__premarshalUpdateCr
 // UpdateCrossTenantSendingNodeGetNodeProcessorNode
 // UpdateCrossTenantSendingNodeGetNodeTimerNode
 // UpdateCrossTenantSendingNodeGetNodeWebhookNode
+// UpdateCrossTenantSendingNodeGetNodeWebSubHubNode
+// UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode
 type UpdateCrossTenantSendingNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -14388,6 +14842,10 @@ func (v *UpdateCrossTenantSendingNodeGetNodeProcessorNode) implementsGraphQLInte
 func (v *UpdateCrossTenantSendingNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode() {
 }
 func (v *UpdateCrossTenantSendingNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode() {
+}
+func (v *UpdateCrossTenantSendingNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode() {
+}
+func (v *UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode() {
 }
 
 func __unmarshalUpdateCrossTenantSendingNodeGetNode(b []byte, v *UpdateCrossTenantSendingNodeGetNode) error {
@@ -14454,6 +14912,12 @@ func __unmarshalUpdateCrossTenantSendingNodeGetNode(b []byte, v *UpdateCrossTena
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(UpdateCrossTenantSendingNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(UpdateCrossTenantSendingNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -14602,6 +15066,22 @@ func __marshalUpdateCrossTenantSendingNodeGetNode(v *UpdateCrossTenantSendingNod
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateCrossTenantSendingNodeGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateCrossTenantSendingNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateCrossTenantSendingNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -14908,6 +15388,24 @@ type UpdateCrossTenantSendingNodeGetNodeTimerNode struct {
 // GetTypename returns UpdateCrossTenantSendingNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
 func (v *UpdateCrossTenantSendingNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
 
+// UpdateCrossTenantSendingNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateCrossTenantSendingNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateCrossTenantSendingNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantSendingNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode) GetTypename() *string {
+	return v.Typename
+}
+
 // UpdateCrossTenantSendingNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type UpdateCrossTenantSendingNodeGetNodeWebhookNode struct {
 	Typename *string `json:"__typename"`
@@ -15140,6 +15638,8 @@ func (v *UpdateEdgeResponse) GetGetEdge() *UpdateEdgeGetEdge { return v.GetEdge 
 // UpdateExternalNodeGetNodeProcessorNode
 // UpdateExternalNodeGetNodeTimerNode
 // UpdateExternalNodeGetNodeWebhookNode
+// UpdateExternalNodeGetNodeWebSubHubNode
+// UpdateExternalNodeGetNodeWebSubSubscriptionNode
 type UpdateExternalNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateExternalNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -15178,6 +15678,10 @@ func (v *UpdateExternalNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdat
 }
 func (v *UpdateExternalNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateExternalNodeGetNode() {}
 func (v *UpdateExternalNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateExternalNodeGetNode() {
+}
+func (v *UpdateExternalNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateExternalNodeGetNode() {
+}
+func (v *UpdateExternalNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateExternalNodeGetNode() {
 }
 
 func __unmarshalUpdateExternalNodeGetNode(b []byte, v *UpdateExternalNodeGetNode) error {
@@ -15244,6 +15748,12 @@ func __unmarshalUpdateExternalNodeGetNode(b []byte, v *UpdateExternalNodeGetNode
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(UpdateExternalNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(UpdateExternalNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(UpdateExternalNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -15392,6 +15902,22 @@ func __marshalUpdateExternalNodeGetNode(v *UpdateExternalNodeGetNode) ([]byte, e
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateExternalNodeGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateExternalNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateExternalNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateExternalNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateExternalNodeGetNodeWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -15647,6 +16173,22 @@ type UpdateExternalNodeGetNodeTimerNode struct {
 // GetTypename returns UpdateExternalNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
 func (v *UpdateExternalNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
 
+// UpdateExternalNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateExternalNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateExternalNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateExternalNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// UpdateExternalNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type UpdateExternalNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateExternalNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateExternalNodeGetNodeWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
+
 // UpdateExternalNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type UpdateExternalNodeGetNodeWebhookNode struct {
 	Typename *string `json:"__typename"`
@@ -15749,6 +16291,8 @@ func (v *UpdateExternalNodeResponse) __premarshalJSON() (*__premarshalUpdateExte
 // UpdateFilesDotComWebhookNodeGetNodeProcessorNode
 // UpdateFilesDotComWebhookNodeGetNodeTimerNode
 // UpdateFilesDotComWebhookNodeGetNodeWebhookNode
+// UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode
+// UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode
 type UpdateFilesDotComWebhookNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -15788,6 +16332,10 @@ func (v *UpdateFilesDotComWebhookNodeGetNodeProcessorNode) implementsGraphQLInte
 func (v *UpdateFilesDotComWebhookNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode() {
 }
 func (v *UpdateFilesDotComWebhookNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode() {
+}
+func (v *UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode() {
+}
+func (v *UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode() {
 }
 
 func __unmarshalUpdateFilesDotComWebhookNodeGetNode(b []byte, v *UpdateFilesDotComWebhookNodeGetNode) error {
@@ -15854,6 +16402,12 @@ func __unmarshalUpdateFilesDotComWebhookNodeGetNode(b []byte, v *UpdateFilesDotC
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(UpdateFilesDotComWebhookNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -16002,6 +16556,22 @@ func __marshalUpdateFilesDotComWebhookNodeGetNode(v *UpdateFilesDotComWebhookNod
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateFilesDotComWebhookNodeGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -16259,6 +16829,24 @@ type UpdateFilesDotComWebhookNodeGetNodeTimerNode struct {
 
 // GetTypename returns UpdateFilesDotComWebhookNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
 func (v *UpdateFilesDotComWebhookNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
+
+// UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode) GetTypename() *string {
+	return v.Typename
+}
 
 // UpdateFilesDotComWebhookNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type UpdateFilesDotComWebhookNodeGetNodeWebhookNode struct {
@@ -16997,6 +17585,8 @@ func (v *UpdateKmsKeyResponse) GetGetKmsKey() *UpdateKmsKeyGetKmsKey { return v.
 // UpdateLoadBalancerNodeGetNodeProcessorNode
 // UpdateLoadBalancerNodeGetNodeTimerNode
 // UpdateLoadBalancerNodeGetNodeWebhookNode
+// UpdateLoadBalancerNodeGetNodeWebSubHubNode
+// UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode
 type UpdateLoadBalancerNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -17036,6 +17626,10 @@ func (v *UpdateLoadBalancerNodeGetNodeProcessorNode) implementsGraphQLInterfaceU
 func (v *UpdateLoadBalancerNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode() {
 }
 func (v *UpdateLoadBalancerNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode() {
+}
+func (v *UpdateLoadBalancerNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode() {
+}
+func (v *UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode() {
 }
 
 func __unmarshalUpdateLoadBalancerNodeGetNode(b []byte, v *UpdateLoadBalancerNodeGetNode) error {
@@ -17102,6 +17696,12 @@ func __unmarshalUpdateLoadBalancerNodeGetNode(b []byte, v *UpdateLoadBalancerNod
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(UpdateLoadBalancerNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(UpdateLoadBalancerNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -17250,6 +17850,22 @@ func __marshalUpdateLoadBalancerNodeGetNode(v *UpdateLoadBalancerNodeGetNode) ([
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateLoadBalancerNodeGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateLoadBalancerNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateLoadBalancerNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -17484,6 +18100,24 @@ type UpdateLoadBalancerNodeGetNodeTimerNode struct {
 // GetTypename returns UpdateLoadBalancerNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
 func (v *UpdateLoadBalancerNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
 
+// UpdateLoadBalancerNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateLoadBalancerNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateLoadBalancerNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateLoadBalancerNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode) GetTypename() *string {
+	return v.Typename
+}
+
 // UpdateLoadBalancerNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type UpdateLoadBalancerNodeGetNodeWebhookNode struct {
 	Typename *string `json:"__typename"`
@@ -17588,6 +18222,8 @@ func (v *UpdateLoadBalancerNodeResponse) __premarshalJSON() (*__premarshalUpdate
 // UpdateManagedNodeGetNodeProcessorNode
 // UpdateManagedNodeGetNodeTimerNode
 // UpdateManagedNodeGetNodeWebhookNode
+// UpdateManagedNodeGetNodeWebSubHubNode
+// UpdateManagedNodeGetNodeWebSubSubscriptionNode
 type UpdateManagedNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateManagedNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -17624,6 +18260,10 @@ func (v *UpdateManagedNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdate
 }
 func (v *UpdateManagedNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode()   {}
 func (v *UpdateManagedNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode() {}
+func (v *UpdateManagedNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode() {
+}
+func (v *UpdateManagedNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode() {
+}
 
 func __unmarshalUpdateManagedNodeGetNode(b []byte, v *UpdateManagedNodeGetNode) error {
 	if string(b) == "null" {
@@ -17689,6 +18329,12 @@ func __unmarshalUpdateManagedNodeGetNode(b []byte, v *UpdateManagedNodeGetNode) 
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(UpdateManagedNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(UpdateManagedNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(UpdateManagedNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -17837,6 +18483,22 @@ func __marshalUpdateManagedNodeGetNode(v *UpdateManagedNodeGetNode) ([]byte, err
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateManagedNodeGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateManagedNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateManagedNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateManagedNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateManagedNodeGetNodeWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -18112,6 +18774,22 @@ type UpdateManagedNodeGetNodeTimerNode struct {
 
 // GetTypename returns UpdateManagedNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
 func (v *UpdateManagedNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
+
+// UpdateManagedNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateManagedNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateManagedNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// UpdateManagedNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type UpdateManagedNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateManagedNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateManagedNodeGetNodeWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
 
 // UpdateManagedNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type UpdateManagedNodeGetNodeWebhookNode struct {
@@ -18515,6 +19193,8 @@ func (v *UpdateMessageTypeResponse) GetGetMessageType() *UpdateMessageTypeGetMes
 // UpdateProcessorNodeGetNodeProcessorNode
 // UpdateProcessorNodeGetNodeTimerNode
 // UpdateProcessorNodeGetNodeWebhookNode
+// UpdateProcessorNodeGetNodeWebSubHubNode
+// UpdateProcessorNodeGetNodeWebSubSubscriptionNode
 type UpdateProcessorNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateProcessorNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -18554,6 +19234,10 @@ func (v *UpdateProcessorNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpda
 func (v *UpdateProcessorNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateProcessorNodeGetNode() {
 }
 func (v *UpdateProcessorNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateProcessorNodeGetNode() {
+}
+func (v *UpdateProcessorNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateProcessorNodeGetNode() {
+}
+func (v *UpdateProcessorNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateProcessorNodeGetNode() {
 }
 
 func __unmarshalUpdateProcessorNodeGetNode(b []byte, v *UpdateProcessorNodeGetNode) error {
@@ -18620,6 +19304,12 @@ func __unmarshalUpdateProcessorNodeGetNode(b []byte, v *UpdateProcessorNodeGetNo
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(UpdateProcessorNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(UpdateProcessorNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(UpdateProcessorNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -18768,6 +19458,22 @@ func __marshalUpdateProcessorNodeGetNode(v *UpdateProcessorNodeGetNode) ([]byte,
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateProcessorNodeGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateProcessorNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateProcessorNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateProcessorNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateProcessorNodeGetNodeWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -19043,6 +19749,22 @@ type UpdateProcessorNodeGetNodeTimerNode struct {
 
 // GetTypename returns UpdateProcessorNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
 func (v *UpdateProcessorNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
+
+// UpdateProcessorNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateProcessorNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateProcessorNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateProcessorNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// UpdateProcessorNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type UpdateProcessorNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateProcessorNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateProcessorNodeGetNodeWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
 
 // UpdateProcessorNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type UpdateProcessorNodeGetNodeWebhookNode struct {
@@ -19928,6 +20650,8 @@ func (v *UpdateTenantUserResponse) GetGetTenantUser() *UpdateTenantUserGetTenant
 // UpdateTimerNodeGetNodeProcessorNode
 // UpdateTimerNodeGetNodeTimerNode
 // UpdateTimerNodeGetNodeWebhookNode
+// UpdateTimerNodeGetNodeWebSubHubNode
+// UpdateTimerNodeGetNodeWebSubSubscriptionNode
 type UpdateTimerNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateTimerNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -19958,6 +20682,9 @@ func (v *UpdateTimerNodeGetNodeManagedNode) implementsGraphQLInterfaceUpdateTime
 func (v *UpdateTimerNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode()    {}
 func (v *UpdateTimerNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode()        {}
 func (v *UpdateTimerNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode()      {}
+func (v *UpdateTimerNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode()    {}
+func (v *UpdateTimerNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode() {
+}
 
 func __unmarshalUpdateTimerNodeGetNode(b []byte, v *UpdateTimerNodeGetNode) error {
 	if string(b) == "null" {
@@ -20023,6 +20750,12 @@ func __unmarshalUpdateTimerNodeGetNode(b []byte, v *UpdateTimerNodeGetNode) erro
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(UpdateTimerNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(UpdateTimerNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(UpdateTimerNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -20171,6 +20904,22 @@ func __marshalUpdateTimerNodeGetNode(v *UpdateTimerNodeGetNode) ([]byte, error) 
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateTimerNodeGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateTimerNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateTimerNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateTimerNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateTimerNodeGetNodeWebSubSubscriptionNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -20399,6 +21148,22 @@ func (v *UpdateTimerNodeGetNodeTimerNodeUpdateTimerNode) __premarshalJSON() (*__
 	return &retval, nil
 }
 
+// UpdateTimerNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateTimerNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateTimerNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateTimerNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// UpdateTimerNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type UpdateTimerNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateTimerNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateTimerNodeGetNodeWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
+
 // UpdateTimerNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type UpdateTimerNodeGetNodeWebhookNode struct {
 	Typename *string `json:"__typename"`
@@ -20501,6 +21266,8 @@ func (v *UpdateTimerNodeResponse) __premarshalJSON() (*__premarshalUpdateTimerNo
 // UpdateWebhookNodeGetNodeProcessorNode
 // UpdateWebhookNodeGetNodeTimerNode
 // UpdateWebhookNodeGetNodeWebhookNode
+// UpdateWebhookNodeGetNodeWebSubHubNode
+// UpdateWebhookNodeGetNodeWebSubSubscriptionNode
 type UpdateWebhookNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateWebhookNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -20537,6 +21304,10 @@ func (v *UpdateWebhookNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdate
 }
 func (v *UpdateWebhookNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode()   {}
 func (v *UpdateWebhookNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode() {}
+func (v *UpdateWebhookNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode() {
+}
+func (v *UpdateWebhookNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode() {
+}
 
 func __unmarshalUpdateWebhookNodeGetNode(b []byte, v *UpdateWebhookNodeGetNode) error {
 	if string(b) == "null" {
@@ -20602,6 +21373,12 @@ func __unmarshalUpdateWebhookNodeGetNode(b []byte, v *UpdateWebhookNodeGetNode) 
 		return json.Unmarshal(b, *v)
 	case "WebhookNode":
 		*v = new(UpdateWebhookNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(UpdateWebhookNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(UpdateWebhookNodeGetNodeWebSubSubscriptionNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -20752,6 +21529,22 @@ func __marshalUpdateWebhookNodeGetNode(v *UpdateWebhookNodeGetNode) ([]byte, err
 			*UpdateWebhookNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
+	case *UpdateWebhookNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebhookNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebhookNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebhookNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
 	case nil:
 		return []byte("null"), nil
 	default:
@@ -20887,6 +21680,22 @@ type UpdateWebhookNodeGetNodeTimerNode struct {
 
 // GetTypename returns UpdateWebhookNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
 func (v *UpdateWebhookNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebhookNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateWebhookNodeGetNodeWebSubHubNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebhookNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebhookNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebhookNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type UpdateWebhookNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebhookNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebhookNodeGetNodeWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
 
 // UpdateWebhookNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type UpdateWebhookNodeGetNodeWebhookNode struct {
