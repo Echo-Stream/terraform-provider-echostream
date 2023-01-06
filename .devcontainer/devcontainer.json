@@ -12,7 +12,8 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "git submodule update --init; cd appsync && git checkout main"
+	"postCreateCommand": "git submodule update --init; cd appsync && git checkout main",
+	"postStartCommand": "git submodule foreach git pull"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
