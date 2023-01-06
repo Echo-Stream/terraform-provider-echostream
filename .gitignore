@@ -39,3 +39,6 @@ terraform-provider-echostream
 
 # Codespaces
 oryxBuildBinary
+
+# VSCode
+.vscode
