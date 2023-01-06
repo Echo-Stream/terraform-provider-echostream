@@ -36,3 +36,6 @@ website/vendor
 
 main.tf
 terraform-provider-echostream
+
+# Codespaces
+oryxBuildBinary
