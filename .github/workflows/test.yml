@@ -9,9 +9,13 @@ on:
       - 'dependabot/**'
     paths-ignore:
       - 'README.md'
+      - 'dependabot.yml'
+      - '.devcontainer/**'
   push:
     paths-ignore:
       - 'README.md'
+      - 'dependabot.yml'
+      - '.devcontainer/**'
   workflow_dispatch:
 
 # Testing only needs permissions to read the repository contents.
