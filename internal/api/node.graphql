@@ -199,6 +199,25 @@ fragment WebhookNodeFields on WebhookNode {
     }
 }
 
+fragment WebSubHubNodeFields on WebSubHubNode {
+    config
+    defaultLeaseSeconds
+    deliveryRetries
+    endpoint
+    inlineApiAuthenticator
+    loggingLevel
+    managedApiAuthenticator {
+        name
+    }
+    maxLeaseSeconds
+    receiveMessageType {
+        name
+    }
+    requirements
+    signatureAlgorithm
+    subscriptionSecurity
+}
+
 mutation CreateBitmapRouterNode(
     $name: String!,
     $receiveMessageType: String!,
@@ -420,6 +439,41 @@ mutation CreateWebhookNode(
     }
 }
 
+mutation CreateWebSubHubNode(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $defaultLeaseSeconds: Int,
+    $deliveryRetries: Int,
+    $description: String,
+    $inlineApiAuthenticator: String,
+    $loggingLevel: LogLevel,
+    $managedApiAuthenticator: String,
+    $maxLeaseSeconds: Int,
+    $requirements: [String!],
+    $signatureAlgorithm: WebSubSignatureAlgorithm,
+    $subscriptionSecurity: WebSubSubscriptionSecurity,
+) {
+    CreateWebSubHubNode(
+        name: $name,
+        tenant: $tenant,
+        config: $config,
+        defaultLeaseSeconds: $defaultLeaseSeconds,
+        deliveryRetries: $deliveryRetries,
+        description: $description,
+        inlineApiAuthenticator: $inlineApiAuthenticator,
+        loggingLevel: $loggingLevel,
+        managedApiAuthenticator: $managedApiAuthenticator,
+        maxLeaseSeconds: $maxLeaseSeconds,
+        requirements: $requirements,
+        signatureAlgorithm: $signatureAlgorithm,
+        subscriptionSecurity: $subscriptionSecurity,
+    ) {
+        ...NodeFields
+        ...WebSubHubNodeFields
+    }
+}
+
 query DeleteNode($name: String!, $tenant: String!) {
     GetNode(name: $name, tenant: $tenant) {
         ... on BitmapRouterNode {
@@ -451,6 +505,9 @@ query DeleteNode($name: String!, $tenant: String!) {
         }
         ... on WebhookNode {
             Delete(drainEdges: true)
+        }
+        ... on WebSubHubNode {
+            Delete()
         }
     }
 }
@@ -509,6 +566,9 @@ query ReadNode($name: String!, $tenant: String!) {
         }
         ... on WebhookNode {
             ...WebhookNodeFields
+        }
+        ... on WebSubHubNode {
+            ...WebSubHubNodeFields
         }
     }
 }
@@ -615,6 +675,11 @@ query ReadNodeMessageTypes($name: String!, $tenant: String!) {
         }
         ... on WebhookNode {
             sendMessageType {
+                name
+            }
+        }
+        ... on WebSubHubNode {
+            receiveMessageType {
                 name
             }
         }
@@ -817,6 +882,43 @@ query UpdateWebhookNode(
             ) {
                 ...NodeFields
                 ...WebhookNodeFields
+            }
+        }
+    }
+}
+
+query UpdateWebSubHubNode(
+    $name: String!,
+    $tenant: String!,
+    $config: AWSJSON,
+    $defaultLeaseSeconds: Int,
+    $deliveryRetries: Int,
+    $description: String,
+    $inlineApiAuthenticator: String,
+    $loggingLevel: LogLevel,
+    $managedApiAuthenticator: String,
+    $maxLeaseSeconds: Int,
+    $requirements: [String!],
+    $signatureAlgorithm: WebSubSignatureAlgorithm,
+    $subscriptionSecurity: WebSubSubscriptionSecurity,
+) {
+    GetNode(name: $name, tenant: $tenant) {
+        ... on WebSubHubNode {
+            Update(
+                config: $config,
+                defaultLeaseSeconds: $defaultLeaseSeconds,
+                deliveryRetries: $deliveryRetries,
+                description: $description,
+                inlineApiAuthenticator: $inlineApiAuthenticator,
+                loggingLevel: $loggingLevel,
+                managedApiAuthenticator: $managedApiAuthenticator,
+                maxLeaseSeconds: $maxLeaseSeconds,
+                requirements: $requirements,
+                signatureAlgorithm: $signatureAlgorithm,
+                subscriptionSecurity: $subscriptionSecurity,
+            ) {
+                ...NodeFields
+                ...WebSubHubNodeFields
             }
         }
     }

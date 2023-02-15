@@ -3306,6 +3306,180 @@ func (v *CreateTimerNodeResponse) GetCreateTimerNode() CreateTimerNodeCreateTime
 	return v.CreateTimerNode
 }
 
+// CreateWebSubHubNodeCreateWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type CreateWebSubHubNodeCreateWebSubHubNode struct {
+	NodeFieldsWebSubHubNode `json:"-"`
+	WebSubHubNodeFields     `json:"-"`
+}
+
+// GetDescription returns CreateWebSubHubNodeCreateWebSubHubNode.Description, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetDescription() *string {
+	return v.NodeFieldsWebSubHubNode.Description
+}
+
+// GetName returns CreateWebSubHubNodeCreateWebSubHubNode.Name, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetName() string {
+	return v.NodeFieldsWebSubHubNode.Name
+}
+
+// GetConfig returns CreateWebSubHubNodeCreateWebSubHubNode.Config, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetConfig() *string {
+	return v.WebSubHubNodeFields.Config
+}
+
+// GetDefaultLeaseSeconds returns CreateWebSubHubNodeCreateWebSubHubNode.DefaultLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetDefaultLeaseSeconds() int {
+	return v.WebSubHubNodeFields.DefaultLeaseSeconds
+}
+
+// GetDeliveryRetries returns CreateWebSubHubNodeCreateWebSubHubNode.DeliveryRetries, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetDeliveryRetries() *int {
+	return v.WebSubHubNodeFields.DeliveryRetries
+}
+
+// GetEndpoint returns CreateWebSubHubNodeCreateWebSubHubNode.Endpoint, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetEndpoint() string {
+	return v.WebSubHubNodeFields.Endpoint
+}
+
+// GetInlineApiAuthenticator returns CreateWebSubHubNodeCreateWebSubHubNode.InlineApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetInlineApiAuthenticator() *string {
+	return v.WebSubHubNodeFields.InlineApiAuthenticator
+}
+
+// GetLoggingLevel returns CreateWebSubHubNodeCreateWebSubHubNode.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetLoggingLevel() *LogLevel {
+	return v.WebSubHubNodeFields.LoggingLevel
+}
+
+// GetManagedApiAuthenticator returns CreateWebSubHubNodeCreateWebSubHubNode.ManagedApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetManagedApiAuthenticator() *WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction {
+	return v.WebSubHubNodeFields.ManagedApiAuthenticator
+}
+
+// GetMaxLeaseSeconds returns CreateWebSubHubNodeCreateWebSubHubNode.MaxLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetMaxLeaseSeconds() int {
+	return v.WebSubHubNodeFields.MaxLeaseSeconds
+}
+
+// GetReceiveMessageType returns CreateWebSubHubNodeCreateWebSubHubNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetReceiveMessageType() *WebSubHubNodeFieldsReceiveMessageType {
+	return v.WebSubHubNodeFields.ReceiveMessageType
+}
+
+// GetRequirements returns CreateWebSubHubNodeCreateWebSubHubNode.Requirements, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetRequirements() []string {
+	return v.WebSubHubNodeFields.Requirements
+}
+
+// GetSignatureAlgorithm returns CreateWebSubHubNodeCreateWebSubHubNode.SignatureAlgorithm, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetSignatureAlgorithm() WebSubSignatureAlgorithm {
+	return v.WebSubHubNodeFields.SignatureAlgorithm
+}
+
+// GetSubscriptionSecurity returns CreateWebSubHubNodeCreateWebSubHubNode.SubscriptionSecurity, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) GetSubscriptionSecurity() *WebSubSubscriptionSecurity {
+	return v.WebSubHubNodeFields.SubscriptionSecurity
+}
+
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*CreateWebSubHubNodeCreateWebSubHubNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.CreateWebSubHubNodeCreateWebSubHubNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.NodeFieldsWebSubHubNode)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.WebSubHubNodeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalCreateWebSubHubNodeCreateWebSubHubNode struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	Config *string `json:"config"`
+
+	DefaultLeaseSeconds int `json:"defaultLeaseSeconds"`
+
+	DeliveryRetries *int `json:"deliveryRetries"`
+
+	Endpoint string `json:"endpoint"`
+
+	InlineApiAuthenticator *string `json:"inlineApiAuthenticator"`
+
+	LoggingLevel *LogLevel `json:"loggingLevel"`
+
+	ManagedApiAuthenticator *WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction `json:"managedApiAuthenticator"`
+
+	MaxLeaseSeconds int `json:"maxLeaseSeconds"`
+
+	ReceiveMessageType *WebSubHubNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	Requirements []string `json:"requirements"`
+
+	SignatureAlgorithm WebSubSignatureAlgorithm `json:"signatureAlgorithm"`
+
+	SubscriptionSecurity *WebSubSubscriptionSecurity `json:"subscriptionSecurity"`
+}
+
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *CreateWebSubHubNodeCreateWebSubHubNode) __premarshalJSON() (*__premarshalCreateWebSubHubNodeCreateWebSubHubNode, error) {
+	var retval __premarshalCreateWebSubHubNodeCreateWebSubHubNode
+
+	retval.Description = v.NodeFieldsWebSubHubNode.Description
+	retval.Name = v.NodeFieldsWebSubHubNode.Name
+	retval.Config = v.WebSubHubNodeFields.Config
+	retval.DefaultLeaseSeconds = v.WebSubHubNodeFields.DefaultLeaseSeconds
+	retval.DeliveryRetries = v.WebSubHubNodeFields.DeliveryRetries
+	retval.Endpoint = v.WebSubHubNodeFields.Endpoint
+	retval.InlineApiAuthenticator = v.WebSubHubNodeFields.InlineApiAuthenticator
+	retval.LoggingLevel = v.WebSubHubNodeFields.LoggingLevel
+	retval.ManagedApiAuthenticator = v.WebSubHubNodeFields.ManagedApiAuthenticator
+	retval.MaxLeaseSeconds = v.WebSubHubNodeFields.MaxLeaseSeconds
+	retval.ReceiveMessageType = v.WebSubHubNodeFields.ReceiveMessageType
+	retval.Requirements = v.WebSubHubNodeFields.Requirements
+	retval.SignatureAlgorithm = v.WebSubHubNodeFields.SignatureAlgorithm
+	retval.SubscriptionSecurity = v.WebSubHubNodeFields.SubscriptionSecurity
+	return &retval, nil
+}
+
+// CreateWebSubHubNodeResponse is returned by CreateWebSubHubNode on success.
+type CreateWebSubHubNodeResponse struct {
+	CreateWebSubHubNode CreateWebSubHubNodeCreateWebSubHubNode `json:"CreateWebSubHubNode"`
+}
+
+// GetCreateWebSubHubNode returns CreateWebSubHubNodeResponse.CreateWebSubHubNode, and is useful for accessing the field via an interface.
+func (v *CreateWebSubHubNodeResponse) GetCreateWebSubHubNode() CreateWebSubHubNodeCreateWebSubHubNode {
+	return v.CreateWebSubHubNode
+}
+
 // CreateWebhookNodeCreateWebhookNode includes the requested fields of the GraphQL type WebhookNode.
 type CreateWebhookNodeCreateWebhookNode struct {
 	NodeFieldsWebhookNode `json:"-"`
@@ -4692,10 +4866,14 @@ func (v *DeleteNodeGetNodeTimerNode) GetDelete() bool { return v.Delete }
 // DeleteNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
 type DeleteNodeGetNodeWebSubHubNode struct {
 	Typename *string `json:"__typename"`
+	Delete   bool    `json:"Delete"`
 }
 
 // GetTypename returns DeleteNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
 func (v *DeleteNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// GetDelete returns DeleteNodeGetNodeWebSubHubNode.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteNodeGetNodeWebSubHubNode) GetDelete() bool { return v.Delete }
 
 // DeleteNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
 type DeleteNodeGetNodeWebSubSubscriptionNode struct {
@@ -12081,6 +12259,7 @@ func (v *ReadNodeGetNodeTimerNode) __premarshalJSON() (*__premarshalReadNodeGetN
 type ReadNodeGetNodeWebSubHubNode struct {
 	Typename                *string `json:"__typename"`
 	NodeFieldsWebSubHubNode `json:"-"`
+	WebSubHubNodeFields     `json:"-"`
 }
 
 // GetTypename returns ReadNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
@@ -12093,6 +12272,62 @@ func (v *ReadNodeGetNodeWebSubHubNode) GetDescription() *string {
 
 // GetName returns ReadNodeGetNodeWebSubHubNode.Name, and is useful for accessing the field via an interface.
 func (v *ReadNodeGetNodeWebSubHubNode) GetName() string { return v.NodeFieldsWebSubHubNode.Name }
+
+// GetConfig returns ReadNodeGetNodeWebSubHubNode.Config, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetConfig() *string { return v.WebSubHubNodeFields.Config }
+
+// GetDefaultLeaseSeconds returns ReadNodeGetNodeWebSubHubNode.DefaultLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetDefaultLeaseSeconds() int {
+	return v.WebSubHubNodeFields.DefaultLeaseSeconds
+}
+
+// GetDeliveryRetries returns ReadNodeGetNodeWebSubHubNode.DeliveryRetries, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetDeliveryRetries() *int {
+	return v.WebSubHubNodeFields.DeliveryRetries
+}
+
+// GetEndpoint returns ReadNodeGetNodeWebSubHubNode.Endpoint, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetEndpoint() string { return v.WebSubHubNodeFields.Endpoint }
+
+// GetInlineApiAuthenticator returns ReadNodeGetNodeWebSubHubNode.InlineApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetInlineApiAuthenticator() *string {
+	return v.WebSubHubNodeFields.InlineApiAuthenticator
+}
+
+// GetLoggingLevel returns ReadNodeGetNodeWebSubHubNode.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetLoggingLevel() *LogLevel {
+	return v.WebSubHubNodeFields.LoggingLevel
+}
+
+// GetManagedApiAuthenticator returns ReadNodeGetNodeWebSubHubNode.ManagedApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetManagedApiAuthenticator() *WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction {
+	return v.WebSubHubNodeFields.ManagedApiAuthenticator
+}
+
+// GetMaxLeaseSeconds returns ReadNodeGetNodeWebSubHubNode.MaxLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetMaxLeaseSeconds() int {
+	return v.WebSubHubNodeFields.MaxLeaseSeconds
+}
+
+// GetReceiveMessageType returns ReadNodeGetNodeWebSubHubNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetReceiveMessageType() *WebSubHubNodeFieldsReceiveMessageType {
+	return v.WebSubHubNodeFields.ReceiveMessageType
+}
+
+// GetRequirements returns ReadNodeGetNodeWebSubHubNode.Requirements, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetRequirements() []string {
+	return v.WebSubHubNodeFields.Requirements
+}
+
+// GetSignatureAlgorithm returns ReadNodeGetNodeWebSubHubNode.SignatureAlgorithm, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetSignatureAlgorithm() WebSubSignatureAlgorithm {
+	return v.WebSubHubNodeFields.SignatureAlgorithm
+}
+
+// GetSubscriptionSecurity returns ReadNodeGetNodeWebSubHubNode.SubscriptionSecurity, and is useful for accessing the field via an interface.
+func (v *ReadNodeGetNodeWebSubHubNode) GetSubscriptionSecurity() *WebSubSubscriptionSecurity {
+	return v.WebSubHubNodeFields.SubscriptionSecurity
+}
 
 func (v *ReadNodeGetNodeWebSubHubNode) UnmarshalJSON(b []byte) error {
 
@@ -12116,6 +12351,11 @@ func (v *ReadNodeGetNodeWebSubHubNode) UnmarshalJSON(b []byte) error {
 	if err != nil {
 		return err
 	}
+	err = json.Unmarshal(
+		b, &v.WebSubHubNodeFields)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -12125,6 +12365,30 @@ type __premarshalReadNodeGetNodeWebSubHubNode struct {
 	Description *string `json:"description"`
 
 	Name string `json:"name"`
+
+	Config *string `json:"config"`
+
+	DefaultLeaseSeconds int `json:"defaultLeaseSeconds"`
+
+	DeliveryRetries *int `json:"deliveryRetries"`
+
+	Endpoint string `json:"endpoint"`
+
+	InlineApiAuthenticator *string `json:"inlineApiAuthenticator"`
+
+	LoggingLevel *LogLevel `json:"loggingLevel"`
+
+	ManagedApiAuthenticator *WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction `json:"managedApiAuthenticator"`
+
+	MaxLeaseSeconds int `json:"maxLeaseSeconds"`
+
+	ReceiveMessageType *WebSubHubNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	Requirements []string `json:"requirements"`
+
+	SignatureAlgorithm WebSubSignatureAlgorithm `json:"signatureAlgorithm"`
+
+	SubscriptionSecurity *WebSubSubscriptionSecurity `json:"subscriptionSecurity"`
 }
 
 func (v *ReadNodeGetNodeWebSubHubNode) MarshalJSON() ([]byte, error) {
@@ -12141,6 +12405,18 @@ func (v *ReadNodeGetNodeWebSubHubNode) __premarshalJSON() (*__premarshalReadNode
 	retval.Typename = v.Typename
 	retval.Description = v.NodeFieldsWebSubHubNode.Description
 	retval.Name = v.NodeFieldsWebSubHubNode.Name
+	retval.Config = v.WebSubHubNodeFields.Config
+	retval.DefaultLeaseSeconds = v.WebSubHubNodeFields.DefaultLeaseSeconds
+	retval.DeliveryRetries = v.WebSubHubNodeFields.DeliveryRetries
+	retval.Endpoint = v.WebSubHubNodeFields.Endpoint
+	retval.InlineApiAuthenticator = v.WebSubHubNodeFields.InlineApiAuthenticator
+	retval.LoggingLevel = v.WebSubHubNodeFields.LoggingLevel
+	retval.ManagedApiAuthenticator = v.WebSubHubNodeFields.ManagedApiAuthenticator
+	retval.MaxLeaseSeconds = v.WebSubHubNodeFields.MaxLeaseSeconds
+	retval.ReceiveMessageType = v.WebSubHubNodeFields.ReceiveMessageType
+	retval.Requirements = v.WebSubHubNodeFields.Requirements
+	retval.SignatureAlgorithm = v.WebSubHubNodeFields.SignatureAlgorithm
+	retval.SubscriptionSecurity = v.WebSubHubNodeFields.SubscriptionSecurity
 	return &retval, nil
 }
 
@@ -13107,11 +13383,25 @@ func (v *ReadNodeMessageTypesGetNodeTimerNodeSendMessageType) GetName() string {
 
 // ReadNodeMessageTypesGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
 type ReadNodeMessageTypesGetNodeWebSubHubNode struct {
-	Typename *string `json:"__typename"`
+	Typename           *string                                                     `json:"__typename"`
+	ReceiveMessageType *ReadNodeMessageTypesGetNodeWebSubHubNodeReceiveMessageType `json:"receiveMessageType"`
 }
 
 // GetTypename returns ReadNodeMessageTypesGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
 func (v *ReadNodeMessageTypesGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// GetReceiveMessageType returns ReadNodeMessageTypesGetNodeWebSubHubNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeWebSubHubNode) GetReceiveMessageType() *ReadNodeMessageTypesGetNodeWebSubHubNodeReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// ReadNodeMessageTypesGetNodeWebSubHubNodeReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type ReadNodeMessageTypesGetNodeWebSubHubNodeReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns ReadNodeMessageTypesGetNodeWebSubHubNodeReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *ReadNodeMessageTypesGetNodeWebSubHubNodeReceiveMessageType) GetName() string { return v.Name }
 
 // ReadNodeMessageTypesGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
 type ReadNodeMessageTypesGetNodeWebSubSubscriptionNode struct {
@@ -21246,6 +21536,713 @@ func (v *UpdateTimerNodeResponse) __premarshalJSON() (*__premarshalUpdateTimerNo
 	return &retval, nil
 }
 
+// UpdateWebSubHubNodeGetNode includes the requested fields of the GraphQL interface Node.
+//
+// UpdateWebSubHubNodeGetNode is implemented by the following types:
+// UpdateWebSubHubNodeGetNodeAlertEmitterNode
+// UpdateWebSubHubNodeGetNodeAppChangeReceiverNode
+// UpdateWebSubHubNodeGetNodeAppChangeRouterNode
+// UpdateWebSubHubNodeGetNodeAuditEmitterNode
+// UpdateWebSubHubNodeGetNodeBitmapRouterNode
+// UpdateWebSubHubNodeGetNodeChangeEmitterNode
+// UpdateWebSubHubNodeGetNodeCrossTenantReceivingNode
+// UpdateWebSubHubNodeGetNodeCrossTenantSendingNode
+// UpdateWebSubHubNodeGetNodeDeadLetterEmitterNode
+// UpdateWebSubHubNodeGetNodeExternalNode
+// UpdateWebSubHubNodeGetNodeFilesDotComWebhookNode
+// UpdateWebSubHubNodeGetNodeLoadBalancerNode
+// UpdateWebSubHubNodeGetNodeLogEmitterNode
+// UpdateWebSubHubNodeGetNodeManagedNode
+// UpdateWebSubHubNodeGetNodeProcessorNode
+// UpdateWebSubHubNodeGetNodeTimerNode
+// UpdateWebSubHubNodeGetNodeWebhookNode
+// UpdateWebSubHubNodeGetNodeWebSubHubNode
+// UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode
+type UpdateWebSubHubNodeGetNode interface {
+	implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode()
+	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
+	GetTypename() *string
+}
+
+func (v *UpdateWebSubHubNodeGetNodeAlertEmitterNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeAppChangeReceiverNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeAppChangeRouterNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeAuditEmitterNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeBitmapRouterNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeChangeEmitterNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeCrossTenantReceivingNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeCrossTenantSendingNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeDeadLetterEmitterNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeExternalNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeFilesDotComWebhookNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeLoadBalancerNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeLogEmitterNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeManagedNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+
+func __unmarshalUpdateWebSubHubNodeGetNode(b []byte, v *UpdateWebSubHubNodeGetNode) error {
+	if string(b) == "null" {
+		return nil
+	}
+
+	var tn struct {
+		TypeName string `json:"__typename"`
+	}
+	err := json.Unmarshal(b, &tn)
+	if err != nil {
+		return err
+	}
+
+	switch tn.TypeName {
+	case "AlertEmitterNode":
+		*v = new(UpdateWebSubHubNodeGetNodeAlertEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "AppChangeReceiverNode":
+		*v = new(UpdateWebSubHubNodeGetNodeAppChangeReceiverNode)
+		return json.Unmarshal(b, *v)
+	case "AppChangeRouterNode":
+		*v = new(UpdateWebSubHubNodeGetNodeAppChangeRouterNode)
+		return json.Unmarshal(b, *v)
+	case "AuditEmitterNode":
+		*v = new(UpdateWebSubHubNodeGetNodeAuditEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "BitmapRouterNode":
+		*v = new(UpdateWebSubHubNodeGetNodeBitmapRouterNode)
+		return json.Unmarshal(b, *v)
+	case "ChangeEmitterNode":
+		*v = new(UpdateWebSubHubNodeGetNodeChangeEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantReceivingNode":
+		*v = new(UpdateWebSubHubNodeGetNodeCrossTenantReceivingNode)
+		return json.Unmarshal(b, *v)
+	case "CrossTenantSendingNode":
+		*v = new(UpdateWebSubHubNodeGetNodeCrossTenantSendingNode)
+		return json.Unmarshal(b, *v)
+	case "DeadLetterEmitterNode":
+		*v = new(UpdateWebSubHubNodeGetNodeDeadLetterEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "ExternalNode":
+		*v = new(UpdateWebSubHubNodeGetNodeExternalNode)
+		return json.Unmarshal(b, *v)
+	case "FilesDotComWebhookNode":
+		*v = new(UpdateWebSubHubNodeGetNodeFilesDotComWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "LoadBalancerNode":
+		*v = new(UpdateWebSubHubNodeGetNodeLoadBalancerNode)
+		return json.Unmarshal(b, *v)
+	case "LogEmitterNode":
+		*v = new(UpdateWebSubHubNodeGetNodeLogEmitterNode)
+		return json.Unmarshal(b, *v)
+	case "ManagedNode":
+		*v = new(UpdateWebSubHubNodeGetNodeManagedNode)
+		return json.Unmarshal(b, *v)
+	case "ProcessorNode":
+		*v = new(UpdateWebSubHubNodeGetNodeProcessorNode)
+		return json.Unmarshal(b, *v)
+	case "TimerNode":
+		*v = new(UpdateWebSubHubNodeGetNodeTimerNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateWebSubHubNodeGetNodeWebhookNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubHubNode":
+		*v = new(UpdateWebSubHubNodeGetNodeWebSubHubNode)
+		return json.Unmarshal(b, *v)
+	case "WebSubSubscriptionNode":
+		*v = new(UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "":
+		return fmt.Errorf(
+			"response was missing Node.__typename")
+	default:
+		return fmt.Errorf(
+			`unexpected concrete type for UpdateWebSubHubNodeGetNode: "%v"`, tn.TypeName)
+	}
+}
+
+func __marshalUpdateWebSubHubNodeGetNode(v *UpdateWebSubHubNodeGetNode) ([]byte, error) {
+
+	var typename string
+	switch v := (*v).(type) {
+	case *UpdateWebSubHubNodeGetNodeAlertEmitterNode:
+		typename = "AlertEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeAlertEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeAppChangeReceiverNode:
+		typename = "AppChangeReceiverNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeAppChangeReceiverNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeAppChangeRouterNode:
+		typename = "AppChangeRouterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeAppChangeRouterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeAuditEmitterNode:
+		typename = "AuditEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeAuditEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeBitmapRouterNode:
+		typename = "BitmapRouterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeBitmapRouterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeChangeEmitterNode:
+		typename = "ChangeEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeChangeEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeCrossTenantReceivingNode:
+		typename = "CrossTenantReceivingNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeCrossTenantReceivingNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeCrossTenantSendingNode:
+		typename = "CrossTenantSendingNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeCrossTenantSendingNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeDeadLetterEmitterNode:
+		typename = "DeadLetterEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeDeadLetterEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeExternalNode:
+		typename = "ExternalNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeExternalNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeFilesDotComWebhookNode:
+		typename = "FilesDotComWebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeFilesDotComWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeLoadBalancerNode:
+		typename = "LoadBalancerNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeLoadBalancerNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeLogEmitterNode:
+		typename = "LogEmitterNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeLogEmitterNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeManagedNode:
+		typename = "ManagedNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeManagedNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeProcessorNode:
+		typename = "ProcessorNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeProcessorNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeTimerNode:
+		typename = "TimerNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeTimerNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeWebhookNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeWebSubHubNode:
+		typename = "WebSubHubNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeWebSubHubNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode:
+		typename = "WebSubSubscriptionNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case nil:
+		return []byte("null"), nil
+	default:
+		return nil, fmt.Errorf(
+			`unexpected concrete type for UpdateWebSubHubNodeGetNode: "%T"`, v)
+	}
+}
+
+// UpdateWebSubHubNodeGetNodeAlertEmitterNode includes the requested fields of the GraphQL type AlertEmitterNode.
+type UpdateWebSubHubNodeGetNodeAlertEmitterNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeAlertEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeAlertEmitterNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeAppChangeReceiverNode includes the requested fields of the GraphQL type AppChangeReceiverNode.
+type UpdateWebSubHubNodeGetNodeAppChangeReceiverNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeAppChangeReceiverNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeAppChangeReceiverNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeAppChangeRouterNode includes the requested fields of the GraphQL type AppChangeRouterNode.
+type UpdateWebSubHubNodeGetNodeAppChangeRouterNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeAppChangeRouterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeAppChangeRouterNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeAuditEmitterNode includes the requested fields of the GraphQL type AuditEmitterNode.
+type UpdateWebSubHubNodeGetNodeAuditEmitterNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeAuditEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeAuditEmitterNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeBitmapRouterNode includes the requested fields of the GraphQL type BitmapRouterNode.
+type UpdateWebSubHubNodeGetNodeBitmapRouterNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeBitmapRouterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeBitmapRouterNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeChangeEmitterNode includes the requested fields of the GraphQL type ChangeEmitterNode.
+type UpdateWebSubHubNodeGetNodeChangeEmitterNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeChangeEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeChangeEmitterNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeCrossTenantReceivingNode includes the requested fields of the GraphQL type CrossTenantReceivingNode.
+type UpdateWebSubHubNodeGetNodeCrossTenantReceivingNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeCrossTenantReceivingNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeCrossTenantReceivingNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeCrossTenantSendingNode includes the requested fields of the GraphQL type CrossTenantSendingNode.
+type UpdateWebSubHubNodeGetNodeCrossTenantSendingNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeCrossTenantSendingNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeCrossTenantSendingNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeDeadLetterEmitterNode includes the requested fields of the GraphQL type DeadLetterEmitterNode.
+type UpdateWebSubHubNodeGetNodeDeadLetterEmitterNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeDeadLetterEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeDeadLetterEmitterNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeExternalNode includes the requested fields of the GraphQL type ExternalNode.
+type UpdateWebSubHubNodeGetNodeExternalNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeExternalNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeExternalNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeFilesDotComWebhookNode includes the requested fields of the GraphQL type FilesDotComWebhookNode.
+type UpdateWebSubHubNodeGetNodeFilesDotComWebhookNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeFilesDotComWebhookNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeFilesDotComWebhookNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeLoadBalancerNode includes the requested fields of the GraphQL type LoadBalancerNode.
+type UpdateWebSubHubNodeGetNodeLoadBalancerNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeLoadBalancerNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeLoadBalancerNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeLogEmitterNode includes the requested fields of the GraphQL type LogEmitterNode.
+type UpdateWebSubHubNodeGetNodeLogEmitterNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeLogEmitterNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeLogEmitterNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeManagedNode includes the requested fields of the GraphQL type ManagedNode.
+type UpdateWebSubHubNodeGetNodeManagedNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeManagedNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeManagedNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeProcessorNode includes the requested fields of the GraphQL type ProcessorNode.
+type UpdateWebSubHubNodeGetNodeProcessorNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeProcessorNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeProcessorNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeTimerNode includes the requested fields of the GraphQL type TimerNode.
+type UpdateWebSubHubNodeGetNodeTimerNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeTimerNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeTimerNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateWebSubHubNodeGetNodeWebSubHubNode struct {
+	Typename *string                                                    `json:"__typename"`
+	Update   UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode `json:"Update"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeWebSubHubNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNode) GetTypename() *string { return v.Typename }
+
+// GetUpdate returns UpdateWebSubHubNodeGetNodeWebSubHubNode.Update, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNode) GetUpdate() UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode {
+	return v.Update
+}
+
+// UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode includes the requested fields of the GraphQL type WebSubHubNode.
+type UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode struct {
+	NodeFieldsWebSubHubNode `json:"-"`
+	WebSubHubNodeFields     `json:"-"`
+}
+
+// GetDescription returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.Description, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetDescription() *string {
+	return v.NodeFieldsWebSubHubNode.Description
+}
+
+// GetName returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.Name, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetName() string {
+	return v.NodeFieldsWebSubHubNode.Name
+}
+
+// GetConfig returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.Config, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetConfig() *string {
+	return v.WebSubHubNodeFields.Config
+}
+
+// GetDefaultLeaseSeconds returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.DefaultLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetDefaultLeaseSeconds() int {
+	return v.WebSubHubNodeFields.DefaultLeaseSeconds
+}
+
+// GetDeliveryRetries returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.DeliveryRetries, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetDeliveryRetries() *int {
+	return v.WebSubHubNodeFields.DeliveryRetries
+}
+
+// GetEndpoint returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.Endpoint, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetEndpoint() string {
+	return v.WebSubHubNodeFields.Endpoint
+}
+
+// GetInlineApiAuthenticator returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.InlineApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetInlineApiAuthenticator() *string {
+	return v.WebSubHubNodeFields.InlineApiAuthenticator
+}
+
+// GetLoggingLevel returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetLoggingLevel() *LogLevel {
+	return v.WebSubHubNodeFields.LoggingLevel
+}
+
+// GetManagedApiAuthenticator returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.ManagedApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetManagedApiAuthenticator() *WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction {
+	return v.WebSubHubNodeFields.ManagedApiAuthenticator
+}
+
+// GetMaxLeaseSeconds returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.MaxLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetMaxLeaseSeconds() int {
+	return v.WebSubHubNodeFields.MaxLeaseSeconds
+}
+
+// GetReceiveMessageType returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetReceiveMessageType() *WebSubHubNodeFieldsReceiveMessageType {
+	return v.WebSubHubNodeFields.ReceiveMessageType
+}
+
+// GetRequirements returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.Requirements, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetRequirements() []string {
+	return v.WebSubHubNodeFields.Requirements
+}
+
+// GetSignatureAlgorithm returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.SignatureAlgorithm, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetSignatureAlgorithm() WebSubSignatureAlgorithm {
+	return v.WebSubHubNodeFields.SignatureAlgorithm
+}
+
+// GetSubscriptionSecurity returns UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode.SubscriptionSecurity, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) GetSubscriptionSecurity() *WebSubSubscriptionSecurity {
+	return v.WebSubHubNodeFields.SubscriptionSecurity
+}
+
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(
+		b, &v.NodeFieldsWebSubHubNode)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(
+		b, &v.WebSubHubNodeFields)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type __premarshalUpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode struct {
+	Description *string `json:"description"`
+
+	Name string `json:"name"`
+
+	Config *string `json:"config"`
+
+	DefaultLeaseSeconds int `json:"defaultLeaseSeconds"`
+
+	DeliveryRetries *int `json:"deliveryRetries"`
+
+	Endpoint string `json:"endpoint"`
+
+	InlineApiAuthenticator *string `json:"inlineApiAuthenticator"`
+
+	LoggingLevel *LogLevel `json:"loggingLevel"`
+
+	ManagedApiAuthenticator *WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction `json:"managedApiAuthenticator"`
+
+	MaxLeaseSeconds int `json:"maxLeaseSeconds"`
+
+	ReceiveMessageType *WebSubHubNodeFieldsReceiveMessageType `json:"receiveMessageType"`
+
+	Requirements []string `json:"requirements"`
+
+	SignatureAlgorithm WebSubSignatureAlgorithm `json:"signatureAlgorithm"`
+
+	SubscriptionSecurity *WebSubSubscriptionSecurity `json:"subscriptionSecurity"`
+}
+
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode) __premarshalJSON() (*__premarshalUpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode, error) {
+	var retval __premarshalUpdateWebSubHubNodeGetNodeWebSubHubNodeUpdateWebSubHubNode
+
+	retval.Description = v.NodeFieldsWebSubHubNode.Description
+	retval.Name = v.NodeFieldsWebSubHubNode.Name
+	retval.Config = v.WebSubHubNodeFields.Config
+	retval.DefaultLeaseSeconds = v.WebSubHubNodeFields.DefaultLeaseSeconds
+	retval.DeliveryRetries = v.WebSubHubNodeFields.DeliveryRetries
+	retval.Endpoint = v.WebSubHubNodeFields.Endpoint
+	retval.InlineApiAuthenticator = v.WebSubHubNodeFields.InlineApiAuthenticator
+	retval.LoggingLevel = v.WebSubHubNodeFields.LoggingLevel
+	retval.ManagedApiAuthenticator = v.WebSubHubNodeFields.ManagedApiAuthenticator
+	retval.MaxLeaseSeconds = v.WebSubHubNodeFields.MaxLeaseSeconds
+	retval.ReceiveMessageType = v.WebSubHubNodeFields.ReceiveMessageType
+	retval.Requirements = v.WebSubHubNodeFields.Requirements
+	retval.SignatureAlgorithm = v.WebSubHubNodeFields.SignatureAlgorithm
+	retval.SubscriptionSecurity = v.WebSubHubNodeFields.SubscriptionSecurity
+	return &retval, nil
+}
+
+// UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode includes the requested fields of the GraphQL type WebSubSubscriptionNode.
+type UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeGetNodeWebhookNode includes the requested fields of the GraphQL type WebhookNode.
+type UpdateWebSubHubNodeGetNodeWebhookNode struct {
+	Typename *string `json:"__typename"`
+}
+
+// GetTypename returns UpdateWebSubHubNodeGetNodeWebhookNode.Typename, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeGetNodeWebhookNode) GetTypename() *string { return v.Typename }
+
+// UpdateWebSubHubNodeResponse is returned by UpdateWebSubHubNode on success.
+type UpdateWebSubHubNodeResponse struct {
+	GetNode *UpdateWebSubHubNodeGetNode `json:"-"`
+}
+
+// GetGetNode returns UpdateWebSubHubNodeResponse.GetNode, and is useful for accessing the field via an interface.
+func (v *UpdateWebSubHubNodeResponse) GetGetNode() *UpdateWebSubHubNodeGetNode { return v.GetNode }
+
+func (v *UpdateWebSubHubNodeResponse) UnmarshalJSON(b []byte) error {
+
+	if string(b) == "null" {
+		return nil
+	}
+
+	var firstPass struct {
+		*UpdateWebSubHubNodeResponse
+		GetNode json.RawMessage `json:"GetNode"`
+		graphql.NoUnmarshalJSON
+	}
+	firstPass.UpdateWebSubHubNodeResponse = v
+
+	err := json.Unmarshal(b, &firstPass)
+	if err != nil {
+		return err
+	}
+
+	{
+		dst := &v.GetNode
+		src := firstPass.GetNode
+		if len(src) != 0 && string(src) != "null" {
+			*dst = new(UpdateWebSubHubNodeGetNode)
+			err = __unmarshalUpdateWebSubHubNodeGetNode(
+				src, *dst)
+			if err != nil {
+				return fmt.Errorf(
+					"Unable to unmarshal UpdateWebSubHubNodeResponse.GetNode: %w", err)
+			}
+		}
+	}
+	return nil
+}
+
+type __premarshalUpdateWebSubHubNodeResponse struct {
+	GetNode json.RawMessage `json:"GetNode"`
+}
+
+func (v *UpdateWebSubHubNodeResponse) MarshalJSON() ([]byte, error) {
+	premarshaled, err := v.__premarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(premarshaled)
+}
+
+func (v *UpdateWebSubHubNodeResponse) __premarshalJSON() (*__premarshalUpdateWebSubHubNodeResponse, error) {
+	var retval __premarshalUpdateWebSubHubNodeResponse
+
+	{
+
+		dst := &retval.GetNode
+		src := v.GetNode
+		if src != nil {
+			var err error
+			*dst, err = __marshalUpdateWebSubHubNodeGetNode(
+				src)
+			if err != nil {
+				return nil, fmt.Errorf(
+					"Unable to marshal UpdateWebSubHubNodeResponse.GetNode: %w", err)
+			}
+		}
+	}
+	return &retval, nil
+}
+
 // UpdateWebhookNodeGetNode includes the requested fields of the GraphQL interface Node.
 //
 // UpdateWebhookNodeGetNode is implemented by the following types:
@@ -21925,6 +22922,101 @@ const (
 	UserStatusInactive UserStatus = "inactive"
 	UserStatusInvited  UserStatus = "invited"
 	UserStatusPending  UserStatus = "pending"
+)
+
+// WebSubHubNodeFields includes the GraphQL fields of WebSubHubNode requested by the fragment WebSubHubNodeFields.
+type WebSubHubNodeFields struct {
+	Config                  *string                                                             `json:"config"`
+	DefaultLeaseSeconds     int                                                                 `json:"defaultLeaseSeconds"`
+	DeliveryRetries         *int                                                                `json:"deliveryRetries"`
+	Endpoint                string                                                              `json:"endpoint"`
+	InlineApiAuthenticator  *string                                                             `json:"inlineApiAuthenticator"`
+	LoggingLevel            *LogLevel                                                           `json:"loggingLevel"`
+	ManagedApiAuthenticator *WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction `json:"managedApiAuthenticator"`
+	MaxLeaseSeconds         int                                                                 `json:"maxLeaseSeconds"`
+	ReceiveMessageType      *WebSubHubNodeFieldsReceiveMessageType                              `json:"receiveMessageType"`
+	Requirements            []string                                                            `json:"requirements"`
+	SignatureAlgorithm      WebSubSignatureAlgorithm                                            `json:"signatureAlgorithm"`
+	SubscriptionSecurity    *WebSubSubscriptionSecurity                                         `json:"subscriptionSecurity"`
+}
+
+// GetConfig returns WebSubHubNodeFields.Config, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetConfig() *string { return v.Config }
+
+// GetDefaultLeaseSeconds returns WebSubHubNodeFields.DefaultLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetDefaultLeaseSeconds() int { return v.DefaultLeaseSeconds }
+
+// GetDeliveryRetries returns WebSubHubNodeFields.DeliveryRetries, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetDeliveryRetries() *int { return v.DeliveryRetries }
+
+// GetEndpoint returns WebSubHubNodeFields.Endpoint, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetEndpoint() string { return v.Endpoint }
+
+// GetInlineApiAuthenticator returns WebSubHubNodeFields.InlineApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetInlineApiAuthenticator() *string { return v.InlineApiAuthenticator }
+
+// GetLoggingLevel returns WebSubHubNodeFields.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetLoggingLevel() *LogLevel { return v.LoggingLevel }
+
+// GetManagedApiAuthenticator returns WebSubHubNodeFields.ManagedApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetManagedApiAuthenticator() *WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction {
+	return v.ManagedApiAuthenticator
+}
+
+// GetMaxLeaseSeconds returns WebSubHubNodeFields.MaxLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetMaxLeaseSeconds() int { return v.MaxLeaseSeconds }
+
+// GetReceiveMessageType returns WebSubHubNodeFields.ReceiveMessageType, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetReceiveMessageType() *WebSubHubNodeFieldsReceiveMessageType {
+	return v.ReceiveMessageType
+}
+
+// GetRequirements returns WebSubHubNodeFields.Requirements, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetRequirements() []string { return v.Requirements }
+
+// GetSignatureAlgorithm returns WebSubHubNodeFields.SignatureAlgorithm, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetSignatureAlgorithm() WebSubSignatureAlgorithm {
+	return v.SignatureAlgorithm
+}
+
+// GetSubscriptionSecurity returns WebSubHubNodeFields.SubscriptionSecurity, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFields) GetSubscriptionSecurity() *WebSubSubscriptionSecurity {
+	return v.SubscriptionSecurity
+}
+
+// WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction includes the requested fields of the GraphQL type ApiAuthenticatorFunction.
+type WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction struct {
+	Name string `json:"name"`
+}
+
+// GetName returns WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction.Name, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFieldsManagedApiAuthenticatorApiAuthenticatorFunction) GetName() string {
+	return v.Name
+}
+
+// WebSubHubNodeFieldsReceiveMessageType includes the requested fields of the GraphQL type MessageType.
+type WebSubHubNodeFieldsReceiveMessageType struct {
+	Name string `json:"name"`
+}
+
+// GetName returns WebSubHubNodeFieldsReceiveMessageType.Name, and is useful for accessing the field via an interface.
+func (v *WebSubHubNodeFieldsReceiveMessageType) GetName() string { return v.Name }
+
+type WebSubSignatureAlgorithm string
+
+const (
+	WebSubSignatureAlgorithmSha1   WebSubSignatureAlgorithm = "sha1"
+	WebSubSignatureAlgorithmSha256 WebSubSignatureAlgorithm = "sha256"
+	WebSubSignatureAlgorithmSha384 WebSubSignatureAlgorithm = "sha384"
+	WebSubSignatureAlgorithmSha512 WebSubSignatureAlgorithm = "sha512"
+)
+
+type WebSubSubscriptionSecurity string
+
+const (
+	WebSubSubscriptionSecurityHttps          WebSubSubscriptionSecurity = "https"
+	WebSubSubscriptionSecurityHttpsandsecret WebSubSubscriptionSecurity = "httpsAndSecret"
+	WebSubSubscriptionSecuritySecret         WebSubSubscriptionSecurity = "secret"
 )
 
 // WebhookNodeFields includes the GraphQL fields of WebhookNode requested by the fragment WebhookNodeFields.
@@ -22638,6 +23730,70 @@ func (v *__CreateTimerNodeInput) GetTenant() string { return v.Tenant }
 
 // GetDescription returns __CreateTimerNodeInput.Description, and is useful for accessing the field via an interface.
 func (v *__CreateTimerNodeInput) GetDescription() *string { return v.Description }
+
+// __CreateWebSubHubNodeInput is used internally by genqlient
+type __CreateWebSubHubNodeInput struct {
+	Name                    string                      `json:"name"`
+	Tenant                  string                      `json:"tenant"`
+	Config                  *string                     `json:"config"`
+	DefaultLeaseSeconds     *int                        `json:"defaultLeaseSeconds"`
+	DeliveryRetries         *int                        `json:"deliveryRetries"`
+	Description             *string                     `json:"description"`
+	InlineApiAuthenticator  *string                     `json:"inlineApiAuthenticator"`
+	LoggingLevel            *LogLevel                   `json:"loggingLevel"`
+	ManagedApiAuthenticator *string                     `json:"managedApiAuthenticator"`
+	MaxLeaseSeconds         *int                        `json:"maxLeaseSeconds"`
+	Requirements            []string                    `json:"requirements"`
+	SignatureAlgorithm      *WebSubSignatureAlgorithm   `json:"signatureAlgorithm"`
+	SubscriptionSecurity    *WebSubSubscriptionSecurity `json:"subscriptionSecurity"`
+}
+
+// GetName returns __CreateWebSubHubNodeInput.Name, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetName() string { return v.Name }
+
+// GetTenant returns __CreateWebSubHubNodeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetTenant() string { return v.Tenant }
+
+// GetConfig returns __CreateWebSubHubNodeInput.Config, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetConfig() *string { return v.Config }
+
+// GetDefaultLeaseSeconds returns __CreateWebSubHubNodeInput.DefaultLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetDefaultLeaseSeconds() *int { return v.DefaultLeaseSeconds }
+
+// GetDeliveryRetries returns __CreateWebSubHubNodeInput.DeliveryRetries, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetDeliveryRetries() *int { return v.DeliveryRetries }
+
+// GetDescription returns __CreateWebSubHubNodeInput.Description, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetDescription() *string { return v.Description }
+
+// GetInlineApiAuthenticator returns __CreateWebSubHubNodeInput.InlineApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetInlineApiAuthenticator() *string {
+	return v.InlineApiAuthenticator
+}
+
+// GetLoggingLevel returns __CreateWebSubHubNodeInput.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetLoggingLevel() *LogLevel { return v.LoggingLevel }
+
+// GetManagedApiAuthenticator returns __CreateWebSubHubNodeInput.ManagedApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetManagedApiAuthenticator() *string {
+	return v.ManagedApiAuthenticator
+}
+
+// GetMaxLeaseSeconds returns __CreateWebSubHubNodeInput.MaxLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetMaxLeaseSeconds() *int { return v.MaxLeaseSeconds }
+
+// GetRequirements returns __CreateWebSubHubNodeInput.Requirements, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetRequirements() []string { return v.Requirements }
+
+// GetSignatureAlgorithm returns __CreateWebSubHubNodeInput.SignatureAlgorithm, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetSignatureAlgorithm() *WebSubSignatureAlgorithm {
+	return v.SignatureAlgorithm
+}
+
+// GetSubscriptionSecurity returns __CreateWebSubHubNodeInput.SubscriptionSecurity, and is useful for accessing the field via an interface.
+func (v *__CreateWebSubHubNodeInput) GetSubscriptionSecurity() *WebSubSubscriptionSecurity {
+	return v.SubscriptionSecurity
+}
 
 // __CreateWebhookNodeInput is used internally by genqlient
 type __CreateWebhookNodeInput struct {
@@ -23438,6 +24594,70 @@ func (v *__UpdateTimerNodeInput) GetTenant() string { return v.Tenant }
 
 // GetDescription returns __UpdateTimerNodeInput.Description, and is useful for accessing the field via an interface.
 func (v *__UpdateTimerNodeInput) GetDescription() *string { return v.Description }
+
+// __UpdateWebSubHubNodeInput is used internally by genqlient
+type __UpdateWebSubHubNodeInput struct {
+	Name                    string                      `json:"name"`
+	Tenant                  string                      `json:"tenant"`
+	Config                  *string                     `json:"config"`
+	DefaultLeaseSeconds     *int                        `json:"defaultLeaseSeconds"`
+	DeliveryRetries         *int                        `json:"deliveryRetries"`
+	Description             *string                     `json:"description"`
+	InlineApiAuthenticator  *string                     `json:"inlineApiAuthenticator"`
+	LoggingLevel            *LogLevel                   `json:"loggingLevel"`
+	ManagedApiAuthenticator *string                     `json:"managedApiAuthenticator"`
+	MaxLeaseSeconds         *int                        `json:"maxLeaseSeconds"`
+	Requirements            []string                    `json:"requirements"`
+	SignatureAlgorithm      *WebSubSignatureAlgorithm   `json:"signatureAlgorithm"`
+	SubscriptionSecurity    *WebSubSubscriptionSecurity `json:"subscriptionSecurity"`
+}
+
+// GetName returns __UpdateWebSubHubNodeInput.Name, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetName() string { return v.Name }
+
+// GetTenant returns __UpdateWebSubHubNodeInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetTenant() string { return v.Tenant }
+
+// GetConfig returns __UpdateWebSubHubNodeInput.Config, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetConfig() *string { return v.Config }
+
+// GetDefaultLeaseSeconds returns __UpdateWebSubHubNodeInput.DefaultLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetDefaultLeaseSeconds() *int { return v.DefaultLeaseSeconds }
+
+// GetDeliveryRetries returns __UpdateWebSubHubNodeInput.DeliveryRetries, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetDeliveryRetries() *int { return v.DeliveryRetries }
+
+// GetDescription returns __UpdateWebSubHubNodeInput.Description, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetDescription() *string { return v.Description }
+
+// GetInlineApiAuthenticator returns __UpdateWebSubHubNodeInput.InlineApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetInlineApiAuthenticator() *string {
+	return v.InlineApiAuthenticator
+}
+
+// GetLoggingLevel returns __UpdateWebSubHubNodeInput.LoggingLevel, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetLoggingLevel() *LogLevel { return v.LoggingLevel }
+
+// GetManagedApiAuthenticator returns __UpdateWebSubHubNodeInput.ManagedApiAuthenticator, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetManagedApiAuthenticator() *string {
+	return v.ManagedApiAuthenticator
+}
+
+// GetMaxLeaseSeconds returns __UpdateWebSubHubNodeInput.MaxLeaseSeconds, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetMaxLeaseSeconds() *int { return v.MaxLeaseSeconds }
+
+// GetRequirements returns __UpdateWebSubHubNodeInput.Requirements, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetRequirements() []string { return v.Requirements }
+
+// GetSignatureAlgorithm returns __UpdateWebSubHubNodeInput.SignatureAlgorithm, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetSignatureAlgorithm() *WebSubSignatureAlgorithm {
+	return v.SignatureAlgorithm
+}
+
+// GetSubscriptionSecurity returns __UpdateWebSubHubNodeInput.SubscriptionSecurity, and is useful for accessing the field via an interface.
+func (v *__UpdateWebSubHubNodeInput) GetSubscriptionSecurity() *WebSubSubscriptionSecurity {
+	return v.SubscriptionSecurity
+}
 
 // __UpdateWebhookNodeInput is used internally by genqlient
 type __UpdateWebhookNodeInput struct {
@@ -24782,6 +26002,85 @@ fragment TimerNodeFields on TimerNode {
 	return &data, err
 }
 
+func CreateWebSubHubNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	defaultLeaseSeconds *int,
+	deliveryRetries *int,
+	description *string,
+	inlineApiAuthenticator *string,
+	loggingLevel *LogLevel,
+	managedApiAuthenticator *string,
+	maxLeaseSeconds *int,
+	requirements []string,
+	signatureAlgorithm *WebSubSignatureAlgorithm,
+	subscriptionSecurity *WebSubSubscriptionSecurity,
+) (*CreateWebSubHubNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateWebSubHubNode",
+		Query: `
+mutation CreateWebSubHubNode ($name: String!, $tenant: String!, $config: AWSJSON, $defaultLeaseSeconds: Int, $deliveryRetries: Int, $description: String, $inlineApiAuthenticator: String, $loggingLevel: LogLevel, $managedApiAuthenticator: String, $maxLeaseSeconds: Int, $requirements: [String!], $signatureAlgorithm: WebSubSignatureAlgorithm, $subscriptionSecurity: WebSubSubscriptionSecurity) {
+	CreateWebSubHubNode(name: $name, tenant: $tenant, config: $config, defaultLeaseSeconds: $defaultLeaseSeconds, deliveryRetries: $deliveryRetries, description: $description, inlineApiAuthenticator: $inlineApiAuthenticator, loggingLevel: $loggingLevel, managedApiAuthenticator: $managedApiAuthenticator, maxLeaseSeconds: $maxLeaseSeconds, requirements: $requirements, signatureAlgorithm: $signatureAlgorithm, subscriptionSecurity: $subscriptionSecurity) {
+		... NodeFields
+		... WebSubHubNodeFields
+	}
+}
+fragment NodeFields on Node {
+	description
+	name
+}
+fragment WebSubHubNodeFields on WebSubHubNode {
+	config
+	defaultLeaseSeconds
+	deliveryRetries
+	endpoint
+	inlineApiAuthenticator
+	loggingLevel
+	managedApiAuthenticator {
+		name
+	}
+	maxLeaseSeconds
+	receiveMessageType {
+		name
+	}
+	requirements
+	signatureAlgorithm
+	subscriptionSecurity
+}
+`,
+		Variables: &__CreateWebSubHubNodeInput{
+			Name:                    name,
+			Tenant:                  tenant,
+			Config:                  config,
+			DefaultLeaseSeconds:     defaultLeaseSeconds,
+			DeliveryRetries:         deliveryRetries,
+			Description:             description,
+			InlineApiAuthenticator:  inlineApiAuthenticator,
+			LoggingLevel:            loggingLevel,
+			ManagedApiAuthenticator: managedApiAuthenticator,
+			MaxLeaseSeconds:         maxLeaseSeconds,
+			Requirements:            requirements,
+			SignatureAlgorithm:      signatureAlgorithm,
+			SubscriptionSecurity:    subscriptionSecurity,
+		},
+	}
+	var err error
+
+	var data CreateWebSubHubNodeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
 func CreateWebhookNode(
 	ctx context.Context,
 	client graphql.Client,
@@ -25131,6 +26430,9 @@ query DeleteNode ($name: String!, $tenant: String!) {
 		}
 		... on WebhookNode {
 			Delete(drainEdges: true)
+		}
+		... on WebSubHubNode {
+			Delete
 		}
 	}
 }
@@ -25795,6 +27097,9 @@ query ReadNode ($name: String!, $tenant: String!) {
 		... on WebhookNode {
 			... WebhookNodeFields
 		}
+		... on WebSubHubNode {
+			... WebSubHubNodeFields
+		}
 	}
 }
 fragment NodeFields on Node {
@@ -25982,6 +27287,24 @@ fragment WebhookNodeFields on WebhookNode {
 		name
 	}
 }
+fragment WebSubHubNodeFields on WebSubHubNode {
+	config
+	defaultLeaseSeconds
+	deliveryRetries
+	endpoint
+	inlineApiAuthenticator
+	loggingLevel
+	managedApiAuthenticator {
+		name
+	}
+	maxLeaseSeconds
+	receiveMessageType {
+		name
+	}
+	requirements
+	signatureAlgorithm
+	subscriptionSecurity
+}
 `,
 		Variables: &__ReadNodeInput{
 			Name:   name,
@@ -26114,6 +27437,11 @@ query ReadNodeMessageTypes ($name: String!, $tenant: String!) {
 		}
 		... on WebhookNode {
 			sendMessageType {
+				name
+			}
+		}
+		... on WebSubHubNode {
+			receiveMessageType {
 				name
 			}
 		}
@@ -27399,6 +28727,90 @@ fragment TimerNodeFields on TimerNode {
 	var err error
 
 	var data UpdateTimerNodeResponse
+	resp := &graphql.Response{Data: &data}
+
+	err = client.MakeRequest(
+		ctx,
+		req,
+		resp,
+	)
+
+	return &data, err
+}
+
+func UpdateWebSubHubNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	defaultLeaseSeconds *int,
+	deliveryRetries *int,
+	description *string,
+	inlineApiAuthenticator *string,
+	loggingLevel *LogLevel,
+	managedApiAuthenticator *string,
+	maxLeaseSeconds *int,
+	requirements []string,
+	signatureAlgorithm *WebSubSignatureAlgorithm,
+	subscriptionSecurity *WebSubSubscriptionSecurity,
+) (*UpdateWebSubHubNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateWebSubHubNode",
+		Query: `
+query UpdateWebSubHubNode ($name: String!, $tenant: String!, $config: AWSJSON, $defaultLeaseSeconds: Int, $deliveryRetries: Int, $description: String, $inlineApiAuthenticator: String, $loggingLevel: LogLevel, $managedApiAuthenticator: String, $maxLeaseSeconds: Int, $requirements: [String!], $signatureAlgorithm: WebSubSignatureAlgorithm, $subscriptionSecurity: WebSubSubscriptionSecurity) {
+	GetNode(name: $name, tenant: $tenant) {
+		__typename
+		... on WebSubHubNode {
+			Update(config: $config, defaultLeaseSeconds: $defaultLeaseSeconds, deliveryRetries: $deliveryRetries, description: $description, inlineApiAuthenticator: $inlineApiAuthenticator, loggingLevel: $loggingLevel, managedApiAuthenticator: $managedApiAuthenticator, maxLeaseSeconds: $maxLeaseSeconds, requirements: $requirements, signatureAlgorithm: $signatureAlgorithm, subscriptionSecurity: $subscriptionSecurity) {
+				... NodeFields
+				... WebSubHubNodeFields
+			}
+		}
+	}
+}
+fragment NodeFields on Node {
+	description
+	name
+}
+fragment WebSubHubNodeFields on WebSubHubNode {
+	config
+	defaultLeaseSeconds
+	deliveryRetries
+	endpoint
+	inlineApiAuthenticator
+	loggingLevel
+	managedApiAuthenticator {
+		name
+	}
+	maxLeaseSeconds
+	receiveMessageType {
+		name
+	}
+	requirements
+	signatureAlgorithm
+	subscriptionSecurity
+}
+`,
+		Variables: &__UpdateWebSubHubNodeInput{
+			Name:                    name,
+			Tenant:                  tenant,
+			Config:                  config,
+			DefaultLeaseSeconds:     defaultLeaseSeconds,
+			DeliveryRetries:         deliveryRetries,
+			Description:             description,
+			InlineApiAuthenticator:  inlineApiAuthenticator,
+			LoggingLevel:            loggingLevel,
+			ManagedApiAuthenticator: managedApiAuthenticator,
+			MaxLeaseSeconds:         maxLeaseSeconds,
+			Requirements:            requirements,
+			SignatureAlgorithm:      signatureAlgorithm,
+			SubscriptionSecurity:    subscriptionSecurity,
+		},
+	}
+	var err error
+
+	var data UpdateWebSubHubNodeResponse
 	resp := &graphql.Response{Data: &data}
 
 	err = client.MakeRequest(
