@@ -71,6 +71,7 @@ type webSubHubNodeModel struct {
 	DeliveryRetries         types.Int64   `tfsdk:"delivery_retries"`
 	Description             types.String  `tfsdk:"description"`
 	Endpoint                types.String  `tfsdk:"endpoint"`
+	Id                      types.String  `tfsdk:"id"`
 	InlineApiAuthenticator  types.String  `tfsdk:"inline_api_authenticator"`
 	LoggingLevel            types.String  `tfsdk:"logging_level"`
 	ManagedApiAuthenticator types.String  `tfsdk:"managed_api_authenticator"`
@@ -217,6 +218,7 @@ func (r *WebSubHubNodeResource) Create(ctx context.Context, req resource.CreateR
 			plan.Description = types.StringNull()
 		}
 		plan.Endpoint = types.StringValue(echoResp.CreateWebSubHubNode.Endpoint)
+		plan.Id = types.StringValue(echoResp.CreateWebSubHubNode.Name)
 		if echoResp.CreateWebSubHubNode.InlineApiAuthenticator != nil {
 			plan.InlineApiAuthenticator = types.StringValue(*echoResp.CreateWebSubHubNode.InlineApiAuthenticator)
 		} else {
@@ -324,6 +326,7 @@ func (r *WebSubHubNodeResource) Read(ctx context.Context, req resource.ReadReque
 				state.Description = types.StringNull()
 			}
 			state.Endpoint = types.StringValue(node.Endpoint)
+			state.Id = types.StringValue(node.Name)
 			if node.InlineApiAuthenticator != nil {
 				state.InlineApiAuthenticator = types.StringValue(*node.InlineApiAuthenticator)
 			} else {
@@ -406,6 +409,9 @@ func (r *WebSubHubNodeResource) Schema(ctx context.Context, req resource.SchemaR
 				Computed: true,
 				MarkdownDescription: "The WebSubHub endpoint to give to subscribers." +
 					" Accepts POST calls using the WebSub protocol for subscriptions.",
+			},
+			"id": schema.StringAttribute{
+				Computed: true,
 			},
 			"inline_api_authenticator": schema.StringAttribute{
 				MarkdownDescription: "A Python code string that contains a single top-level function definition." +
@@ -597,6 +603,7 @@ func (r *WebSubHubNodeResource) Update(ctx context.Context, req resource.UpdateR
 				plan.Description = types.StringNull()
 			}
 			plan.Endpoint = types.StringValue(node.Update.Endpoint)
+			plan.Id = types.StringValue(node.Update.Name)
 			if node.Update.InlineApiAuthenticator != nil {
 				plan.InlineApiAuthenticator = types.StringValue(*node.Update.InlineApiAuthenticator)
 			} else {
