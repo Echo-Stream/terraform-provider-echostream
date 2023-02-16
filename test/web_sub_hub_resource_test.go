@@ -10,7 +10,7 @@ import (
 func TestAccWebSubHubNodeResource(t *testing.T) {
 	t.Parallel()
 	name := "hubtest"
-	subscriptionSecurity := "httpsandsecret"
+	subscriptionSecurity := "httpsAndSecret"
 	resource.Test(t, resource.TestCase{
 		PreCheck:                 func() { testAccPreCheck(t) },
 		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,
