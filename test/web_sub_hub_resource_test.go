@@ -64,7 +64,7 @@ func testAccWebSubHubNodeResourceConfig(
 	}
 	return fmt.Sprintf(`
 resource "echostream_web_sub_hub_node" "test" {
-	description = %[3]q
+	description = %[1]q
 	name = %[2]q
 }
 `, description, name, additonal_params)
