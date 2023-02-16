@@ -143,46 +143,6 @@ func (r *EdgeResource) Delete(ctx context.Context, req resource.DeleteRequest, r
 	time.Sleep(2 * time.Second)
 }
 
-func (r *EdgeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
-	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"description": schema.StringAttribute{
-				MarkdownDescription: "A human-readable description.",
-				Optional:            true,
-			},
-			"kmskey": schema.StringAttribute{
-				MarkdownDescription: "The name of the KmsKey to use to encrypt the message at rest and in flight. Defaults to the Tenant's KmsKey.",
-				Optional:            true,
-				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
-			},
-			"max_receive_count": schema.Int64Attribute{
-				MarkdownDescription: "The maximum number of delivbery tries to the `target`. `0` is the default and will try forever. " +
-					"Any positive number will result in that many tries before sending the messagge to the `DeadLetterEmitterNode`.",
-				Optional:      true,
-				PlanModifiers: []planmodifier.Int64{int64planmodifier.RequiresReplace()},
-				Validators:    []validator.Int64{int64validator.AtLeast(0)},
-			},
-			"message_type": schema.StringAttribute{
-				Computed:            true,
-				MarkdownDescription: "The MessageType that will be transmitted.",
-			},
-			"queue": schema.StringAttribute{
-				Computed:            true,
-				MarkdownDescription: "The URL of the underlying AWS SQS queue.",
-			},
-			"source": schema.StringAttribute{
-				MarkdownDescription: "The source Node to transmit messages from.",
-				Required:            true,
-			},
-			"target": schema.StringAttribute{
-				MarkdownDescription: "The target Node to transmit messages to.",
-				Required:            true,
-			},
-		},
-		MarkdownDescription: "[Edges](https://docs.echo.stream/docs/edges) transmit messages of a single MessageType between Nodes.",
-	}
-}
-
 func (r *EdgeResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	nodes := strings.Split(req.ID, "|")
 	if len(nodes) != 2 {
@@ -312,6 +272,46 @@ func (r *EdgeResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}
+
+func (r *EdgeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
+	resp.Schema = schema.Schema{
+		Attributes: map[string]schema.Attribute{
+			"description": schema.StringAttribute{
+				MarkdownDescription: "A human-readable description.",
+				Optional:            true,
+			},
+			"kmskey": schema.StringAttribute{
+				MarkdownDescription: "The name of the KmsKey to use to encrypt the message at rest and in flight. Defaults to the Tenant's KmsKey.",
+				Optional:            true,
+				PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
+			},
+			"max_receive_count": schema.Int64Attribute{
+				MarkdownDescription: "The maximum number of delivbery tries to the `target`. `0` is the default and will try forever. " +
+					"Any positive number will result in that many tries before sending the messagge to the `DeadLetterEmitterNode`.",
+				Optional:      true,
+				PlanModifiers: []planmodifier.Int64{int64planmodifier.RequiresReplace()},
+				Validators:    []validator.Int64{int64validator.AtLeast(0)},
+			},
+			"message_type": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The MessageType that will be transmitted.",
+			},
+			"queue": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The URL of the underlying AWS SQS queue.",
+			},
+			"source": schema.StringAttribute{
+				MarkdownDescription: "The source Node to transmit messages from.",
+				Required:            true,
+			},
+			"target": schema.StringAttribute{
+				MarkdownDescription: "The target Node to transmit messages to.",
+				Required:            true,
+			},
+		},
+		MarkdownDescription: "[Edges](https://docs.echo.stream/docs/edges) transmit messages of a single MessageType between Nodes.",
+	}
 }
 
 func (r *EdgeResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
