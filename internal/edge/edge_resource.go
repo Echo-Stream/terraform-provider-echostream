@@ -85,8 +85,8 @@ func (r *EdgeResource) Create(ctx context.Context, req resource.CreateRequest, r
 		kmsKey = &temp
 	}
 	if !(plan.MaxReceiveCount.IsNull() || plan.MaxReceiveCount.IsUnknown()) {
-		mrc := int(plan.MaxReceiveCount.ValueInt64())
-		maxReceiveCount = &mrc
+		temp := int(plan.MaxReceiveCount.ValueInt64())
+		maxReceiveCount = &temp
 	}
 
 	if echoResp, err := api.CreateEdge(
@@ -114,6 +114,8 @@ func (r *EdgeResource) Create(ctx context.Context, req resource.CreateRequest, r
 		}
 		if echoResp.CreateEdge.MaxReceiveCount != nil {
 			plan.MaxReceiveCount = types.Int64Value(int64(*echoResp.CreateEdge.MaxReceiveCount))
+		} else {
+			plan.MaxReceiveCount = types.Int64Null()
 		}
 		plan.MessageType = types.StringValue(echoResp.CreateEdge.MessageType.Name)
 		plan.Queue = types.StringValue(echoResp.CreateEdge.Queue)
