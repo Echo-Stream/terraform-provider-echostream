@@ -472,7 +472,7 @@ func (r *WebSubHubNodeResource) Schema(ctx context.Context, req resource.SchemaR
 			"subscription_security": schema.StringAttribute{
 				Computed: true,
 				MarkdownDescription: "The security requirements the hub is enforcing on subscription requests." +
-					" One of `https`, `httpsandsecret`, or `secret`. Null indicates no enforced subscription security." +
+					" One of `https`, `httpsAndSecret`, or `secret`. Null indicates no enforced subscription security." +
 					" Changes will only apply to new subscription requests.",
 				Optional: true,
 				Validators: []validator.String{

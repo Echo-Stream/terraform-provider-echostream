@@ -37,7 +37,7 @@ resource "echostream_web_sub_hub_node" "test" {
 - `max_lease_seconds` (Number) The maximum lease duration for a subscription. Defaults to `864000`. Changes will only apply to new subscriptions.
 - `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.
 - `signature_algorithm` (String) The WebSub signature algorithm used by hub subscriptions when the subscription provides a secret. One of `sha1`, `sha256`, `sha384`, or `sha512`. Defaults to `sha1`. Changes will apply to all existing and new subscriptions.
-- `subscription_security` (String) The security requirements the hub is enforcing on subscription requests. One of `https`, `httpsandsecret`, or `secret`. Null indicates no enforced subscription security. Changes will only apply to new subscription requests.
+- `subscription_security` (String) The security requirements the hub is enforcing on subscription requests. One of `https`, `httpsAndSecret`, or `secret`. Null indicates no enforced subscription security. Changes will only apply to new subscription requests.
 
 ### Read-Only
 
