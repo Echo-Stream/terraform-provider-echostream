@@ -42,6 +42,7 @@ resource "echostream_web_sub_hub_node" "test" {
 ### Read-Only
 
 - `endpoint` (String) The WebSubHub endpoint to give to subscribers. Accepts POST calls using the WebSub protocol for subscriptions.
+- `id` (String) The ID of this resource.
 - `receive_message_type` (String) Will always be 'echo.websub'
 
 ## Import
