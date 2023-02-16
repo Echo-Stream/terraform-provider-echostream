@@ -34,7 +34,7 @@ func TestAccWebSubHubNodeResource(t *testing.T) {
 				ImportStateId:     name,
 				ImportStateVerify: true,
 			},
-			// Update testing
+			// Update and Read testing
 			{
 				Config: testAccWebSubHubNodeResourceConfig(
 					"two",
