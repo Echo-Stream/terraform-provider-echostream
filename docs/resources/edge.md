@@ -45,6 +45,7 @@ resource "echostream_edge" "timer_to_lb1" {
 
 ### Read-Only
 
+- `arn` (String) The ARN of the underlying AWS SQS Queue.
 - `message_type` (String) The MessageType that will be transmitted.
 - `queue` (String) The URL of the underlying AWS SQS queue.
 
