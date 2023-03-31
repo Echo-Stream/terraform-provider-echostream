@@ -1698,6 +1698,9 @@ type CreateEdgeCreateEdge struct {
 	EdgeFields `json:"-"`
 }
 
+// GetArn returns CreateEdgeCreateEdge.Arn, and is useful for accessing the field via an interface.
+func (v *CreateEdgeCreateEdge) GetArn() string { return v.EdgeFields.Arn }
+
 // GetDescription returns CreateEdgeCreateEdge.Description, and is useful for accessing the field via an interface.
 func (v *CreateEdgeCreateEdge) GetDescription() *string { return v.EdgeFields.Description }
 
@@ -1747,6 +1750,8 @@ func (v *CreateEdgeCreateEdge) UnmarshalJSON(b []byte) error {
 }
 
 type __premarshalCreateEdgeCreateEdge struct {
+	Arn string `json:"arn"`
+
 	Description *string `json:"description"`
 
 	KmsKey *EdgeFieldsKmsKey `json:"kmsKey"`
@@ -1773,6 +1778,7 @@ func (v *CreateEdgeCreateEdge) MarshalJSON() ([]byte, error) {
 func (v *CreateEdgeCreateEdge) __premarshalJSON() (*__premarshalCreateEdgeCreateEdge, error) {
 	var retval __premarshalCreateEdgeCreateEdge
 
+	retval.Arn = v.EdgeFields.Arn
 	retval.Description = v.EdgeFields.Description
 	retval.KmsKey = v.EdgeFields.KmsKey
 	retval.MaxReceiveCount = v.EdgeFields.MaxReceiveCount
@@ -4989,6 +4995,7 @@ func (v *DeleteTenantUserResponse) GetGetTenantUser() *DeleteTenantUserGetTenant
 
 // EdgeFields includes the GraphQL fields of Edge requested by the fragment EdgeFields.
 type EdgeFields struct {
+	Arn             string                `json:"arn"`
 	Description     *string               `json:"description"`
 	KmsKey          *EdgeFieldsKmsKey     `json:"kmsKey"`
 	MaxReceiveCount *int                  `json:"maxReceiveCount"`
@@ -4997,6 +5004,9 @@ type EdgeFields struct {
 	Source          EdgeFieldsSourceNode  `json:"-"`
 	Target          EdgeFieldsTargetNode  `json:"-"`
 }
+
+// GetArn returns EdgeFields.Arn, and is useful for accessing the field via an interface.
+func (v *EdgeFields) GetArn() string { return v.Arn }
 
 // GetDescription returns EdgeFields.Description, and is useful for accessing the field via an interface.
 func (v *EdgeFields) GetDescription() *string { return v.Description }
@@ -5067,6 +5077,8 @@ func (v *EdgeFields) UnmarshalJSON(b []byte) error {
 }
 
 type __premarshalEdgeFields struct {
+	Arn string `json:"arn"`
+
 	Description *string `json:"description"`
 
 	KmsKey *EdgeFieldsKmsKey `json:"kmsKey"`
@@ -5093,6 +5105,7 @@ func (v *EdgeFields) MarshalJSON() ([]byte, error) {
 func (v *EdgeFields) __premarshalJSON() (*__premarshalEdgeFields, error) {
 	var retval __premarshalEdgeFields
 
+	retval.Arn = v.Arn
 	retval.Description = v.Description
 	retval.KmsKey = v.KmsKey
 	retval.MaxReceiveCount = v.MaxReceiveCount
@@ -7204,6 +7217,9 @@ type MoveEdgeGetEdgeMoveEdge struct {
 	EdgeFields `json:"-"`
 }
 
+// GetArn returns MoveEdgeGetEdgeMoveEdge.Arn, and is useful for accessing the field via an interface.
+func (v *MoveEdgeGetEdgeMoveEdge) GetArn() string { return v.EdgeFields.Arn }
+
 // GetDescription returns MoveEdgeGetEdgeMoveEdge.Description, and is useful for accessing the field via an interface.
 func (v *MoveEdgeGetEdgeMoveEdge) GetDescription() *string { return v.EdgeFields.Description }
 
@@ -7253,6 +7269,8 @@ func (v *MoveEdgeGetEdgeMoveEdge) UnmarshalJSON(b []byte) error {
 }
 
 type __premarshalMoveEdgeGetEdgeMoveEdge struct {
+	Arn string `json:"arn"`
+
 	Description *string `json:"description"`
 
 	KmsKey *EdgeFieldsKmsKey `json:"kmsKey"`
@@ -7279,6 +7297,7 @@ func (v *MoveEdgeGetEdgeMoveEdge) MarshalJSON() ([]byte, error) {
 func (v *MoveEdgeGetEdgeMoveEdge) __premarshalJSON() (*__premarshalMoveEdgeGetEdgeMoveEdge, error) {
 	var retval __premarshalMoveEdgeGetEdgeMoveEdge
 
+	retval.Arn = v.EdgeFields.Arn
 	retval.Description = v.EdgeFields.Description
 	retval.KmsKey = v.EdgeFields.KmsKey
 	retval.MaxReceiveCount = v.EdgeFields.MaxReceiveCount
@@ -8792,6 +8811,9 @@ type ReadEdgeGetEdge struct {
 	EdgeFields `json:"-"`
 }
 
+// GetArn returns ReadEdgeGetEdge.Arn, and is useful for accessing the field via an interface.
+func (v *ReadEdgeGetEdge) GetArn() string { return v.EdgeFields.Arn }
+
 // GetDescription returns ReadEdgeGetEdge.Description, and is useful for accessing the field via an interface.
 func (v *ReadEdgeGetEdge) GetDescription() *string { return v.EdgeFields.Description }
 
@@ -8839,6 +8861,8 @@ func (v *ReadEdgeGetEdge) UnmarshalJSON(b []byte) error {
 }
 
 type __premarshalReadEdgeGetEdge struct {
+	Arn string `json:"arn"`
+
 	Description *string `json:"description"`
 
 	KmsKey *EdgeFieldsKmsKey `json:"kmsKey"`
@@ -8865,6 +8889,7 @@ func (v *ReadEdgeGetEdge) MarshalJSON() ([]byte, error) {
 func (v *ReadEdgeGetEdge) __premarshalJSON() (*__premarshalReadEdgeGetEdge, error) {
 	var retval __premarshalReadEdgeGetEdge
 
+	retval.Arn = v.EdgeFields.Arn
 	retval.Description = v.EdgeFields.Description
 	retval.KmsKey = v.EdgeFields.KmsKey
 	retval.MaxReceiveCount = v.EdgeFields.MaxReceiveCount
@@ -15793,6 +15818,9 @@ type UpdateEdgeGetEdgeUpdateEdge struct {
 	EdgeFields `json:"-"`
 }
 
+// GetArn returns UpdateEdgeGetEdgeUpdateEdge.Arn, and is useful for accessing the field via an interface.
+func (v *UpdateEdgeGetEdgeUpdateEdge) GetArn() string { return v.EdgeFields.Arn }
+
 // GetDescription returns UpdateEdgeGetEdgeUpdateEdge.Description, and is useful for accessing the field via an interface.
 func (v *UpdateEdgeGetEdgeUpdateEdge) GetDescription() *string { return v.EdgeFields.Description }
 
@@ -15842,6 +15870,8 @@ func (v *UpdateEdgeGetEdgeUpdateEdge) UnmarshalJSON(b []byte) error {
 }
 
 type __premarshalUpdateEdgeGetEdgeUpdateEdge struct {
+	Arn string `json:"arn"`
+
 	Description *string `json:"description"`
 
 	KmsKey *EdgeFieldsKmsKey `json:"kmsKey"`
@@ -15868,6 +15898,7 @@ func (v *UpdateEdgeGetEdgeUpdateEdge) MarshalJSON() ([]byte, error) {
 func (v *UpdateEdgeGetEdgeUpdateEdge) __premarshalJSON() (*__premarshalUpdateEdgeGetEdgeUpdateEdge, error) {
 	var retval __premarshalUpdateEdgeGetEdgeUpdateEdge
 
+	retval.Arn = v.EdgeFields.Arn
 	retval.Description = v.EdgeFields.Description
 	retval.KmsKey = v.EdgeFields.KmsKey
 	retval.MaxReceiveCount = v.EdgeFields.MaxReceiveCount
@@ -25184,6 +25215,7 @@ mutation CreateEdge ($source: String!, $target: String!, $tenant: String!, $desc
 	}
 }
 fragment EdgeFields on Edge {
+	arn
 	description
 	kmsKey {
 		name
@@ -26510,6 +26542,7 @@ query MoveEdge ($source: String!, $target: String!, $tenant: String!, $newSource
 	}
 }
 fragment EdgeFields on Edge {
+	arn
 	description
 	kmsKey {
 		name
@@ -26712,6 +26745,7 @@ query ReadEdge ($source: String!, $target: String!, $tenant: String!) {
 	}
 }
 fragment EdgeFields on Edge {
+	arn
 	description
 	kmsKey {
 		name
@@ -27872,6 +27906,7 @@ query UpdateEdge ($source: String!, $target: String!, $tenant: String!, $descrip
 	}
 }
 fragment EdgeFields on Edge {
+	arn
 	description
 	kmsKey {
 		name

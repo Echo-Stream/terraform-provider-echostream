@@ -1,4 +1,5 @@
 fragment EdgeFields on Edge {
+    arn
     description
     kmsKey {
         name

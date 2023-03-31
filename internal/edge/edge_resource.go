@@ -52,6 +52,7 @@ func (r *EdgeResource) Configure(ctx context.Context, req resource.ConfigureRequ
 }
 
 type edgeModel struct {
+	Arn             types.String `tfsdk:"arn"`
 	Description     types.String `tfsdk:"description"`
 	KmsKey          types.String `tfsdk:"kmskey"`
 	MaxReceiveCount types.Int64  `tfsdk:"max_receive_count"`
@@ -102,6 +103,7 @@ func (r *EdgeResource) Create(ctx context.Context, req resource.CreateRequest, r
 		resp.Diagnostics.AddError("Error creating Edge", err.Error())
 		return
 	} else {
+		plan.Arn = types.StringValue(echoResp.CreateEdge.Arn)
 		if echoResp.CreateEdge.Description != nil {
 			plan.Description = types.StringValue(*echoResp.CreateEdge.Description)
 		} else {
@@ -253,6 +255,7 @@ func (r *EdgeResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 		resp.State.RemoveResource(ctx)
 		return
 	} else {
+		state.Arn = types.StringValue(echoResp.GetEdge.Arn)
 		if echoResp.GetEdge.Description != nil {
 			state.Description = types.StringValue(*echoResp.GetEdge.Description)
 		} else {
@@ -279,6 +282,10 @@ func (r *EdgeResource) Read(ctx context.Context, req resource.ReadRequest, resp 
 func (r *EdgeResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
+			"arn": schema.StringAttribute{
+				Computed:            true,
+				MarkdownDescription: "The ARN of the underlying AWS SQS Queue.",
+			},
 			"description": schema.StringAttribute{
 				MarkdownDescription: "A human-readable description.",
 				Optional:            true,
@@ -352,6 +359,7 @@ func (r *EdgeResource) Update(ctx context.Context, req resource.UpdateRequest, r
 			resp.Diagnostics.AddError("Cannot move Edge", fmt.Sprintf("'%s:%s' Edge does not exist", plan.Source.ValueString(), plan.Target.ValueString()))
 			return
 		} else {
+			plan.Arn = types.StringValue(echoResp.GetEdge.Move.Arn)
 			if echoResp.GetEdge.Move.Description != nil {
 				plan.Description = types.StringValue(*echoResp.GetEdge.Move.Description)
 			} else {
@@ -386,6 +394,7 @@ func (r *EdgeResource) Update(ctx context.Context, req resource.UpdateRequest, r
 		resp.Diagnostics.AddError("Cannot update Edge", fmt.Sprintf("'%s:%s' Edge does not exist", plan.Source.ValueString(), plan.Target.ValueString()))
 		return
 	} else {
+		plan.Arn = types.StringValue(echoResp.GetEdge.Update.Arn)
 		if echoResp.GetEdge.Update.Description != nil {
 			plan.Description = types.StringValue(*echoResp.GetEdge.Update.Description)
 		} else {
