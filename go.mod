@@ -7,7 +7,7 @@ require (
 	github.com/alexrudd/cognito-srp/v4 v4.1.0
 	github.com/aws/aws-sdk-go-v2 v1.17.8
 	github.com/aws/aws-sdk-go-v2/config v1.18.20
-	github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider v1.22.7
+	github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider v1.22.8
 	github.com/hashicorp/terraform-plugin-docs v0.14.1
 	github.com/hashicorp/terraform-plugin-framework v1.2.0
 	github.com/hashicorp/terraform-plugin-framework-validators v0.10.0
