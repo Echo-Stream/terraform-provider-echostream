@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"reflect"
 
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/attr/xattr"
@@ -168,7 +169,17 @@ func (c Config) Equal(other attr.Value) bool {
 	if c.IsNull() != o.IsNull() {
 		return false
 	}
-	return c.value == o.value
+	var (
+		cvalue map[string]any
+		ovalue map[string]any
+	)
+	if err := json.Unmarshal([]byte(c.value), &cvalue); err != nil {
+		return false
+	}
+	if err := json.Unmarshal([]byte(o.value), &ovalue); err != nil {
+		return false
+	}
+	return reflect.DeepEqual(cvalue, ovalue)
 }
 
 // IsNull returns true if the Config represents a null value.
