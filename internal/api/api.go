@@ -180,7 +180,7 @@ func (v *AppChangeReceiverNodeFields) UnmarshalJSON(b []byte) error {
 				src, dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal AppChangeReceiverNodeFields.App: %w", err)
+					"unable to unmarshal AppChangeReceiverNodeFields.App: %w", err)
 			}
 		}
 	}
@@ -213,7 +213,7 @@ func (v *AppChangeReceiverNodeFields) __premarshalJSON() (*__premarshalAppChange
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal AppChangeReceiverNodeFields.App: %w", err)
+				"unable to marshal AppChangeReceiverNodeFields.App: %w", err)
 		}
 	}
 	retval.ReceiveMessageType = v.ReceiveMessageType
@@ -1793,7 +1793,7 @@ func (v *CreateEdgeCreateEdge) __premarshalJSON() (*__premarshalCreateEdgeCreate
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal CreateEdgeCreateEdge.EdgeFields.Source: %w", err)
+				"unable to marshal CreateEdgeCreateEdge.EdgeFields.Source: %w", err)
 		}
 	}
 	{
@@ -1805,7 +1805,7 @@ func (v *CreateEdgeCreateEdge) __premarshalJSON() (*__premarshalCreateEdgeCreate
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal CreateEdgeCreateEdge.EdgeFields.Target: %w", err)
+				"unable to marshal CreateEdgeCreateEdge.EdgeFields.Target: %w", err)
 		}
 	}
 	return &retval, nil
@@ -2033,7 +2033,7 @@ func (v *CreateExternalNodeCreateExternalNode) __premarshalJSON() (*__premarshal
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal CreateExternalNodeCreateExternalNode.ExternalNodeFields.App: %w", err)
+				"unable to marshal CreateExternalNodeCreateExternalNode.ExternalNodeFields.App: %w", err)
 		}
 	}
 	retval.Config = v.ExternalNodeFields.Config
@@ -4107,7 +4107,7 @@ func (v *DeleteAppResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal DeleteAppResponse.GetApp: %w", err)
+					"unable to unmarshal DeleteAppResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -4139,7 +4139,7 @@ func (v *DeleteAppResponse) __premarshalJSON() (*__premarshalDeleteAppResponse, 
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal DeleteAppResponse.GetApp: %w", err)
+					"unable to marshal DeleteAppResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -4322,7 +4322,7 @@ func (v *DeleteFunctionResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal DeleteFunctionResponse.GetFunction: %w", err)
+					"unable to unmarshal DeleteFunctionResponse.GetFunction: %w", err)
 			}
 		}
 	}
@@ -4354,7 +4354,7 @@ func (v *DeleteFunctionResponse) __premarshalJSON() (*__premarshalDeleteFunction
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal DeleteFunctionResponse.GetFunction: %w", err)
+					"unable to marshal DeleteFunctionResponse.GetFunction: %w", err)
 			}
 		}
 	}
@@ -4432,9 +4432,9 @@ func (v *DeleteMessageTypeResponse) GetGetMessageType() *DeleteMessageTypeGetMes
 // DeleteNodeGetNodeManagedNode
 // DeleteNodeGetNodeProcessorNode
 // DeleteNodeGetNodeTimerNode
-// DeleteNodeGetNodeWebhookNode
 // DeleteNodeGetNodeWebSubHubNode
 // DeleteNodeGetNodeWebSubSubscriptionNode
+// DeleteNodeGetNodeWebhookNode
 type DeleteNodeGetNode interface {
 	implementsGraphQLInterfaceDeleteNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -4457,9 +4457,9 @@ func (v *DeleteNodeGetNodeLogEmitterNode) implementsGraphQLInterfaceDeleteNodeGe
 func (v *DeleteNodeGetNodeManagedNode) implementsGraphQLInterfaceDeleteNodeGetNode()              {}
 func (v *DeleteNodeGetNodeProcessorNode) implementsGraphQLInterfaceDeleteNodeGetNode()            {}
 func (v *DeleteNodeGetNodeTimerNode) implementsGraphQLInterfaceDeleteNodeGetNode()                {}
-func (v *DeleteNodeGetNodeWebhookNode) implementsGraphQLInterfaceDeleteNodeGetNode()              {}
 func (v *DeleteNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceDeleteNodeGetNode()            {}
 func (v *DeleteNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceDeleteNodeGetNode()   {}
+func (v *DeleteNodeGetNodeWebhookNode) implementsGraphQLInterfaceDeleteNodeGetNode()              {}
 
 func __unmarshalDeleteNodeGetNode(b []byte, v *DeleteNodeGetNode) error {
 	if string(b) == "null" {
@@ -4523,14 +4523,14 @@ func __unmarshalDeleteNodeGetNode(b []byte, v *DeleteNodeGetNode) error {
 	case "TimerNode":
 		*v = new(DeleteNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(DeleteNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(DeleteNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(DeleteNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(DeleteNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -4673,14 +4673,6 @@ func __marshalDeleteNodeGetNode(v *DeleteNodeGetNode) ([]byte, error) {
 			*DeleteNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *DeleteNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*DeleteNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *DeleteNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -4695,6 +4687,14 @@ func __marshalDeleteNodeGetNode(v *DeleteNodeGetNode) ([]byte, error) {
 		result := struct {
 			TypeName string `json:"__typename"`
 			*DeleteNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *DeleteNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*DeleteNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -4936,7 +4936,7 @@ func (v *DeleteNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal DeleteNodeResponse.GetNode: %w", err)
+					"unable to unmarshal DeleteNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -4968,7 +4968,7 @@ func (v *DeleteNodeResponse) __premarshalJSON() (*__premarshalDeleteNodeResponse
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal DeleteNodeResponse.GetNode: %w", err)
+					"unable to marshal DeleteNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -5056,7 +5056,7 @@ func (v *EdgeFields) UnmarshalJSON(b []byte) error {
 				src, dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal EdgeFields.Source: %w", err)
+					"unable to unmarshal EdgeFields.Source: %w", err)
 			}
 		}
 	}
@@ -5069,7 +5069,7 @@ func (v *EdgeFields) UnmarshalJSON(b []byte) error {
 				src, dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal EdgeFields.Target: %w", err)
+					"unable to unmarshal EdgeFields.Target: %w", err)
 			}
 		}
 	}
@@ -5120,7 +5120,7 @@ func (v *EdgeFields) __premarshalJSON() (*__premarshalEdgeFields, error) {
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal EdgeFields.Source: %w", err)
+				"unable to marshal EdgeFields.Source: %w", err)
 		}
 	}
 	{
@@ -5132,7 +5132,7 @@ func (v *EdgeFields) __premarshalJSON() (*__premarshalEdgeFields, error) {
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal EdgeFields.Target: %w", err)
+				"unable to marshal EdgeFields.Target: %w", err)
 		}
 	}
 	return &retval, nil
@@ -5341,9 +5341,9 @@ func (v *EdgeFieldsSourceManagedNode) GetName() string { return v.Name }
 // EdgeFieldsSourceManagedNode
 // EdgeFieldsSourceProcessorNode
 // EdgeFieldsSourceTimerNode
-// EdgeFieldsSourceWebhookNode
 // EdgeFieldsSourceWebSubHubNode
 // EdgeFieldsSourceWebSubSubscriptionNode
+// EdgeFieldsSourceWebhookNode
 type EdgeFieldsSourceNode interface {
 	implementsGraphQLInterfaceEdgeFieldsSourceNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -5368,9 +5368,9 @@ func (v *EdgeFieldsSourceLogEmitterNode) implementsGraphQLInterfaceEdgeFieldsSou
 func (v *EdgeFieldsSourceManagedNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()              {}
 func (v *EdgeFieldsSourceProcessorNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()            {}
 func (v *EdgeFieldsSourceTimerNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()                {}
-func (v *EdgeFieldsSourceWebhookNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()              {}
 func (v *EdgeFieldsSourceWebSubHubNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()            {}
 func (v *EdgeFieldsSourceWebSubSubscriptionNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()   {}
+func (v *EdgeFieldsSourceWebhookNode) implementsGraphQLInterfaceEdgeFieldsSourceNode()              {}
 
 func __unmarshalEdgeFieldsSourceNode(b []byte, v *EdgeFieldsSourceNode) error {
 	if string(b) == "null" {
@@ -5434,14 +5434,14 @@ func __unmarshalEdgeFieldsSourceNode(b []byte, v *EdgeFieldsSourceNode) error {
 	case "TimerNode":
 		*v = new(EdgeFieldsSourceTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(EdgeFieldsSourceWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(EdgeFieldsSourceWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(EdgeFieldsSourceWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(EdgeFieldsSourceWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -5584,14 +5584,6 @@ func __marshalEdgeFieldsSourceNode(v *EdgeFieldsSourceNode) ([]byte, error) {
 			*EdgeFieldsSourceTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *EdgeFieldsSourceWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*EdgeFieldsSourceWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *EdgeFieldsSourceWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -5606,6 +5598,14 @@ func __marshalEdgeFieldsSourceNode(v *EdgeFieldsSourceNode) ([]byte, error) {
 		result := struct {
 			TypeName string `json:"__typename"`
 			*EdgeFieldsSourceWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *EdgeFieldsSourceWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*EdgeFieldsSourceWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -5863,9 +5863,9 @@ func (v *EdgeFieldsTargetManagedNode) GetName() string { return v.Name }
 // EdgeFieldsTargetManagedNode
 // EdgeFieldsTargetProcessorNode
 // EdgeFieldsTargetTimerNode
-// EdgeFieldsTargetWebhookNode
 // EdgeFieldsTargetWebSubHubNode
 // EdgeFieldsTargetWebSubSubscriptionNode
+// EdgeFieldsTargetWebhookNode
 type EdgeFieldsTargetNode interface {
 	implementsGraphQLInterfaceEdgeFieldsTargetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -5890,9 +5890,9 @@ func (v *EdgeFieldsTargetLogEmitterNode) implementsGraphQLInterfaceEdgeFieldsTar
 func (v *EdgeFieldsTargetManagedNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()              {}
 func (v *EdgeFieldsTargetProcessorNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()            {}
 func (v *EdgeFieldsTargetTimerNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()                {}
-func (v *EdgeFieldsTargetWebhookNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()              {}
 func (v *EdgeFieldsTargetWebSubHubNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()            {}
 func (v *EdgeFieldsTargetWebSubSubscriptionNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()   {}
+func (v *EdgeFieldsTargetWebhookNode) implementsGraphQLInterfaceEdgeFieldsTargetNode()              {}
 
 func __unmarshalEdgeFieldsTargetNode(b []byte, v *EdgeFieldsTargetNode) error {
 	if string(b) == "null" {
@@ -5956,14 +5956,14 @@ func __unmarshalEdgeFieldsTargetNode(b []byte, v *EdgeFieldsTargetNode) error {
 	case "TimerNode":
 		*v = new(EdgeFieldsTargetTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(EdgeFieldsTargetWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(EdgeFieldsTargetWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(EdgeFieldsTargetWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(EdgeFieldsTargetWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -6106,14 +6106,6 @@ func __marshalEdgeFieldsTargetNode(v *EdgeFieldsTargetNode) ([]byte, error) {
 			*EdgeFieldsTargetTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *EdgeFieldsTargetWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*EdgeFieldsTargetWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *EdgeFieldsTargetWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -6128,6 +6120,14 @@ func __marshalEdgeFieldsTargetNode(v *EdgeFieldsTargetNode) ([]byte, error) {
 		result := struct {
 			TypeName string `json:"__typename"`
 			*EdgeFieldsTargetWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *EdgeFieldsTargetWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*EdgeFieldsTargetWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -6352,7 +6352,7 @@ func (v *ExternalNodeFields) UnmarshalJSON(b []byte) error {
 				src, dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal ExternalNodeFields.App: %w", err)
+					"unable to unmarshal ExternalNodeFields.App: %w", err)
 			}
 		}
 	}
@@ -6389,7 +6389,7 @@ func (v *ExternalNodeFields) __premarshalJSON() (*__premarshalExternalNodeFields
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal ExternalNodeFields.App: %w", err)
+				"unable to marshal ExternalNodeFields.App: %w", err)
 		}
 	}
 	retval.Config = v.Config
@@ -7312,7 +7312,7 @@ func (v *MoveEdgeGetEdgeMoveEdge) __premarshalJSON() (*__premarshalMoveEdgeGetEd
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal MoveEdgeGetEdgeMoveEdge.EdgeFields.Source: %w", err)
+				"unable to marshal MoveEdgeGetEdgeMoveEdge.EdgeFields.Source: %w", err)
 		}
 	}
 	{
@@ -7324,7 +7324,7 @@ func (v *MoveEdgeGetEdgeMoveEdge) __premarshalJSON() (*__premarshalMoveEdgeGetEd
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal MoveEdgeGetEdgeMoveEdge.EdgeFields.Target: %w", err)
+				"unable to marshal MoveEdgeGetEdgeMoveEdge.EdgeFields.Target: %w", err)
 		}
 	}
 	return &retval, nil
@@ -7357,9 +7357,9 @@ func (v *MoveEdgeResponse) GetGetEdge() *MoveEdgeGetEdge { return v.GetEdge }
 // NodeFieldsManagedNode
 // NodeFieldsProcessorNode
 // NodeFieldsTimerNode
-// NodeFieldsWebhookNode
 // NodeFieldsWebSubHubNode
 // NodeFieldsWebSubSubscriptionNode
+// NodeFieldsWebhookNode
 type NodeFields interface {
 	implementsGraphQLInterfaceNodeFields()
 	// GetDescription returns the interface-field "description" from its implementation.
@@ -7384,9 +7384,9 @@ func (v *NodeFieldsLogEmitterNode) implementsGraphQLInterfaceNodeFields()       
 func (v *NodeFieldsManagedNode) implementsGraphQLInterfaceNodeFields()              {}
 func (v *NodeFieldsProcessorNode) implementsGraphQLInterfaceNodeFields()            {}
 func (v *NodeFieldsTimerNode) implementsGraphQLInterfaceNodeFields()                {}
-func (v *NodeFieldsWebhookNode) implementsGraphQLInterfaceNodeFields()              {}
 func (v *NodeFieldsWebSubHubNode) implementsGraphQLInterfaceNodeFields()            {}
 func (v *NodeFieldsWebSubSubscriptionNode) implementsGraphQLInterfaceNodeFields()   {}
+func (v *NodeFieldsWebhookNode) implementsGraphQLInterfaceNodeFields()              {}
 
 func __unmarshalNodeFields(b []byte, v *NodeFields) error {
 	if string(b) == "null" {
@@ -7450,14 +7450,14 @@ func __unmarshalNodeFields(b []byte, v *NodeFields) error {
 	case "TimerNode":
 		*v = new(NodeFieldsTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(NodeFieldsWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(NodeFieldsWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(NodeFieldsWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(NodeFieldsWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -7600,14 +7600,6 @@ func __marshalNodeFields(v *NodeFields) ([]byte, error) {
 			*NodeFieldsTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *NodeFieldsWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*NodeFieldsWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *NodeFieldsWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -7622,6 +7614,14 @@ func __marshalNodeFields(v *NodeFields) ([]byte, error) {
 		result := struct {
 			TypeName string `json:"__typename"`
 			*NodeFieldsWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *NodeFieldsWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*NodeFieldsWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -8767,7 +8767,7 @@ func (v *ReadAppResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal ReadAppResponse.GetApp: %w", err)
+					"unable to unmarshal ReadAppResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -8799,7 +8799,7 @@ func (v *ReadAppResponse) __premarshalJSON() (*__premarshalReadAppResponse, erro
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal ReadAppResponse.GetApp: %w", err)
+					"unable to marshal ReadAppResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -8904,7 +8904,7 @@ func (v *ReadEdgeGetEdge) __premarshalJSON() (*__premarshalReadEdgeGetEdge, erro
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal ReadEdgeGetEdge.EdgeFields.Source: %w", err)
+				"unable to marshal ReadEdgeGetEdge.EdgeFields.Source: %w", err)
 		}
 	}
 	{
@@ -8916,7 +8916,7 @@ func (v *ReadEdgeGetEdge) __premarshalJSON() (*__premarshalReadEdgeGetEdge, erro
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal ReadEdgeGetEdge.EdgeFields.Target: %w", err)
+				"unable to marshal ReadEdgeGetEdge.EdgeFields.Target: %w", err)
 		}
 	}
 	return &retval, nil
@@ -9428,7 +9428,7 @@ func (v *ReadFunctionResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal ReadFunctionResponse.GetFunction: %w", err)
+					"unable to unmarshal ReadFunctionResponse.GetFunction: %w", err)
 			}
 		}
 	}
@@ -9460,7 +9460,7 @@ func (v *ReadFunctionResponse) __premarshalJSON() (*__premarshalReadFunctionResp
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal ReadFunctionResponse.GetFunction: %w", err)
+					"unable to marshal ReadFunctionResponse.GetFunction: %w", err)
 			}
 		}
 	}
@@ -9737,7 +9737,7 @@ func (v *ReadManagedAppIsoResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal ReadManagedAppIsoResponse.GetApp: %w", err)
+					"unable to unmarshal ReadManagedAppIsoResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -9769,7 +9769,7 @@ func (v *ReadManagedAppIsoResponse) __premarshalJSON() (*__premarshalReadManaged
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal ReadManagedAppIsoResponse.GetApp: %w", err)
+					"unable to marshal ReadManagedAppIsoResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -9972,7 +9972,7 @@ func (v *ReadManagedAppUserdataResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal ReadManagedAppUserdataResponse.GetApp: %w", err)
+					"unable to unmarshal ReadManagedAppUserdataResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -10004,7 +10004,7 @@ func (v *ReadManagedAppUserdataResponse) __premarshalJSON() (*__premarshalReadMa
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal ReadManagedAppUserdataResponse.GetApp: %w", err)
+					"unable to marshal ReadManagedAppUserdataResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -10296,9 +10296,9 @@ func (v *ReadMessageTypeResponse) GetGetMessageType() *ReadMessageTypeGetMessage
 // ReadNodeGetNodeManagedNode
 // ReadNodeGetNodeProcessorNode
 // ReadNodeGetNodeTimerNode
-// ReadNodeGetNodeWebhookNode
 // ReadNodeGetNodeWebSubHubNode
 // ReadNodeGetNodeWebSubSubscriptionNode
+// ReadNodeGetNodeWebhookNode
 type ReadNodeGetNode interface {
 	implementsGraphQLInterfaceReadNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -10322,9 +10322,9 @@ func (v *ReadNodeGetNodeLogEmitterNode) implementsGraphQLInterfaceReadNodeGetNod
 func (v *ReadNodeGetNodeManagedNode) implementsGraphQLInterfaceReadNodeGetNode()              {}
 func (v *ReadNodeGetNodeProcessorNode) implementsGraphQLInterfaceReadNodeGetNode()            {}
 func (v *ReadNodeGetNodeTimerNode) implementsGraphQLInterfaceReadNodeGetNode()                {}
-func (v *ReadNodeGetNodeWebhookNode) implementsGraphQLInterfaceReadNodeGetNode()              {}
 func (v *ReadNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceReadNodeGetNode()            {}
 func (v *ReadNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceReadNodeGetNode()   {}
+func (v *ReadNodeGetNodeWebhookNode) implementsGraphQLInterfaceReadNodeGetNode()              {}
 
 func __unmarshalReadNodeGetNode(b []byte, v *ReadNodeGetNode) error {
 	if string(b) == "null" {
@@ -10388,14 +10388,14 @@ func __unmarshalReadNodeGetNode(b []byte, v *ReadNodeGetNode) error {
 	case "TimerNode":
 		*v = new(ReadNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(ReadNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(ReadNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(ReadNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(ReadNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -10602,18 +10602,6 @@ func __marshalReadNodeGetNode(v *ReadNodeGetNode) ([]byte, error) {
 			*__premarshalReadNodeGetNodeTimerNode
 		}{typename, premarshaled}
 		return json.Marshal(result)
-	case *ReadNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		premarshaled, err := v.__premarshalJSON()
-		if err != nil {
-			return nil, err
-		}
-		result := struct {
-			TypeName string `json:"__typename"`
-			*__premarshalReadNodeGetNodeWebhookNode
-		}{typename, premarshaled}
-		return json.Marshal(result)
 	case *ReadNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -10636,6 +10624,18 @@ func __marshalReadNodeGetNode(v *ReadNodeGetNode) ([]byte, error) {
 		result := struct {
 			TypeName string `json:"__typename"`
 			*__premarshalReadNodeGetNodeWebSubSubscriptionNode
+		}{typename, premarshaled}
+		return json.Marshal(result)
+	case *ReadNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		premarshaled, err := v.__premarshalJSON()
+		if err != nil {
+			return nil, err
+		}
+		result := struct {
+			TypeName string `json:"__typename"`
+			*__premarshalReadNodeGetNodeWebhookNode
 		}{typename, premarshaled}
 		return json.Marshal(result)
 	case nil:
@@ -10822,7 +10822,7 @@ func (v *ReadNodeGetNodeAppChangeReceiverNode) __premarshalJSON() (*__premarshal
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal ReadNodeGetNodeAppChangeReceiverNode.AppChangeReceiverNodeFields.App: %w", err)
+				"unable to marshal ReadNodeGetNodeAppChangeReceiverNode.AppChangeReceiverNodeFields.App: %w", err)
 		}
 	}
 	retval.ReceiveMessageType = v.AppChangeReceiverNodeFields.ReceiveMessageType
@@ -11645,7 +11645,7 @@ func (v *ReadNodeGetNodeExternalNode) __premarshalJSON() (*__premarshalReadNodeG
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal ReadNodeGetNodeExternalNode.ExternalNodeFields.App: %w", err)
+				"unable to marshal ReadNodeGetNodeExternalNode.ExternalNodeFields.App: %w", err)
 		}
 	}
 	retval.Config = v.ExternalNodeFields.Config
@@ -12658,9 +12658,9 @@ func (v *ReadNodeGetNodeWebhookNode) __premarshalJSON() (*__premarshalReadNodeGe
 // ReadNodeMessageTypesGetNodeManagedNode
 // ReadNodeMessageTypesGetNodeProcessorNode
 // ReadNodeMessageTypesGetNodeTimerNode
-// ReadNodeMessageTypesGetNodeWebhookNode
 // ReadNodeMessageTypesGetNodeWebSubHubNode
 // ReadNodeMessageTypesGetNodeWebSubSubscriptionNode
+// ReadNodeMessageTypesGetNodeWebhookNode
 type ReadNodeMessageTypesGetNode interface {
 	implementsGraphQLInterfaceReadNodeMessageTypesGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -12699,11 +12699,11 @@ func (v *ReadNodeMessageTypesGetNodeProcessorNode) implementsGraphQLInterfaceRea
 }
 func (v *ReadNodeMessageTypesGetNodeTimerNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
 }
-func (v *ReadNodeMessageTypesGetNodeWebhookNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
-}
 func (v *ReadNodeMessageTypesGetNodeWebSubHubNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
 }
 func (v *ReadNodeMessageTypesGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
+}
+func (v *ReadNodeMessageTypesGetNodeWebhookNode) implementsGraphQLInterfaceReadNodeMessageTypesGetNode() {
 }
 
 func __unmarshalReadNodeMessageTypesGetNode(b []byte, v *ReadNodeMessageTypesGetNode) error {
@@ -12768,14 +12768,14 @@ func __unmarshalReadNodeMessageTypesGetNode(b []byte, v *ReadNodeMessageTypesGet
 	case "TimerNode":
 		*v = new(ReadNodeMessageTypesGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(ReadNodeMessageTypesGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(ReadNodeMessageTypesGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(ReadNodeMessageTypesGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(ReadNodeMessageTypesGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -12918,14 +12918,6 @@ func __marshalReadNodeMessageTypesGetNode(v *ReadNodeMessageTypesGetNode) ([]byt
 			*ReadNodeMessageTypesGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *ReadNodeMessageTypesGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*ReadNodeMessageTypesGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *ReadNodeMessageTypesGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -12940,6 +12932,14 @@ func __marshalReadNodeMessageTypesGetNode(v *ReadNodeMessageTypesGetNode) ([]byt
 		result := struct {
 			TypeName string `json:"__typename"`
 			*ReadNodeMessageTypesGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *ReadNodeMessageTypesGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*ReadNodeMessageTypesGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -13493,7 +13493,7 @@ func (v *ReadNodeMessageTypesResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal ReadNodeMessageTypesResponse.GetNode: %w", err)
+					"unable to unmarshal ReadNodeMessageTypesResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -13525,7 +13525,7 @@ func (v *ReadNodeMessageTypesResponse) __premarshalJSON() (*__premarshalReadNode
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal ReadNodeMessageTypesResponse.GetNode: %w", err)
+					"unable to marshal ReadNodeMessageTypesResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -13567,7 +13567,7 @@ func (v *ReadNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal ReadNodeResponse.GetNode: %w", err)
+					"unable to unmarshal ReadNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -13599,7 +13599,7 @@ func (v *ReadNodeResponse) __premarshalJSON() (*__premarshalReadNodeResponse, er
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal ReadNodeResponse.GetNode: %w", err)
+					"unable to marshal ReadNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -14021,9 +14021,9 @@ func (v *UpdateApiUserResponse) GetGetApiUser() *UpdateApiUserGetApiUser { retur
 // UpdateBitmapRouterNodeGetNodeManagedNode
 // UpdateBitmapRouterNodeGetNodeProcessorNode
 // UpdateBitmapRouterNodeGetNodeTimerNode
-// UpdateBitmapRouterNodeGetNodeWebhookNode
 // UpdateBitmapRouterNodeGetNodeWebSubHubNode
 // UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode
+// UpdateBitmapRouterNodeGetNodeWebhookNode
 type UpdateBitmapRouterNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -14062,11 +14062,11 @@ func (v *UpdateBitmapRouterNodeGetNodeProcessorNode) implementsGraphQLInterfaceU
 }
 func (v *UpdateBitmapRouterNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
-func (v *UpdateBitmapRouterNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
-}
 func (v *UpdateBitmapRouterNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
 func (v *UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
+}
+func (v *UpdateBitmapRouterNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateBitmapRouterNodeGetNode() {
 }
 
 func __unmarshalUpdateBitmapRouterNodeGetNode(b []byte, v *UpdateBitmapRouterNodeGetNode) error {
@@ -14131,14 +14131,14 @@ func __unmarshalUpdateBitmapRouterNodeGetNode(b []byte, v *UpdateBitmapRouterNod
 	case "TimerNode":
 		*v = new(UpdateBitmapRouterNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(UpdateBitmapRouterNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(UpdateBitmapRouterNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateBitmapRouterNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -14281,14 +14281,6 @@ func __marshalUpdateBitmapRouterNodeGetNode(v *UpdateBitmapRouterNodeGetNode) ([
 			*UpdateBitmapRouterNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateBitmapRouterNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*UpdateBitmapRouterNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *UpdateBitmapRouterNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -14303,6 +14295,14 @@ func __marshalUpdateBitmapRouterNodeGetNode(v *UpdateBitmapRouterNodeGetNode) ([
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateBitmapRouterNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateBitmapRouterNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateBitmapRouterNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -14648,7 +14648,7 @@ func (v *UpdateBitmapRouterNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateBitmapRouterNodeResponse.GetNode: %w", err)
+					"unable to unmarshal UpdateBitmapRouterNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -14680,7 +14680,7 @@ func (v *UpdateBitmapRouterNodeResponse) __premarshalJSON() (*__premarshalUpdate
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateBitmapRouterNodeResponse.GetNode: %w", err)
+					"unable to marshal UpdateBitmapRouterNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -15057,7 +15057,7 @@ func (v *UpdateCrossTenantAppResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateCrossTenantAppResponse.GetApp: %w", err)
+					"unable to unmarshal UpdateCrossTenantAppResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -15089,7 +15089,7 @@ func (v *UpdateCrossTenantAppResponse) __premarshalJSON() (*__premarshalUpdateCr
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateCrossTenantAppResponse.GetApp: %w", err)
+					"unable to marshal UpdateCrossTenantAppResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -15115,9 +15115,9 @@ func (v *UpdateCrossTenantAppResponse) __premarshalJSON() (*__premarshalUpdateCr
 // UpdateCrossTenantSendingNodeGetNodeManagedNode
 // UpdateCrossTenantSendingNodeGetNodeProcessorNode
 // UpdateCrossTenantSendingNodeGetNodeTimerNode
-// UpdateCrossTenantSendingNodeGetNodeWebhookNode
 // UpdateCrossTenantSendingNodeGetNodeWebSubHubNode
 // UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode
+// UpdateCrossTenantSendingNodeGetNodeWebhookNode
 type UpdateCrossTenantSendingNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -15156,11 +15156,11 @@ func (v *UpdateCrossTenantSendingNodeGetNodeProcessorNode) implementsGraphQLInte
 }
 func (v *UpdateCrossTenantSendingNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode() {
 }
-func (v *UpdateCrossTenantSendingNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode() {
-}
 func (v *UpdateCrossTenantSendingNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode() {
 }
 func (v *UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode() {
+}
+func (v *UpdateCrossTenantSendingNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateCrossTenantSendingNodeGetNode() {
 }
 
 func __unmarshalUpdateCrossTenantSendingNodeGetNode(b []byte, v *UpdateCrossTenantSendingNodeGetNode) error {
@@ -15225,14 +15225,14 @@ func __unmarshalUpdateCrossTenantSendingNodeGetNode(b []byte, v *UpdateCrossTena
 	case "TimerNode":
 		*v = new(UpdateCrossTenantSendingNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(UpdateCrossTenantSendingNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(UpdateCrossTenantSendingNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateCrossTenantSendingNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -15375,14 +15375,6 @@ func __marshalUpdateCrossTenantSendingNodeGetNode(v *UpdateCrossTenantSendingNod
 			*UpdateCrossTenantSendingNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateCrossTenantSendingNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*UpdateCrossTenantSendingNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *UpdateCrossTenantSendingNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -15397,6 +15389,14 @@ func __marshalUpdateCrossTenantSendingNodeGetNode(v *UpdateCrossTenantSendingNod
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateCrossTenantSendingNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateCrossTenantSendingNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateCrossTenantSendingNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -15766,7 +15766,7 @@ func (v *UpdateCrossTenantSendingNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateCrossTenantSendingNodeResponse.GetNode: %w", err)
+					"unable to unmarshal UpdateCrossTenantSendingNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -15798,7 +15798,7 @@ func (v *UpdateCrossTenantSendingNodeResponse) __premarshalJSON() (*__premarshal
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateCrossTenantSendingNodeResponse.GetNode: %w", err)
+					"unable to marshal UpdateCrossTenantSendingNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -15913,7 +15913,7 @@ func (v *UpdateEdgeGetEdgeUpdateEdge) __premarshalJSON() (*__premarshalUpdateEdg
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal UpdateEdgeGetEdgeUpdateEdge.EdgeFields.Source: %w", err)
+				"unable to marshal UpdateEdgeGetEdgeUpdateEdge.EdgeFields.Source: %w", err)
 		}
 	}
 	{
@@ -15925,7 +15925,7 @@ func (v *UpdateEdgeGetEdgeUpdateEdge) __premarshalJSON() (*__premarshalUpdateEdg
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal UpdateEdgeGetEdgeUpdateEdge.EdgeFields.Target: %w", err)
+				"unable to marshal UpdateEdgeGetEdgeUpdateEdge.EdgeFields.Target: %w", err)
 		}
 	}
 	return &retval, nil
@@ -15958,9 +15958,9 @@ func (v *UpdateEdgeResponse) GetGetEdge() *UpdateEdgeGetEdge { return v.GetEdge 
 // UpdateExternalNodeGetNodeManagedNode
 // UpdateExternalNodeGetNodeProcessorNode
 // UpdateExternalNodeGetNodeTimerNode
-// UpdateExternalNodeGetNodeWebhookNode
 // UpdateExternalNodeGetNodeWebSubHubNode
 // UpdateExternalNodeGetNodeWebSubSubscriptionNode
+// UpdateExternalNodeGetNodeWebhookNode
 type UpdateExternalNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateExternalNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -15998,11 +15998,11 @@ func (v *UpdateExternalNodeGetNodeManagedNode) implementsGraphQLInterfaceUpdateE
 func (v *UpdateExternalNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdateExternalNodeGetNode() {
 }
 func (v *UpdateExternalNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateExternalNodeGetNode() {}
-func (v *UpdateExternalNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateExternalNodeGetNode() {
-}
 func (v *UpdateExternalNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateExternalNodeGetNode() {
 }
 func (v *UpdateExternalNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateExternalNodeGetNode() {
+}
+func (v *UpdateExternalNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateExternalNodeGetNode() {
 }
 
 func __unmarshalUpdateExternalNodeGetNode(b []byte, v *UpdateExternalNodeGetNode) error {
@@ -16067,14 +16067,14 @@ func __unmarshalUpdateExternalNodeGetNode(b []byte, v *UpdateExternalNodeGetNode
 	case "TimerNode":
 		*v = new(UpdateExternalNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(UpdateExternalNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(UpdateExternalNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(UpdateExternalNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateExternalNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -16217,14 +16217,6 @@ func __marshalUpdateExternalNodeGetNode(v *UpdateExternalNodeGetNode) ([]byte, e
 			*UpdateExternalNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateExternalNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*UpdateExternalNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *UpdateExternalNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -16239,6 +16231,14 @@ func __marshalUpdateExternalNodeGetNode(v *UpdateExternalNodeGetNode) ([]byte, e
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateExternalNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateExternalNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateExternalNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -16437,7 +16437,7 @@ func (v *UpdateExternalNodeGetNodeExternalNodeUpdateExternalNode) __premarshalJS
 			&src)
 		if err != nil {
 			return nil, fmt.Errorf(
-				"Unable to marshal UpdateExternalNodeGetNodeExternalNodeUpdateExternalNode.ExternalNodeFields.App: %w", err)
+				"unable to marshal UpdateExternalNodeGetNodeExternalNodeUpdateExternalNode.ExternalNodeFields.App: %w", err)
 		}
 	}
 	retval.Config = v.ExternalNodeFields.Config
@@ -16553,7 +16553,7 @@ func (v *UpdateExternalNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateExternalNodeResponse.GetNode: %w", err)
+					"unable to unmarshal UpdateExternalNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -16585,7 +16585,7 @@ func (v *UpdateExternalNodeResponse) __premarshalJSON() (*__premarshalUpdateExte
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateExternalNodeResponse.GetNode: %w", err)
+					"unable to marshal UpdateExternalNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -16611,9 +16611,9 @@ func (v *UpdateExternalNodeResponse) __premarshalJSON() (*__premarshalUpdateExte
 // UpdateFilesDotComWebhookNodeGetNodeManagedNode
 // UpdateFilesDotComWebhookNodeGetNodeProcessorNode
 // UpdateFilesDotComWebhookNodeGetNodeTimerNode
-// UpdateFilesDotComWebhookNodeGetNodeWebhookNode
 // UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode
 // UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode
+// UpdateFilesDotComWebhookNodeGetNodeWebhookNode
 type UpdateFilesDotComWebhookNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -16652,11 +16652,11 @@ func (v *UpdateFilesDotComWebhookNodeGetNodeProcessorNode) implementsGraphQLInte
 }
 func (v *UpdateFilesDotComWebhookNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode() {
 }
-func (v *UpdateFilesDotComWebhookNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode() {
-}
 func (v *UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode() {
 }
 func (v *UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode() {
+}
+func (v *UpdateFilesDotComWebhookNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateFilesDotComWebhookNodeGetNode() {
 }
 
 func __unmarshalUpdateFilesDotComWebhookNodeGetNode(b []byte, v *UpdateFilesDotComWebhookNodeGetNode) error {
@@ -16721,14 +16721,14 @@ func __unmarshalUpdateFilesDotComWebhookNodeGetNode(b []byte, v *UpdateFilesDotC
 	case "TimerNode":
 		*v = new(UpdateFilesDotComWebhookNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(UpdateFilesDotComWebhookNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateFilesDotComWebhookNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -16871,14 +16871,6 @@ func __marshalUpdateFilesDotComWebhookNodeGetNode(v *UpdateFilesDotComWebhookNod
 			*UpdateFilesDotComWebhookNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateFilesDotComWebhookNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*UpdateFilesDotComWebhookNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *UpdateFilesDotComWebhookNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -16893,6 +16885,14 @@ func __marshalUpdateFilesDotComWebhookNodeGetNode(v *UpdateFilesDotComWebhookNod
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateFilesDotComWebhookNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateFilesDotComWebhookNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateFilesDotComWebhookNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -17214,7 +17214,7 @@ func (v *UpdateFilesDotComWebhookNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateFilesDotComWebhookNodeResponse.GetNode: %w", err)
+					"unable to unmarshal UpdateFilesDotComWebhookNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -17246,7 +17246,7 @@ func (v *UpdateFilesDotComWebhookNodeResponse) __premarshalJSON() (*__premarshal
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateFilesDotComWebhookNodeResponse.GetNode: %w", err)
+					"unable to marshal UpdateFilesDotComWebhookNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -17759,7 +17759,7 @@ func (v *UpdateFunctionResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateFunctionResponse.GetFunction: %w", err)
+					"unable to unmarshal UpdateFunctionResponse.GetFunction: %w", err)
 			}
 		}
 	}
@@ -17791,7 +17791,7 @@ func (v *UpdateFunctionResponse) __premarshalJSON() (*__premarshalUpdateFunction
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateFunctionResponse.GetFunction: %w", err)
+					"unable to marshal UpdateFunctionResponse.GetFunction: %w", err)
 			}
 		}
 	}
@@ -17905,9 +17905,9 @@ func (v *UpdateKmsKeyResponse) GetGetKmsKey() *UpdateKmsKeyGetKmsKey { return v.
 // UpdateLoadBalancerNodeGetNodeManagedNode
 // UpdateLoadBalancerNodeGetNodeProcessorNode
 // UpdateLoadBalancerNodeGetNodeTimerNode
-// UpdateLoadBalancerNodeGetNodeWebhookNode
 // UpdateLoadBalancerNodeGetNodeWebSubHubNode
 // UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode
+// UpdateLoadBalancerNodeGetNodeWebhookNode
 type UpdateLoadBalancerNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -17946,11 +17946,11 @@ func (v *UpdateLoadBalancerNodeGetNodeProcessorNode) implementsGraphQLInterfaceU
 }
 func (v *UpdateLoadBalancerNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode() {
 }
-func (v *UpdateLoadBalancerNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode() {
-}
 func (v *UpdateLoadBalancerNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode() {
 }
 func (v *UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode() {
+}
+func (v *UpdateLoadBalancerNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateLoadBalancerNodeGetNode() {
 }
 
 func __unmarshalUpdateLoadBalancerNodeGetNode(b []byte, v *UpdateLoadBalancerNodeGetNode) error {
@@ -18015,14 +18015,14 @@ func __unmarshalUpdateLoadBalancerNodeGetNode(b []byte, v *UpdateLoadBalancerNod
 	case "TimerNode":
 		*v = new(UpdateLoadBalancerNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(UpdateLoadBalancerNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(UpdateLoadBalancerNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateLoadBalancerNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -18165,14 +18165,6 @@ func __marshalUpdateLoadBalancerNodeGetNode(v *UpdateLoadBalancerNodeGetNode) ([
 			*UpdateLoadBalancerNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateLoadBalancerNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*UpdateLoadBalancerNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *UpdateLoadBalancerNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -18187,6 +18179,14 @@ func __marshalUpdateLoadBalancerNodeGetNode(v *UpdateLoadBalancerNodeGetNode) ([
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateLoadBalancerNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateLoadBalancerNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateLoadBalancerNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -18484,7 +18484,7 @@ func (v *UpdateLoadBalancerNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateLoadBalancerNodeResponse.GetNode: %w", err)
+					"unable to unmarshal UpdateLoadBalancerNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -18516,7 +18516,7 @@ func (v *UpdateLoadBalancerNodeResponse) __premarshalJSON() (*__premarshalUpdate
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateLoadBalancerNodeResponse.GetNode: %w", err)
+					"unable to marshal UpdateLoadBalancerNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -18542,9 +18542,9 @@ func (v *UpdateLoadBalancerNodeResponse) __premarshalJSON() (*__premarshalUpdate
 // UpdateManagedNodeGetNodeManagedNode
 // UpdateManagedNodeGetNodeProcessorNode
 // UpdateManagedNodeGetNodeTimerNode
-// UpdateManagedNodeGetNodeWebhookNode
 // UpdateManagedNodeGetNodeWebSubHubNode
 // UpdateManagedNodeGetNodeWebSubSubscriptionNode
+// UpdateManagedNodeGetNodeWebhookNode
 type UpdateManagedNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateManagedNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -18579,12 +18579,12 @@ func (v *UpdateManagedNodeGetNodeLogEmitterNode) implementsGraphQLInterfaceUpdat
 func (v *UpdateManagedNodeGetNodeManagedNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode() {}
 func (v *UpdateManagedNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode() {
 }
-func (v *UpdateManagedNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode()   {}
-func (v *UpdateManagedNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode() {}
+func (v *UpdateManagedNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode() {}
 func (v *UpdateManagedNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode() {
 }
 func (v *UpdateManagedNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode() {
 }
+func (v *UpdateManagedNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateManagedNodeGetNode() {}
 
 func __unmarshalUpdateManagedNodeGetNode(b []byte, v *UpdateManagedNodeGetNode) error {
 	if string(b) == "null" {
@@ -18648,14 +18648,14 @@ func __unmarshalUpdateManagedNodeGetNode(b []byte, v *UpdateManagedNodeGetNode) 
 	case "TimerNode":
 		*v = new(UpdateManagedNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(UpdateManagedNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(UpdateManagedNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(UpdateManagedNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateManagedNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -18798,14 +18798,6 @@ func __marshalUpdateManagedNodeGetNode(v *UpdateManagedNodeGetNode) ([]byte, err
 			*UpdateManagedNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateManagedNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*UpdateManagedNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *UpdateManagedNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -18820,6 +18812,14 @@ func __marshalUpdateManagedNodeGetNode(v *UpdateManagedNodeGetNode) ([]byte, err
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateManagedNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateManagedNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateManagedNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -19155,7 +19155,7 @@ func (v *UpdateManagedNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateManagedNodeResponse.GetNode: %w", err)
+					"unable to unmarshal UpdateManagedNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -19187,7 +19187,7 @@ func (v *UpdateManagedNodeResponse) __premarshalJSON() (*__premarshalUpdateManag
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateManagedNodeResponse.GetNode: %w", err)
+					"unable to marshal UpdateManagedNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -19513,9 +19513,9 @@ func (v *UpdateMessageTypeResponse) GetGetMessageType() *UpdateMessageTypeGetMes
 // UpdateProcessorNodeGetNodeManagedNode
 // UpdateProcessorNodeGetNodeProcessorNode
 // UpdateProcessorNodeGetNodeTimerNode
-// UpdateProcessorNodeGetNodeWebhookNode
 // UpdateProcessorNodeGetNodeWebSubHubNode
 // UpdateProcessorNodeGetNodeWebSubSubscriptionNode
+// UpdateProcessorNodeGetNodeWebhookNode
 type UpdateProcessorNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateProcessorNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -19554,11 +19554,11 @@ func (v *UpdateProcessorNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpda
 }
 func (v *UpdateProcessorNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateProcessorNodeGetNode() {
 }
-func (v *UpdateProcessorNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateProcessorNodeGetNode() {
-}
 func (v *UpdateProcessorNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateProcessorNodeGetNode() {
 }
 func (v *UpdateProcessorNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateProcessorNodeGetNode() {
+}
+func (v *UpdateProcessorNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateProcessorNodeGetNode() {
 }
 
 func __unmarshalUpdateProcessorNodeGetNode(b []byte, v *UpdateProcessorNodeGetNode) error {
@@ -19623,14 +19623,14 @@ func __unmarshalUpdateProcessorNodeGetNode(b []byte, v *UpdateProcessorNodeGetNo
 	case "TimerNode":
 		*v = new(UpdateProcessorNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(UpdateProcessorNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(UpdateProcessorNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(UpdateProcessorNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateProcessorNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -19773,14 +19773,6 @@ func __marshalUpdateProcessorNodeGetNode(v *UpdateProcessorNodeGetNode) ([]byte,
 			*UpdateProcessorNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateProcessorNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*UpdateProcessorNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *UpdateProcessorNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -19795,6 +19787,14 @@ func __marshalUpdateProcessorNodeGetNode(v *UpdateProcessorNodeGetNode) ([]byte,
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateProcessorNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateProcessorNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateProcessorNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -20130,7 +20130,7 @@ func (v *UpdateProcessorNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateProcessorNodeResponse.GetNode: %w", err)
+					"unable to unmarshal UpdateProcessorNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -20162,7 +20162,7 @@ func (v *UpdateProcessorNodeResponse) __premarshalJSON() (*__premarshalUpdatePro
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateProcessorNodeResponse.GetNode: %w", err)
+					"unable to marshal UpdateProcessorNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -20706,7 +20706,7 @@ func (v *UpdateRemotetAppResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateRemotetAppResponse.GetApp: %w", err)
+					"unable to unmarshal UpdateRemotetAppResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -20738,7 +20738,7 @@ func (v *UpdateRemotetAppResponse) __premarshalJSON() (*__premarshalUpdateRemote
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateRemotetAppResponse.GetApp: %w", err)
+					"unable to marshal UpdateRemotetAppResponse.GetApp: %w", err)
 			}
 		}
 	}
@@ -20970,9 +20970,9 @@ func (v *UpdateTenantUserResponse) GetGetTenantUser() *UpdateTenantUserGetTenant
 // UpdateTimerNodeGetNodeManagedNode
 // UpdateTimerNodeGetNodeProcessorNode
 // UpdateTimerNodeGetNodeTimerNode
-// UpdateTimerNodeGetNodeWebhookNode
 // UpdateTimerNodeGetNodeWebSubHubNode
 // UpdateTimerNodeGetNodeWebSubSubscriptionNode
+// UpdateTimerNodeGetNodeWebhookNode
 type UpdateTimerNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateTimerNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -21002,10 +21002,10 @@ func (v *UpdateTimerNodeGetNodeLogEmitterNode) implementsGraphQLInterfaceUpdateT
 func (v *UpdateTimerNodeGetNodeManagedNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode()      {}
 func (v *UpdateTimerNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode()    {}
 func (v *UpdateTimerNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode()        {}
-func (v *UpdateTimerNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode()      {}
 func (v *UpdateTimerNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode()    {}
 func (v *UpdateTimerNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode() {
 }
+func (v *UpdateTimerNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateTimerNodeGetNode() {}
 
 func __unmarshalUpdateTimerNodeGetNode(b []byte, v *UpdateTimerNodeGetNode) error {
 	if string(b) == "null" {
@@ -21069,14 +21069,14 @@ func __unmarshalUpdateTimerNodeGetNode(b []byte, v *UpdateTimerNodeGetNode) erro
 	case "TimerNode":
 		*v = new(UpdateTimerNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(UpdateTimerNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(UpdateTimerNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(UpdateTimerNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateTimerNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -21219,14 +21219,6 @@ func __marshalUpdateTimerNodeGetNode(v *UpdateTimerNodeGetNode) ([]byte, error) 
 			*UpdateTimerNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateTimerNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*UpdateTimerNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *UpdateTimerNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -21241,6 +21233,14 @@ func __marshalUpdateTimerNodeGetNode(v *UpdateTimerNodeGetNode) ([]byte, error) 
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateTimerNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateTimerNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateTimerNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -21528,7 +21528,7 @@ func (v *UpdateTimerNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateTimerNodeResponse.GetNode: %w", err)
+					"unable to unmarshal UpdateTimerNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -21560,7 +21560,7 @@ func (v *UpdateTimerNodeResponse) __premarshalJSON() (*__premarshalUpdateTimerNo
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateTimerNodeResponse.GetNode: %w", err)
+					"unable to marshal UpdateTimerNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -21586,9 +21586,9 @@ func (v *UpdateTimerNodeResponse) __premarshalJSON() (*__premarshalUpdateTimerNo
 // UpdateWebSubHubNodeGetNodeManagedNode
 // UpdateWebSubHubNodeGetNodeProcessorNode
 // UpdateWebSubHubNodeGetNodeTimerNode
-// UpdateWebSubHubNodeGetNodeWebhookNode
 // UpdateWebSubHubNodeGetNodeWebSubHubNode
 // UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode
+// UpdateWebSubHubNodeGetNodeWebhookNode
 type UpdateWebSubHubNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -21627,11 +21627,11 @@ func (v *UpdateWebSubHubNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpda
 }
 func (v *UpdateWebSubHubNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
 }
-func (v *UpdateWebSubHubNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
-}
 func (v *UpdateWebSubHubNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
 }
 func (v *UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
+}
+func (v *UpdateWebSubHubNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateWebSubHubNodeGetNode() {
 }
 
 func __unmarshalUpdateWebSubHubNodeGetNode(b []byte, v *UpdateWebSubHubNodeGetNode) error {
@@ -21696,14 +21696,14 @@ func __unmarshalUpdateWebSubHubNodeGetNode(b []byte, v *UpdateWebSubHubNodeGetNo
 	case "TimerNode":
 		*v = new(UpdateWebSubHubNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(UpdateWebSubHubNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(UpdateWebSubHubNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateWebSubHubNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -21846,14 +21846,6 @@ func __marshalUpdateWebSubHubNodeGetNode(v *UpdateWebSubHubNodeGetNode) ([]byte,
 			*UpdateWebSubHubNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateWebSubHubNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*UpdateWebSubHubNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *UpdateWebSubHubNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -21868,6 +21860,14 @@ func __marshalUpdateWebSubHubNodeGetNode(v *UpdateWebSubHubNodeGetNode) ([]byte,
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateWebSubHubNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebSubHubNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebSubHubNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -22235,7 +22235,7 @@ func (v *UpdateWebSubHubNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateWebSubHubNodeResponse.GetNode: %w", err)
+					"unable to unmarshal UpdateWebSubHubNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -22267,7 +22267,7 @@ func (v *UpdateWebSubHubNodeResponse) __premarshalJSON() (*__premarshalUpdateWeb
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateWebSubHubNodeResponse.GetNode: %w", err)
+					"unable to marshal UpdateWebSubHubNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -22293,9 +22293,9 @@ func (v *UpdateWebSubHubNodeResponse) __premarshalJSON() (*__premarshalUpdateWeb
 // UpdateWebhookNodeGetNodeManagedNode
 // UpdateWebhookNodeGetNodeProcessorNode
 // UpdateWebhookNodeGetNodeTimerNode
-// UpdateWebhookNodeGetNodeWebhookNode
 // UpdateWebhookNodeGetNodeWebSubHubNode
 // UpdateWebhookNodeGetNodeWebSubSubscriptionNode
+// UpdateWebhookNodeGetNodeWebhookNode
 type UpdateWebhookNodeGetNode interface {
 	implementsGraphQLInterfaceUpdateWebhookNodeGetNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
@@ -22330,12 +22330,12 @@ func (v *UpdateWebhookNodeGetNodeLogEmitterNode) implementsGraphQLInterfaceUpdat
 func (v *UpdateWebhookNodeGetNodeManagedNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode() {}
 func (v *UpdateWebhookNodeGetNodeProcessorNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode() {
 }
-func (v *UpdateWebhookNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode()   {}
-func (v *UpdateWebhookNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode() {}
+func (v *UpdateWebhookNodeGetNodeTimerNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode() {}
 func (v *UpdateWebhookNodeGetNodeWebSubHubNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode() {
 }
 func (v *UpdateWebhookNodeGetNodeWebSubSubscriptionNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode() {
 }
+func (v *UpdateWebhookNodeGetNodeWebhookNode) implementsGraphQLInterfaceUpdateWebhookNodeGetNode() {}
 
 func __unmarshalUpdateWebhookNodeGetNode(b []byte, v *UpdateWebhookNodeGetNode) error {
 	if string(b) == "null" {
@@ -22399,14 +22399,14 @@ func __unmarshalUpdateWebhookNodeGetNode(b []byte, v *UpdateWebhookNodeGetNode) 
 	case "TimerNode":
 		*v = new(UpdateWebhookNodeGetNodeTimerNode)
 		return json.Unmarshal(b, *v)
-	case "WebhookNode":
-		*v = new(UpdateWebhookNodeGetNodeWebhookNode)
-		return json.Unmarshal(b, *v)
 	case "WebSubHubNode":
 		*v = new(UpdateWebhookNodeGetNodeWebSubHubNode)
 		return json.Unmarshal(b, *v)
 	case "WebSubSubscriptionNode":
 		*v = new(UpdateWebhookNodeGetNodeWebSubSubscriptionNode)
+		return json.Unmarshal(b, *v)
+	case "WebhookNode":
+		*v = new(UpdateWebhookNodeGetNodeWebhookNode)
 		return json.Unmarshal(b, *v)
 	case "":
 		return fmt.Errorf(
@@ -22549,14 +22549,6 @@ func __marshalUpdateWebhookNodeGetNode(v *UpdateWebhookNodeGetNode) ([]byte, err
 			*UpdateWebhookNodeGetNodeTimerNode
 		}{typename, v}
 		return json.Marshal(result)
-	case *UpdateWebhookNodeGetNodeWebhookNode:
-		typename = "WebhookNode"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*UpdateWebhookNodeGetNodeWebhookNode
-		}{typename, v}
-		return json.Marshal(result)
 	case *UpdateWebhookNodeGetNodeWebSubHubNode:
 		typename = "WebSubHubNode"
 
@@ -22571,6 +22563,14 @@ func __marshalUpdateWebhookNodeGetNode(v *UpdateWebhookNodeGetNode) ([]byte, err
 		result := struct {
 			TypeName string `json:"__typename"`
 			*UpdateWebhookNodeGetNodeWebSubSubscriptionNode
+		}{typename, v}
+		return json.Marshal(result)
+	case *UpdateWebhookNodeGetNodeWebhookNode:
+		typename = "WebhookNode"
+
+		result := struct {
+			TypeName string `json:"__typename"`
+			*UpdateWebhookNodeGetNodeWebhookNode
 		}{typename, v}
 		return json.Marshal(result)
 	case nil:
@@ -22898,7 +22898,7 @@ func (v *UpdateWebhookNodeResponse) UnmarshalJSON(b []byte) error {
 				src, *dst)
 			if err != nil {
 				return fmt.Errorf(
-					"Unable to unmarshal UpdateWebhookNodeResponse.GetNode: %w", err)
+					"unable to unmarshal UpdateWebhookNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -22930,7 +22930,7 @@ func (v *UpdateWebhookNodeResponse) __premarshalJSON() (*__premarshalUpdateWebho
 				src)
 			if err != nil {
 				return nil, fmt.Errorf(
-					"Unable to marshal UpdateWebhookNodeResponse.GetNode: %w", err)
+					"unable to marshal UpdateWebhookNodeResponse.GetNode: %w", err)
 			}
 		}
 	}
@@ -24730,19 +24730,8 @@ func (v *__UpdateWebhookNodeInput) GetManagedApiAuthenticator() *string {
 // GetRequirements returns __UpdateWebhookNodeInput.Requirements, and is useful for accessing the field via an interface.
 func (v *__UpdateWebhookNodeInput) GetRequirements() []string { return v.Requirements }
 
-func CreateApiAuthenticatorFunction(
-	ctx context.Context,
-	client graphql.Client,
-	code string,
-	description string,
-	name string,
-	tenant string,
-	readme *string,
-	requirements []string,
-) (*CreateApiAuthenticatorFunctionResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateApiAuthenticatorFunction",
-		Query: `
+// The query or mutation executed by CreateApiAuthenticatorFunction.
+const CreateApiAuthenticatorFunction_Operation = `
 mutation CreateApiAuthenticatorFunction ($code: String!, $description: String!, $name: String!, $tenant: String!, $readme: String, $requirements: [String!]) {
 	CreateApiAuthenticatorFunction(code: $code, description: $description, name: $name, tenant: $tenant, readme: $readme, requirements: $requirements) {
 		... FunctionFields
@@ -24757,7 +24746,21 @@ fragment FunctionFields on Function {
 	requirements
 	system
 }
-`,
+`
+
+func CreateApiAuthenticatorFunction(
+	ctx context.Context,
+	client graphql.Client,
+	code string,
+	description string,
+	name string,
+	tenant string,
+	readme *string,
+	requirements []string,
+) (*CreateApiAuthenticatorFunctionResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateApiAuthenticatorFunction",
+		Query:  CreateApiAuthenticatorFunction_Operation,
 		Variables: &__CreateApiAuthenticatorFunctionInput{
 			Code:         code,
 			Description:  description,
@@ -24781,16 +24784,8 @@ fragment FunctionFields on Function {
 	return &data, err
 }
 
-func CreateApiUser(
-	ctx context.Context,
-	client graphql.Client,
-	role ApiUserRole,
-	tenant string,
-	description *string,
-) (*CreateApiUserResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateApiUser",
-		Query: `
+// The query or mutation executed by CreateApiUser.
+const CreateApiUser_Operation = `
 mutation CreateApiUser ($role: ApiUserRole!, $tenant: String!, $description: String) {
 	CreateApiUser(role: $role, tenant: $tenant, description: $description) {
 		... ApiUserFields
@@ -24811,7 +24806,18 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	userPoolId
 	username
 }
-`,
+`
+
+func CreateApiUser(
+	ctx context.Context,
+	client graphql.Client,
+	role ApiUserRole,
+	tenant string,
+	description *string,
+) (*CreateApiUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateApiUser",
+		Query:  CreateApiUser_Operation,
 		Variables: &__CreateApiUserInput{
 			Role:        role,
 			Tenant:      tenant,
@@ -24832,23 +24838,8 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	return &data, err
 }
 
-func CreateBitmapRouterNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	receiveMessageType string,
-	tenant string,
-	config *string,
-	description *string,
-	inlineBitmapper *string,
-	loggingLevel *LogLevel,
-	managedBitmapper *string,
-	requirements []string,
-	routeTable *string,
-) (*CreateBitmapRouterNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateBitmapRouterNode",
-		Query: `
+// The query or mutation executed by CreateBitmapRouterNode.
+const CreateBitmapRouterNode_Operation = `
 mutation CreateBitmapRouterNode ($name: String!, $receiveMessageType: String!, $tenant: String!, $config: AWSJSON, $description: String, $inlineBitmapper: String, $loggingLevel: LogLevel, $managedBitmapper: String, $requirements: [String!], $routeTable: AWSJSON) {
 	CreateBitmapRouterNode(name: $name, receiveMessageType: $receiveMessageType, tenant: $tenant, config: $config, description: $description, inlineBitmapper: $inlineBitmapper, loggingLevel: $loggingLevel, managedBitmapper: $managedBitmapper, requirements: $requirements, routeTable: $routeTable) {
 		... NodeFields
@@ -24875,7 +24866,25 @@ fragment BitmapRouterNodeFields on BitmapRouterNode {
 		name
 	}
 }
-`,
+`
+
+func CreateBitmapRouterNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	receiveMessageType string,
+	tenant string,
+	config *string,
+	description *string,
+	inlineBitmapper *string,
+	loggingLevel *LogLevel,
+	managedBitmapper *string,
+	requirements []string,
+	routeTable *string,
+) (*CreateBitmapRouterNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateBitmapRouterNode",
+		Query:  CreateBitmapRouterNode_Operation,
 		Variables: &__CreateBitmapRouterNodeInput{
 			Name:               name,
 			ReceiveMessageType: receiveMessageType,
@@ -24903,20 +24912,8 @@ fragment BitmapRouterNodeFields on BitmapRouterNode {
 	return &data, err
 }
 
-func CreateBitmapperFunction(
-	ctx context.Context,
-	client graphql.Client,
-	argumentMessageType string,
-	code string,
-	description string,
-	name string,
-	tenant string,
-	readme *string,
-	requirements []string,
-) (*CreateBitmapperFunctionResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateBitmapperFunction",
-		Query: `
+// The query or mutation executed by CreateBitmapperFunction.
+const CreateBitmapperFunction_Operation = `
 mutation CreateBitmapperFunction ($argumentMessageType: String!, $code: String!, $description: String!, $name: String!, $tenant: String!, $readme: String, $requirements: [String!]) {
 	CreateBitmapperFunction(argumentMessageType: $argumentMessageType, code: $code, description: $description, name: $name, tenant: $tenant, readme: $readme, requirements: $requirements) {
 		... FunctionFields
@@ -24937,7 +24934,22 @@ fragment BitmapperFunctionFields on BitmapperFunction {
 		name
 	}
 }
-`,
+`
+
+func CreateBitmapperFunction(
+	ctx context.Context,
+	client graphql.Client,
+	argumentMessageType string,
+	code string,
+	description string,
+	name string,
+	tenant string,
+	readme *string,
+	requirements []string,
+) (*CreateBitmapperFunctionResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateBitmapperFunction",
+		Query:  CreateBitmapperFunction_Operation,
 		Variables: &__CreateBitmapperFunctionInput{
 			ArgumentMessageType: argumentMessageType,
 			Code:                code,
@@ -24962,19 +24974,8 @@ fragment BitmapperFunctionFields on BitmapperFunction {
 	return &data, err
 }
 
-func CreateCrossAccountApp(
-	ctx context.Context,
-	client graphql.Client,
-	account string,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	tableAccess *bool,
-) (*CreateCrossAccountAppResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateCrossAccountApp",
-		Query: `
+// The query or mutation executed by CreateCrossAccountApp.
+const CreateCrossAccountApp_Operation = `
 mutation CreateCrossAccountApp ($account: String!, $name: String!, $tenant: String!, $config: AWSJSON, $description: String, $tableAccess: Boolean) {
 	CreateCrossAccountApp(account: $account, name: $name, tenant: $tenant, config: $config, description: $description, tableAccess: $tableAccess) {
 		... AppFields
@@ -25002,7 +25003,21 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	userPoolId
 	username
 }
-`,
+`
+
+func CreateCrossAccountApp(
+	ctx context.Context,
+	client graphql.Client,
+	account string,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	tableAccess *bool,
+) (*CreateCrossAccountAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateCrossAccountApp",
+		Query:  CreateCrossAccountApp_Operation,
 		Variables: &__CreateCrossAccountAppInput{
 			Account:     account,
 			Name:        name,
@@ -25026,16 +25041,8 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	return &data, err
 }
 
-func CreateCrossTenantReceivingApp(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	sendingTenant string,
-	tenant string,
-) (*CreateCrossTenantReceivingAppResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateCrossTenantReceivingApp",
-		Query: `
+// The query or mutation executed by CreateCrossTenantReceivingApp.
+const CreateCrossTenantReceivingApp_Operation = `
 mutation CreateCrossTenantReceivingApp ($name: String!, $sendingTenant: String!, $tenant: String!) {
 	CreateCrossTenantReceivingApp(name: $name, sendingTenant: $sendingTenant, tenant: $tenant) {
 		... AppFields
@@ -25050,7 +25057,18 @@ fragment CrossTenantReceivingAppFields on CrossTenantReceivingApp {
 	sendingApp
 	sendingTenant
 }
-`,
+`
+
+func CreateCrossTenantReceivingApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	sendingTenant string,
+	tenant string,
+) (*CreateCrossTenantReceivingAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateCrossTenantReceivingApp",
+		Query:  CreateCrossTenantReceivingApp_Operation,
 		Variables: &__CreateCrossTenantReceivingAppInput{
 			Name:          name,
 			SendingTenant: sendingTenant,
@@ -25071,17 +25089,8 @@ fragment CrossTenantReceivingAppFields on CrossTenantReceivingApp {
 	return &data, err
 }
 
-func CreateCrossTenantSendingApp(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	receivingApp string,
-	receivingTenant string,
-	tenant string,
-) (*CreateCrossTenantSendingAppResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateCrossTenantSendingApp",
-		Query: `
+// The query or mutation executed by CreateCrossTenantSendingApp.
+const CreateCrossTenantSendingApp_Operation = `
 mutation CreateCrossTenantSendingApp ($name: String!, $receivingApp: String!, $receivingTenant: String!, $tenant: String!) {
 	CreateCrossTenantSendingApp(name: $name, receivingApp: $receivingApp, receivingTenant: $receivingTenant, tenant: $tenant) {
 		... AppFields
@@ -25096,7 +25105,19 @@ fragment CrossTenantSendingAppFields on CrossTenantSendingApp {
 	receivingApp
 	receivingTenant
 }
-`,
+`
+
+func CreateCrossTenantSendingApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	receivingApp string,
+	receivingTenant string,
+	tenant string,
+) (*CreateCrossTenantSendingAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateCrossTenantSendingApp",
+		Query:  CreateCrossTenantSendingApp_Operation,
 		Variables: &__CreateCrossTenantSendingAppInput{
 			Name:            name,
 			ReceivingApp:    receivingApp,
@@ -25118,25 +25139,8 @@ fragment CrossTenantSendingAppFields on CrossTenantSendingApp {
 	return &data, err
 }
 
-func CreateCrossTenantSendingNode(
-	ctx context.Context,
-	client graphql.Client,
-	app string,
-	name string,
-	receiveMessageType string,
-	tenant string,
-	config *string,
-	description *string,
-	inlineProcessor *string,
-	loggingLevel *LogLevel,
-	managedProcessor *string,
-	requirements []string,
-	sendMessageType *string,
-	sequentialProcessing *bool,
-) (*CreateCrossTenantSendingNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateCrossTenantSendingNode",
-		Query: `
+// The query or mutation executed by CreateCrossTenantSendingNode.
+const CreateCrossTenantSendingNode_Operation = `
 mutation CreateCrossTenantSendingNode ($app: String!, $name: String!, $receiveMessageType: String!, $tenant: String!, $config: AWSJSON, $description: String, $inlineProcessor: String, $loggingLevel: LogLevel, $managedProcessor: String, $requirements: [String!], $sendMessageType: String, $sequentialProcessing: Boolean) {
 	CreateCrossTenantSendingNode(app: $app, name: $name, receiveMessageType: $receiveMessageType, tenant: $tenant, config: $config, description: $description, inlineProcessor: $inlineProcessor, loggingLevel: $loggingLevel, managedProcessor: $managedProcessor, requirements: $requirements, sendMessageType: $sendMessageType, sequentialProcessing: $sequentialProcessing) {
 		... NodeFields
@@ -25166,7 +25170,27 @@ fragment CrossTenantSendingNodeFields on CrossTenantSendingNode {
 	}
 	sequentialProcessing
 }
-`,
+`
+
+func CreateCrossTenantSendingNode(
+	ctx context.Context,
+	client graphql.Client,
+	app string,
+	name string,
+	receiveMessageType string,
+	tenant string,
+	config *string,
+	description *string,
+	inlineProcessor *string,
+	loggingLevel *LogLevel,
+	managedProcessor *string,
+	requirements []string,
+	sendMessageType *string,
+	sequentialProcessing *bool,
+) (*CreateCrossTenantSendingNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateCrossTenantSendingNode",
+		Query:  CreateCrossTenantSendingNode_Operation,
 		Variables: &__CreateCrossTenantSendingNodeInput{
 			App:                  app,
 			Name:                 name,
@@ -25196,19 +25220,8 @@ fragment CrossTenantSendingNodeFields on CrossTenantSendingNode {
 	return &data, err
 }
 
-func CreateEdge(
-	ctx context.Context,
-	client graphql.Client,
-	source string,
-	target string,
-	tenant string,
-	description *string,
-	kmsKey *string,
-	maxReceiveCount *int,
-) (*CreateEdgeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateEdge",
-		Query: `
+// The query or mutation executed by CreateEdge.
+const CreateEdge_Operation = `
 mutation CreateEdge ($source: String!, $target: String!, $tenant: String!, $description: String, $kmsKey: String, $maxReceiveCount: Int) {
 	CreateEdge(source: $source, target: $target, tenant: $tenant, description: $description, kmsKey: $kmsKey, maxReceiveCount: $maxReceiveCount) {
 		... EdgeFields
@@ -25234,7 +25247,21 @@ fragment EdgeFields on Edge {
 		name
 	}
 }
-`,
+`
+
+func CreateEdge(
+	ctx context.Context,
+	client graphql.Client,
+	source string,
+	target string,
+	tenant string,
+	description *string,
+	kmsKey *string,
+	maxReceiveCount *int,
+) (*CreateEdgeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateEdge",
+		Query:  CreateEdge_Operation,
 		Variables: &__CreateEdgeInput{
 			Source:          source,
 			Target:          target,
@@ -25258,18 +25285,8 @@ fragment EdgeFields on Edge {
 	return &data, err
 }
 
-func CreateExternalApp(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	tableAccess *bool,
-) (*CreateExternalAppResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateExternalApp",
-		Query: `
+// The query or mutation executed by CreateExternalApp.
+const CreateExternalApp_Operation = `
 mutation CreateExternalApp ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $tableAccess: Boolean) {
 	CreateExternalApp(name: $name, tenant: $tenant, config: $config, description: $description, tableAccess: $tableAccess) {
 		... AppFields
@@ -25295,7 +25312,20 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	userPoolId
 	username
 }
-`,
+`
+
+func CreateExternalApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	tableAccess *bool,
+) (*CreateExternalAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateExternalApp",
+		Query:  CreateExternalApp_Operation,
 		Variables: &__CreateExternalAppInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -25318,20 +25348,8 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	return &data, err
 }
 
-func CreateExternalNode(
-	ctx context.Context,
-	client graphql.Client,
-	app string,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	receiveMessageType *string,
-	sendMessageType *string,
-) (*CreateExternalNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateExternalNode",
-		Query: `
+// The query or mutation executed by CreateExternalNode.
+const CreateExternalNode_Operation = `
 mutation CreateExternalNode ($app: String!, $name: String!, $tenant: String!, $config: AWSJSON, $description: String, $receiveMessageType: String, $sendMessageType: String) {
 	CreateExternalNode(app: $app, name: $name, tenant: $tenant, config: $config, description: $description, receiveMessageType: $receiveMessageType, sendMessageType: $sendMessageType) {
 		... NodeFields
@@ -25360,7 +25378,22 @@ fragment ExternalNodeFields on ExternalNode {
 		name
 	}
 }
-`,
+`
+
+func CreateExternalNode(
+	ctx context.Context,
+	client graphql.Client,
+	app string,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	receiveMessageType *string,
+	sendMessageType *string,
+) (*CreateExternalNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateExternalNode",
+		Query:  CreateExternalNode_Operation,
 		Variables: &__CreateExternalNodeInput{
 			App:                app,
 			Name:               name,
@@ -25385,17 +25418,8 @@ fragment ExternalNodeFields on ExternalNode {
 	return &data, err
 }
 
-func CreateFilesDotComWebhookNode(
-	ctx context.Context,
-	client graphql.Client,
-	apiKey string,
-	name string,
-	tenant string,
-	description *string,
-) (*CreateFilesDotComWebhookNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateFilesDotComWebhookNode",
-		Query: `
+// The query or mutation executed by CreateFilesDotComWebhookNode.
+const CreateFilesDotComWebhookNode_Operation = `
 mutation CreateFilesDotComWebhookNode ($apiKey: String!, $name: String!, $tenant: String!, $description: String) {
 	CreateFilesDotComWebhookNode(apiKey: $apiKey, name: $name, tenant: $tenant, description: $description) {
 		... NodeFields
@@ -25413,7 +25437,19 @@ fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
 	}
 	token
 }
-`,
+`
+
+func CreateFilesDotComWebhookNode(
+	ctx context.Context,
+	client graphql.Client,
+	apiKey string,
+	name string,
+	tenant string,
+	description *string,
+) (*CreateFilesDotComWebhookNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateFilesDotComWebhookNode",
+		Query:  CreateFilesDotComWebhookNode_Operation,
 		Variables: &__CreateFilesDotComWebhookNodeInput{
 			ApiKey:      apiKey,
 			Name:        name,
@@ -25435,16 +25471,8 @@ fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
 	return &data, err
 }
 
-func CreateKmsKey(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	description *string,
-) (*CreateKmsKeyResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateKmsKey",
-		Query: `
+// The query or mutation executed by CreateKmsKey.
+const CreateKmsKey_Operation = `
 mutation CreateKmsKey ($name: String!, $tenant: String!, $description: String) {
 	CreateKmsKey(name: $name, tenant: $tenant, description: $description) {
 		... KmsKeyFields
@@ -25456,7 +25484,18 @@ fragment KmsKeyFields on KmsKey {
 	inUse
 	name
 }
-`,
+`
+
+func CreateKmsKey(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	description *string,
+) (*CreateKmsKeyResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateKmsKey",
+		Query:  CreateKmsKey_Operation,
 		Variables: &__CreateKmsKeyInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -25477,17 +25516,8 @@ fragment KmsKeyFields on KmsKey {
 	return &data, err
 }
 
-func CreateLoadBalancerNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	receiveMessageType string,
-	tenant string,
-	description *string,
-) (*CreateLoadBalancerNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateLoadBalancerNode",
-		Query: `
+// The query or mutation executed by CreateLoadBalancerNode.
+const CreateLoadBalancerNode_Operation = `
 mutation CreateLoadBalancerNode ($name: String!, $receiveMessageType: String!, $tenant: String!, $description: String) {
 	CreateLoadBalancerNode(name: $name, receiveMessageType: $receiveMessageType, tenant: $tenant, description: $description) {
 		... NodeFields
@@ -25506,7 +25536,19 @@ fragment LoadBalancerNodeFields on LoadBalancerNode {
 		name
 	}
 }
-`,
+`
+
+func CreateLoadBalancerNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	receiveMessageType string,
+	tenant string,
+	description *string,
+) (*CreateLoadBalancerNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateLoadBalancerNode",
+		Query:  CreateLoadBalancerNode_Operation,
 		Variables: &__CreateLoadBalancerNodeInput{
 			Name:               name,
 			ReceiveMessageType: receiveMessageType,
@@ -25528,18 +25570,8 @@ fragment LoadBalancerNodeFields on LoadBalancerNode {
 	return &data, err
 }
 
-func CreateManagedApp(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	tableAccess *bool,
-) (*CreateManagedAppResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateManagedApp",
-		Query: `
+// The query or mutation executed by CreateManagedApp.
+const CreateManagedApp_Operation = `
 mutation CreateManagedApp ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $tableAccess: Boolean) {
 	CreateManagedApp(name: $name, tenant: $tenant, config: $config, description: $description, tableAccess: $tableAccess) {
 		... AppFields
@@ -25564,7 +25596,20 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	userPoolId
 	username
 }
-`,
+`
+
+func CreateManagedApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	tableAccess *bool,
+) (*CreateManagedAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateManagedApp",
+		Query:  CreateManagedApp_Operation,
 		Variables: &__CreateManagedAppInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -25587,22 +25632,8 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	return &data, err
 }
 
-func CreateManagedNode(
-	ctx context.Context,
-	client graphql.Client,
-	app string,
-	managedNodeType string,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	loggingLevel *LogLevel,
-	mounts []MountInput,
-	ports []PortInput,
-) (*CreateManagedNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateManagedNode",
-		Query: `
+// The query or mutation executed by CreateManagedNode.
+const CreateManagedNode_Operation = `
 mutation CreateManagedNode ($app: String!, $managedNodeType: String!, $name: String!, $tenant: String!, $config: AWSJSON, $description: String, $loggingLevel: LogLevel, $mounts: [MountInput!], $ports: [PortInput!]) {
 	CreateManagedNode(app: $app, managedNodeType: $managedNodeType, name: $name, tenant: $tenant, config: $config, description: $description, loggingLevel: $loggingLevel, mounts: $mounts, ports: $ports) {
 		... NodeFields
@@ -25641,7 +25672,24 @@ fragment ManagedNodeFields on ManagedNode {
 		name
 	}
 }
-`,
+`
+
+func CreateManagedNode(
+	ctx context.Context,
+	client graphql.Client,
+	app string,
+	managedNodeType string,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	loggingLevel *LogLevel,
+	mounts []MountInput,
+	ports []PortInput,
+) (*CreateManagedNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateManagedNode",
+		Query:  CreateManagedNode_Operation,
 		Variables: &__CreateManagedNodeInput{
 			App:             app,
 			ManagedNodeType: managedNodeType,
@@ -25668,23 +25716,8 @@ fragment ManagedNodeFields on ManagedNode {
 	return &data, err
 }
 
-func CreateManagedNodeType(
-	ctx context.Context,
-	client graphql.Client,
-	description string,
-	imageUri string,
-	name string,
-	tenant string,
-	configTemplate *string,
-	mountRequirements []MountRequirementInput,
-	portRequirements []PortRequirementInput,
-	readme *string,
-	receiveMessageType *string,
-	sendMessageType *string,
-) (*CreateManagedNodeTypeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateManagedNodeType",
-		Query: `
+// The query or mutation executed by CreateManagedNodeType.
+const CreateManagedNodeType_Operation = `
 mutation CreateManagedNodeType ($description: String!, $imageUri: String!, $name: String!, $tenant: String!, $configTemplate: AWSJSON, $mountRequirements: [MountRequirementInput!], $portRequirements: [PortRequirementInput!], $readme: String, $receiveMessageType: String, $sendMessageType: String) {
 	CreateManagedNodeType(description: $description, imageUri: $imageUri, name: $name, tenant: $tenant, configTemplate: $configTemplate, mountRequirements: $mountRequirements, portRequirements: $portRequirements, readme: $readme, receiveMessageType: $receiveMessageType, sendMessageType: $sendMessageType) {
 		... ManagedNodeTypeFields
@@ -25715,7 +25748,25 @@ fragment ManagedNodeTypeFields on ManagedNodeType {
 	}
 	system
 }
-`,
+`
+
+func CreateManagedNodeType(
+	ctx context.Context,
+	client graphql.Client,
+	description string,
+	imageUri string,
+	name string,
+	tenant string,
+	configTemplate *string,
+	mountRequirements []MountRequirementInput,
+	portRequirements []PortRequirementInput,
+	readme *string,
+	receiveMessageType *string,
+	sendMessageType *string,
+) (*CreateManagedNodeTypeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateManagedNodeType",
+		Query:  CreateManagedNodeType_Operation,
 		Variables: &__CreateManagedNodeTypeInput{
 			Description:        description,
 			ImageUri:           imageUri,
@@ -25743,22 +25794,8 @@ fragment ManagedNodeTypeFields on ManagedNodeType {
 	return &data, err
 }
 
-func CreateMessageType(
-	ctx context.Context,
-	client graphql.Client,
-	auditor string,
-	bitmapperTemplate string,
-	description string,
-	name string,
-	processorTemplate string,
-	sampleMessage string,
-	tenant string,
-	readme *string,
-	requirements []string,
-) (*CreateMessageTypeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateMessageType",
-		Query: `
+// The query or mutation executed by CreateMessageType.
+const CreateMessageType_Operation = `
 mutation CreateMessageType ($auditor: String!, $bitmapperTemplate: String!, $description: String!, $name: String!, $processorTemplate: String!, $sampleMessage: String!, $tenant: String!, $readme: String, $requirements: [String!]) {
 	CreateMessageType(auditor: $auditor, bitmapperTemplate: $bitmapperTemplate, description: $description, name: $name, processorTemplate: $processorTemplate, sampleMessage: $sampleMessage, tenant: $tenant, readme: $readme, requirements: $requirements) {
 		... MessageTypeFields
@@ -25776,7 +25813,24 @@ fragment MessageTypeFields on MessageType {
 	sampleMessage
 	system
 }
-`,
+`
+
+func CreateMessageType(
+	ctx context.Context,
+	client graphql.Client,
+	auditor string,
+	bitmapperTemplate string,
+	description string,
+	name string,
+	processorTemplate string,
+	sampleMessage string,
+	tenant string,
+	readme *string,
+	requirements []string,
+) (*CreateMessageTypeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateMessageType",
+		Query:  CreateMessageType_Operation,
 		Variables: &__CreateMessageTypeInput{
 			Auditor:           auditor,
 			BitmapperTemplate: bitmapperTemplate,
@@ -25803,21 +25857,8 @@ fragment MessageTypeFields on MessageType {
 	return &data, err
 }
 
-func CreateProcessorFunction(
-	ctx context.Context,
-	client graphql.Client,
-	argumentMessageType string,
-	code string,
-	description string,
-	name string,
-	tenant string,
-	readme *string,
-	requirements []string,
-	returnMessageType *string,
-) (*CreateProcessorFunctionResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateProcessorFunction",
-		Query: `
+// The query or mutation executed by CreateProcessorFunction.
+const CreateProcessorFunction_Operation = `
 mutation CreateProcessorFunction ($argumentMessageType: String!, $code: String!, $description: String!, $name: String!, $tenant: String!, $readme: String, $requirements: [String!], $returnMessageType: String) {
 	CreateProcessorFunction(argumentMessageType: $argumentMessageType, code: $code, description: $description, name: $name, tenant: $tenant, readme: $readme, requirements: $requirements, returnMessageType: $returnMessageType) {
 		... FunctionFields
@@ -25841,7 +25882,23 @@ fragment ProcessorFunctionFields on ProcessorFunction {
 		name
 	}
 }
-`,
+`
+
+func CreateProcessorFunction(
+	ctx context.Context,
+	client graphql.Client,
+	argumentMessageType string,
+	code string,
+	description string,
+	name string,
+	tenant string,
+	readme *string,
+	requirements []string,
+	returnMessageType *string,
+) (*CreateProcessorFunctionResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateProcessorFunction",
+		Query:  CreateProcessorFunction_Operation,
 		Variables: &__CreateProcessorFunctionInput{
 			ArgumentMessageType: argumentMessageType,
 			Code:                code,
@@ -25867,24 +25924,8 @@ fragment ProcessorFunctionFields on ProcessorFunction {
 	return &data, err
 }
 
-func CreateProcessorNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	receiveMessageType string,
-	tenant string,
-	config *string,
-	description *string,
-	inlineProcessor *string,
-	loggingLevel *LogLevel,
-	managedProcessor *string,
-	requirements []string,
-	sendMessageType *string,
-	sequentialProcessing *bool,
-) (*CreateProcessorNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateProcessorNode",
-		Query: `
+// The query or mutation executed by CreateProcessorNode.
+const CreateProcessorNode_Operation = `
 mutation CreateProcessorNode ($name: String!, $receiveMessageType: String!, $tenant: String!, $config: AWSJSON, $description: String, $inlineProcessor: String, $loggingLevel: LogLevel, $managedProcessor: String, $requirements: [String!], $sendMessageType: String, $sequentialProcessing: Boolean) {
 	CreateProcessorNode(name: $name, receiveMessageType: $receiveMessageType, tenant: $tenant, config: $config, description: $description, inlineProcessor: $inlineProcessor, loggingLevel: $loggingLevel, managedProcessor: $managedProcessor, requirements: $requirements, sendMessageType: $sendMessageType, sequentialProcessing: $sequentialProcessing) {
 		... NodeFields
@@ -25911,7 +25952,26 @@ fragment ProcessorNodeFields on ProcessorNode {
 	}
 	sequentialProcessing
 }
-`,
+`
+
+func CreateProcessorNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	receiveMessageType string,
+	tenant string,
+	config *string,
+	description *string,
+	inlineProcessor *string,
+	loggingLevel *LogLevel,
+	managedProcessor *string,
+	requirements []string,
+	sendMessageType *string,
+	sequentialProcessing *bool,
+) (*CreateProcessorNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateProcessorNode",
+		Query:  CreateProcessorNode_Operation,
 		Variables: &__CreateProcessorNodeInput{
 			Name:                 name,
 			ReceiveMessageType:   receiveMessageType,
@@ -25940,16 +26000,8 @@ fragment ProcessorNodeFields on ProcessorNode {
 	return &data, err
 }
 
-func CreateTenantUser(
-	ctx context.Context,
-	client graphql.Client,
-	email string,
-	role UserRole,
-	tenant string,
-) (*CreateTenantUserResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateTenantUser",
-		Query: `
+// The query or mutation executed by CreateTenantUser.
+const CreateTenantUser_Operation = `
 query CreateTenantUser ($email: AWSEmail!, $role: UserRole!, $tenant: String!) {
 	GetTenant(tenant: $tenant) {
 		AddUser(email: $email, role: $role) {
@@ -25964,7 +26016,18 @@ fragment TenantUserFields on TenantUser {
 	role
 	status
 }
-`,
+`
+
+func CreateTenantUser(
+	ctx context.Context,
+	client graphql.Client,
+	email string,
+	role UserRole,
+	tenant string,
+) (*CreateTenantUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateTenantUser",
+		Query:  CreateTenantUser_Operation,
 		Variables: &__CreateTenantUserInput{
 			Email:  email,
 			Role:   role,
@@ -25985,17 +26048,8 @@ fragment TenantUserFields on TenantUser {
 	return &data, err
 }
 
-func CreateTimerNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	scheduleExpression string,
-	tenant string,
-	description *string,
-) (*CreateTimerNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateTimerNode",
-		Query: `
+// The query or mutation executed by CreateTimerNode.
+const CreateTimerNode_Operation = `
 mutation CreateTimerNode ($name: String!, $scheduleExpression: String!, $tenant: String!, $description: String) {
 	CreateTimerNode(name: $name, scheduleExpression: $scheduleExpression, tenant: $tenant, description: $description) {
 		... NodeFields
@@ -26012,7 +26066,19 @@ fragment TimerNodeFields on TimerNode {
 		name
 	}
 }
-`,
+`
+
+func CreateTimerNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	scheduleExpression string,
+	tenant string,
+	description *string,
+) (*CreateTimerNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateTimerNode",
+		Query:  CreateTimerNode_Operation,
 		Variables: &__CreateTimerNodeInput{
 			Name:               name,
 			ScheduleExpression: scheduleExpression,
@@ -26034,26 +26100,8 @@ fragment TimerNodeFields on TimerNode {
 	return &data, err
 }
 
-func CreateWebSubHubNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	defaultLeaseSeconds *int,
-	deliveryRetries *int,
-	description *string,
-	inlineApiAuthenticator *string,
-	loggingLevel *LogLevel,
-	managedApiAuthenticator *string,
-	maxLeaseSeconds *int,
-	requirements []string,
-	signatureAlgorithm *WebSubSignatureAlgorithm,
-	subscriptionSecurity *WebSubSubscriptionSecurity,
-) (*CreateWebSubHubNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateWebSubHubNode",
-		Query: `
+// The query or mutation executed by CreateWebSubHubNode.
+const CreateWebSubHubNode_Operation = `
 mutation CreateWebSubHubNode ($name: String!, $tenant: String!, $config: AWSJSON, $defaultLeaseSeconds: Int, $deliveryRetries: Int, $description: String, $inlineApiAuthenticator: String, $loggingLevel: LogLevel, $managedApiAuthenticator: String, $maxLeaseSeconds: Int, $requirements: [String!], $signatureAlgorithm: WebSubSignatureAlgorithm, $subscriptionSecurity: WebSubSubscriptionSecurity) {
 	CreateWebSubHubNode(name: $name, tenant: $tenant, config: $config, defaultLeaseSeconds: $defaultLeaseSeconds, deliveryRetries: $deliveryRetries, description: $description, inlineApiAuthenticator: $inlineApiAuthenticator, loggingLevel: $loggingLevel, managedApiAuthenticator: $managedApiAuthenticator, maxLeaseSeconds: $maxLeaseSeconds, requirements: $requirements, signatureAlgorithm: $signatureAlgorithm, subscriptionSecurity: $subscriptionSecurity) {
 		... NodeFields
@@ -26082,7 +26130,28 @@ fragment WebSubHubNodeFields on WebSubHubNode {
 	signatureAlgorithm
 	subscriptionSecurity
 }
-`,
+`
+
+func CreateWebSubHubNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	defaultLeaseSeconds *int,
+	deliveryRetries *int,
+	description *string,
+	inlineApiAuthenticator *string,
+	loggingLevel *LogLevel,
+	managedApiAuthenticator *string,
+	maxLeaseSeconds *int,
+	requirements []string,
+	signatureAlgorithm *WebSubSignatureAlgorithm,
+	subscriptionSecurity *WebSubSubscriptionSecurity,
+) (*CreateWebSubHubNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateWebSubHubNode",
+		Query:  CreateWebSubHubNode_Operation,
 		Variables: &__CreateWebSubHubNodeInput{
 			Name:                    name,
 			Tenant:                  tenant,
@@ -26113,22 +26182,8 @@ fragment WebSubHubNodeFields on WebSubHubNode {
 	return &data, err
 }
 
-func CreateWebhookNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	inlineApiAuthenticator *string,
-	loggingLevel *LogLevel,
-	managedApiAuthenticator *string,
-	requirements []string,
-	sendMessageType *string,
-) (*CreateWebhookNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "CreateWebhookNode",
-		Query: `
+// The query or mutation executed by CreateWebhookNode.
+const CreateWebhookNode_Operation = `
 mutation CreateWebhookNode ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $inlineApiAuthenticator: String, $loggingLevel: LogLevel, $managedApiAuthenticator: String, $requirements: [String!], $sendMessageType: String) {
 	CreateWebhookNode(name: $name, tenant: $tenant, config: $config, description: $description, inlineApiAuthenticator: $inlineApiAuthenticator, loggingLevel: $loggingLevel, managedApiAuthenticator: $managedApiAuthenticator, requirements: $requirements, sendMessageType: $sendMessageType) {
 		... NodeFields
@@ -26152,7 +26207,24 @@ fragment WebhookNodeFields on WebhookNode {
 		name
 	}
 }
-`,
+`
+
+func CreateWebhookNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	inlineApiAuthenticator *string,
+	loggingLevel *LogLevel,
+	managedApiAuthenticator *string,
+	requirements []string,
+	sendMessageType *string,
+) (*CreateWebhookNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "CreateWebhookNode",
+		Query:  CreateWebhookNode_Operation,
 		Variables: &__CreateWebhookNodeInput{
 			Name:                    name,
 			Tenant:                  tenant,
@@ -26179,6 +26251,15 @@ fragment WebhookNodeFields on WebhookNode {
 	return &data, err
 }
 
+// The query or mutation executed by DeleteApiUser.
+const DeleteApiUser_Operation = `
+query DeleteApiUser ($tenant: String!, $username: String!) {
+	GetApiUser(tenant: $tenant, username: $username) {
+		Delete
+	}
+}
+`
+
 func DeleteApiUser(
 	ctx context.Context,
 	client graphql.Client,
@@ -26187,13 +26268,7 @@ func DeleteApiUser(
 ) (*DeleteApiUserResponse, error) {
 	req := &graphql.Request{
 		OpName: "DeleteApiUser",
-		Query: `
-query DeleteApiUser ($tenant: String!, $username: String!) {
-	GetApiUser(tenant: $tenant, username: $username) {
-		Delete
-	}
-}
-`,
+		Query:  DeleteApiUser_Operation,
 		Variables: &__DeleteApiUserInput{
 			Tenant:   tenant,
 			Username: username,
@@ -26213,6 +26288,16 @@ query DeleteApiUser ($tenant: String!, $username: String!) {
 	return &data, err
 }
 
+// The query or mutation executed by DeleteApp.
+const DeleteApp_Operation = `
+query DeleteApp ($name: String!, $tenant: String!) {
+	GetApp(name: $name, tenant: $tenant) {
+		__typename
+		Delete(drainEdges: true)
+	}
+}
+`
+
 func DeleteApp(
 	ctx context.Context,
 	client graphql.Client,
@@ -26221,14 +26306,7 @@ func DeleteApp(
 ) (*DeleteAppResponse, error) {
 	req := &graphql.Request{
 		OpName: "DeleteApp",
-		Query: `
-query DeleteApp ($name: String!, $tenant: String!) {
-	GetApp(name: $name, tenant: $tenant) {
-		__typename
-		Delete(drainEdges: true)
-	}
-}
-`,
+		Query:  DeleteApp_Operation,
 		Variables: &__DeleteAppInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26248,6 +26326,15 @@ query DeleteApp ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+// The query or mutation executed by DeleteEdge.
+const DeleteEdge_Operation = `
+query DeleteEdge ($source: String!, $target: String!, $tenant: String!) {
+	GetEdge(source: $source, target: $target, tenant: $tenant) {
+		Delete(drain: true)
+	}
+}
+`
+
 func DeleteEdge(
 	ctx context.Context,
 	client graphql.Client,
@@ -26257,13 +26344,7 @@ func DeleteEdge(
 ) (*DeleteEdgeResponse, error) {
 	req := &graphql.Request{
 		OpName: "DeleteEdge",
-		Query: `
-query DeleteEdge ($source: String!, $target: String!, $tenant: String!) {
-	GetEdge(source: $source, target: $target, tenant: $tenant) {
-		Delete(drain: true)
-	}
-}
-`,
+		Query:  DeleteEdge_Operation,
 		Variables: &__DeleteEdgeInput{
 			Source: source,
 			Target: target,
@@ -26284,6 +26365,16 @@ query DeleteEdge ($source: String!, $target: String!, $tenant: String!) {
 	return &data, err
 }
 
+// The query or mutation executed by DeleteFunction.
+const DeleteFunction_Operation = `
+query DeleteFunction ($name: String!, $tenant: String!) {
+	GetFunction(name: $name, tenant: $tenant) {
+		__typename
+		Delete
+	}
+}
+`
+
 func DeleteFunction(
 	ctx context.Context,
 	client graphql.Client,
@@ -26292,14 +26383,7 @@ func DeleteFunction(
 ) (*DeleteFunctionResponse, error) {
 	req := &graphql.Request{
 		OpName: "DeleteFunction",
-		Query: `
-query DeleteFunction ($name: String!, $tenant: String!) {
-	GetFunction(name: $name, tenant: $tenant) {
-		__typename
-		Delete
-	}
-}
-`,
+		Query:  DeleteFunction_Operation,
 		Variables: &__DeleteFunctionInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26319,6 +26403,15 @@ query DeleteFunction ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+// The query or mutation executed by DeleteKmsKey.
+const DeleteKmsKey_Operation = `
+query DeleteKmsKey ($name: String!, $tenant: String!) {
+	GetKmsKey(name: $name, tenant: $tenant) {
+		Delete
+	}
+}
+`
+
 func DeleteKmsKey(
 	ctx context.Context,
 	client graphql.Client,
@@ -26327,13 +26420,7 @@ func DeleteKmsKey(
 ) (*DeleteKmsKeyResponse, error) {
 	req := &graphql.Request{
 		OpName: "DeleteKmsKey",
-		Query: `
-query DeleteKmsKey ($name: String!, $tenant: String!) {
-	GetKmsKey(name: $name, tenant: $tenant) {
-		Delete
-	}
-}
-`,
+		Query:  DeleteKmsKey_Operation,
 		Variables: &__DeleteKmsKeyInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26353,6 +26440,15 @@ query DeleteKmsKey ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+// The query or mutation executed by DeleteManagedNodeType.
+const DeleteManagedNodeType_Operation = `
+query DeleteManagedNodeType ($name: String!, $tenant: String!) {
+	GetManagedNodeType(name: $name, tenant: $tenant) {
+		Delete
+	}
+}
+`
+
 func DeleteManagedNodeType(
 	ctx context.Context,
 	client graphql.Client,
@@ -26361,13 +26457,7 @@ func DeleteManagedNodeType(
 ) (*DeleteManagedNodeTypeResponse, error) {
 	req := &graphql.Request{
 		OpName: "DeleteManagedNodeType",
-		Query: `
-query DeleteManagedNodeType ($name: String!, $tenant: String!) {
-	GetManagedNodeType(name: $name, tenant: $tenant) {
-		Delete
-	}
-}
-`,
+		Query:  DeleteManagedNodeType_Operation,
 		Variables: &__DeleteManagedNodeTypeInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26387,6 +26477,15 @@ query DeleteManagedNodeType ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+// The query or mutation executed by DeleteMessageType.
+const DeleteMessageType_Operation = `
+query DeleteMessageType ($name: String!, $tenant: String!) {
+	GetMessageType(name: $name, tenant: $tenant) {
+		Delete
+	}
+}
+`
+
 func DeleteMessageType(
 	ctx context.Context,
 	client graphql.Client,
@@ -26395,13 +26494,7 @@ func DeleteMessageType(
 ) (*DeleteMessageTypeResponse, error) {
 	req := &graphql.Request{
 		OpName: "DeleteMessageType",
-		Query: `
-query DeleteMessageType ($name: String!, $tenant: String!) {
-	GetMessageType(name: $name, tenant: $tenant) {
-		Delete
-	}
-}
-`,
+		Query:  DeleteMessageType_Operation,
 		Variables: &__DeleteMessageTypeInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26421,15 +26514,8 @@ query DeleteMessageType ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
-func DeleteNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-) (*DeleteNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "DeleteNode",
-		Query: `
+// The query or mutation executed by DeleteNode.
+const DeleteNode_Operation = `
 query DeleteNode ($name: String!, $tenant: String!) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -26468,7 +26554,17 @@ query DeleteNode ($name: String!, $tenant: String!) {
 		}
 	}
 }
-`,
+`
+
+func DeleteNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*DeleteNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "DeleteNode",
+		Query:  DeleteNode_Operation,
 		Variables: &__DeleteNodeInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26488,6 +26584,15 @@ query DeleteNode ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
+// The query or mutation executed by DeleteTenantUser.
+const DeleteTenantUser_Operation = `
+query DeleteTenantUser ($email: AWSEmail!, $tenant: String!) {
+	GetTenantUser(email: $email, tenant: $tenant) {
+		Delete
+	}
+}
+`
+
 func DeleteTenantUser(
 	ctx context.Context,
 	client graphql.Client,
@@ -26496,13 +26601,7 @@ func DeleteTenantUser(
 ) (*DeleteTenantUserResponse, error) {
 	req := &graphql.Request{
 		OpName: "DeleteTenantUser",
-		Query: `
-query DeleteTenantUser ($email: AWSEmail!, $tenant: String!) {
-	GetTenantUser(email: $email, tenant: $tenant) {
-		Delete
-	}
-}
-`,
+		Query:  DeleteTenantUser_Operation,
 		Variables: &__DeleteTenantUserInput{
 			Email:  email,
 			Tenant: tenant,
@@ -26522,18 +26621,8 @@ query DeleteTenantUser ($email: AWSEmail!, $tenant: String!) {
 	return &data, err
 }
 
-func MoveEdge(
-	ctx context.Context,
-	client graphql.Client,
-	source string,
-	target string,
-	tenant string,
-	newSource string,
-	newTarget string,
-) (*MoveEdgeResponse, error) {
-	req := &graphql.Request{
-		OpName: "MoveEdge",
-		Query: `
+// The query or mutation executed by MoveEdge.
+const MoveEdge_Operation = `
 query MoveEdge ($source: String!, $target: String!, $tenant: String!, $newSource: String!, $newTarget: String!) {
 	GetEdge(source: $source, target: $target, tenant: $tenant) {
 		Move(source: $newSource, target: $newTarget) {
@@ -26561,7 +26650,20 @@ fragment EdgeFields on Edge {
 		name
 	}
 }
-`,
+`
+
+func MoveEdge(
+	ctx context.Context,
+	client graphql.Client,
+	source string,
+	target string,
+	tenant string,
+	newSource string,
+	newTarget string,
+) (*MoveEdgeResponse, error) {
+	req := &graphql.Request{
+		OpName: "MoveEdge",
+		Query:  MoveEdge_Operation,
 		Variables: &__MoveEdgeInput{
 			Source:    source,
 			Target:    target,
@@ -26584,15 +26686,8 @@ fragment EdgeFields on Edge {
 	return &data, err
 }
 
-func ReadApiUser(
-	ctx context.Context,
-	client graphql.Client,
-	tenant string,
-	username string,
-) (*ReadApiUserResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadApiUser",
-		Query: `
+// The query or mutation executed by ReadApiUser.
+const ReadApiUser_Operation = `
 query ReadApiUser ($tenant: String!, $username: String!) {
 	GetApiUser(tenant: $tenant, username: $username) {
 		... ApiUserFields
@@ -26613,7 +26708,17 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	userPoolId
 	username
 }
-`,
+`
+
+func ReadApiUser(
+	ctx context.Context,
+	client graphql.Client,
+	tenant string,
+	username string,
+) (*ReadApiUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadApiUser",
+		Query:  ReadApiUser_Operation,
 		Variables: &__ReadApiUserInput{
 			Tenant:   tenant,
 			Username: username,
@@ -26633,15 +26738,8 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	return &data, err
 }
 
-func ReadApp(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-) (*ReadAppResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadApp",
-		Query: `
+// The query or mutation executed by ReadApp.
+const ReadApp_Operation = `
 query ReadApp ($name: String!, $tenant: String!) {
 	GetApp(name: $name, tenant: $tenant) {
 		__typename
@@ -26709,7 +26807,17 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	userPoolId
 	username
 }
-`,
+`
+
+func ReadApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadApp",
+		Query:  ReadApp_Operation,
 		Variables: &__ReadAppInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26729,16 +26837,8 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	return &data, err
 }
 
-func ReadEdge(
-	ctx context.Context,
-	client graphql.Client,
-	source string,
-	target string,
-	tenant string,
-) (*ReadEdgeResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadEdge",
-		Query: `
+// The query or mutation executed by ReadEdge.
+const ReadEdge_Operation = `
 query ReadEdge ($source: String!, $target: String!, $tenant: String!) {
 	GetEdge(source: $source, target: $target, tenant: $tenant) {
 		... EdgeFields
@@ -26764,7 +26864,18 @@ fragment EdgeFields on Edge {
 		name
 	}
 }
-`,
+`
+
+func ReadEdge(
+	ctx context.Context,
+	client graphql.Client,
+	source string,
+	target string,
+	tenant string,
+) (*ReadEdgeResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadEdge",
+		Query:  ReadEdge_Operation,
 		Variables: &__ReadEdgeInput{
 			Source: source,
 			Target: target,
@@ -26785,15 +26896,8 @@ fragment EdgeFields on Edge {
 	return &data, err
 }
 
-func ReadFunction(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-) (*ReadFunctionResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadFunction",
-		Query: `
+// The query or mutation executed by ReadFunction.
+const ReadFunction_Operation = `
 query ReadFunction ($name: String!, $tenant: String!) {
 	GetFunction(name: $name, tenant: $tenant) {
 		__typename
@@ -26828,7 +26932,17 @@ fragment ProcessorFunctionFields on ProcessorFunction {
 		name
 	}
 }
-`,
+`
+
+func ReadFunction(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadFunctionResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadFunction",
+		Query:  ReadFunction_Operation,
 		Variables: &__ReadFunctionInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26848,15 +26962,8 @@ fragment ProcessorFunctionFields on ProcessorFunction {
 	return &data, err
 }
 
-func ReadKmsKey(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-) (*ReadKmsKeyResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadKmsKey",
-		Query: `
+// The query or mutation executed by ReadKmsKey.
+const ReadKmsKey_Operation = `
 query ReadKmsKey ($name: String!, $tenant: String!) {
 	GetKmsKey(name: $name, tenant: $tenant) {
 		... KmsKeyFields
@@ -26868,7 +26975,17 @@ fragment KmsKeyFields on KmsKey {
 	inUse
 	name
 }
-`,
+`
+
+func ReadKmsKey(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadKmsKeyResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadKmsKey",
+		Query:  ReadKmsKey_Operation,
 		Variables: &__ReadKmsKeyInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26888,15 +27005,8 @@ fragment KmsKeyFields on KmsKey {
 	return &data, err
 }
 
-func ReadManagedAppIso(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-) (*ReadManagedAppIsoResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadManagedAppIso",
-		Query: `
+// The query or mutation executed by ReadManagedAppIso.
+const ReadManagedAppIso_Operation = `
 query ReadManagedAppIso ($name: String!, $tenant: String!) {
 	GetApp(name: $name, tenant: $tenant) {
 		__typename
@@ -26905,7 +27015,17 @@ query ReadManagedAppIso ($name: String!, $tenant: String!) {
 		}
 	}
 }
-`,
+`
+
+func ReadManagedAppIso(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadManagedAppIsoResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadManagedAppIso",
+		Query:  ReadManagedAppIso_Operation,
 		Variables: &__ReadManagedAppIsoInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26925,15 +27045,8 @@ query ReadManagedAppIso ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
-func ReadManagedAppUserdata(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-) (*ReadManagedAppUserdataResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadManagedAppUserdata",
-		Query: `
+// The query or mutation executed by ReadManagedAppUserdata.
+const ReadManagedAppUserdata_Operation = `
 query ReadManagedAppUserdata ($name: String!, $tenant: String!) {
 	GetApp(name: $name, tenant: $tenant) {
 		__typename
@@ -26942,7 +27055,17 @@ query ReadManagedAppUserdata ($name: String!, $tenant: String!) {
 		}
 	}
 }
-`,
+`
+
+func ReadManagedAppUserdata(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadManagedAppUserdataResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadManagedAppUserdata",
+		Query:  ReadManagedAppUserdata_Operation,
 		Variables: &__ReadManagedAppUserdataInput{
 			Name:   name,
 			Tenant: tenant,
@@ -26962,15 +27085,8 @@ query ReadManagedAppUserdata ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
-func ReadManagedNodeType(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-) (*ReadManagedNodeTypeResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadManagedNodeType",
-		Query: `
+// The query or mutation executed by ReadManagedNodeType.
+const ReadManagedNodeType_Operation = `
 query ReadManagedNodeType ($name: String!, $tenant: String!) {
 	GetManagedNodeType(name: $name, tenant: $tenant) {
 		... ManagedNodeTypeFields
@@ -27001,7 +27117,17 @@ fragment ManagedNodeTypeFields on ManagedNodeType {
 	}
 	system
 }
-`,
+`
+
+func ReadManagedNodeType(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadManagedNodeTypeResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadManagedNodeType",
+		Query:  ReadManagedNodeType_Operation,
 		Variables: &__ReadManagedNodeTypeInput{
 			Name:   name,
 			Tenant: tenant,
@@ -27021,15 +27147,8 @@ fragment ManagedNodeTypeFields on ManagedNodeType {
 	return &data, err
 }
 
-func ReadMessageType(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-) (*ReadMessageTypeResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadMessageType",
-		Query: `
+// The query or mutation executed by ReadMessageType.
+const ReadMessageType_Operation = `
 query ReadMessageType ($name: String!, $tenant: String!) {
 	GetMessageType(name: $name, tenant: $tenant) {
 		... MessageTypeFields
@@ -27047,7 +27166,17 @@ fragment MessageTypeFields on MessageType {
 	sampleMessage
 	system
 }
-`,
+`
+
+func ReadMessageType(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadMessageTypeResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadMessageType",
+		Query:  ReadMessageType_Operation,
 		Variables: &__ReadMessageTypeInput{
 			Name:   name,
 			Tenant: tenant,
@@ -27067,15 +27196,8 @@ fragment MessageTypeFields on MessageType {
 	return &data, err
 }
 
-func ReadNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-) (*ReadNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadNode",
-		Query: `
+// The query or mutation executed by ReadNode.
+const ReadNode_Operation = `
 query ReadNode ($name: String!, $tenant: String!) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -27339,7 +27461,17 @@ fragment WebSubHubNodeFields on WebSubHubNode {
 	signatureAlgorithm
 	subscriptionSecurity
 }
-`,
+`
+
+func ReadNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadNode",
+		Query:  ReadNode_Operation,
 		Variables: &__ReadNodeInput{
 			Name:   name,
 			Tenant: tenant,
@@ -27359,15 +27491,8 @@ fragment WebSubHubNodeFields on WebSubHubNode {
 	return &data, err
 }
 
-func ReadNodeMessageTypes(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-) (*ReadNodeMessageTypesResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadNodeMessageTypes",
-		Query: `
+// The query or mutation executed by ReadNodeMessageTypes.
+const ReadNodeMessageTypes_Operation = `
 query ReadNodeMessageTypes ($name: String!, $tenant: String!) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -27481,7 +27606,17 @@ query ReadNodeMessageTypes ($name: String!, $tenant: String!) {
 		}
 	}
 }
-`,
+`
+
+func ReadNodeMessageTypes(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+) (*ReadNodeMessageTypesResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadNodeMessageTypes",
+		Query:  ReadNodeMessageTypes_Operation,
 		Variables: &__ReadNodeMessageTypesInput{
 			Name:   name,
 			Tenant: tenant,
@@ -27501,14 +27636,8 @@ query ReadNodeMessageTypes ($name: String!, $tenant: String!) {
 	return &data, err
 }
 
-func ReadTenant(
-	ctx context.Context,
-	client graphql.Client,
-	tenant string,
-) (*ReadTenantResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadTenant",
-		Query: `
+// The query or mutation executed by ReadTenant.
+const ReadTenant_Operation = `
 query ReadTenant ($tenant: String!) {
 	GetTenant(tenant: $tenant) {
 		... TenantFields
@@ -27522,7 +27651,16 @@ fragment TenantFields on Tenant {
 	region
 	table
 }
-`,
+`
+
+func ReadTenant(
+	ctx context.Context,
+	client graphql.Client,
+	tenant string,
+) (*ReadTenantResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadTenant",
+		Query:  ReadTenant_Operation,
 		Variables: &__ReadTenantInput{
 			Tenant: tenant,
 		},
@@ -27541,15 +27679,8 @@ fragment TenantFields on Tenant {
 	return &data, err
 }
 
-func ReadTenantAwsCredentials(
-	ctx context.Context,
-	client graphql.Client,
-	tenant string,
-	duration *int,
-) (*ReadTenantAwsCredentialsResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadTenantAwsCredentials",
-		Query: `
+// The query or mutation executed by ReadTenantAwsCredentials.
+const ReadTenantAwsCredentials_Operation = `
 query ReadTenantAwsCredentials ($tenant: String!, $duration: Int) {
 	GetTenant(tenant: $tenant) {
 		GetAwsCredentials(duration: $duration) {
@@ -27560,7 +27691,17 @@ query ReadTenantAwsCredentials ($tenant: String!, $duration: Int) {
 		}
 	}
 }
-`,
+`
+
+func ReadTenantAwsCredentials(
+	ctx context.Context,
+	client graphql.Client,
+	tenant string,
+	duration *int,
+) (*ReadTenantAwsCredentialsResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadTenantAwsCredentials",
+		Query:  ReadTenantAwsCredentials_Operation,
 		Variables: &__ReadTenantAwsCredentialsInput{
 			Tenant:   tenant,
 			Duration: duration,
@@ -27580,15 +27721,8 @@ query ReadTenantAwsCredentials ($tenant: String!, $duration: Int) {
 	return &data, err
 }
 
-func ReadTenantUser(
-	ctx context.Context,
-	client graphql.Client,
-	email string,
-	tenant string,
-) (*ReadTenantUserResponse, error) {
-	req := &graphql.Request{
-		OpName: "ReadTenantUser",
-		Query: `
+// The query or mutation executed by ReadTenantUser.
+const ReadTenantUser_Operation = `
 query ReadTenantUser ($email: AWSEmail!, $tenant: String!) {
 	GetTenantUser(email: $email, tenant: $tenant) {
 		... TenantUserFields
@@ -27601,7 +27735,17 @@ fragment TenantUserFields on TenantUser {
 	role
 	status
 }
-`,
+`
+
+func ReadTenantUser(
+	ctx context.Context,
+	client graphql.Client,
+	email string,
+	tenant string,
+) (*ReadTenantUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "ReadTenantUser",
+		Query:  ReadTenantUser_Operation,
 		Variables: &__ReadTenantUserInput{
 			Email:  email,
 			Tenant: tenant,
@@ -27621,17 +27765,8 @@ fragment TenantUserFields on TenantUser {
 	return &data, err
 }
 
-func UpdateApiUser(
-	ctx context.Context,
-	client graphql.Client,
-	tenant string,
-	username string,
-	description *string,
-	role *ApiUserRole,
-) (*UpdateApiUserResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateApiUser",
-		Query: `
+// The query or mutation executed by UpdateApiUser.
+const UpdateApiUser_Operation = `
 query UpdateApiUser ($tenant: String!, $username: String!, $description: String, $role: ApiUserRole) {
 	GetApiUser(tenant: $tenant, username: $username) {
 		Update(description: $description, role: $role) {
@@ -27654,7 +27789,19 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	userPoolId
 	username
 }
-`,
+`
+
+func UpdateApiUser(
+	ctx context.Context,
+	client graphql.Client,
+	tenant string,
+	username string,
+	description *string,
+	role *ApiUserRole,
+) (*UpdateApiUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateApiUser",
+		Query:  UpdateApiUser_Operation,
 		Variables: &__UpdateApiUserInput{
 			Tenant:      tenant,
 			Username:    username,
@@ -27676,22 +27823,8 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	return &data, err
 }
 
-func UpdateBitmapRouterNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	inlineBitmapper *string,
-	loggingLevel *LogLevel,
-	managedBitmapper *string,
-	requirements []string,
-	routeTable *string,
-) (*UpdateBitmapRouterNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateBitmapRouterNode",
-		Query: `
+// The query or mutation executed by UpdateBitmapRouterNode.
+const UpdateBitmapRouterNode_Operation = `
 query UpdateBitmapRouterNode ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $inlineBitmapper: String, $loggingLevel: LogLevel, $managedBitmapper: String, $requirements: [String!], $routeTable: AWSJSON) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -27723,7 +27856,24 @@ fragment BitmapRouterNodeFields on BitmapRouterNode {
 		name
 	}
 }
-`,
+`
+
+func UpdateBitmapRouterNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	inlineBitmapper *string,
+	loggingLevel *LogLevel,
+	managedBitmapper *string,
+	requirements []string,
+	routeTable *string,
+) (*UpdateBitmapRouterNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateBitmapRouterNode",
+		Query:  UpdateBitmapRouterNode_Operation,
 		Variables: &__UpdateBitmapRouterNodeInput{
 			Name:             name,
 			Tenant:           tenant,
@@ -27750,16 +27900,8 @@ fragment BitmapRouterNodeFields on BitmapRouterNode {
 	return &data, err
 }
 
-func UpdateCrossTenantApp(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	description *string,
-) (*UpdateCrossTenantAppResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateCrossTenantApp",
-		Query: `
+// The query or mutation executed by UpdateCrossTenantApp.
+const UpdateCrossTenantApp_Operation = `
 query UpdateCrossTenantApp ($name: String!, $tenant: String!, $description: String) {
 	GetApp(name: $name, tenant: $tenant) {
 		__typename
@@ -27789,7 +27931,18 @@ fragment CrossTenantSendingAppFields on CrossTenantSendingApp {
 	receivingApp
 	receivingTenant
 }
-`,
+`
+
+func UpdateCrossTenantApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	description *string,
+) (*UpdateCrossTenantAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateCrossTenantApp",
+		Query:  UpdateCrossTenantApp_Operation,
 		Variables: &__UpdateCrossTenantAppInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -27810,22 +27963,8 @@ fragment CrossTenantSendingAppFields on CrossTenantSendingApp {
 	return &data, err
 }
 
-func UpdateCrossTenantSendingNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	inlineProcessor *string,
-	loggingLevel *LogLevel,
-	managedProcessor *string,
-	requirements []string,
-	sequentialProcessing *bool,
-) (*UpdateCrossTenantSendingNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateCrossTenantSendingNode",
-		Query: `
+// The query or mutation executed by UpdateCrossTenantSendingNode.
+const UpdateCrossTenantSendingNode_Operation = `
 query UpdateCrossTenantSendingNode ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $inlineProcessor: String, $loggingLevel: LogLevel, $managedProcessor: String, $requirements: [String!], $sequentialProcessing: Boolean) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -27860,7 +27999,24 @@ fragment CrossTenantSendingNodeFields on CrossTenantSendingNode {
 	}
 	sequentialProcessing
 }
-`,
+`
+
+func UpdateCrossTenantSendingNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	inlineProcessor *string,
+	loggingLevel *LogLevel,
+	managedProcessor *string,
+	requirements []string,
+	sequentialProcessing *bool,
+) (*UpdateCrossTenantSendingNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateCrossTenantSendingNode",
+		Query:  UpdateCrossTenantSendingNode_Operation,
 		Variables: &__UpdateCrossTenantSendingNodeInput{
 			Name:                 name,
 			Tenant:               tenant,
@@ -27887,17 +28043,8 @@ fragment CrossTenantSendingNodeFields on CrossTenantSendingNode {
 	return &data, err
 }
 
-func UpdateEdge(
-	ctx context.Context,
-	client graphql.Client,
-	source string,
-	target string,
-	tenant string,
-	description *string,
-) (*UpdateEdgeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateEdge",
-		Query: `
+// The query or mutation executed by UpdateEdge.
+const UpdateEdge_Operation = `
 query UpdateEdge ($source: String!, $target: String!, $tenant: String!, $description: String) {
 	GetEdge(source: $source, target: $target, tenant: $tenant) {
 		Update(description: $description) {
@@ -27925,7 +28072,19 @@ fragment EdgeFields on Edge {
 		name
 	}
 }
-`,
+`
+
+func UpdateEdge(
+	ctx context.Context,
+	client graphql.Client,
+	source string,
+	target string,
+	tenant string,
+	description *string,
+) (*UpdateEdgeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateEdge",
+		Query:  UpdateEdge_Operation,
 		Variables: &__UpdateEdgeInput{
 			Source:      source,
 			Target:      target,
@@ -27947,17 +28106,8 @@ fragment EdgeFields on Edge {
 	return &data, err
 }
 
-func UpdateExternalNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-) (*UpdateExternalNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateExternalNode",
-		Query: `
+// The query or mutation executed by UpdateExternalNode.
+const UpdateExternalNode_Operation = `
 query UpdateExternalNode ($name: String!, $tenant: String!, $config: AWSJSON, $description: String) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -27991,7 +28141,19 @@ fragment ExternalNodeFields on ExternalNode {
 		name
 	}
 }
-`,
+`
+
+func UpdateExternalNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+) (*UpdateExternalNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateExternalNode",
+		Query:  UpdateExternalNode_Operation,
 		Variables: &__UpdateExternalNodeInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -28013,17 +28175,8 @@ fragment ExternalNodeFields on ExternalNode {
 	return &data, err
 }
 
-func UpdateFilesDotComWebhookNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	apiKey *string,
-	description *string,
-) (*UpdateFilesDotComWebhookNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateFilesDotComWebhookNode",
-		Query: `
+// The query or mutation executed by UpdateFilesDotComWebhookNode.
+const UpdateFilesDotComWebhookNode_Operation = `
 query UpdateFilesDotComWebhookNode ($name: String!, $tenant: String!, $apiKey: String, $description: String) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -28046,7 +28199,19 @@ fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
 	}
 	token
 }
-`,
+`
+
+func UpdateFilesDotComWebhookNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	apiKey *string,
+	description *string,
+) (*UpdateFilesDotComWebhookNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateFilesDotComWebhookNode",
+		Query:  UpdateFilesDotComWebhookNode_Operation,
 		Variables: &__UpdateFilesDotComWebhookNodeInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -28068,19 +28233,8 @@ fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
 	return &data, err
 }
 
-func UpdateFunction(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	code *string,
-	description *string,
-	readme *string,
-	requirements []string,
-) (*UpdateFunctionResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateFunction",
-		Query: `
+// The query or mutation executed by UpdateFunction.
+const UpdateFunction_Operation = `
 query UpdateFunction ($name: String!, $tenant: String!, $code: String, $description: String, $readme: String, $requirements: [String!]) {
 	GetFunction(name: $name, tenant: $tenant) {
 		__typename
@@ -28125,7 +28279,21 @@ fragment ProcessorFunctionFields on ProcessorFunction {
 		name
 	}
 }
-`,
+`
+
+func UpdateFunction(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	code *string,
+	description *string,
+	readme *string,
+	requirements []string,
+) (*UpdateFunctionResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateFunction",
+		Query:  UpdateFunction_Operation,
 		Variables: &__UpdateFunctionInput{
 			Name:         name,
 			Tenant:       tenant,
@@ -28149,16 +28317,8 @@ fragment ProcessorFunctionFields on ProcessorFunction {
 	return &data, err
 }
 
-func UpdateKmsKey(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	description *string,
-) (*UpdateKmsKeyResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateKmsKey",
-		Query: `
+// The query or mutation executed by UpdateKmsKey.
+const UpdateKmsKey_Operation = `
 query UpdateKmsKey ($name: String!, $tenant: String!, $description: String) {
 	GetKmsKey(name: $name, tenant: $tenant) {
 		Update(description: $description) {
@@ -28172,7 +28332,18 @@ fragment KmsKeyFields on KmsKey {
 	inUse
 	name
 }
-`,
+`
+
+func UpdateKmsKey(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	description *string,
+) (*UpdateKmsKeyResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateKmsKey",
+		Query:  UpdateKmsKey_Operation,
 		Variables: &__UpdateKmsKeyInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -28193,16 +28364,8 @@ fragment KmsKeyFields on KmsKey {
 	return &data, err
 }
 
-func UpdateLoadBalancerNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	description *string,
-) (*UpdateLoadBalancerNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateLoadBalancerNode",
-		Query: `
+// The query or mutation executed by UpdateLoadBalancerNode.
+const UpdateLoadBalancerNode_Operation = `
 query UpdateLoadBalancerNode ($name: String!, $tenant: String!, $description: String) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -28226,7 +28389,18 @@ fragment LoadBalancerNodeFields on LoadBalancerNode {
 		name
 	}
 }
-`,
+`
+
+func UpdateLoadBalancerNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	description *string,
+) (*UpdateLoadBalancerNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateLoadBalancerNode",
+		Query:  UpdateLoadBalancerNode_Operation,
 		Variables: &__UpdateLoadBalancerNodeInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -28247,20 +28421,8 @@ fragment LoadBalancerNodeFields on LoadBalancerNode {
 	return &data, err
 }
 
-func UpdateManagedNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	loggingLevel *LogLevel,
-	mounts []MountInput,
-	ports []PortInput,
-) (*UpdateManagedNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateManagedNode",
-		Query: `
+// The query or mutation executed by UpdateManagedNode.
+const UpdateManagedNode_Operation = `
 query UpdateManagedNode ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $loggingLevel: LogLevel, $mounts: [MountInput!], $ports: [PortInput!]) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -28304,7 +28466,22 @@ fragment ManagedNodeFields on ManagedNode {
 		name
 	}
 }
-`,
+`
+
+func UpdateManagedNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	loggingLevel *LogLevel,
+	mounts []MountInput,
+	ports []PortInput,
+) (*UpdateManagedNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateManagedNode",
+		Query:  UpdateManagedNode_Operation,
 		Variables: &__UpdateManagedNodeInput{
 			Name:         name,
 			Tenant:       tenant,
@@ -28329,18 +28506,8 @@ fragment ManagedNodeFields on ManagedNode {
 	return &data, err
 }
 
-func UpdateManagedNodeType(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	description *string,
-	imageUri *string,
-	readme *string,
-) (*UpdateManagedNodeTypeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateManagedNodeType",
-		Query: `
+// The query or mutation executed by UpdateManagedNodeType.
+const UpdateManagedNodeType_Operation = `
 query UpdateManagedNodeType ($name: String!, $tenant: String!, $description: String, $imageUri: String, $readme: String) {
 	GetManagedNodeType(name: $name, tenant: $tenant) {
 		Update(description: $description, imageUri: $imageUri, readme: $readme) {
@@ -28373,7 +28540,20 @@ fragment ManagedNodeTypeFields on ManagedNodeType {
 	}
 	system
 }
-`,
+`
+
+func UpdateManagedNodeType(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	description *string,
+	imageUri *string,
+	readme *string,
+) (*UpdateManagedNodeTypeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateManagedNodeType",
+		Query:  UpdateManagedNodeType_Operation,
 		Variables: &__UpdateManagedNodeTypeInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -28396,22 +28576,8 @@ fragment ManagedNodeTypeFields on ManagedNodeType {
 	return &data, err
 }
 
-func UpdateMessageType(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	auditor *string,
-	bitmapperTemplate *string,
-	description *string,
-	processorTemplate *string,
-	readme *string,
-	requirements []string,
-	sampleMessage *string,
-) (*UpdateMessageTypeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateMessageType",
-		Query: `
+// The query or mutation executed by UpdateMessageType.
+const UpdateMessageType_Operation = `
 query UpdateMessageType ($name: String!, $tenant: String!, $auditor: String, $bitmapperTemplate: String, $description: String, $processorTemplate: String, $readme: String, $requirements: [String!], $sampleMessage: String) {
 	GetMessageType(name: $name, tenant: $tenant) {
 		Update(auditor: $auditor, bitmapperTemplate: $bitmapperTemplate, description: $description, processorTemplate: $processorTemplate, sampleMessage: $sampleMessage, readme: $readme, requirements: $requirements) {
@@ -28431,7 +28597,24 @@ fragment MessageTypeFields on MessageType {
 	sampleMessage
 	system
 }
-`,
+`
+
+func UpdateMessageType(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	auditor *string,
+	bitmapperTemplate *string,
+	description *string,
+	processorTemplate *string,
+	readme *string,
+	requirements []string,
+	sampleMessage *string,
+) (*UpdateMessageTypeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateMessageType",
+		Query:  UpdateMessageType_Operation,
 		Variables: &__UpdateMessageTypeInput{
 			Name:              name,
 			Tenant:            tenant,
@@ -28458,22 +28641,8 @@ fragment MessageTypeFields on MessageType {
 	return &data, err
 }
 
-func UpdateProcessorNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	inlineProcessor *string,
-	loggingLevel *LogLevel,
-	managedProcessor *string,
-	requirements []string,
-	sequentialProcessing *bool,
-) (*UpdateProcessorNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateProcessorNode",
-		Query: `
+// The query or mutation executed by UpdateProcessorNode.
+const UpdateProcessorNode_Operation = `
 query UpdateProcessorNode ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $inlineProcessor: String, $loggingLevel: LogLevel, $managedProcessor: String, $requirements: [String!], $sequentialProcessing: Boolean) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -28505,7 +28674,24 @@ fragment ProcessorNodeFields on ProcessorNode {
 	}
 	sequentialProcessing
 }
-`,
+`
+
+func UpdateProcessorNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	inlineProcessor *string,
+	loggingLevel *LogLevel,
+	managedProcessor *string,
+	requirements []string,
+	sequentialProcessing *bool,
+) (*UpdateProcessorNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateProcessorNode",
+		Query:  UpdateProcessorNode_Operation,
 		Variables: &__UpdateProcessorNodeInput{
 			Name:                 name,
 			Tenant:               tenant,
@@ -28532,18 +28718,8 @@ fragment ProcessorNodeFields on ProcessorNode {
 	return &data, err
 }
 
-func UpdateRemotetApp(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	tableAccess *bool,
-) (*UpdateRemotetAppResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateRemotetApp",
-		Query: `
+// The query or mutation executed by UpdateRemotetApp.
+const UpdateRemotetApp_Operation = `
 query UpdateRemotetApp ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $tableAccess: Boolean) {
 	GetApp(name: $name, tenant: $tenant) {
 		__typename
@@ -28605,7 +28781,20 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	userPoolId
 	username
 }
-`,
+`
+
+func UpdateRemotetApp(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	tableAccess *bool,
+) (*UpdateRemotetAppResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateRemotetApp",
+		Query:  UpdateRemotetApp_Operation,
 		Variables: &__UpdateRemotetAppInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -28628,16 +28817,8 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 	return &data, err
 }
 
-func UpdateTenant(
-	ctx context.Context,
-	client graphql.Client,
-	tenant string,
-	config *string,
-	description *string,
-) (*UpdateTenantResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateTenant",
-		Query: `
+// The query or mutation executed by UpdateTenant.
+const UpdateTenant_Operation = `
 query UpdateTenant ($tenant: String!, $config: AWSJSON, $description: String) {
 	GetTenant(tenant: $tenant) {
 		Update(config: $config, description: $description) {
@@ -28653,7 +28834,18 @@ fragment TenantFields on Tenant {
 	region
 	table
 }
-`,
+`
+
+func UpdateTenant(
+	ctx context.Context,
+	client graphql.Client,
+	tenant string,
+	config *string,
+	description *string,
+) (*UpdateTenantResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateTenant",
+		Query:  UpdateTenant_Operation,
 		Variables: &__UpdateTenantInput{
 			Tenant:      tenant,
 			Config:      config,
@@ -28674,17 +28866,8 @@ fragment TenantFields on Tenant {
 	return &data, err
 }
 
-func UpdateTenantUser(
-	ctx context.Context,
-	client graphql.Client,
-	email string,
-	tenant string,
-	role *UserRole,
-	status *UserStatus,
-) (*UpdateTenantUserResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateTenantUser",
-		Query: `
+// The query or mutation executed by UpdateTenantUser.
+const UpdateTenantUser_Operation = `
 query UpdateTenantUser ($email: AWSEmail!, $tenant: String!, $role: UserRole, $status: UserStatus) {
 	GetTenantUser(email: $email, tenant: $tenant) {
 		Update(role: $role, status: $status) {
@@ -28699,7 +28882,19 @@ fragment TenantUserFields on TenantUser {
 	role
 	status
 }
-`,
+`
+
+func UpdateTenantUser(
+	ctx context.Context,
+	client graphql.Client,
+	email string,
+	tenant string,
+	role *UserRole,
+	status *UserStatus,
+) (*UpdateTenantUserResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateTenantUser",
+		Query:  UpdateTenantUser_Operation,
 		Variables: &__UpdateTenantUserInput{
 			Email:  email,
 			Tenant: tenant,
@@ -28721,16 +28916,8 @@ fragment TenantUserFields on TenantUser {
 	return &data, err
 }
 
-func UpdateTimerNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	description *string,
-) (*UpdateTimerNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateTimerNode",
-		Query: `
+// The query or mutation executed by UpdateTimerNode.
+const UpdateTimerNode_Operation = `
 query UpdateTimerNode ($name: String!, $tenant: String!, $description: String) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -28752,7 +28939,18 @@ fragment TimerNodeFields on TimerNode {
 		name
 	}
 }
-`,
+`
+
+func UpdateTimerNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	description *string,
+) (*UpdateTimerNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateTimerNode",
+		Query:  UpdateTimerNode_Operation,
 		Variables: &__UpdateTimerNodeInput{
 			Name:        name,
 			Tenant:      tenant,
@@ -28773,26 +28971,8 @@ fragment TimerNodeFields on TimerNode {
 	return &data, err
 }
 
-func UpdateWebSubHubNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	defaultLeaseSeconds *int,
-	deliveryRetries *int,
-	description *string,
-	inlineApiAuthenticator *string,
-	loggingLevel *LogLevel,
-	managedApiAuthenticator *string,
-	maxLeaseSeconds *int,
-	requirements []string,
-	signatureAlgorithm *WebSubSignatureAlgorithm,
-	subscriptionSecurity *WebSubSubscriptionSecurity,
-) (*UpdateWebSubHubNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateWebSubHubNode",
-		Query: `
+// The query or mutation executed by UpdateWebSubHubNode.
+const UpdateWebSubHubNode_Operation = `
 query UpdateWebSubHubNode ($name: String!, $tenant: String!, $config: AWSJSON, $defaultLeaseSeconds: Int, $deliveryRetries: Int, $description: String, $inlineApiAuthenticator: String, $loggingLevel: LogLevel, $managedApiAuthenticator: String, $maxLeaseSeconds: Int, $requirements: [String!], $signatureAlgorithm: WebSubSignatureAlgorithm, $subscriptionSecurity: WebSubSubscriptionSecurity) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -28826,7 +29006,28 @@ fragment WebSubHubNodeFields on WebSubHubNode {
 	signatureAlgorithm
 	subscriptionSecurity
 }
-`,
+`
+
+func UpdateWebSubHubNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	defaultLeaseSeconds *int,
+	deliveryRetries *int,
+	description *string,
+	inlineApiAuthenticator *string,
+	loggingLevel *LogLevel,
+	managedApiAuthenticator *string,
+	maxLeaseSeconds *int,
+	requirements []string,
+	signatureAlgorithm *WebSubSignatureAlgorithm,
+	subscriptionSecurity *WebSubSubscriptionSecurity,
+) (*UpdateWebSubHubNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateWebSubHubNode",
+		Query:  UpdateWebSubHubNode_Operation,
 		Variables: &__UpdateWebSubHubNodeInput{
 			Name:                    name,
 			Tenant:                  tenant,
@@ -28857,21 +29058,8 @@ fragment WebSubHubNodeFields on WebSubHubNode {
 	return &data, err
 }
 
-func UpdateWebhookNode(
-	ctx context.Context,
-	client graphql.Client,
-	name string,
-	tenant string,
-	config *string,
-	description *string,
-	inlineApiAuthenticator *string,
-	loggingLevel *LogLevel,
-	managedApiAuthenticator *string,
-	requirements []string,
-) (*UpdateWebhookNodeResponse, error) {
-	req := &graphql.Request{
-		OpName: "UpdateWebhookNode",
-		Query: `
+// The query or mutation executed by UpdateWebhookNode.
+const UpdateWebhookNode_Operation = `
 query UpdateWebhookNode ($name: String!, $tenant: String!, $config: AWSJSON, $description: String, $inlineApiAuthenticator: String, $loggingLevel: LogLevel, $managedApiAuthenticator: String, $requirements: [String!]) {
 	GetNode(name: $name, tenant: $tenant) {
 		__typename
@@ -28900,7 +29088,23 @@ fragment WebhookNodeFields on WebhookNode {
 		name
 	}
 }
-`,
+`
+
+func UpdateWebhookNode(
+	ctx context.Context,
+	client graphql.Client,
+	name string,
+	tenant string,
+	config *string,
+	description *string,
+	inlineApiAuthenticator *string,
+	loggingLevel *LogLevel,
+	managedApiAuthenticator *string,
+	requirements []string,
+) (*UpdateWebhookNodeResponse, error) {
+	req := &graphql.Request{
+		OpName: "UpdateWebhookNode",
+		Query:  UpdateWebhookNode_Operation,
 		Variables: &__UpdateWebhookNodeInput{
 			Name:                    name,
 			Tenant:                  tenant,
