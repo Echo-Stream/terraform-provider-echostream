@@ -75,6 +75,14 @@ func (ct ConfigType) Validate(ctx context.Context, in tftypes.Value, path path.P
 	}
 
 	if config != "" {
+		if len(config) > 4096 {
+			diags.AddAttributeError(
+				path,
+				"Config Type Validation Error",
+				"Configs must be less than or equal to 4096 characters",
+			)
+		}
+
 		var unknown map[string]any
 
 		if err := json.Unmarshal([]byte(config), &unknown); err != nil {
