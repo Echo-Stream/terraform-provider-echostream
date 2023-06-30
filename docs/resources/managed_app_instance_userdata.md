@@ -34,5 +34,3 @@ resource "echostream_managed_app_instance_userdata" "test" {
 ### Read-Only
 
 - `userdata` (String) Cloud-init userdata specifically targeted for Amazon Linux 2.
-
-

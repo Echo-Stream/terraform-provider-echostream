@@ -43,5 +43,3 @@ Read-Only:
 - `expiration` (String) The date/time that the sesssion expires, in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 - `secret_access_key` (String, Sensitive) The AWS Secret Access Key for the session.
 - `session_token` (String) The AWS Session Token for the session.
-
-

@@ -34,5 +34,3 @@ resource "echostream_managed_app_instance_iso" "test" {
 ### Read-Only
 
 - `iso` (String) The iso image, gzip'd and base64 encoded.
-
-

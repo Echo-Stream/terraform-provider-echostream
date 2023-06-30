@@ -45,5 +45,3 @@ resource "echostream_message_type" "test" {
 
 - `id` (String) The ID of this resource.
 - `in_use` (Boolean) True if this is used by other resources.
-
-

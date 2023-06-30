@@ -34,5 +34,3 @@ data "echostream_processor_function" "csv_2_json" {
 - `readme` (String) README in MarkDown format.
 - `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.
 - `return_message_type` (String) The MessageType returned by the Function.
-
-

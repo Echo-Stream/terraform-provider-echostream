@@ -56,5 +56,3 @@ Read-Only:
 - `container_port` (Number) The exposed container port.
 - `description` (String) A human-readable description for the port.
 - `protocol` (String) The protocol to use for the port. One of `sctp`, `tcp` or `udp`.
-
-

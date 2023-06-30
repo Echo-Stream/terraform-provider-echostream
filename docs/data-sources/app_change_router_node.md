@@ -25,5 +25,3 @@ data "echostream_app_change_router_node" "test" {}
 - `name` (String) The name of the Node. Must be unique within the Tenant.
 - `receive_message_type` (String) The MessageType that this Node is capable of receiving.
 - `send_message_type` (String) The MessageType that this Node is capable of sending.
-
-

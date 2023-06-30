@@ -36,5 +36,3 @@ data "echostream_message_type" "json" {
 - `readme` (String) README in MarkDown format.
 - `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.
 - `sample_message` (String) A sample message.
-
-

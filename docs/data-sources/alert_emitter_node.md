@@ -24,5 +24,3 @@ data "echostream_alert_emitter_node" "test" {}
 - `description` (String) A human-readable description.
 - `name` (String) The name of the Node. Must be unique within the Tenant.
 - `send_message_type` (String) The MessageType that this Node is capable of sending.
-
-

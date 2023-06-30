@@ -33,5 +33,3 @@ data "echostream_bitmapper_function" "test" {
 - `in_use` (Boolean) True if this is used by other resources.
 - `readme` (String) README in MarkDown format.
 - `requirements` (Set of String) The list of Python requirements, in [pip](https://pip.pypa.io/en/stable/reference/requirement-specifiers/) format.
-
-

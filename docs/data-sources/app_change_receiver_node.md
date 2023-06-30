@@ -34,5 +34,3 @@ data "echostream_app_change_receiver_node" "test_receiver" {
 - `description` (String) A human-readable description.
 - `name` (String) The name of the Node. Must be unique within the Tenant.
 - `receive_message_type` (String) The MessageType that this Node is capable of receiving.
-
-
