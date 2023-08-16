@@ -30,6 +30,10 @@ func (v notValidator) MarkdownDescription(ctx context.Context) string {
 // from the passing validator. Using All validator as value validators will pass if all the validators supplied in an
 // All validator pass.
 func (v notValidator) ValidateString(ctx context.Context, req validator.StringRequest, resp *validator.StringResponse) {
+	if req.ConfigValue.IsNull() || req.ConfigValue.IsUnknown() {
+		return
+	}
+
 	validatorResp := &validator.StringResponse{
 		Diagnostics: diag.Diagnostics{},
 	}
