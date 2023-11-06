@@ -159,6 +159,7 @@ func (p *echoStreamProvider) DataSources(ctx context.Context) []func() datasourc
 	return []func() datasource.DataSource{
 		func() datasource.DataSource { return &app.CrossAccountAppDataSource{} },
 		func() datasource.DataSource { return &app.ExternalAppDataSource{} },
+		func() datasource.DataSource { return &app.ManagedAppDataSource{} },
 		func() datasource.DataSource { return &edge.EdgeDataSource{} },
 		func() datasource.DataSource { return &function.ApiAuthenticatorFunctionDataSource{} },
 		func() datasource.DataSource { return &function.BitmapperFunctionDataSource{} },
