@@ -172,6 +172,7 @@ func (p *echoStreamProvider) DataSources(ctx context.Context) []func() datasourc
 		func() datasource.DataSource { return &node.AuditEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &node.ChangeEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &node.DeadLetterEmitterNodeDataSource{} },
+		func() datasource.DataSource { return &node.ExternalNodeDataSource{} },
 		func() datasource.DataSource { return &node.LogEmitterNodeDataSource{} },
 		func() datasource.DataSource { return &tenant.TenantDataSource{} },
 	}

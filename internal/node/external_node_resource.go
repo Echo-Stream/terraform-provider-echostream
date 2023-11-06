@@ -26,15 +26,6 @@ type ExternalNodeResource struct {
 	data *common.ProviderData
 }
 
-type externalNodeModel struct {
-	App                types.String  `tfsdk:"app"`
-	Config             common.Config `tfsdk:"config"`
-	Description        types.String  `tfsdk:"description"`
-	Name               types.String  `tfsdk:"name"`
-	ReceiveMessageType types.String  `tfsdk:"receive_message_type"`
-	SendMessageType    types.String  `tfsdk:"send_message_type"`
-}
-
 func (r *ExternalNodeResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {
