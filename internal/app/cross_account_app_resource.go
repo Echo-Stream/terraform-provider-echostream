@@ -32,18 +32,6 @@ type CrossAccountAppResource struct {
 	data *common.ProviderData
 }
 
-type crossAccountAppModel struct {
-	Account              types.String  `tfsdk:"account"`
-	AppsyncEndpoint      types.String  `tfsdk:"appsync_endpoint"`
-	AuditRecordsEndpoint types.String  `tfsdk:"audit_records_endpoint"`
-	Config               common.Config `tfsdk:"config"`
-	Credentials          types.Object  `tfsdk:"credentials"`
-	Description          types.String  `tfsdk:"description"`
-	IamPolicy            types.String  `tfsdk:"iam_policy"`
-	Name                 types.String  `tfsdk:"name"`
-	TableAccess          types.Bool    `tfsdk:"table_access"`
-}
-
 func (r *CrossAccountAppResource) Configure(ctx context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {
 	// Prevent panic if the provider has not been configured.
 	if req.ProviderData == nil {
@@ -269,7 +257,7 @@ func (r *CrossAccountAppResource) Read(ctx context.Context, req resource.ReadReq
 }
 
 func (r *CrossAccountAppResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
-	attributes := remoteAppAttributes()
+	attributes := remoteAppResourceAttributes()
 	maps.Copy(
 		attributes,
 		map[string]schema.Attribute{

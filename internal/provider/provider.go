@@ -157,6 +157,7 @@ type echoStreamProvider struct {
 
 func (p *echoStreamProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
+		func() datasource.DataSource { return &app.CrossAccountAppDataSource{} },
 		func() datasource.DataSource { return &edge.EdgeDataSource{} },
 		func() datasource.DataSource { return &function.ApiAuthenticatorFunctionDataSource{} },
 		func() datasource.DataSource { return &function.BitmapperFunctionDataSource{} },

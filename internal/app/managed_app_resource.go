@@ -256,7 +256,7 @@ func (r *ManagedAppResource) Read(ctx context.Context, req resource.ReadRequest,
 }
 
 func (r *ManagedAppResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
-	attributes := remoteAppAttributes()
+	attributes := remoteAppResourceAttributes()
 	name := attributes["name"].(schema.StringAttribute)
 	name.Validators = []validator.String{
 		stringvalidator.LengthBetween(3, 80),

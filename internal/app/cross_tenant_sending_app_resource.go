@@ -194,7 +194,7 @@ func (r *CrossTenantSendingAppResource) Read(ctx context.Context, req resource.R
 }
 
 func (r *CrossTenantSendingAppResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
-	attributes := appAttributes()
+	attributes := appResourceAttributes()
 	maps.Copy(
 		attributes,
 		map[string]schema.Attribute{

@@ -5,20 +5,34 @@ import (
 
 	"github.com/Echo-Stream/terraform-provider-echostream/internal/common"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	dataSourceSchema "github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	resourceSchema "github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"golang.org/x/exp/maps"
 )
 
-func appAttributes() map[string]schema.Attribute {
-	return map[string]schema.Attribute{
-		"description": schema.StringAttribute{
+func appDataSourceAttributes() map[string]dataSourceSchema.Attribute {
+	return map[string]dataSourceSchema.Attribute{
+		"description": dataSourceSchema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "A human-readable description of the app.",
+		},
+		"name": dataSourceSchema.StringAttribute{
+			MarkdownDescription: "The name of the app; must be unique in the Tenant.",
+			Required:            true,
+		},
+	}
+}
+
+func appResourceAttributes() map[string]resourceSchema.Attribute {
+	return map[string]resourceSchema.Attribute{
+		"description": resourceSchema.StringAttribute{
 			Optional:            true,
 			MarkdownDescription: "A human-readable description of the app.",
 		},
-		"name": schema.StringAttribute{
+		"name": resourceSchema.StringAttribute{
 			MarkdownDescription: "The name of the app; must be unique in the Tenant.",
 			PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			Required:            true,
@@ -27,28 +41,58 @@ func appAttributes() map[string]schema.Attribute {
 	}
 }
 
-func remoteAppAttributes() map[string]schema.Attribute {
-	attributes := appAttributes()
+func remoteAppDataSourceAttributes() map[string]dataSourceSchema.Attribute {
+	attributes := appDataSourceAttributes()
 	maps.Copy(
 		attributes,
-		map[string]schema.Attribute{
-			"audit_records_endpoint": schema.StringAttribute{
+		map[string]dataSourceSchema.Attribute{
+			"audit_records_endpoint": dataSourceSchema.StringAttribute{
 				Computed: true,
 				MarkdownDescription: "The app-specific endpoint for posting audit records. Details about this endpoint may be found" +
 					" [here](https://docs.echo.stream/docs/auditing-messages-from-cross-accountexternalmanaged-apps#auditing-without-use-of-the-echostreamnode-package).",
 			},
-			"config": schema.StringAttribute{
+			"config": dataSourceSchema.StringAttribute{
+				Computed:            true,
+				CustomType:          common.ConfigType{},
+				MarkdownDescription: "The config for the app. All nodes in the app will be allowed to access this. Must be a JSON object.",
+				Sensitive:           true,
+			},
+			"credentials": dataSourceSchema.SingleNestedAttribute{
+				Attributes:          common.CognitoCredentialsDataSourceSchema(),
+				Computed:            true,
+				MarkdownDescription: "The AWS Cognito Credentials that allow the app to access the EchoStream GraphQL API.",
+			},
+			"table_access": dataSourceSchema.BoolAttribute{
+				Computed:            true,
+				MarkdownDescription: "Indicates if this app can gain access to the Tenant's DynamoDB [table](https://docs.echo.stream/docs/table).",
+			},
+		},
+	)
+	return attributes
+}
+
+func remoteAppResourceAttributes() map[string]resourceSchema.Attribute {
+	attributes := appResourceAttributes()
+	maps.Copy(
+		attributes,
+		map[string]resourceSchema.Attribute{
+			"audit_records_endpoint": resourceSchema.StringAttribute{
+				Computed: true,
+				MarkdownDescription: "The app-specific endpoint for posting audit records. Details about this endpoint may be found" +
+					" [here](https://docs.echo.stream/docs/auditing-messages-from-cross-accountexternalmanaged-apps#auditing-without-use-of-the-echostreamnode-package).",
+			},
+			"config": resourceSchema.StringAttribute{
 				CustomType:          common.ConfigType{},
 				MarkdownDescription: "The config for the app. All nodes in the app will be allowed to access this. Must be a JSON object.",
 				Optional:            true,
 				Sensitive:           true,
 			},
-			"credentials": schema.SingleNestedAttribute{
-				Attributes:          common.CognitoCredentialsSchema(),
+			"credentials": resourceSchema.SingleNestedAttribute{
+				Attributes:          common.CognitoCredentialsResourceSchema(),
 				Computed:            true,
 				MarkdownDescription: "The AWS Cognito Credentials that allow the app to access the EchoStream GraphQL API.",
 			},
-			"table_access": schema.BoolAttribute{
+			"table_access": resourceSchema.BoolAttribute{
 				Computed:            true,
 				MarkdownDescription: "Indicates if this app can gain access to the Tenant's DynamoDB [table](https://docs.echo.stream/docs/table).",
 				Optional:            true,
@@ -58,9 +102,9 @@ func remoteAppAttributes() map[string]schema.Attribute {
 	return attributes
 }
 
-func managedAppInstanceAttributes() map[string]schema.Attribute {
-	return map[string]schema.Attribute{
-		"app": schema.StringAttribute{
+func managedAppInstanceAttributes() map[string]resourceSchema.Attribute {
+	return map[string]resourceSchema.Attribute{
+		"app": resourceSchema.StringAttribute{
 			MarkdownDescription: "The name of the app.",
 			PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			Required:            true,
@@ -72,7 +116,7 @@ func managedAppInstanceAttributes() map[string]schema.Attribute {
 				),
 			},
 		},
-		"name": schema.StringAttribute{
+		"name": resourceSchema.StringAttribute{
 			MarkdownDescription: "The name of the instance data generated. Changing this is the mechanism for regenerating instance data.",
 			PlanModifiers:       []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			Required:            true,

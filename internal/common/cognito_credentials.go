@@ -2,7 +2,8 @@ package common
 
 import (
 	"github.com/hashicorp/terraform-plugin-framework/attr"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	dataSourceSchema "github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	resourceSchema "github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
@@ -36,22 +37,44 @@ func CognitoCredentialsAttrValues(
 	}
 }
 
-func CognitoCredentialsSchema() map[string]schema.Attribute {
-	return map[string]schema.Attribute{
-		"client_id": schema.StringAttribute{
+func CognitoCredentialsDataSourceSchema() map[string]dataSourceSchema.Attribute {
+	return map[string]dataSourceSchema.Attribute{
+		"client_id": resourceSchema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The AWS Cognito Client ID used to connect to EchoStream.",
 		},
-		"password": schema.StringAttribute{
+		"password": dataSourceSchema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The password to use when connecting to EchoStream.",
 			Sensitive:           true,
 		},
-		"user_pool_id": schema.StringAttribute{
+		"user_pool_id": dataSourceSchema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The AWS Cognito User Pool ID used to connect to EchoStream.",
 		},
-		"username": schema.StringAttribute{
+		"username": dataSourceSchema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "The username to use when connecting to EchoStream.",
+		},
+	}
+}
+
+func CognitoCredentialsResourceSchema() map[string]resourceSchema.Attribute {
+	return map[string]resourceSchema.Attribute{
+		"client_id": resourceSchema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "The AWS Cognito Client ID used to connect to EchoStream.",
+		},
+		"password": resourceSchema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "The password to use when connecting to EchoStream.",
+			Sensitive:           true,
+		},
+		"user_pool_id": resourceSchema.StringAttribute{
+			Computed:            true,
+			MarkdownDescription: "The AWS Cognito User Pool ID used to connect to EchoStream.",
+		},
+		"username": resourceSchema.StringAttribute{
 			Computed:            true,
 			MarkdownDescription: "The username to use when connecting to EchoStream.",
 		},

@@ -189,7 +189,7 @@ func (r *ApiUserResource) Schema(ctx context.Context, req resource.SchemaRequest
 				MarkdownDescription: "The EchoStream AppSync Endpoint that this ApiUser must use.",
 			},
 			"credentials": schema.SingleNestedAttribute{
-				Attributes:          common.CognitoCredentialsSchema(),
+				Attributes:          common.CognitoCredentialsResourceSchema(),
 				Computed:            true,
 				MarkdownDescription: "The AWS Cognito Credentials assigned to this ApiUser that must be used when accessing the appsync_endpoint.",
 			},

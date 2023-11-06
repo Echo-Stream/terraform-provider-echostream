@@ -257,7 +257,7 @@ func (r *ExternalAppResource) Read(ctx context.Context, req resource.ReadRequest
 }
 
 func (r *ExternalAppResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
-	attributes := remoteAppAttributes()
+	attributes := remoteAppResourceAttributes()
 	maps.Copy(
 		attributes,
 		map[string]schema.Attribute{
