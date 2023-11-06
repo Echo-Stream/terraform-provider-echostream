@@ -84,7 +84,7 @@ func (d *AlertEmitterNodeDataSource) Read(ctx context.Context, req datasource.Re
 
 func (d *AlertEmitterNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: dataSendNodeAttributes(),
+		Attributes: sendNodeDataSourceAttributes(),
 		MarkdownDescription: "[AlertEmitterNodes](https://docs.echo.stream/docs/alert-emitter-node) emit alert messages. " +
 			"One per Tenant, automatically created when the Tenant is created.",
 	}

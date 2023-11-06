@@ -84,7 +84,7 @@ func (d *ChangeEmitterNodeDataSource) Read(ctx context.Context, req datasource.R
 
 func (d *ChangeEmitterNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: dataSendNodeAttributes(),
+		Attributes: sendNodeDataSourceAttributes(),
 		MarkdownDescription: "[ChangeEmitterNodes](https://docs.echo.stream/docs/change-emitter-node) emit change messages. " +
 			"One per Tenant, automatically created when the Tenant is created.",
 	}

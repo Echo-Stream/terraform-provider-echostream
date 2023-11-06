@@ -84,7 +84,7 @@ func (d *DeadLetterEmitterNodeDataSource) Read(ctx context.Context, req datasour
 
 func (d *DeadLetterEmitterNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: dataSendNodeAttributes(),
+		Attributes: sendNodeDataSourceAttributes(),
 		MarkdownDescription: "[DeadLetterEmitterNodes](https://docs.echo.stream/docs/dead-letter-emitter-node) emit dead letters (i.e. - " +
 			"undeliverable messages). One per Tenant, automatically created when the Tenant is created.",
 	}

@@ -84,7 +84,7 @@ func (d *AuditEmitterNodeDataSource) Read(ctx context.Context, req datasource.Re
 
 func (d *AuditEmitterNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: dataSendNodeAttributes(),
+		Attributes: sendNodeDataSourceAttributes(),
 		MarkdownDescription: "[AuditEmitterNodes](https://docs.echo.stream/docs/audit-emitter-node) emit audit messages. " +
 			"One per Tenant, automatically created when the Tenant is created.",
 	}

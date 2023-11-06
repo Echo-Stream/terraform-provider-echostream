@@ -5,7 +5,7 @@ import (
 	"golang.org/x/exp/maps"
 )
 
-func dataNodeAttributes() map[string]schema.Attribute {
+func nodeDataSourceAttributes() map[string]schema.Attribute {
 	return map[string]schema.Attribute{
 		"description": schema.StringAttribute{
 			Computed:            true,
@@ -18,8 +18,8 @@ func dataNodeAttributes() map[string]schema.Attribute {
 	}
 }
 
-func dataReceiveNodeAttributes() map[string]schema.Attribute {
-	attributes := dataNodeAttributes()
+func receiveNodeDataSourceAttributes() map[string]schema.Attribute {
+	attributes := nodeDataSourceAttributes()
 	maps.Copy(
 		attributes,
 		map[string]schema.Attribute{
@@ -32,8 +32,8 @@ func dataReceiveNodeAttributes() map[string]schema.Attribute {
 	return attributes
 }
 
-func dataSendNodeAttributes() map[string]schema.Attribute {
-	attributes := dataNodeAttributes()
+func sendNodeDataSourceAttributes() map[string]schema.Attribute {
+	attributes := nodeDataSourceAttributes()
 	maps.Copy(
 		attributes,
 		map[string]schema.Attribute{
@@ -46,8 +46,8 @@ func dataSendNodeAttributes() map[string]schema.Attribute {
 	return attributes
 }
 
-func dataSendReceiveNodeAttributes() map[string]schema.Attribute {
-	attributes := dataReceiveNodeAttributes()
-	maps.Copy(attributes, dataSendNodeAttributes())
+func sendReceiveNodeDataSourceAttributes() map[string]schema.Attribute {
+	attributes := receiveNodeDataSourceAttributes()
+	maps.Copy(attributes, sendNodeDataSourceAttributes())
 	return attributes
 }

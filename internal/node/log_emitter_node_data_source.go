@@ -84,7 +84,7 @@ func (d *LogEmitterNodeDataSource) Read(ctx context.Context, req datasource.Read
 
 func (d *LogEmitterNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: dataSendNodeAttributes(),
+		Attributes: sendNodeDataSourceAttributes(),
 		MarkdownDescription: "[LogEmitterNodes](https://docs.echo.stream/docs/log-emitter-node) emit log messages created by various Node types. " +
 			"One per Tenant, automatically created when the Tenant is created.",
 	}

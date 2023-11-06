@@ -87,7 +87,7 @@ func (d *AppChangeReceiverNodeDataSource) Read(ctx context.Context, req datasour
 }
 
 func (d *AppChangeReceiverNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
-	attributes := dataReceiveNodeAttributes()
+	attributes := receiveNodeDataSourceAttributes()
 	attributes["app"] = schema.StringAttribute{
 		MarkdownDescription: "The App for this AppChangeReceiverNode",
 		Required:            true,

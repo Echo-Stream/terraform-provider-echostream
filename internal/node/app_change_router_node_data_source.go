@@ -86,7 +86,7 @@ func (d *AppChangeRouterNodeDataSource) Read(ctx context.Context, req datasource
 
 func (d *AppChangeRouterNodeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: dataSendReceiveNodeAttributes(),
+		Attributes: sendReceiveNodeDataSourceAttributes(),
 		MarkdownDescription: "[AppChangeRouterNodes](https://docs.echo.stream/docs/app-change-router-node) route change messages " +
 			"to the appropriate App. One per Tenant, automatically created when the Tenant is created.",
 	}
