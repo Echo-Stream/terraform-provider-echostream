@@ -8,12 +8,6 @@ fragment TenantFields on Tenant {
     table
 }
 
-query DeleteTenant($tenant: String!) {
-    GetTenant(tenant: $tenant) {
-        Delete
-    }
-}
-
 query ReadTenant($tenant: String!) {
     GetTenant(tenant: $tenant) {
         ...TenantFields

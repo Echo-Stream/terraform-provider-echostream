@@ -4975,22 +4975,6 @@ func (v *DeleteNodeResponse) __premarshalJSON() (*__premarshalDeleteNodeResponse
 	return &retval, nil
 }
 
-// DeleteTenantGetTenant includes the requested fields of the GraphQL type Tenant.
-type DeleteTenantGetTenant struct {
-	Delete bool `json:"Delete"`
-}
-
-// GetDelete returns DeleteTenantGetTenant.Delete, and is useful for accessing the field via an interface.
-func (v *DeleteTenantGetTenant) GetDelete() bool { return v.Delete }
-
-// DeleteTenantResponse is returned by DeleteTenant on success.
-type DeleteTenantResponse struct {
-	GetTenant *DeleteTenantGetTenant `json:"GetTenant"`
-}
-
-// GetGetTenant returns DeleteTenantResponse.GetTenant, and is useful for accessing the field via an interface.
-func (v *DeleteTenantResponse) GetGetTenant() *DeleteTenantGetTenant { return v.GetTenant }
-
 // DeleteTenantUserGetTenantUser includes the requested fields of the GraphQL type TenantUser.
 type DeleteTenantUserGetTenantUser struct {
 	Delete bool `json:"Delete"`
@@ -24002,14 +23986,6 @@ func (v *__DeleteNodeInput) GetName() string { return v.Name }
 // GetTenant returns __DeleteNodeInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__DeleteNodeInput) GetTenant() string { return v.Tenant }
 
-// __DeleteTenantInput is used internally by genqlient
-type __DeleteTenantInput struct {
-	Tenant string `json:"tenant"`
-}
-
-// GetTenant returns __DeleteTenantInput.Tenant, and is useful for accessing the field via an interface.
-func (v *__DeleteTenantInput) GetTenant() string { return v.Tenant }
-
 // __DeleteTenantUserInput is used internally by genqlient
 type __DeleteTenantUserInput struct {
 	Email  string `json:"email"`
@@ -26617,41 +26593,6 @@ func DeleteNode(
 	var err_ error
 
 	var data_ DeleteNodeResponse
-	resp_ := &graphql.Response{Data: &data_}
-
-	err_ = client_.MakeRequest(
-		ctx_,
-		req_,
-		resp_,
-	)
-
-	return &data_, err_
-}
-
-// The query or mutation executed by DeleteTenant.
-const DeleteTenant_Operation = `
-query DeleteTenant ($tenant: String!) {
-	GetTenant(tenant: $tenant) {
-		Delete
-	}
-}
-`
-
-func DeleteTenant(
-	ctx_ context.Context,
-	client_ graphql.Client,
-	tenant string,
-) (*DeleteTenantResponse, error) {
-	req_ := &graphql.Request{
-		OpName: "DeleteTenant",
-		Query:  DeleteTenant_Operation,
-		Variables: &__DeleteTenantInput{
-			Tenant: tenant,
-		},
-	}
-	var err_ error
-
-	var data_ DeleteTenantResponse
 	resp_ := &graphql.Response{Data: &data_}
 
 	err_ = client_.MakeRequest(
