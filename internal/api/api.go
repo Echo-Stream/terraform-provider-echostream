@@ -4975,6 +4975,22 @@ func (v *DeleteNodeResponse) __premarshalJSON() (*__premarshalDeleteNodeResponse
 	return &retval, nil
 }
 
+// DeleteTenantGetTenant includes the requested fields of the GraphQL type Tenant.
+type DeleteTenantGetTenant struct {
+	Delete bool `json:"Delete"`
+}
+
+// GetDelete returns DeleteTenantGetTenant.Delete, and is useful for accessing the field via an interface.
+func (v *DeleteTenantGetTenant) GetDelete() bool { return v.Delete }
+
+// DeleteTenantResponse is returned by DeleteTenant on success.
+type DeleteTenantResponse struct {
+	GetTenant *DeleteTenantGetTenant `json:"GetTenant"`
+}
+
+// GetGetTenant returns DeleteTenantResponse.GetTenant, and is useful for accessing the field via an interface.
+func (v *DeleteTenantResponse) GetGetTenant() *DeleteTenantGetTenant { return v.GetTenant }
+
 // DeleteTenantUserGetTenantUser includes the requested fields of the GraphQL type TenantUser.
 type DeleteTenantUserGetTenantUser struct {
 	Delete bool `json:"Delete"`
@@ -13662,6 +13678,9 @@ type ReadTenantGetTenant struct {
 // GetActive returns ReadTenantGetTenant.Active, and is useful for accessing the field via an interface.
 func (v *ReadTenantGetTenant) GetActive() bool { return v.TenantFields.Active }
 
+// GetAudit returns ReadTenantGetTenant.Audit, and is useful for accessing the field via an interface.
+func (v *ReadTenantGetTenant) GetAudit() *bool { return v.TenantFields.Audit }
+
 // GetConfig returns ReadTenantGetTenant.Config, and is useful for accessing the field via an interface.
 func (v *ReadTenantGetTenant) GetConfig() *string { return v.TenantFields.Config }
 
@@ -13705,6 +13724,8 @@ func (v *ReadTenantGetTenant) UnmarshalJSON(b []byte) error {
 type __premarshalReadTenantGetTenant struct {
 	Active bool `json:"active"`
 
+	Audit *bool `json:"audit"`
+
 	Config *string `json:"config"`
 
 	Description *string `json:"description"`
@@ -13728,6 +13749,7 @@ func (v *ReadTenantGetTenant) __premarshalJSON() (*__premarshalReadTenantGetTena
 	var retval __premarshalReadTenantGetTenant
 
 	retval.Active = v.TenantFields.Active
+	retval.Audit = v.TenantFields.Audit
 	retval.Config = v.TenantFields.Config
 	retval.Description = v.TenantFields.Description
 	retval.Name = v.TenantFields.Name
@@ -13833,6 +13855,7 @@ func (v *ReadTenantUserResponse) GetGetTenantUser() *ReadTenantUserGetTenantUser
 // TenantFields includes the GraphQL fields of Tenant requested by the fragment TenantFields.
 type TenantFields struct {
 	Active      bool    `json:"active"`
+	Audit       *bool   `json:"audit"`
 	Config      *string `json:"config"`
 	Description *string `json:"description"`
 	Name        string  `json:"name"`
@@ -13842,6 +13865,9 @@ type TenantFields struct {
 
 // GetActive returns TenantFields.Active, and is useful for accessing the field via an interface.
 func (v *TenantFields) GetActive() bool { return v.Active }
+
+// GetAudit returns TenantFields.Audit, and is useful for accessing the field via an interface.
+func (v *TenantFields) GetAudit() *bool { return v.Audit }
 
 // GetConfig returns TenantFields.Config, and is useful for accessing the field via an interface.
 func (v *TenantFields) GetConfig() *string { return v.Config }
@@ -20761,6 +20787,9 @@ type UpdateTenantGetTenantUpdateTenant struct {
 // GetActive returns UpdateTenantGetTenantUpdateTenant.Active, and is useful for accessing the field via an interface.
 func (v *UpdateTenantGetTenantUpdateTenant) GetActive() bool { return v.TenantFields.Active }
 
+// GetAudit returns UpdateTenantGetTenantUpdateTenant.Audit, and is useful for accessing the field via an interface.
+func (v *UpdateTenantGetTenantUpdateTenant) GetAudit() *bool { return v.TenantFields.Audit }
+
 // GetConfig returns UpdateTenantGetTenantUpdateTenant.Config, and is useful for accessing the field via an interface.
 func (v *UpdateTenantGetTenantUpdateTenant) GetConfig() *string { return v.TenantFields.Config }
 
@@ -20806,6 +20835,8 @@ func (v *UpdateTenantGetTenantUpdateTenant) UnmarshalJSON(b []byte) error {
 type __premarshalUpdateTenantGetTenantUpdateTenant struct {
 	Active bool `json:"active"`
 
+	Audit *bool `json:"audit"`
+
 	Config *string `json:"config"`
 
 	Description *string `json:"description"`
@@ -20829,6 +20860,7 @@ func (v *UpdateTenantGetTenantUpdateTenant) __premarshalJSON() (*__premarshalUpd
 	var retval __premarshalUpdateTenantGetTenantUpdateTenant
 
 	retval.Active = v.TenantFields.Active
+	retval.Audit = v.TenantFields.Audit
 	retval.Config = v.TenantFields.Config
 	retval.Description = v.TenantFields.Description
 	retval.Name = v.TenantFields.Name
@@ -23970,6 +24002,14 @@ func (v *__DeleteNodeInput) GetName() string { return v.Name }
 // GetTenant returns __DeleteNodeInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__DeleteNodeInput) GetTenant() string { return v.Tenant }
 
+// __DeleteTenantInput is used internally by genqlient
+type __DeleteTenantInput struct {
+	Tenant string `json:"tenant"`
+}
+
+// GetTenant returns __DeleteTenantInput.Tenant, and is useful for accessing the field via an interface.
+func (v *__DeleteTenantInput) GetTenant() string { return v.Tenant }
+
 // __DeleteTenantUserInput is used internally by genqlient
 type __DeleteTenantUserInput struct {
 	Email  string `json:"email"`
@@ -24577,12 +24617,16 @@ func (v *__UpdateRemotetAppInput) GetTableAccess() *bool { return v.TableAccess 
 // __UpdateTenantInput is used internally by genqlient
 type __UpdateTenantInput struct {
 	Tenant      string  `json:"tenant"`
+	Audit       *bool   `json:"audit"`
 	Config      *string `json:"config"`
 	Description *string `json:"description"`
 }
 
 // GetTenant returns __UpdateTenantInput.Tenant, and is useful for accessing the field via an interface.
 func (v *__UpdateTenantInput) GetTenant() string { return v.Tenant }
+
+// GetAudit returns __UpdateTenantInput.Audit, and is useful for accessing the field via an interface.
+func (v *__UpdateTenantInput) GetAudit() *bool { return v.Audit }
 
 // GetConfig returns __UpdateTenantInput.Config, and is useful for accessing the field via an interface.
 func (v *__UpdateTenantInput) GetConfig() *string { return v.Config }
@@ -26584,6 +26628,41 @@ func DeleteNode(
 	return &data_, err_
 }
 
+// The query or mutation executed by DeleteTenant.
+const DeleteTenant_Operation = `
+query DeleteTenant ($tenant: String!) {
+	GetTenant(tenant: $tenant) {
+		Delete
+	}
+}
+`
+
+func DeleteTenant(
+	ctx_ context.Context,
+	client_ graphql.Client,
+	tenant string,
+) (*DeleteTenantResponse, error) {
+	req_ := &graphql.Request{
+		OpName: "DeleteTenant",
+		Query:  DeleteTenant_Operation,
+		Variables: &__DeleteTenantInput{
+			Tenant: tenant,
+		},
+	}
+	var err_ error
+
+	var data_ DeleteTenantResponse
+	resp_ := &graphql.Response{Data: &data_}
+
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
+	)
+
+	return &data_, err_
+}
+
 // The query or mutation executed by DeleteTenantUser.
 const DeleteTenantUser_Operation = `
 query DeleteTenantUser ($email: AWSEmail!, $tenant: String!) {
@@ -27645,6 +27724,7 @@ query ReadTenant ($tenant: String!) {
 }
 fragment TenantFields on Tenant {
 	active
+	audit
 	config
 	description
 	name
@@ -28819,15 +28899,16 @@ func UpdateRemotetApp(
 
 // The query or mutation executed by UpdateTenant.
 const UpdateTenant_Operation = `
-query UpdateTenant ($tenant: String!, $config: AWSJSON, $description: String) {
+query UpdateTenant ($tenant: String!, $audit: Boolean, $config: AWSJSON, $description: String) {
 	GetTenant(tenant: $tenant) {
-		Update(config: $config, description: $description) {
+		Update(audit: $audit, config: $config, description: $description) {
 			... TenantFields
 		}
 	}
 }
 fragment TenantFields on Tenant {
 	active
+	audit
 	config
 	description
 	name
@@ -28840,6 +28921,7 @@ func UpdateTenant(
 	ctx_ context.Context,
 	client_ graphql.Client,
 	tenant string,
+	audit *bool,
 	config *string,
 	description *string,
 ) (*UpdateTenantResponse, error) {
@@ -28848,6 +28930,7 @@ func UpdateTenant(
 		Query:  UpdateTenant_Operation,
 		Variables: &__UpdateTenantInput{
 			Tenant:      tenant,
+			Audit:       audit,
 			Config:      config,
 			Description: description,
 		},

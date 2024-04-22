@@ -1,10 +1,17 @@
 fragment TenantFields on Tenant {
     active
+    audit
     config
     description
     name
     region
     table
+}
+
+query DeleteTenant($tenant: String!) {
+    GetTenant(tenant: $tenant) {
+        Delete
+    }
 }
 
 query ReadTenant($tenant: String!) {
@@ -24,9 +31,9 @@ query ReadTenantAwsCredentials($tenant: String!, $duration: Int) {
     }
 }
 
-query UpdateTenant($tenant: String!, $config: AWSJSON, $description: String) {
+query UpdateTenant($tenant: String!, $audit: Boolean, $config: AWSJSON, $description: String) {
     GetTenant(tenant: $tenant) {
-        Update(config: $config, description: $description) {
+        Update(audit: $audit, config: $config, description: $description) {
             ...TenantFields
         }
     }

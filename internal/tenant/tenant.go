@@ -13,6 +13,7 @@ import (
 
 type tenantModel struct {
 	Active                 types.Bool    `tfsdk:"active"`
+	Audit                  types.Bool    `tfsdk:"audit"`
 	AwsCredentials         types.Object  `tfsdk:"aws_credentials"`
 	AwsCredentialsDuration types.Int64   `tfsdk:"aws_credentials_duration"`
 	Config                 common.Config `tfsdk:"config"`
@@ -36,6 +37,11 @@ func readTenantData(ctx context.Context, client graphql.Client, tenant string, d
 		diags.AddError("Tenant not found", fmt.Sprintf("Unable to find Tenant '%s'", tenant))
 	} else {
 		data.Active = types.BoolValue(echoResp.GetTenant.Active)
+		if echoResp.GetTenant.Audit != nil {
+			data.Audit = types.BoolValue(*echoResp.GetTenant.Audit)
+		} else {
+			data.Audit = types.BoolNull()
+		}
 		if echoResp.GetTenant.Config != nil {
 			data.Config = common.ConfigValue(*echoResp.GetTenant.Config)
 		} else {

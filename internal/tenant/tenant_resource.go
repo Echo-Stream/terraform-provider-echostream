@@ -73,7 +73,7 @@ func (r *TenantResource) Delete(ctx context.Context, req resource.DeleteRequest,
 		return
 	}
 
-	if _, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, nil, nil); err != nil {
+	if _, err := api.DeleteTenant(ctx, r.data.Client, r.data.Tenant); err != nil {
 		resp.Diagnostics.AddError("Error deleting Tenant", err.Error())
 		return
 	}
@@ -113,6 +113,10 @@ func (r *TenantResource) Schema(ctx context.Context, req resource.SchemaRequest,
 			"active": schema.BoolAttribute{
 				Computed:            true,
 				MarkdownDescription: "The current Tenant's active state.",
+			},
+			"audit": schema.BoolAttribute{
+				MarkdownDescription: "The current Tenant's audit state.",
+				Optional:            true,
 			},
 			"aws_credentials": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
@@ -193,11 +197,16 @@ func (r *TenantResource) Update(ctx context.Context, req resource.UpdateRequest,
 
 func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) diag.Diagnostics {
 	var (
+		audit       *bool
 		config      *string
 		description *string
 		diags       diag.Diagnostics
 	)
 
+	if !(data.Audit.IsNull() || data.Audit.IsUnknown()) {
+		temp := data.Audit.ValueBool()
+		audit = &temp
+	}
 	if !(data.Description.IsNull() || data.Description.IsUnknown()) {
 		temp := data.Description.ValueString()
 		description = &temp
@@ -207,7 +216,7 @@ func (r *TenantResource) createOrUpdate(ctx context.Context, data *tenantModel) 
 		config = &temp
 	}
 
-	if echoResp, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, config, description); err != nil {
+	if echoResp, err := api.UpdateTenant(ctx, r.data.Client, r.data.Tenant, audit, config, description); err != nil {
 		diags.AddError(
 			"Unexpected error creating or updating Tenant",
 			fmt.Sprintf("This is always an error in the provider. Please report the following to the provider developer:\n\n"+err.Error()),

@@ -26,6 +26,7 @@ data "echostream_tenant" "current" {}
 ### Read-Only
 
 - `active` (Boolean) The current Tenant's active state.
+- `audit` (Boolean) The current Tenant's audit state.
 - `aws_credentials` (Attributes) The AWS Session Credentials that allow the current ApiUser (configured in the provider) to access the Tenant's resources. (see [below for nested schema](#nestedatt--aws_credentials))
 - `config` (String, Sensitive) The config for the Tenant. All nodes in the Tenant will be allowed to access this. Must be a JSON object.
 - `description` (String) A human-readable description.

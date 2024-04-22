@@ -65,6 +65,10 @@ func (d *TenantDataSource) Schema(ctx context.Context, req datasource.SchemaRequ
 				Computed:            true,
 				MarkdownDescription: "The current Tenant's active state.",
 			},
+			"audit": schema.BoolAttribute{
+				Computed:            true,
+				MarkdownDescription: "The current Tenant's audit state.",
+			},
 			"aws_credentials": schema.SingleNestedAttribute{
 				Attributes: map[string]schema.Attribute{
 					"access_key_id": schema.StringAttribute{

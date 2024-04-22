@@ -30,6 +30,7 @@ resource "echostream_tenant" "current" {
 
 ### Optional
 
+- `audit` (Boolean) The current Tenant's audit state.
 - `aws_credentials_duration` (Number) The duration to request for `aws_credentials`. Must be set to obtain `aws_credentials`.
 - `config` (String, Sensitive) The config for the Tenant. All nodes in the Tenant will be allowed to access this. Must be a JSON object.
 - `description` (String) A human-readable description.
