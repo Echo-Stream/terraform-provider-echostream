@@ -24749,8 +24749,8 @@ fragment FunctionFields on Function {
 `
 
 func CreateApiAuthenticatorFunction(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	code string,
 	description string,
 	name string,
@@ -24758,7 +24758,7 @@ func CreateApiAuthenticatorFunction(
 	readme *string,
 	requirements []string,
 ) (*CreateApiAuthenticatorFunctionResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateApiAuthenticatorFunction",
 		Query:  CreateApiAuthenticatorFunction_Operation,
 		Variables: &__CreateApiAuthenticatorFunctionInput{
@@ -24770,18 +24770,18 @@ func CreateApiAuthenticatorFunction(
 			Requirements: requirements,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateApiAuthenticatorFunctionResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateApiAuthenticatorFunctionResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateApiUser.
@@ -24809,13 +24809,13 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 `
 
 func CreateApiUser(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	role ApiUserRole,
 	tenant string,
 	description *string,
 ) (*CreateApiUserResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateApiUser",
 		Query:  CreateApiUser_Operation,
 		Variables: &__CreateApiUserInput{
@@ -24824,18 +24824,18 @@ func CreateApiUser(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateApiUserResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateApiUserResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateBitmapRouterNode.
@@ -24869,8 +24869,8 @@ fragment BitmapRouterNodeFields on BitmapRouterNode {
 `
 
 func CreateBitmapRouterNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	receiveMessageType string,
 	tenant string,
@@ -24882,7 +24882,7 @@ func CreateBitmapRouterNode(
 	requirements []string,
 	routeTable *string,
 ) (*CreateBitmapRouterNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateBitmapRouterNode",
 		Query:  CreateBitmapRouterNode_Operation,
 		Variables: &__CreateBitmapRouterNodeInput{
@@ -24898,18 +24898,18 @@ func CreateBitmapRouterNode(
 			RouteTable:         routeTable,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateBitmapRouterNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateBitmapRouterNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateBitmapperFunction.
@@ -24937,8 +24937,8 @@ fragment BitmapperFunctionFields on BitmapperFunction {
 `
 
 func CreateBitmapperFunction(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	argumentMessageType string,
 	code string,
 	description string,
@@ -24947,7 +24947,7 @@ func CreateBitmapperFunction(
 	readme *string,
 	requirements []string,
 ) (*CreateBitmapperFunctionResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateBitmapperFunction",
 		Query:  CreateBitmapperFunction_Operation,
 		Variables: &__CreateBitmapperFunctionInput{
@@ -24960,18 +24960,18 @@ func CreateBitmapperFunction(
 			Requirements:        requirements,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateBitmapperFunctionResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateBitmapperFunctionResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateCrossAccountApp.
@@ -25006,8 +25006,8 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 `
 
 func CreateCrossAccountApp(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	account string,
 	name string,
 	tenant string,
@@ -25015,7 +25015,7 @@ func CreateCrossAccountApp(
 	description *string,
 	tableAccess *bool,
 ) (*CreateCrossAccountAppResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateCrossAccountApp",
 		Query:  CreateCrossAccountApp_Operation,
 		Variables: &__CreateCrossAccountAppInput{
@@ -25027,18 +25027,18 @@ func CreateCrossAccountApp(
 			TableAccess: tableAccess,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateCrossAccountAppResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateCrossAccountAppResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateCrossTenantReceivingApp.
@@ -25060,13 +25060,13 @@ fragment CrossTenantReceivingAppFields on CrossTenantReceivingApp {
 `
 
 func CreateCrossTenantReceivingApp(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	sendingTenant string,
 	tenant string,
 ) (*CreateCrossTenantReceivingAppResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateCrossTenantReceivingApp",
 		Query:  CreateCrossTenantReceivingApp_Operation,
 		Variables: &__CreateCrossTenantReceivingAppInput{
@@ -25075,18 +25075,18 @@ func CreateCrossTenantReceivingApp(
 			Tenant:        tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateCrossTenantReceivingAppResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateCrossTenantReceivingAppResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateCrossTenantSendingApp.
@@ -25108,14 +25108,14 @@ fragment CrossTenantSendingAppFields on CrossTenantSendingApp {
 `
 
 func CreateCrossTenantSendingApp(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	receivingApp string,
 	receivingTenant string,
 	tenant string,
 ) (*CreateCrossTenantSendingAppResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateCrossTenantSendingApp",
 		Query:  CreateCrossTenantSendingApp_Operation,
 		Variables: &__CreateCrossTenantSendingAppInput{
@@ -25125,18 +25125,18 @@ func CreateCrossTenantSendingApp(
 			Tenant:          tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateCrossTenantSendingAppResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateCrossTenantSendingAppResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateCrossTenantSendingNode.
@@ -25173,8 +25173,8 @@ fragment CrossTenantSendingNodeFields on CrossTenantSendingNode {
 `
 
 func CreateCrossTenantSendingNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	app string,
 	name string,
 	receiveMessageType string,
@@ -25188,7 +25188,7 @@ func CreateCrossTenantSendingNode(
 	sendMessageType *string,
 	sequentialProcessing *bool,
 ) (*CreateCrossTenantSendingNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateCrossTenantSendingNode",
 		Query:  CreateCrossTenantSendingNode_Operation,
 		Variables: &__CreateCrossTenantSendingNodeInput{
@@ -25206,18 +25206,18 @@ func CreateCrossTenantSendingNode(
 			SequentialProcessing: sequentialProcessing,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateCrossTenantSendingNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateCrossTenantSendingNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateEdge.
@@ -25250,8 +25250,8 @@ fragment EdgeFields on Edge {
 `
 
 func CreateEdge(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	source string,
 	target string,
 	tenant string,
@@ -25259,7 +25259,7 @@ func CreateEdge(
 	kmsKey *string,
 	maxReceiveCount *int,
 ) (*CreateEdgeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateEdge",
 		Query:  CreateEdge_Operation,
 		Variables: &__CreateEdgeInput{
@@ -25271,18 +25271,18 @@ func CreateEdge(
 			MaxReceiveCount: maxReceiveCount,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateEdgeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateEdgeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateExternalApp.
@@ -25315,15 +25315,15 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 `
 
 func CreateExternalApp(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
 	description *string,
 	tableAccess *bool,
 ) (*CreateExternalAppResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateExternalApp",
 		Query:  CreateExternalApp_Operation,
 		Variables: &__CreateExternalAppInput{
@@ -25334,18 +25334,18 @@ func CreateExternalApp(
 			TableAccess: tableAccess,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateExternalAppResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateExternalAppResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateExternalNode.
@@ -25381,8 +25381,8 @@ fragment ExternalNodeFields on ExternalNode {
 `
 
 func CreateExternalNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	app string,
 	name string,
 	tenant string,
@@ -25391,7 +25391,7 @@ func CreateExternalNode(
 	receiveMessageType *string,
 	sendMessageType *string,
 ) (*CreateExternalNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateExternalNode",
 		Query:  CreateExternalNode_Operation,
 		Variables: &__CreateExternalNodeInput{
@@ -25404,18 +25404,18 @@ func CreateExternalNode(
 			SendMessageType:    sendMessageType,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateExternalNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateExternalNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateFilesDotComWebhookNode.
@@ -25440,14 +25440,14 @@ fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
 `
 
 func CreateFilesDotComWebhookNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	apiKey string,
 	name string,
 	tenant string,
 	description *string,
 ) (*CreateFilesDotComWebhookNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateFilesDotComWebhookNode",
 		Query:  CreateFilesDotComWebhookNode_Operation,
 		Variables: &__CreateFilesDotComWebhookNodeInput{
@@ -25457,18 +25457,18 @@ func CreateFilesDotComWebhookNode(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateFilesDotComWebhookNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateFilesDotComWebhookNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateKmsKey.
@@ -25487,13 +25487,13 @@ fragment KmsKeyFields on KmsKey {
 `
 
 func CreateKmsKey(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	description *string,
 ) (*CreateKmsKeyResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateKmsKey",
 		Query:  CreateKmsKey_Operation,
 		Variables: &__CreateKmsKeyInput{
@@ -25502,18 +25502,18 @@ func CreateKmsKey(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateKmsKeyResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateKmsKeyResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateLoadBalancerNode.
@@ -25539,14 +25539,14 @@ fragment LoadBalancerNodeFields on LoadBalancerNode {
 `
 
 func CreateLoadBalancerNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	receiveMessageType string,
 	tenant string,
 	description *string,
 ) (*CreateLoadBalancerNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateLoadBalancerNode",
 		Query:  CreateLoadBalancerNode_Operation,
 		Variables: &__CreateLoadBalancerNodeInput{
@@ -25556,18 +25556,18 @@ func CreateLoadBalancerNode(
 			Description:        description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateLoadBalancerNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateLoadBalancerNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateManagedApp.
@@ -25599,15 +25599,15 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 `
 
 func CreateManagedApp(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
 	description *string,
 	tableAccess *bool,
 ) (*CreateManagedAppResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateManagedApp",
 		Query:  CreateManagedApp_Operation,
 		Variables: &__CreateManagedAppInput{
@@ -25618,18 +25618,18 @@ func CreateManagedApp(
 			TableAccess: tableAccess,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateManagedAppResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateManagedAppResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateManagedNode.
@@ -25675,8 +25675,8 @@ fragment ManagedNodeFields on ManagedNode {
 `
 
 func CreateManagedNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	app string,
 	managedNodeType string,
 	name string,
@@ -25687,7 +25687,7 @@ func CreateManagedNode(
 	mounts []MountInput,
 	ports []PortInput,
 ) (*CreateManagedNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateManagedNode",
 		Query:  CreateManagedNode_Operation,
 		Variables: &__CreateManagedNodeInput{
@@ -25702,18 +25702,18 @@ func CreateManagedNode(
 			Ports:           ports,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateManagedNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateManagedNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateManagedNodeType.
@@ -25751,8 +25751,8 @@ fragment ManagedNodeTypeFields on ManagedNodeType {
 `
 
 func CreateManagedNodeType(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	description string,
 	imageUri string,
 	name string,
@@ -25764,7 +25764,7 @@ func CreateManagedNodeType(
 	receiveMessageType *string,
 	sendMessageType *string,
 ) (*CreateManagedNodeTypeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateManagedNodeType",
 		Query:  CreateManagedNodeType_Operation,
 		Variables: &__CreateManagedNodeTypeInput{
@@ -25780,18 +25780,18 @@ func CreateManagedNodeType(
 			SendMessageType:    sendMessageType,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateManagedNodeTypeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateManagedNodeTypeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateMessageType.
@@ -25816,8 +25816,8 @@ fragment MessageTypeFields on MessageType {
 `
 
 func CreateMessageType(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	auditor string,
 	bitmapperTemplate string,
 	description string,
@@ -25828,7 +25828,7 @@ func CreateMessageType(
 	readme *string,
 	requirements []string,
 ) (*CreateMessageTypeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateMessageType",
 		Query:  CreateMessageType_Operation,
 		Variables: &__CreateMessageTypeInput{
@@ -25843,18 +25843,18 @@ func CreateMessageType(
 			Requirements:      requirements,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateMessageTypeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateMessageTypeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateProcessorFunction.
@@ -25885,8 +25885,8 @@ fragment ProcessorFunctionFields on ProcessorFunction {
 `
 
 func CreateProcessorFunction(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	argumentMessageType string,
 	code string,
 	description string,
@@ -25896,7 +25896,7 @@ func CreateProcessorFunction(
 	requirements []string,
 	returnMessageType *string,
 ) (*CreateProcessorFunctionResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateProcessorFunction",
 		Query:  CreateProcessorFunction_Operation,
 		Variables: &__CreateProcessorFunctionInput{
@@ -25910,18 +25910,18 @@ func CreateProcessorFunction(
 			ReturnMessageType:   returnMessageType,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateProcessorFunctionResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateProcessorFunctionResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateProcessorNode.
@@ -25955,8 +25955,8 @@ fragment ProcessorNodeFields on ProcessorNode {
 `
 
 func CreateProcessorNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	receiveMessageType string,
 	tenant string,
@@ -25969,7 +25969,7 @@ func CreateProcessorNode(
 	sendMessageType *string,
 	sequentialProcessing *bool,
 ) (*CreateProcessorNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateProcessorNode",
 		Query:  CreateProcessorNode_Operation,
 		Variables: &__CreateProcessorNodeInput{
@@ -25986,18 +25986,18 @@ func CreateProcessorNode(
 			SequentialProcessing: sequentialProcessing,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateProcessorNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateProcessorNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateTenantUser.
@@ -26019,13 +26019,13 @@ fragment TenantUserFields on TenantUser {
 `
 
 func CreateTenantUser(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	email string,
 	role UserRole,
 	tenant string,
 ) (*CreateTenantUserResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateTenantUser",
 		Query:  CreateTenantUser_Operation,
 		Variables: &__CreateTenantUserInput{
@@ -26034,18 +26034,18 @@ func CreateTenantUser(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateTenantUserResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateTenantUserResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateTimerNode.
@@ -26069,14 +26069,14 @@ fragment TimerNodeFields on TimerNode {
 `
 
 func CreateTimerNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	scheduleExpression string,
 	tenant string,
 	description *string,
 ) (*CreateTimerNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateTimerNode",
 		Query:  CreateTimerNode_Operation,
 		Variables: &__CreateTimerNodeInput{
@@ -26086,18 +26086,18 @@ func CreateTimerNode(
 			Description:        description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateTimerNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateTimerNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateWebSubHubNode.
@@ -26133,8 +26133,8 @@ fragment WebSubHubNodeFields on WebSubHubNode {
 `
 
 func CreateWebSubHubNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
@@ -26149,7 +26149,7 @@ func CreateWebSubHubNode(
 	signatureAlgorithm *WebSubSignatureAlgorithm,
 	subscriptionSecurity *WebSubSubscriptionSecurity,
 ) (*CreateWebSubHubNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateWebSubHubNode",
 		Query:  CreateWebSubHubNode_Operation,
 		Variables: &__CreateWebSubHubNodeInput{
@@ -26168,18 +26168,18 @@ func CreateWebSubHubNode(
 			SubscriptionSecurity:    subscriptionSecurity,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateWebSubHubNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateWebSubHubNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by CreateWebhookNode.
@@ -26210,8 +26210,8 @@ fragment WebhookNodeFields on WebhookNode {
 `
 
 func CreateWebhookNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
@@ -26222,7 +26222,7 @@ func CreateWebhookNode(
 	requirements []string,
 	sendMessageType *string,
 ) (*CreateWebhookNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "CreateWebhookNode",
 		Query:  CreateWebhookNode_Operation,
 		Variables: &__CreateWebhookNodeInput{
@@ -26237,18 +26237,18 @@ func CreateWebhookNode(
 			SendMessageType:         sendMessageType,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data CreateWebhookNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ CreateWebhookNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by DeleteApiUser.
@@ -26261,12 +26261,12 @@ query DeleteApiUser ($tenant: String!, $username: String!) {
 `
 
 func DeleteApiUser(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	tenant string,
 	username string,
 ) (*DeleteApiUserResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "DeleteApiUser",
 		Query:  DeleteApiUser_Operation,
 		Variables: &__DeleteApiUserInput{
@@ -26274,18 +26274,18 @@ func DeleteApiUser(
 			Username: username,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data DeleteApiUserResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ DeleteApiUserResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by DeleteApp.
@@ -26299,12 +26299,12 @@ query DeleteApp ($name: String!, $tenant: String!) {
 `
 
 func DeleteApp(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*DeleteAppResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "DeleteApp",
 		Query:  DeleteApp_Operation,
 		Variables: &__DeleteAppInput{
@@ -26312,18 +26312,18 @@ func DeleteApp(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data DeleteAppResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ DeleteAppResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by DeleteEdge.
@@ -26336,13 +26336,13 @@ query DeleteEdge ($source: String!, $target: String!, $tenant: String!) {
 `
 
 func DeleteEdge(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	source string,
 	target string,
 	tenant string,
 ) (*DeleteEdgeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "DeleteEdge",
 		Query:  DeleteEdge_Operation,
 		Variables: &__DeleteEdgeInput{
@@ -26351,18 +26351,18 @@ func DeleteEdge(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data DeleteEdgeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ DeleteEdgeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by DeleteFunction.
@@ -26376,12 +26376,12 @@ query DeleteFunction ($name: String!, $tenant: String!) {
 `
 
 func DeleteFunction(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*DeleteFunctionResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "DeleteFunction",
 		Query:  DeleteFunction_Operation,
 		Variables: &__DeleteFunctionInput{
@@ -26389,18 +26389,18 @@ func DeleteFunction(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data DeleteFunctionResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ DeleteFunctionResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by DeleteKmsKey.
@@ -26413,12 +26413,12 @@ query DeleteKmsKey ($name: String!, $tenant: String!) {
 `
 
 func DeleteKmsKey(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*DeleteKmsKeyResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "DeleteKmsKey",
 		Query:  DeleteKmsKey_Operation,
 		Variables: &__DeleteKmsKeyInput{
@@ -26426,18 +26426,18 @@ func DeleteKmsKey(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data DeleteKmsKeyResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ DeleteKmsKeyResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by DeleteManagedNodeType.
@@ -26450,12 +26450,12 @@ query DeleteManagedNodeType ($name: String!, $tenant: String!) {
 `
 
 func DeleteManagedNodeType(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*DeleteManagedNodeTypeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "DeleteManagedNodeType",
 		Query:  DeleteManagedNodeType_Operation,
 		Variables: &__DeleteManagedNodeTypeInput{
@@ -26463,18 +26463,18 @@ func DeleteManagedNodeType(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data DeleteManagedNodeTypeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ DeleteManagedNodeTypeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by DeleteMessageType.
@@ -26487,12 +26487,12 @@ query DeleteMessageType ($name: String!, $tenant: String!) {
 `
 
 func DeleteMessageType(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*DeleteMessageTypeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "DeleteMessageType",
 		Query:  DeleteMessageType_Operation,
 		Variables: &__DeleteMessageTypeInput{
@@ -26500,18 +26500,18 @@ func DeleteMessageType(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data DeleteMessageTypeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ DeleteMessageTypeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by DeleteNode.
@@ -26557,12 +26557,12 @@ query DeleteNode ($name: String!, $tenant: String!) {
 `
 
 func DeleteNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*DeleteNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "DeleteNode",
 		Query:  DeleteNode_Operation,
 		Variables: &__DeleteNodeInput{
@@ -26570,18 +26570,18 @@ func DeleteNode(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data DeleteNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ DeleteNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by DeleteTenantUser.
@@ -26594,12 +26594,12 @@ query DeleteTenantUser ($email: AWSEmail!, $tenant: String!) {
 `
 
 func DeleteTenantUser(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	email string,
 	tenant string,
 ) (*DeleteTenantUserResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "DeleteTenantUser",
 		Query:  DeleteTenantUser_Operation,
 		Variables: &__DeleteTenantUserInput{
@@ -26607,18 +26607,18 @@ func DeleteTenantUser(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data DeleteTenantUserResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ DeleteTenantUserResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by MoveEdge.
@@ -26653,15 +26653,15 @@ fragment EdgeFields on Edge {
 `
 
 func MoveEdge(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	source string,
 	target string,
 	tenant string,
 	newSource string,
 	newTarget string,
 ) (*MoveEdgeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "MoveEdge",
 		Query:  MoveEdge_Operation,
 		Variables: &__MoveEdgeInput{
@@ -26672,18 +26672,18 @@ func MoveEdge(
 			NewTarget: newTarget,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data MoveEdgeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ MoveEdgeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadApiUser.
@@ -26711,12 +26711,12 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 `
 
 func ReadApiUser(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	tenant string,
 	username string,
 ) (*ReadApiUserResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadApiUser",
 		Query:  ReadApiUser_Operation,
 		Variables: &__ReadApiUserInput{
@@ -26724,18 +26724,18 @@ func ReadApiUser(
 			Username: username,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadApiUserResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadApiUserResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadApp.
@@ -26810,12 +26810,12 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 `
 
 func ReadApp(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*ReadAppResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadApp",
 		Query:  ReadApp_Operation,
 		Variables: &__ReadAppInput{
@@ -26823,18 +26823,18 @@ func ReadApp(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadAppResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadAppResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadEdge.
@@ -26867,13 +26867,13 @@ fragment EdgeFields on Edge {
 `
 
 func ReadEdge(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	source string,
 	target string,
 	tenant string,
 ) (*ReadEdgeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadEdge",
 		Query:  ReadEdge_Operation,
 		Variables: &__ReadEdgeInput{
@@ -26882,18 +26882,18 @@ func ReadEdge(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadEdgeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadEdgeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadFunction.
@@ -26935,12 +26935,12 @@ fragment ProcessorFunctionFields on ProcessorFunction {
 `
 
 func ReadFunction(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*ReadFunctionResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadFunction",
 		Query:  ReadFunction_Operation,
 		Variables: &__ReadFunctionInput{
@@ -26948,18 +26948,18 @@ func ReadFunction(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadFunctionResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadFunctionResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadKmsKey.
@@ -26978,12 +26978,12 @@ fragment KmsKeyFields on KmsKey {
 `
 
 func ReadKmsKey(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*ReadKmsKeyResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadKmsKey",
 		Query:  ReadKmsKey_Operation,
 		Variables: &__ReadKmsKeyInput{
@@ -26991,18 +26991,18 @@ func ReadKmsKey(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadKmsKeyResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadKmsKeyResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadManagedAppIso.
@@ -27018,12 +27018,12 @@ query ReadManagedAppIso ($name: String!, $tenant: String!) {
 `
 
 func ReadManagedAppIso(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*ReadManagedAppIsoResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadManagedAppIso",
 		Query:  ReadManagedAppIso_Operation,
 		Variables: &__ReadManagedAppIsoInput{
@@ -27031,18 +27031,18 @@ func ReadManagedAppIso(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadManagedAppIsoResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadManagedAppIsoResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadManagedAppUserdata.
@@ -27058,12 +27058,12 @@ query ReadManagedAppUserdata ($name: String!, $tenant: String!) {
 `
 
 func ReadManagedAppUserdata(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*ReadManagedAppUserdataResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadManagedAppUserdata",
 		Query:  ReadManagedAppUserdata_Operation,
 		Variables: &__ReadManagedAppUserdataInput{
@@ -27071,18 +27071,18 @@ func ReadManagedAppUserdata(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadManagedAppUserdataResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadManagedAppUserdataResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadManagedNodeType.
@@ -27120,12 +27120,12 @@ fragment ManagedNodeTypeFields on ManagedNodeType {
 `
 
 func ReadManagedNodeType(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*ReadManagedNodeTypeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadManagedNodeType",
 		Query:  ReadManagedNodeType_Operation,
 		Variables: &__ReadManagedNodeTypeInput{
@@ -27133,18 +27133,18 @@ func ReadManagedNodeType(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadManagedNodeTypeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadManagedNodeTypeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadMessageType.
@@ -27169,12 +27169,12 @@ fragment MessageTypeFields on MessageType {
 `
 
 func ReadMessageType(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*ReadMessageTypeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadMessageType",
 		Query:  ReadMessageType_Operation,
 		Variables: &__ReadMessageTypeInput{
@@ -27182,18 +27182,18 @@ func ReadMessageType(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadMessageTypeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadMessageTypeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadNode.
@@ -27464,12 +27464,12 @@ fragment WebSubHubNodeFields on WebSubHubNode {
 `
 
 func ReadNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*ReadNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadNode",
 		Query:  ReadNode_Operation,
 		Variables: &__ReadNodeInput{
@@ -27477,18 +27477,18 @@ func ReadNode(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadNodeMessageTypes.
@@ -27609,12 +27609,12 @@ query ReadNodeMessageTypes ($name: String!, $tenant: String!) {
 `
 
 func ReadNodeMessageTypes(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 ) (*ReadNodeMessageTypesResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadNodeMessageTypes",
 		Query:  ReadNodeMessageTypes_Operation,
 		Variables: &__ReadNodeMessageTypesInput{
@@ -27622,18 +27622,18 @@ func ReadNodeMessageTypes(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadNodeMessageTypesResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadNodeMessageTypesResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadTenant.
@@ -27654,29 +27654,29 @@ fragment TenantFields on Tenant {
 `
 
 func ReadTenant(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	tenant string,
 ) (*ReadTenantResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadTenant",
 		Query:  ReadTenant_Operation,
 		Variables: &__ReadTenantInput{
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadTenantResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadTenantResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadTenantAwsCredentials.
@@ -27694,12 +27694,12 @@ query ReadTenantAwsCredentials ($tenant: String!, $duration: Int) {
 `
 
 func ReadTenantAwsCredentials(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	tenant string,
 	duration *int,
 ) (*ReadTenantAwsCredentialsResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadTenantAwsCredentials",
 		Query:  ReadTenantAwsCredentials_Operation,
 		Variables: &__ReadTenantAwsCredentialsInput{
@@ -27707,18 +27707,18 @@ func ReadTenantAwsCredentials(
 			Duration: duration,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadTenantAwsCredentialsResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadTenantAwsCredentialsResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by ReadTenantUser.
@@ -27738,12 +27738,12 @@ fragment TenantUserFields on TenantUser {
 `
 
 func ReadTenantUser(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	email string,
 	tenant string,
 ) (*ReadTenantUserResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "ReadTenantUser",
 		Query:  ReadTenantUser_Operation,
 		Variables: &__ReadTenantUserInput{
@@ -27751,18 +27751,18 @@ func ReadTenantUser(
 			Tenant: tenant,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data ReadTenantUserResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ ReadTenantUserResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateApiUser.
@@ -27792,14 +27792,14 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 `
 
 func UpdateApiUser(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	tenant string,
 	username string,
 	description *string,
 	role *ApiUserRole,
 ) (*UpdateApiUserResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateApiUser",
 		Query:  UpdateApiUser_Operation,
 		Variables: &__UpdateApiUserInput{
@@ -27809,18 +27809,18 @@ func UpdateApiUser(
 			Role:        role,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateApiUserResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateApiUserResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateBitmapRouterNode.
@@ -27859,8 +27859,8 @@ fragment BitmapRouterNodeFields on BitmapRouterNode {
 `
 
 func UpdateBitmapRouterNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
@@ -27871,7 +27871,7 @@ func UpdateBitmapRouterNode(
 	requirements []string,
 	routeTable *string,
 ) (*UpdateBitmapRouterNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateBitmapRouterNode",
 		Query:  UpdateBitmapRouterNode_Operation,
 		Variables: &__UpdateBitmapRouterNodeInput{
@@ -27886,18 +27886,18 @@ func UpdateBitmapRouterNode(
 			RouteTable:       routeTable,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateBitmapRouterNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateBitmapRouterNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateCrossTenantApp.
@@ -27934,13 +27934,13 @@ fragment CrossTenantSendingAppFields on CrossTenantSendingApp {
 `
 
 func UpdateCrossTenantApp(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	description *string,
 ) (*UpdateCrossTenantAppResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateCrossTenantApp",
 		Query:  UpdateCrossTenantApp_Operation,
 		Variables: &__UpdateCrossTenantAppInput{
@@ -27949,18 +27949,18 @@ func UpdateCrossTenantApp(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateCrossTenantAppResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateCrossTenantAppResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateCrossTenantSendingNode.
@@ -28002,8 +28002,8 @@ fragment CrossTenantSendingNodeFields on CrossTenantSendingNode {
 `
 
 func UpdateCrossTenantSendingNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
@@ -28014,7 +28014,7 @@ func UpdateCrossTenantSendingNode(
 	requirements []string,
 	sequentialProcessing *bool,
 ) (*UpdateCrossTenantSendingNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateCrossTenantSendingNode",
 		Query:  UpdateCrossTenantSendingNode_Operation,
 		Variables: &__UpdateCrossTenantSendingNodeInput{
@@ -28029,18 +28029,18 @@ func UpdateCrossTenantSendingNode(
 			SequentialProcessing: sequentialProcessing,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateCrossTenantSendingNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateCrossTenantSendingNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateEdge.
@@ -28075,14 +28075,14 @@ fragment EdgeFields on Edge {
 `
 
 func UpdateEdge(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	source string,
 	target string,
 	tenant string,
 	description *string,
 ) (*UpdateEdgeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateEdge",
 		Query:  UpdateEdge_Operation,
 		Variables: &__UpdateEdgeInput{
@@ -28092,18 +28092,18 @@ func UpdateEdge(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateEdgeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateEdgeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateExternalNode.
@@ -28144,14 +28144,14 @@ fragment ExternalNodeFields on ExternalNode {
 `
 
 func UpdateExternalNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
 	description *string,
 ) (*UpdateExternalNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateExternalNode",
 		Query:  UpdateExternalNode_Operation,
 		Variables: &__UpdateExternalNodeInput{
@@ -28161,18 +28161,18 @@ func UpdateExternalNode(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateExternalNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateExternalNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateFilesDotComWebhookNode.
@@ -28202,14 +28202,14 @@ fragment FilesDotComWebhookNodeFields on FilesDotComWebhookNode {
 `
 
 func UpdateFilesDotComWebhookNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	apiKey *string,
 	description *string,
 ) (*UpdateFilesDotComWebhookNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateFilesDotComWebhookNode",
 		Query:  UpdateFilesDotComWebhookNode_Operation,
 		Variables: &__UpdateFilesDotComWebhookNodeInput{
@@ -28219,18 +28219,18 @@ func UpdateFilesDotComWebhookNode(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateFilesDotComWebhookNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateFilesDotComWebhookNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateFunction.
@@ -28282,8 +28282,8 @@ fragment ProcessorFunctionFields on ProcessorFunction {
 `
 
 func UpdateFunction(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	code *string,
@@ -28291,7 +28291,7 @@ func UpdateFunction(
 	readme *string,
 	requirements []string,
 ) (*UpdateFunctionResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateFunction",
 		Query:  UpdateFunction_Operation,
 		Variables: &__UpdateFunctionInput{
@@ -28303,18 +28303,18 @@ func UpdateFunction(
 			Requirements: requirements,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateFunctionResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateFunctionResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateKmsKey.
@@ -28335,13 +28335,13 @@ fragment KmsKeyFields on KmsKey {
 `
 
 func UpdateKmsKey(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	description *string,
 ) (*UpdateKmsKeyResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateKmsKey",
 		Query:  UpdateKmsKey_Operation,
 		Variables: &__UpdateKmsKeyInput{
@@ -28350,18 +28350,18 @@ func UpdateKmsKey(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateKmsKeyResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateKmsKeyResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateLoadBalancerNode.
@@ -28392,13 +28392,13 @@ fragment LoadBalancerNodeFields on LoadBalancerNode {
 `
 
 func UpdateLoadBalancerNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	description *string,
 ) (*UpdateLoadBalancerNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateLoadBalancerNode",
 		Query:  UpdateLoadBalancerNode_Operation,
 		Variables: &__UpdateLoadBalancerNodeInput{
@@ -28407,18 +28407,18 @@ func UpdateLoadBalancerNode(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateLoadBalancerNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateLoadBalancerNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateManagedNode.
@@ -28469,8 +28469,8 @@ fragment ManagedNodeFields on ManagedNode {
 `
 
 func UpdateManagedNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
@@ -28479,7 +28479,7 @@ func UpdateManagedNode(
 	mounts []MountInput,
 	ports []PortInput,
 ) (*UpdateManagedNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateManagedNode",
 		Query:  UpdateManagedNode_Operation,
 		Variables: &__UpdateManagedNodeInput{
@@ -28492,18 +28492,18 @@ func UpdateManagedNode(
 			Ports:        ports,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateManagedNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateManagedNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateManagedNodeType.
@@ -28543,15 +28543,15 @@ fragment ManagedNodeTypeFields on ManagedNodeType {
 `
 
 func UpdateManagedNodeType(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	description *string,
 	imageUri *string,
 	readme *string,
 ) (*UpdateManagedNodeTypeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateManagedNodeType",
 		Query:  UpdateManagedNodeType_Operation,
 		Variables: &__UpdateManagedNodeTypeInput{
@@ -28562,18 +28562,18 @@ func UpdateManagedNodeType(
 			Readme:      readme,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateManagedNodeTypeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateManagedNodeTypeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateMessageType.
@@ -28600,8 +28600,8 @@ fragment MessageTypeFields on MessageType {
 `
 
 func UpdateMessageType(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	auditor *string,
@@ -28612,7 +28612,7 @@ func UpdateMessageType(
 	requirements []string,
 	sampleMessage *string,
 ) (*UpdateMessageTypeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateMessageType",
 		Query:  UpdateMessageType_Operation,
 		Variables: &__UpdateMessageTypeInput{
@@ -28627,18 +28627,18 @@ func UpdateMessageType(
 			SampleMessage:     sampleMessage,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateMessageTypeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateMessageTypeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateProcessorNode.
@@ -28677,8 +28677,8 @@ fragment ProcessorNodeFields on ProcessorNode {
 `
 
 func UpdateProcessorNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
@@ -28689,7 +28689,7 @@ func UpdateProcessorNode(
 	requirements []string,
 	sequentialProcessing *bool,
 ) (*UpdateProcessorNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateProcessorNode",
 		Query:  UpdateProcessorNode_Operation,
 		Variables: &__UpdateProcessorNodeInput{
@@ -28704,18 +28704,18 @@ func UpdateProcessorNode(
 			SequentialProcessing: sequentialProcessing,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateProcessorNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateProcessorNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateRemotetApp.
@@ -28784,15 +28784,15 @@ fragment CognitoCredentialsFields on CognitoCredentials {
 `
 
 func UpdateRemotetApp(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
 	description *string,
 	tableAccess *bool,
 ) (*UpdateRemotetAppResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateRemotetApp",
 		Query:  UpdateRemotetApp_Operation,
 		Variables: &__UpdateRemotetAppInput{
@@ -28803,18 +28803,18 @@ func UpdateRemotetApp(
 			TableAccess: tableAccess,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateRemotetAppResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateRemotetAppResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateTenant.
@@ -28837,13 +28837,13 @@ fragment TenantFields on Tenant {
 `
 
 func UpdateTenant(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	tenant string,
 	config *string,
 	description *string,
 ) (*UpdateTenantResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateTenant",
 		Query:  UpdateTenant_Operation,
 		Variables: &__UpdateTenantInput{
@@ -28852,18 +28852,18 @@ func UpdateTenant(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateTenantResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateTenantResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateTenantUser.
@@ -28885,14 +28885,14 @@ fragment TenantUserFields on TenantUser {
 `
 
 func UpdateTenantUser(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	email string,
 	tenant string,
 	role *UserRole,
 	status *UserStatus,
 ) (*UpdateTenantUserResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateTenantUser",
 		Query:  UpdateTenantUser_Operation,
 		Variables: &__UpdateTenantUserInput{
@@ -28902,18 +28902,18 @@ func UpdateTenantUser(
 			Status: status,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateTenantUserResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateTenantUserResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateTimerNode.
@@ -28942,13 +28942,13 @@ fragment TimerNodeFields on TimerNode {
 `
 
 func UpdateTimerNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	description *string,
 ) (*UpdateTimerNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateTimerNode",
 		Query:  UpdateTimerNode_Operation,
 		Variables: &__UpdateTimerNodeInput{
@@ -28957,18 +28957,18 @@ func UpdateTimerNode(
 			Description: description,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateTimerNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateTimerNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateWebSubHubNode.
@@ -29009,8 +29009,8 @@ fragment WebSubHubNodeFields on WebSubHubNode {
 `
 
 func UpdateWebSubHubNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
@@ -29025,7 +29025,7 @@ func UpdateWebSubHubNode(
 	signatureAlgorithm *WebSubSignatureAlgorithm,
 	subscriptionSecurity *WebSubSubscriptionSecurity,
 ) (*UpdateWebSubHubNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateWebSubHubNode",
 		Query:  UpdateWebSubHubNode_Operation,
 		Variables: &__UpdateWebSubHubNodeInput{
@@ -29044,18 +29044,18 @@ func UpdateWebSubHubNode(
 			SubscriptionSecurity:    subscriptionSecurity,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateWebSubHubNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateWebSubHubNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
 
 // The query or mutation executed by UpdateWebhookNode.
@@ -29091,8 +29091,8 @@ fragment WebhookNodeFields on WebhookNode {
 `
 
 func UpdateWebhookNode(
-	ctx context.Context,
-	client graphql.Client,
+	ctx_ context.Context,
+	client_ graphql.Client,
 	name string,
 	tenant string,
 	config *string,
@@ -29102,7 +29102,7 @@ func UpdateWebhookNode(
 	managedApiAuthenticator *string,
 	requirements []string,
 ) (*UpdateWebhookNodeResponse, error) {
-	req := &graphql.Request{
+	req_ := &graphql.Request{
 		OpName: "UpdateWebhookNode",
 		Query:  UpdateWebhookNode_Operation,
 		Variables: &__UpdateWebhookNodeInput{
@@ -29116,16 +29116,16 @@ func UpdateWebhookNode(
 			Requirements:            requirements,
 		},
 	}
-	var err error
+	var err_ error
 
-	var data UpdateWebhookNodeResponse
-	resp := &graphql.Response{Data: &data}
+	var data_ UpdateWebhookNodeResponse
+	resp_ := &graphql.Response{Data: &data_}
 
-	err = client.MakeRequest(
-		ctx,
-		req,
-		resp,
+	err_ = client_.MakeRequest(
+		ctx_,
+		req_,
+		resp_,
 	)
 
-	return &data, err
+	return &data_, err_
 }
