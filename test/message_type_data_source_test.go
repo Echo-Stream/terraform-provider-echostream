@@ -18,7 +18,7 @@ func TestAccMessageTypeDataSource(t *testing.T) {
 				Config: testAccMessageTypeDataSourceConfig("echo.hl7"),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					resource.TestCheckResourceAttr("data.echostream_message_type.test", "name", "echo.hl7"),
-					resource.TestCheckResourceAttr("data.echostream_message_type.test", "requirements.0", "hl7>=0.4.2"),
+					resource.TestCheckResourceAttr("data.echostream_message_type.test", "requirements.0", "hl7==0.4.5"),
 				),
 			},
 		},
