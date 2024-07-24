@@ -507,7 +507,7 @@ query DeleteNode($name: String!, $tenant: String!) {
             Delete(drainEdges: true)
         }
         ... on WebSubHubNode {
-            Delete()
+            Delete
         }
     }
 }
