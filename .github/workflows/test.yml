@@ -4,13 +4,6 @@ name: Tests
 # This GitHub action runs your tests for each pull request and push.
 # Optionally, you can turn it on using a schedule for regular testing.
 on:
-  pull_request:
-    branches-ignore:
-      - 'dependabot/**'
-    paths-ignore:
-      - 'README.md'
-      - 'dependabot.yml'
-      - '.devcontainer/**'
   push:
     paths-ignore:
       - 'README.md'
