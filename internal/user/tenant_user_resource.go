@@ -169,7 +169,7 @@ func (r *TenantUserResource) Schema(ctx context.Context, req resource.SchemaRequ
 				MarkdownDescription: "The user's last name, if available.",
 			},
 			"role": schema.StringAttribute{
-				MarkdownDescription: fmt.Sprintf("The ApiUser's role. Must be one of `%s`, `%s`, `%s`, or `%s`.", api.UserRoleAdmin, api.UserRoleOwner, api.UserRoleReadOnly, api.UserRoleUser),
+				MarkdownDescription: fmt.Sprintf("The ApiUser's role. Must be one of `%s`, `%s`, or `%s`.", api.UserRoleAdmin, api.UserRoleReadOnly, api.UserRoleUser),
 				Required:            true,
 				Validators: []validator.String{
 					stringvalidator.OneOf(

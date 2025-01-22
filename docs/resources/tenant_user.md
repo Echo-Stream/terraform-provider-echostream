@@ -25,7 +25,7 @@ resource "echostream_tenant_user" "john_doe" {
 ### Required
 
 - `email` (String) The user's email address.
-- `role` (String) The ApiUser's role. Must be one of `admin`, `owner`, `read_only`, or `user`.
+- `role` (String) The ApiUser's role. Must be one of `admin`, `read_only`, or `user`.
 
 ### Optional
 
