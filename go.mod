@@ -1,6 +1,6 @@
 module github.com/Echo-Stream/terraform-provider-echostream
 
-go 1.20
+go 1.23
 
 require (
 	github.com/Khan/genqlient v0.7.0
